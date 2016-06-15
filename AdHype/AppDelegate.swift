@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import pop
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +18,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        FIRApp.configure()
+        
+        let navViewController = window!.rootViewController as! HypeNavViewController
+        
+        var storyboard = UIStoryboard(name: "Settings View", bundle:nil)
+        let settingsViewController = storyboard.instantiateViewControllerWithIdentifier("settingsVC") as! SettingsViewController
+        navViewController.settingsViewController = settingsViewController
+        
+        storyboard = UIStoryboard(name: "Main Hype View", bundle:nil)
+        let mainViewController = storyboard.instantiateViewControllerWithIdentifier("mainHypeView") as! MainViewController
+//        mainViewController.manager = manager
+//        mainViewController.delegate = navViewController
+        
+        navViewController.mainViewController = mainViewController
+        
+        storyboard = UIStoryboard(name: "Grid View", bundle:nil)
+        let gridViewController = storyboard.instantiateViewControllerWithIdentifier("gridViewController") as! GridViewController
+//        gridViewController.manager = manager
+        
+        navViewController.gridViewController = gridViewController
+        
         return true
     }
 
