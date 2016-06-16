@@ -1,5 +1,5 @@
 //
-//  HypeAd.swift
+//  CustomImageFlowLayout.swift
 //  AdHype
 //
 //  Created by Maxwell Payson on 6/15/16.
