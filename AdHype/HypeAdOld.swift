@@ -16,7 +16,7 @@ enum DownloadResult {
 }
 
 //class HypeAd: Equatable{
-class HypeAd {
+class HypeAdOld {
 
     let storage = FIRStorage.storage()
     

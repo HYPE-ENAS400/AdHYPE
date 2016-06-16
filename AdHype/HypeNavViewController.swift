@@ -48,14 +48,16 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate {
     
     override func viewDidAppear(animated: Bool) {
         
+        //FOR SOME REASON THIS IS GETTING CALLED TWICE ON STARTUP?
         FIRAuth.auth()?.addAuthStateDidChangeListener{auth, user in
-            if user != nil {
+            if let authUser = user {
                 self.hypeBarView.hidden = false
-                //   mainViewController?.initImageStore()
                 //   gridViewController?.initImageStore()
                 
                 //Case where there is not a pre-existing VC
                 if self.activeViewController == nil{
+                    self.gridViewController?.initGridView(authUser.uid)
+                    self.mainViewController?.initMainView(authUser.uid)
                     self.activeViewController = self.mainViewController
                     self.settingsButton.alpha = 0.7
                     self.hypeButton.alpha = 1

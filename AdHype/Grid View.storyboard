@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Grid View Controller-->
@@ -14,22 +13,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Sgf-Yp-x6v">
-                            <size key="itemSize" width="108" height="108"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
+                        <gestureRecognizers/>
+                        <collectionViewLayout key="collectionViewLayout" id="gSZ-KJ-N0g" customClass="CustomImageFlowLayout" customModule="AdHype" customModuleProvider="target"/>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="UICollectionViewCell" id="SPF-2i-XgV" customClass="ImageGridCell" customModule="AdHype" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="108" height="108"/>
+                                <rect key="frame" x="0.0" y="0.0" width="166" height="129"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="108" height="108"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="166" height="129"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dp5-iS-Eef">
-                                            <rect key="frame" x="29" y="29" width="50" height="50"/>
+                                            <rect key="frame" x="58" y="39.5" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="SIS-v0-Wkt"/>
                                                 <constraint firstAttribute="height" constant="50" id="l4K-qz-bEy"/>
@@ -41,8 +36,20 @@
                                             </userDefinedRuntimeAttributes>
                                         </activityIndicatorView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a78-8k-pvd">
-                                            <rect key="frame" x="8" y="8" width="92" height="92"/>
+                                            <rect key="frame" x="5" y="5" width="156" height="119"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WyS-Fm-8Yo">
+                                                    <rect key="frame" x="2" y="2" width="152" height="115"/>
+                                                </imageView>
+                                            </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <gestureRecognizers/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="WyS-Fm-8Yo" secondAttribute="bottom" constant="2" id="Hgp-gi-jZS"/>
+                                                <constraint firstItem="WyS-Fm-8Yo" firstAttribute="leading" secondItem="a78-8k-pvd" secondAttribute="leading" constant="2" id="cDl-tZ-wcQ"/>
+                                                <constraint firstAttribute="trailing" secondItem="WyS-Fm-8Yo" secondAttribute="trailing" constant="2" id="j0w-Vo-Mlh"/>
+                                                <constraint firstItem="WyS-Fm-8Yo" firstAttribute="top" secondItem="a78-8k-pvd" secondAttribute="top" constant="2" id="qdD-Yj-5c1"/>
+                                            </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
                                                     <integer key="value" value="0"/>
@@ -53,27 +60,36 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="bottomMargin" secondItem="a78-8k-pvd" secondAttribute="bottom" id="4kw-Xl-nwF"/>
-                                    <constraint firstItem="a78-8k-pvd" firstAttribute="top" secondItem="SPF-2i-XgV" secondAttribute="topMargin" id="Rgp-0L-LFX"/>
+                                    <constraint firstItem="a78-8k-pvd" firstAttribute="leading" secondItem="SPF-2i-XgV" secondAttribute="leading" constant="5" id="8B3-7u-tTH"/>
+                                    <constraint firstAttribute="trailing" secondItem="a78-8k-pvd" secondAttribute="trailing" constant="5" id="Df5-7v-mEc"/>
                                     <constraint firstItem="dp5-iS-Eef" firstAttribute="centerY" secondItem="SPF-2i-XgV" secondAttribute="centerY" id="bwY-PI-CV6"/>
-                                    <constraint firstItem="a78-8k-pvd" firstAttribute="leading" secondItem="SPF-2i-XgV" secondAttribute="leadingMargin" id="j66-Dg-nAY"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="a78-8k-pvd" secondAttribute="trailing" id="mEm-fr-Pe7"/>
+                                    <constraint firstAttribute="bottom" secondItem="a78-8k-pvd" secondAttribute="bottom" constant="5" id="g6B-bQ-qro"/>
+                                    <constraint firstItem="a78-8k-pvd" firstAttribute="top" secondItem="SPF-2i-XgV" secondAttribute="top" constant="5" id="qa1-Iv-rWy"/>
                                     <constraint firstItem="dp5-iS-Eef" firstAttribute="centerX" secondItem="SPF-2i-XgV" secondAttribute="centerX" id="uPY-4u-LJY"/>
                                 </constraints>
+                                <size key="customSize" width="166" height="129"/>
                                 <connections>
+                                    <outlet property="imageView" destination="WyS-Fm-8Yo" id="eeH-xc-D2f"/>
                                     <outlet property="spinner" destination="dp5-iS-Eef" id="bPZ-Rc-ZvV"/>
-                                    <outlet property="view" destination="a78-8k-pvd" id="yft-vD-wpq"/>
+                                    <outlet property="view" destination="a78-8k-pvd" id="gcg-jS-ARJ"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
                             <outlet property="dataSource" destination="SMh-sE-mho" id="JRH-2b-PhN"/>
                             <outlet property="delegate" destination="SMh-sE-mho" id="7il-GI-yes"/>
+                            <outletCollection property="gestureRecognizers" destination="t0w-2h-8Ar" appends="YES" id="LTH-cB-Wj2"/>
                         </connections>
                     </collectionView>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VtT-ow-svU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer delaysTouchesBegan="YES" numberOfTapsRequired="2" id="t0w-2h-8Ar">
+                    <connections>
+                        <action selector="didDoubleTapCollectionView:" destination="SMh-sE-mho" id="V8H-4c-9vf"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="473" y="332"/>
         </scene>

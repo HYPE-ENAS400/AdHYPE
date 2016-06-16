@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="b9q-t7-lYJ">
-                                <rect key="frame" x="282" y="244" width="37" height="37"/>
+                                <rect key="frame" x="282" y="236.5" width="37" height="37"/>
                                 <color key="color" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LAa-w3-Xn0">
@@ -83,7 +83,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="yzO-AQ-R2d" customClass="KolodaView" customModule="AdHype" customModuleProvider="target">
-                                <rect key="frame" x="40" y="60" width="520" height="404"/>
+                                <rect key="frame" x="25" y="45" width="550" height="419"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
                                         <integer key="value" value="-10"/>
@@ -96,11 +96,11 @@
                             <constraint firstAttribute="trailingMargin" secondItem="sYA-Z1-beK" secondAttribute="trailing" constant="30" id="DUU-BS-86F"/>
                             <constraint firstItem="bPk-Yh-3XG" firstAttribute="top" secondItem="LAa-w3-Xn0" secondAttribute="bottom" constant="30" id="DZW-jb-sim"/>
                             <constraint firstItem="b9q-t7-lYJ" firstAttribute="centerY" secondItem="yzO-AQ-R2d" secondAttribute="centerY" id="Mj7-IL-rNI"/>
-                            <constraint firstItem="yzO-AQ-R2d" firstAttribute="top" secondItem="5XT-BG-qGo" secondAttribute="bottom" constant="40" id="OSj-TZ-Puq"/>
+                            <constraint firstItem="yzO-AQ-R2d" firstAttribute="top" secondItem="5XT-BG-qGo" secondAttribute="bottom" constant="25" id="OSj-TZ-Puq"/>
                             <constraint firstItem="b9q-t7-lYJ" firstAttribute="centerX" secondItem="Ne0-Fm-ijb" secondAttribute="centerX" id="QqD-Ga-CQL"/>
                             <constraint firstItem="E5c-vD-C3L" firstAttribute="centerX" secondItem="Ne0-Fm-ijb" secondAttribute="centerX" id="Uxh-xk-cV8"/>
-                            <constraint firstItem="yzO-AQ-R2d" firstAttribute="leading" secondItem="Ne0-Fm-ijb" secondAttribute="leadingMargin" constant="20" id="aWb-MD-q12"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="yzO-AQ-R2d" secondAttribute="trailing" constant="20" id="bmW-7D-HNS"/>
+                            <constraint firstItem="yzO-AQ-R2d" firstAttribute="leading" secondItem="Ne0-Fm-ijb" secondAttribute="leadingMargin" constant="5" id="aWb-MD-q12"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="yzO-AQ-R2d" secondAttribute="trailing" constant="5" id="bmW-7D-HNS"/>
                             <constraint firstItem="LAa-w3-Xn0" firstAttribute="top" secondItem="yzO-AQ-R2d" secondAttribute="bottom" constant="46" id="gci-w8-JiW"/>
                             <constraint firstItem="sYA-Z1-beK" firstAttribute="top" secondItem="yzO-AQ-R2d" secondAttribute="bottom" constant="46" id="h41-dP-uyl"/>
                             <constraint firstItem="LAa-w3-Xn0" firstAttribute="leading" secondItem="Ne0-Fm-ijb" secondAttribute="leadingMargin" constant="30" id="kRn-jL-KKF"/>

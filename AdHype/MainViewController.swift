@@ -23,6 +23,14 @@ class MainViewController: UIViewController {
     @IBOutlet var kolodaView: KolodaView!
     @IBOutlet var mainSpinner: UIActivityIndicatorView!
     
+    var userRef: FIRDatabaseReference!
+    var ads = [HypeAd]()
+    var adNames = [String]()
+    var nextAdIndex: Int = 0
+    var numAdsSwiped: Int = 0
+    
+    var userAdsViewed: Int = 0
+    var userContentCount: Int = 0
     
     //Create subview for kolodaView, add Koloda view, and pass protocols
     override func viewDidLoad() {
@@ -39,10 +47,88 @@ class MainViewController: UIViewController {
         kolodaView.dataSource = self
         kolodaView.delegate = self
         
-
+        
         
     }
-
+    
+    override func viewDidAppear(animated: Bool){
+        super.viewDidAppear(animated)
+        
+//        Get total number of advertisements viewed
+        userRef.child("adViewedCount").observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+            if let adCount = snapshot.value as? Int {
+                self.userAdsViewed = adCount
+                let progress = adCount % Constants.ADSPERCONTENT
+                self.progressBar.progress = Double(progress + 1)/Double(Constants.ADSPERCONTENT)
+            } else {
+                let progress = 0
+                self.progressBar.progress = Double(progress + 1)/Double(Constants.ADSPERCONTENT)
+            }
+        })
+        
+        //Get content count
+        userRef.child("contentCount").observeEventType(.Value, withBlock: { (snapshot) in
+            if let count = snapshot.value as? Int {
+                self.userContentCount = count
+                self.countLabel.text = "\(self.userContentCount)"
+            }
+            
+        })
+        
+    }
+    
+    func initMainView(userUID: String){
+        
+        //Get AdNames in Queue
+        userRef = FIRDatabase.database().reference().child("users").child(userUID)
+        let adQueueRef = userRef.child("AdQueue")
+        adQueueRef.observeEventType(.ChildAdded, withBlock: { (snapshot) in
+            self.adNames.append(snapshot.value as! String)
+            if self.adNames.count <= Constants.MAXNUMADS{
+                self.appendAdIfSpace()
+            }
+        })
+        
+    }
+    
+    func appendAdIfSpace() {
+        
+        if ads.count <= Constants.MAXNUMADS{
+            appendAd()
+        }
+    }
+    
+    func appendAd(){
+        if nextAdIndex < adNames.count {
+            let newAd = HypeAd(refURL: Constants.BASESTORAGEURL + "\(adNames[nextAdIndex])", title: adNames[nextAdIndex])
+            newAd.downloadImage({(result) -> Void in
+                if case let .Success(ad) = result{
+                    self.ads.append(ad)
+                    if self.ads.count == 1 {
+                        self.mainSpinner.stopAnimating()
+                        self.kolodaView.reloadData()
+                    } else{
+                        let currCount = self.kolodaView.countOfCards
+                        self.kolodaView.insertCardAtIndexRange(currCount..<(currCount+1), animated: true)
+                    }
+                }
+            })
+            nextAdIndex += 1
+        } else {
+            //TODO, OUT OF ADDS TO LOAD
+            print("RAN OUT OF ADD NAMES")
+        }
+    }
+    
+    func updateAdCount(){
+        userRef.child("adViewedCount").setValue(userAdsViewed)
+        let progress = userAdsViewed % Constants.ADSPERCONTENT
+        progressBar.progress = Double(progress + 1)/Double(Constants.ADSPERCONTENT)
+        if(progress) == Constants.ADSPERCONTENT - 1 {
+            userContentCount += 1
+            userRef.child("contentCount").setValue(userContentCount)
+        }
+    }
     
     @IBAction func onSwipeRightClicked(sender: AnyObject){
         kolodaView.swipe(SwipeResultDirection.Right)
@@ -57,38 +143,113 @@ class MainViewController: UIViewController {
 // KolodaView protocol that determines what cards to show
 extension MainViewController: KolodaViewDataSource{
     func kolodaNumberOfCards(koloda: KolodaView) -> UInt{
-//        return UInt(downloadContentsIndices.count)
-        return 6
+//        return UInt(ads.count)
+        return UInt(ads.count + numAdsSwiped)
+//        return 6
         
     }
     
     //Return a new view (card) to show from ImageStore
-    func koloda(koloda: KolodaView, viewForCardAtIndex index: UInt) -> UIView {
-
-        let newView = UIView()
-        let colorArray = [UIColor.blueColor(), UIColor.redColor(), UIColor.greenColor()]
-        let index = arc4random_uniform(3)
-        newView.backgroundColor = colorArray[Int(index)]
-        return newView
-    }
+    func koloda(koloda: KolodaView, viewForCardAtIndex cardIndex: UInt) -> UIView {
         
+        let index = Int(cardIndex) - numAdsSwiped
+        
+//        print("VIEW CARD NAME: \(ads[index].title)\n")
+        
+//        let index = Int(cardIndex)
+        
+        guard let image = ads[index].getImage() else {
+            print("ERROR LOADING ADD FOR CARD")
+            let newView = UIView()
+            let colorArray = [UIColor.blueColor(), UIColor.redColor(), UIColor.greenColor()]
+            let index = arc4random_uniform(3)
+            newView.backgroundColor = colorArray[Int(index)]
+            return newView
+        }
+        
+        let superFrame = kolodaView.frameForCardAtIndex(0)
+        let newContainerView = UIView(frame: superFrame)
+        
+        newContainerView.layer.cornerRadius = 20
+        newContainerView.layer.shadowOpacity = 0.6
+        newContainerView.layer.shadowOffset = CGSizeZero
+        newContainerView.layer.shadowRadius = 5
+        
+        let childFrame = CGRectInset(superFrame, 3, 3)
+        let newChildView = UIImageView(frame: childFrame)
+        newChildView.image = image
+        newChildView.layer.masksToBounds = true
+        newChildView.layer.cornerRadius = 20
+        
+        newContainerView.addSubview(newChildView)
+        newContainerView.backgroundColor = UIColor.whiteColor()
+
+            
+//            if adStore.getIsFromFriendAtCardIndex(cardIndex){
+//                newContainerView.backgroundColor = UIColor(red: 255/255, green: 56/255, blue: 73/255, alpha: 1.0)
+//                if let caption = adStore.getFromFriendCaptionByKey(cardIndex){
+//                    let textViewFrame = CGRect(x: childFrame.minX, y: childFrame.maxY-65, width: childFrame.width, height: -55)
+//                    let newTextView = UITextView(frame: textViewFrame)
+//                    newTextView.text = caption
+//                    newTextView.editable = false
+//                    newTextView.font = UIFont.systemFontOfSize(20)
+//                    newTextView.textAlignment = NSTextAlignmentFromCTTextAlignment(CTTextAlignment.Center)
+//                    
+//                    newTextView.layer.zPosition = 10
+//                    newTextView.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1)
+//                    newTextView.backgroundColor = UIColor(white: 1, alpha: 0.7)
+//                    newContainerView.addSubview(newTextView)
+//                }
+//                
+//            } else {
+//                newContainerView.backgroundColor = UIColor.whiteColor()
+//            }
+//            
+        return newContainerView
+    }
+
+
+    
 }
 
 // Own implemenation upon swiping so can clear image cache of given card
 
 
 extension MainViewController: KolodaViewDelegate {
-    func koloda(koloda: KolodaView, didSwipedCardAtIndex index: UInt, inDirection direction: SwipeResultDirection) {
+    func koloda(koloda: KolodaView, didSwipeCardAtIndex index: UInt, inDirection direction: SwipeResultDirection) {
+        let newIndex = Int(index) - numAdsSwiped
         
-    
+//        print("SWIPE CARD NAME: \(ads[newIndex].title)\n")
+        
+        if direction == .Right {
+            let cardsLikedRef = userRef.child("cardsLiked")
+            cardsLikedRef.childByAutoId().setValue(ads[newIndex].title)
+        }
+        
+        userAdsViewed += 1
+        updateAdCount()
+        
+        ads.removeAtIndex(newIndex)
+        numAdsSwiped += 1
+        appendAdIfSpace()
     }
     
     func koloda(koloda: KolodaView, didSelectCardAtIndex index: UInt) {
+        
     }
     
-    func koloda(kolodaDidRunOutOfCards koloda: KolodaView) {
+    func koloda(koloda: KolodaView, didShowCardAtIndex index: UInt) {
 
     }
+    
+    func kolodaDidRunOutOfCards(koloda: KolodaView) {
+        kolodaView.reloadData()
+    }
+    
+    func koloda(koloda: KolodaView, allowedDirectionsForIndex index: UInt) -> [SwipeResultDirection] {
+        return [SwipeResultDirection.Left, SwipeResultDirection.Right, SwipeResultDirection.Up]
+    }
+
 }
 
 protocol MainViewControllerDelegate{

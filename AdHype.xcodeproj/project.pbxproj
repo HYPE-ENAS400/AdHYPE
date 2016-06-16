@@ -11,6 +11,8 @@
 		2B66B3961D1074DC00DE197D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B66B3951D1074DC00DE197D /* Assets.xcassets */; };
 		2B66B3991D1074DC00DE197D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B66B3971D1074DC00DE197D /* LaunchScreen.storyboard */; };
 		2B66B3A11D10766800DE197D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B66B3A01D10766800DE197D /* GoogleService-Info.plist */; };
+		2B991F9C1D11A6EE0022675F /* HypeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B991F9B1D11A6EE0022675F /* HypeAd.swift */; };
+		2B9BF4EA1D12446300BCD935 /* CustomImageFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9BF4E91D12446300BCD935 /* CustomImageFlowLayout.swift */; };
 		2B9EAA091D1093AC00396A63 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B9EAA041D1093AC00396A63 /* Launch Screen.storyboard */; };
 		2B9EAA0A1D1093AC00396A63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B9EAA051D1093AC00396A63 /* Main.storyboard */; };
 		2B9EAA0B1D1093AC00396A63 /* Settings View.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B9EAA061D1093AC00396A63 /* Settings View.storyboard */; };
@@ -18,8 +20,6 @@
 		2B9EAA0D1D1093AC00396A63 /* Grid View.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B9EAA081D1093AC00396A63 /* Grid View.storyboard */; };
 		2B9EAA0F1D10954C00396A63 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B9EAA0E1D10954C00396A63 /* Images.xcassets */; };
 		2B9EAA151D1098A900396A63 /* HypeNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9EAA121D1098A900396A63 /* HypeNavViewController.swift */; };
-		2B9EAA161D1098A900396A63 /* HypeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9EAA131D1098A900396A63 /* HypeAd.swift */; };
-		2B9EAA171D1098A900396A63 /* HypeAdStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9EAA141D1098A900396A63 /* HypeAdStore.swift */; };
 		2B9EAA1B1D1098B300396A63 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9EAA181D1098B300396A63 /* LoginViewController.swift */; };
 		2B9EAA221D1098BA00396A63 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9EAA1E1D1098BA00396A63 /* UsersTableViewController.swift */; };
 		2B9EAA231D1098BA00396A63 /* ImageGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9EAA1F1D1098BA00396A63 /* ImageGridCell.swift */; };
@@ -46,6 +46,8 @@
 		2B66B3981D1074DC00DE197D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2B66B39A1D1074DC00DE197D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B66B3A01D10766800DE197D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2B991F9B1D11A6EE0022675F /* HypeAd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HypeAd.swift; sourceTree = "<group>"; };
+		2B9BF4E91D12446300BCD935 /* CustomImageFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageFlowLayout.swift; sourceTree = "<group>"; };
 		2B9EAA041D1093AC00396A63 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		2B9EAA051D1093AC00396A63 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2B9EAA061D1093AC00396A63 /* Settings View.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Settings View.storyboard"; sourceTree = "<group>"; };
@@ -53,8 +55,6 @@
 		2B9EAA081D1093AC00396A63 /* Grid View.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Grid View.storyboard"; sourceTree = "<group>"; };
 		2B9EAA0E1D10954C00396A63 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2B9EAA121D1098A900396A63 /* HypeNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HypeNavViewController.swift; sourceTree = "<group>"; };
-		2B9EAA131D1098A900396A63 /* HypeAd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HypeAd.swift; sourceTree = "<group>"; };
-		2B9EAA141D1098A900396A63 /* HypeAdStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HypeAdStore.swift; sourceTree = "<group>"; };
 		2B9EAA181D1098B300396A63 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2B9EAA1E1D1098BA00396A63 /* UsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		2B9EAA1F1D1098BA00396A63 /* ImageGridCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageGridCell.swift; sourceTree = "<group>"; };
@@ -143,8 +143,7 @@
 		2B9EAA261D109CB700396A63 /* Hype Ad Main */ = {
 			isa = PBXGroup;
 			children = (
-				2B9EAA131D1098A900396A63 /* HypeAd.swift */,
-				2B9EAA141D1098A900396A63 /* HypeAdStore.swift */,
+				2B991F9B1D11A6EE0022675F /* HypeAd.swift */,
 				2B9EAA2B1D109FD000396A63 /* MainViewController.swift */,
 			);
 			name = "Hype Ad Main";
@@ -155,6 +154,7 @@
 			children = (
 				2B9EAA1F1D1098BA00396A63 /* ImageGridCell.swift */,
 				2B9EAA201D1098BA00396A63 /* GridViewController.swift */,
+				2B9BF4E91D12446300BCD935 /* CustomImageFlowLayout.swift */,
 			);
 			name = "Hype Grid";
 			sourceTree = "<group>";
@@ -338,14 +338,14 @@
 				2B9EAA231D1098BA00396A63 /* ImageGridCell.swift in Sources */,
 				2B9EAA341D10A02D00396A63 /* Constants.swift in Sources */,
 				2B9EAA241D1098BA00396A63 /* GridViewController.swift in Sources */,
-				2B9EAA171D1098A900396A63 /* HypeAdStore.swift in Sources */,
 				2B9EAA4E1D10B1BE00396A63 /* KolodaView.swift in Sources */,
 				2B9EAA4F1D10B1BE00396A63 /* KolodaViewAnimatior.swift in Sources */,
 				2B66B38F1D1074DC00DE197D /* AppDelegate.swift in Sources */,
-				2B9EAA161D1098A900396A63 /* HypeAd.swift in Sources */,
 				2B9EAA4C1D10B1BE00396A63 /* DraggableCardView.swift in Sources */,
 				2B9EAA4D1D10B1BE00396A63 /* KolodaCardStorage.swift in Sources */,
+				2B9BF4EA1D12446300BCD935 /* CustomImageFlowLayout.swift in Sources */,
 				2B9EAA311D10A02D00396A63 /* KYCircularProgress.swift in Sources */,
+				2B991F9C1D11A6EE0022675F /* HypeAd.swift in Sources */,
 				2B9EAA321D10A02D00396A63 /* UtilityFunctions.swift in Sources */,
 				2B9EAA151D1098A900396A63 /* HypeNavViewController.swift in Sources */,
 				2B9EAA251D1098BA00396A63 /* SettingsViewController.swift in Sources */,

@@ -19,12 +19,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wRn-LC-op9" userLabel="HypeBar">
-                                <rect key="frame" x="0.0" y="20" width="600" height="75"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wRn-LC-op9" userLabel="HypeBar">
+                                <rect key="frame" x="0.0" y="20" width="600" height="45"/>
                                 <subviews>
-                                    <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zkw-Ps-Kd4">
-                                        <rect key="frame" x="254" y="11" width="93" height="53"/>
-                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="34"/>
+                                    <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zkw-Ps-Kd4">
+                                        <rect key="frame" x="254" y="-4" width="93" height="53"/>
+                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="32"/>
                                         <state key="normal" title="HYPE">
                                             <color key="titleColor" red="0.96078431369999995" green="0.95686274510000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -33,10 +33,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="982-Bu-p55">
-                                        <rect key="frame" x="544" y="20" width="36" height="36"/>
+                                        <rect key="frame" x="548" y="7" width="32" height="32"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="EuO-2t-JFL"/>
-                                            <constraint firstAttribute="width" constant="36" id="xc6-fX-gxc"/>
+                                            <constraint firstAttribute="height" constant="32" id="EuO-2t-JFL"/>
+                                            <constraint firstAttribute="width" constant="32" id="xc6-fX-gxc"/>
                                         </constraints>
                                         <state key="normal" image="grid_button">
                                             <color key="titleColor" red="0.96078431369999995" green="0.95686274510000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -46,10 +46,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qfu-TZ-bkh">
-                                        <rect key="frame" x="20" y="20" width="36" height="36"/>
+                                        <rect key="frame" x="20" y="7" width="32" height="32"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="36" id="Tb8-mm-96a"/>
-                                            <constraint firstAttribute="height" constant="36" id="lAB-0f-3kX"/>
+                                            <constraint firstAttribute="width" constant="32" id="Tb8-mm-96a"/>
+                                            <constraint firstAttribute="height" constant="32" id="lAB-0f-3kX"/>
                                         </constraints>
                                         <state key="normal" image="settings_button">
                                             <color key="titleColor" red="0.96078431369999995" green="0.95686274510000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -64,7 +64,7 @@
                                     <constraint firstAttribute="trailing" secondItem="982-Bu-p55" secondAttribute="trailing" constant="20" id="Glz-mj-v0W"/>
                                     <constraint firstItem="qfu-TZ-bkh" firstAttribute="centerY" secondItem="wRn-LC-op9" secondAttribute="centerY" id="KEa-YD-k2C"/>
                                     <constraint firstItem="zkw-Ps-Kd4" firstAttribute="centerY" secondItem="wRn-LC-op9" secondAttribute="centerY" id="MwR-Gm-IIG"/>
-                                    <constraint firstAttribute="height" constant="75" id="UyA-OU-EIs"/>
+                                    <constraint firstAttribute="height" constant="45" id="UyA-OU-EIs"/>
                                     <constraint firstItem="qfu-TZ-bkh" firstAttribute="leading" secondItem="wRn-LC-op9" secondAttribute="leading" constant="20" id="VlJ-du-7t7"/>
                                     <constraint firstItem="zkw-Ps-Kd4" firstAttribute="centerX" secondItem="wRn-LC-op9" secondAttribute="centerX" id="iWN-a4-75Z"/>
                                     <constraint firstItem="982-Bu-p55" firstAttribute="centerY" secondItem="wRn-LC-op9" secondAttribute="centerY" id="jGW-4S-Qht"/>
@@ -75,7 +75,7 @@
                                         <integer key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                        <integer key="value" value="10"/>
+                                        <integer key="value" value="7"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
                                         <integer key="value" value="1"/>
@@ -95,7 +95,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="grp-ky-qvK" userLabel="Container">
-                                <rect key="frame" x="0.0" y="95" width="600" height="505"/>
+                                <rect key="frame" x="0.0" y="65" width="600" height="535"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>

@@ -14,7 +14,21 @@
 //
 
 import Foundation
+import Firebase
 import UIKit
+
+func generateDemoAddQueue(userUID: String){
+    let baseRef = FIRDatabase.database().reference()
+    let ref = baseRef.child("users").child(userUID).child("AdQueue")
+
+    for i in 2...9{
+        ref.childByAutoId().setValue("ads-0" + "\(i)" + ".jpg")
+    }
+    for i in 10...33{
+        ref.childByAutoId().setValue("ads-" + "\(i)" + ".jpg")
+    }
+
+}
 
 func prettyPrintJson(object: AnyObject?) -> String {
     var prettyResult: String = ""

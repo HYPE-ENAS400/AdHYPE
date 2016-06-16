@@ -11,4 +11,6 @@ struct Constants {
     static let PASSKEY = "HYPELOGINPASSWORD"
     static let ADSPERCONTENT = 4
     static let INVADSPERCONTENT = 0.25
+    static let BASESTORAGEURL = "gs://project-8277179768550916139.appspot.com/"
+    static let MAXNUMADS = 5
 }

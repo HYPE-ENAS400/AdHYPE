@@ -11,6 +11,7 @@ import UIKit
 class ImageGridCell: UICollectionViewCell{
     
     @IBOutlet var view: UIView!
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet var spinner: UIActivityIndicatorView!
     
     override func awakeFromNib() {
@@ -33,32 +34,23 @@ class ImageGridCell: UICollectionViewCell{
     }
     
     func highlightCell(){
-        view.backgroundColor = UIColor(red: 255/255, green: 56/255, blue: 73/255, alpha: 1.0)
+//        view.backgroundColor = UIColor(red: 255/255, green: 56/255, blue: 73/255, alpha: 1.0)
     }
     
     func updateWithImage(image: UIImage?) {
         if let imageToDisplay = image {
             spinner.stopAnimating()
-
-//            let superFrame = self.frame
-//            let newContainerView = UIView(frame: superFrame)
-//            newContainerView.layer.cornerRadius = 20
             
-            view.layer.cornerRadius = 5
+            view.layer.cornerRadius = 3
             view.backgroundColor = UIColor.whiteColor()
-            view.layer.shadowOpacity = 0.7
+            view.layer.shadowOpacity = 1
             view.layer.shadowOffset = CGSizeZero
             view.layer.shadowRadius = 2
             
-            let childFrame = CGRectInset(view.bounds, 2, 2)
-            let newChildView = UIImageView(frame: childFrame)
-            newChildView.image = resizeImage(imageToDisplay, newScale: 0.4)
-            newChildView.layer.masksToBounds = true
-            newChildView.layer.cornerRadius = 5
-            
-            view.addSubview(newChildView)
-            
-//            self.addSubview(newContainerView)
+            imageView.image = resizeImage(imageToDisplay, newScale: 0.4)
+            imageView.layer.masksToBounds = true
+            imageView.layer.cornerRadius = 3
+
             
         }
         else {

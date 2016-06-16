@@ -53,7 +53,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
                 keychainWrapper.setString(self.password, forKey: Constants.PASSKEY)
                 
                 self.userUID = user.uid
-            
+                
                 print("Successfully logged in user account with uid: \(self.userUID)")
                 self.performSegueWithIdentifier("unwindFromLogInSegue", sender: nil)
             }
@@ -89,7 +89,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
 
                 self.userUID = user.uid
                 
-                self.ref.child("users").child(user.uid).setValue(["username": self.userName])
+                let userRef = self.ref.child("users").child(user.uid)
+                userRef.child("userName").setValue(self.userName)
+                userRef.child("contentCount").setValue(0)
+                userRef.child("adsViewedCount").setValue(0)
+                
+                generateDemoAddQueue(user.uid)
                 
                 print("Successfully created user account with uid: \(self.userUID)")
                 self.performSegueWithIdentifier("unwindFromLogInSegue", sender: nil)
@@ -119,6 +124,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "unwindFromLogInSegue" {
+            
+            //TODO IS THIS NECESSARY***** OR CAN PUT ON AUTHOBSERVER?
             let navViewController = segue.destinationViewController as! HypeNavViewController
             navViewController.userUID = userUID
             navViewController.userName = userName
