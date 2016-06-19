@@ -9,8 +9,18 @@
 /* Begin PBXBuildFile section */
 		2B66B38F1D1074DC00DE197D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66B38E1D1074DC00DE197D /* AppDelegate.swift */; };
 		2B66B3961D1074DC00DE197D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B66B3951D1074DC00DE197D /* Assets.xcassets */; };
-		2B66B3991D1074DC00DE197D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B66B3971D1074DC00DE197D /* LaunchScreen.storyboard */; };
 		2B66B3A11D10766800DE197D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B66B3A01D10766800DE197D /* GoogleService-Info.plist */; };
+		2B75DF0A1D14535D0047A0DF /* AdCaptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B75DF091D14535D0047A0DF /* AdCaptionCell.swift */; };
+		2B75DF0D1D14BA150047A0DF /* FriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B75DF0C1D14BA150047A0DF /* FriendsCell.swift */; };
+		2B75DF0F1D15C6760047A0DF /* FriendsSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B75DF0E1D15C6760047A0DF /* FriendsSectionCell.swift */; };
+		2B75DF131D15E2C80047A0DF /* FriendsSectionCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B75DF121D15E2C80047A0DF /* FriendsSectionCellView.xib */; };
+		2B75DF151D15E7E00047A0DF /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B75DF141D15E7E00047A0DF /* UserTableViewController.swift */; };
+		2B75DF171D16350B0047A0DF /* UsersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B75DF161D16350B0047A0DF /* UsersCell.swift */; };
+		2B75DF191D1657B50047A0DF /* KeyValueArrays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B75DF181D1657B50047A0DF /* KeyValueArrays.swift */; };
+		2B75DF1B1D1734400047A0DF /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B75DF1A1D1734400047A0DF /* FriendsTableViewController.swift */; };
+		2B75DF1D1D1749620047A0DF /* customSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B75DF1C1D1749620047A0DF /* customSegue.swift */; };
+		2B75DF1F1D1750910047A0DF /* customUnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B75DF1E1D1750910047A0DF /* customUnwindSegue.swift */; };
+		2B8AB8251D1320180004B138 /* AdSocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8AB8241D1320180004B138 /* AdSocialViewController.swift */; };
 		2B991F9C1D11A6EE0022675F /* HypeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B991F9B1D11A6EE0022675F /* HypeAd.swift */; };
 		2B9BF4EA1D12446300BCD935 /* CustomImageFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9BF4E91D12446300BCD935 /* CustomImageFlowLayout.swift */; };
 		2B9EAA091D1093AC00396A63 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B9EAA041D1093AC00396A63 /* Launch Screen.storyboard */; };
@@ -21,7 +31,6 @@
 		2B9EAA0F1D10954C00396A63 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B9EAA0E1D10954C00396A63 /* Images.xcassets */; };
 		2B9EAA151D1098A900396A63 /* HypeNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9EAA121D1098A900396A63 /* HypeNavViewController.swift */; };
 		2B9EAA1B1D1098B300396A63 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9EAA181D1098B300396A63 /* LoginViewController.swift */; };
-		2B9EAA221D1098BA00396A63 /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9EAA1E1D1098BA00396A63 /* UsersTableViewController.swift */; };
 		2B9EAA231D1098BA00396A63 /* ImageGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9EAA1F1D1098BA00396A63 /* ImageGridCell.swift */; };
 		2B9EAA241D1098BA00396A63 /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9EAA201D1098BA00396A63 /* GridViewController.swift */; };
 		2B9EAA251D1098BA00396A63 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9EAA211D1098BA00396A63 /* SettingsViewController.swift */; };
@@ -43,9 +52,19 @@
 		2B66B38B1D1074DC00DE197D /* AdHype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdHype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B66B38E1D1074DC00DE197D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B66B3951D1074DC00DE197D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2B66B3981D1074DC00DE197D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2B66B39A1D1074DC00DE197D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B66B3A01D10766800DE197D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2B75DF091D14535D0047A0DF /* AdCaptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdCaptionCell.swift; sourceTree = "<group>"; };
+		2B75DF0C1D14BA150047A0DF /* FriendsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsCell.swift; sourceTree = "<group>"; };
+		2B75DF0E1D15C6760047A0DF /* FriendsSectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsSectionCell.swift; sourceTree = "<group>"; };
+		2B75DF121D15E2C80047A0DF /* FriendsSectionCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriendsSectionCellView.xib; sourceTree = "<group>"; };
+		2B75DF141D15E7E00047A0DF /* UserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewController.swift; sourceTree = "<group>"; };
+		2B75DF161D16350B0047A0DF /* UsersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersCell.swift; sourceTree = "<group>"; };
+		2B75DF181D1657B50047A0DF /* KeyValueArrays.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueArrays.swift; sourceTree = "<group>"; };
+		2B75DF1A1D1734400047A0DF /* FriendsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
+		2B75DF1C1D1749620047A0DF /* customSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = customSegue.swift; sourceTree = "<group>"; };
+		2B75DF1E1D1750910047A0DF /* customUnwindSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = customUnwindSegue.swift; sourceTree = "<group>"; };
+		2B8AB8241D1320180004B138 /* AdSocialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdSocialViewController.swift; sourceTree = "<group>"; };
 		2B991F9B1D11A6EE0022675F /* HypeAd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HypeAd.swift; sourceTree = "<group>"; };
 		2B9BF4E91D12446300BCD935 /* CustomImageFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageFlowLayout.swift; sourceTree = "<group>"; };
 		2B9EAA041D1093AC00396A63 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -56,7 +75,6 @@
 		2B9EAA0E1D10954C00396A63 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2B9EAA121D1098A900396A63 /* HypeNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HypeNavViewController.swift; sourceTree = "<group>"; };
 		2B9EAA181D1098B300396A63 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		2B9EAA1E1D1098BA00396A63 /* UsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		2B9EAA1F1D1098BA00396A63 /* ImageGridCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageGridCell.swift; sourceTree = "<group>"; };
 		2B9EAA201D1098BA00396A63 /* GridViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
 		2B9EAA211D1098BA00396A63 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -109,23 +127,46 @@
 		2B66B38D1D1074DC00DE197D /* AdHype */ = {
 			isa = PBXGroup;
 			children = (
+				2B66B38E1D1074DC00DE197D /* AppDelegate.swift */,
 				2B9EAA451D10B1AA00396A63 /* Koloda */,
 				2B9EAA371D10A04B00396A63 /* Utility */,
 				2B9EAA031D10939B00396A63 /* Storyboards */,
-				2B66B38E1D1074DC00DE197D /* AppDelegate.swift */,
 				2B9EAA271D109CFA00396A63 /* Hype Grid */,
 				2B9EAA261D109CB700396A63 /* Hype Ad Main */,
-				2B9EAA121D1098A900396A63 /* HypeNavViewController.swift */,
-				2B9EAA1E1D1098BA00396A63 /* UsersTableViewController.swift */,
-				2B9EAA211D1098BA00396A63 /* SettingsViewController.swift */,
+				2B8AB8261D1336BE0004B138 /* Hype Ad Social */,
+				2B75DF0B1D14B9EA0047A0DF /* Hype Settings */,
+				2B75DF141D15E7E00047A0DF /* UserTableViewController.swift */,
+				2B75DF161D16350B0047A0DF /* UsersCell.swift */,
 				2B9EAA181D1098B300396A63 /* LoginViewController.swift */,
+				2B9EAA121D1098A900396A63 /* HypeNavViewController.swift */,
+				2B991F9B1D11A6EE0022675F /* HypeAd.swift */,
 				2B9EAA0E1D10954C00396A63 /* Images.xcassets */,
 				2B66B3951D1074DC00DE197D /* Assets.xcassets */,
-				2B66B3971D1074DC00DE197D /* LaunchScreen.storyboard */,
 				2B66B39A1D1074DC00DE197D /* Info.plist */,
 				2B66B3A01D10766800DE197D /* GoogleService-Info.plist */,
+				2B75DF1A1D1734400047A0DF /* FriendsTableViewController.swift */,
 			);
 			path = AdHype;
+			sourceTree = "<group>";
+		};
+		2B75DF0B1D14B9EA0047A0DF /* Hype Settings */ = {
+			isa = PBXGroup;
+			children = (
+				2B9EAA211D1098BA00396A63 /* SettingsViewController.swift */,
+				2B75DF0C1D14BA150047A0DF /* FriendsCell.swift */,
+				2B75DF0E1D15C6760047A0DF /* FriendsSectionCell.swift */,
+				2B75DF121D15E2C80047A0DF /* FriendsSectionCellView.xib */,
+			);
+			name = "Hype Settings";
+			sourceTree = "<group>";
+		};
+		2B8AB8261D1336BE0004B138 /* Hype Ad Social */ = {
+			isa = PBXGroup;
+			children = (
+				2B8AB8241D1320180004B138 /* AdSocialViewController.swift */,
+				2B75DF091D14535D0047A0DF /* AdCaptionCell.swift */,
+			);
+			name = "Hype Ad Social";
 			sourceTree = "<group>";
 		};
 		2B9EAA031D10939B00396A63 /* Storyboards */ = {
@@ -143,7 +184,6 @@
 		2B9EAA261D109CB700396A63 /* Hype Ad Main */ = {
 			isa = PBXGroup;
 			children = (
-				2B991F9B1D11A6EE0022675F /* HypeAd.swift */,
 				2B9EAA2B1D109FD000396A63 /* MainViewController.swift */,
 			);
 			name = "Hype Ad Main";
@@ -166,6 +206,9 @@
 				2B9EAA2E1D10A02D00396A63 /* UtilityFunctions.swift */,
 				2B9EAA2F1D10A02D00396A63 /* KeychainWrapper.swift */,
 				2B9EAA301D10A02D00396A63 /* Constants.swift */,
+				2B75DF181D1657B50047A0DF /* KeyValueArrays.swift */,
+				2B75DF1C1D1749620047A0DF /* customSegue.swift */,
+				2B75DF1E1D1750910047A0DF /* customUnwindSegue.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -264,8 +307,8 @@
 			files = (
 				2B9EAA0A1D1093AC00396A63 /* Main.storyboard in Resources */,
 				2B9EAA0F1D10954C00396A63 /* Images.xcassets in Resources */,
+				2B75DF131D15E2C80047A0DF /* FriendsSectionCellView.xib in Resources */,
 				2B9EAA091D1093AC00396A63 /* Launch Screen.storyboard in Resources */,
-				2B66B3991D1074DC00DE197D /* LaunchScreen.storyboard in Resources */,
 				2B9EAA0B1D1093AC00396A63 /* Settings View.storyboard in Resources */,
 				2B9EAA0D1D1093AC00396A63 /* Grid View.storyboard in Resources */,
 				2B9EAA0C1D1093AC00396A63 /* Main Hype View.storyboard in Resources */,
@@ -331,39 +374,37 @@
 			files = (
 				2B9EAA1B1D1098B300396A63 /* LoginViewController.swift in Sources */,
 				2B9EAA2C1D109FD000396A63 /* MainViewController.swift in Sources */,
-				2B9EAA221D1098BA00396A63 /* UsersTableViewController.swift in Sources */,
+				2B8AB8251D1320180004B138 /* AdSocialViewController.swift in Sources */,
 				2B9EAA331D10A02D00396A63 /* KeychainWrapper.swift in Sources */,
 				2B9EAA501D10B1BE00396A63 /* OverlayView.swift in Sources */,
+				2B75DF0F1D15C6760047A0DF /* FriendsSectionCell.swift in Sources */,
 				2B9EAA511D10B1BE00396A63 /* SwipeResultDirection.swift in Sources */,
 				2B9EAA231D1098BA00396A63 /* ImageGridCell.swift in Sources */,
 				2B9EAA341D10A02D00396A63 /* Constants.swift in Sources */,
 				2B9EAA241D1098BA00396A63 /* GridViewController.swift in Sources */,
+				2B75DF191D1657B50047A0DF /* KeyValueArrays.swift in Sources */,
 				2B9EAA4E1D10B1BE00396A63 /* KolodaView.swift in Sources */,
 				2B9EAA4F1D10B1BE00396A63 /* KolodaViewAnimatior.swift in Sources */,
 				2B66B38F1D1074DC00DE197D /* AppDelegate.swift in Sources */,
 				2B9EAA4C1D10B1BE00396A63 /* DraggableCardView.swift in Sources */,
+				2B75DF0A1D14535D0047A0DF /* AdCaptionCell.swift in Sources */,
 				2B9EAA4D1D10B1BE00396A63 /* KolodaCardStorage.swift in Sources */,
 				2B9BF4EA1D12446300BCD935 /* CustomImageFlowLayout.swift in Sources */,
 				2B9EAA311D10A02D00396A63 /* KYCircularProgress.swift in Sources */,
+				2B75DF1F1D1750910047A0DF /* customUnwindSegue.swift in Sources */,
 				2B991F9C1D11A6EE0022675F /* HypeAd.swift in Sources */,
+				2B75DF1D1D1749620047A0DF /* customSegue.swift in Sources */,
+				2B75DF1B1D1734400047A0DF /* FriendsTableViewController.swift in Sources */,
 				2B9EAA321D10A02D00396A63 /* UtilityFunctions.swift in Sources */,
+				2B75DF0D1D14BA150047A0DF /* FriendsCell.swift in Sources */,
 				2B9EAA151D1098A900396A63 /* HypeNavViewController.swift in Sources */,
+				2B75DF151D15E7E00047A0DF /* UserTableViewController.swift in Sources */,
 				2B9EAA251D1098BA00396A63 /* SettingsViewController.swift in Sources */,
+				2B75DF171D16350B0047A0DF /* UsersCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		2B66B3971D1074DC00DE197D /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2B66B3981D1074DC00DE197D /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		2B66B39B1D1074DC00DE197D /* Debug */ = {

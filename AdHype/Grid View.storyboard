@@ -24,7 +24,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dp5-iS-Eef">
-                                            <rect key="frame" x="58" y="39.5" width="50" height="50"/>
+                                            <rect key="frame" x="58" y="39" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="SIS-v0-Wkt"/>
                                                 <constraint firstAttribute="height" constant="50" id="l4K-qz-bEy"/>
@@ -41,11 +41,36 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WyS-Fm-8Yo">
                                                     <rect key="frame" x="2" y="2" width="152" height="115"/>
                                                 </imageView>
+                                                <button hidden="YES" opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0dC-3A-Sxj">
+                                                    <rect key="frame" x="0.0" y="79" width="156" height="40"/>
+                                                    <color key="backgroundColor" red="1" green="0.2196078431372549" blue="0.28627450980392155" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="1CA-v3-eb2"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                    <state key="normal" title="DELETE">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="3"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                                            <integer key="value" value="20"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="onPressedDeleteButton:" destination="SPF-2i-XgV" eventType="touchUpInside" id="vpS-oH-Ipc"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <gestureRecognizers/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="WyS-Fm-8Yo" secondAttribute="bottom" constant="2" id="Hgp-gi-jZS"/>
+                                                <constraint firstAttribute="trailing" secondItem="0dC-3A-Sxj" secondAttribute="trailing" id="Lki-xh-wD3"/>
+                                                <constraint firstAttribute="bottom" secondItem="0dC-3A-Sxj" secondAttribute="bottom" id="Uq6-oH-aY6"/>
+                                                <constraint firstItem="0dC-3A-Sxj" firstAttribute="leading" secondItem="a78-8k-pvd" secondAttribute="leading" id="VO9-nK-SrD"/>
                                                 <constraint firstItem="WyS-Fm-8Yo" firstAttribute="leading" secondItem="a78-8k-pvd" secondAttribute="leading" constant="2" id="cDl-tZ-wcQ"/>
                                                 <constraint firstAttribute="trailing" secondItem="WyS-Fm-8Yo" secondAttribute="trailing" constant="2" id="j0w-Vo-Mlh"/>
                                                 <constraint firstItem="WyS-Fm-8Yo" firstAttribute="top" secondItem="a78-8k-pvd" secondAttribute="top" constant="2" id="qdD-Yj-5c1"/>
@@ -71,6 +96,7 @@
                                 </constraints>
                                 <size key="customSize" width="166" height="129"/>
                                 <connections>
+                                    <outlet property="deleteButton" destination="0dC-3A-Sxj" id="GFb-Xw-3uP"/>
                                     <outlet property="imageView" destination="WyS-Fm-8Yo" id="eeH-xc-D2f"/>
                                     <outlet property="spinner" destination="dp5-iS-Eef" id="bPZ-Rc-ZvV"/>
                                     <outlet property="view" destination="a78-8k-pvd" id="gcg-jS-ARJ"/>
@@ -81,13 +107,29 @@
                             <outlet property="dataSource" destination="SMh-sE-mho" id="JRH-2b-PhN"/>
                             <outlet property="delegate" destination="SMh-sE-mho" id="7il-GI-yes"/>
                             <outletCollection property="gestureRecognizers" destination="t0w-2h-8Ar" appends="YES" id="LTH-cB-Wj2"/>
+                            <outletCollection property="gestureRecognizers" destination="HVO-u6-rIE" appends="YES" id="nNS-AW-uOD"/>
+                            <outletCollection property="gestureRecognizers" destination="pat-6A-Rbn" appends="YES" id="oSd-On-50M"/>
                         </connections>
                     </collectionView>
+                    <connections>
+                        <outlet property="doubleTapGestureRecognizer" destination="t0w-2h-8Ar" id="BIL-FX-LF7"/>
+                        <outlet property="tapGestureRecognizer" destination="pat-6A-Rbn" id="fTp-z6-c3d"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VtT-ow-svU" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer delaysTouchesBegan="YES" numberOfTapsRequired="2" id="t0w-2h-8Ar">
                     <connections>
                         <action selector="didDoubleTapCollectionView:" destination="SMh-sE-mho" id="V8H-4c-9vf"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="HVO-u6-rIE">
+                    <connections>
+                        <action selector="didLongTapCollectionView:" destination="SMh-sE-mho" id="3su-PF-I7K"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <tapGestureRecognizer id="pat-6A-Rbn">
+                    <connections>
+                        <action selector="didTapCollectionView:" destination="SMh-sE-mho" id="K1C-Cl-xZ3"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

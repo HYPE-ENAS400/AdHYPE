@@ -29,6 +29,8 @@ class MainViewController: UIViewController {
     var nextAdIndex: Int = 0
     var numAdsSwiped: Int = 0
     
+    var delegate: MainViewControllerDelegate!
+    
     var userAdsViewed: Int = 0
     var userContentCount: Int = 0
     
@@ -55,7 +57,7 @@ class MainViewController: UIViewController {
         super.viewDidAppear(animated)
         
 //        Get total number of advertisements viewed
-        userRef.child("adViewedCount").observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+        userRef.child(Constants.ADVIEWEDCOUNTNODE).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
             if let adCount = snapshot.value as? Int {
                 self.userAdsViewed = adCount
                 let progress = adCount % Constants.ADSPERCONTENT
@@ -67,7 +69,7 @@ class MainViewController: UIViewController {
         })
         
         //Get content count
-        userRef.child("contentCount").observeEventType(.Value, withBlock: { (snapshot) in
+        userRef.child(Constants.CONTENTCOUNTNODE).observeEventType(.Value, withBlock: { (snapshot) in
             if let count = snapshot.value as? Int {
                 self.userContentCount = count
                 self.countLabel.text = "\(self.userContentCount)"
@@ -80,8 +82,8 @@ class MainViewController: UIViewController {
     func initMainView(userUID: String){
         
         //Get AdNames in Queue
-        userRef = FIRDatabase.database().reference().child("users").child(userUID)
-        let adQueueRef = userRef.child("AdQueue")
+        userRef = FIRDatabase.database().reference().child(Constants.USERSNODE).child(userUID)
+        let adQueueRef = userRef.child(Constants.ADQUEUENODE)
         adQueueRef.observeEventType(.ChildAdded, withBlock: { (snapshot) in
             self.adNames.append(snapshot.value as! String)
             if self.adNames.count <= Constants.MAXNUMADS{
@@ -100,7 +102,7 @@ class MainViewController: UIViewController {
     
     func appendAd(){
         if nextAdIndex < adNames.count {
-            let newAd = HypeAd(refURL: Constants.BASESTORAGEURL + "\(adNames[nextAdIndex])", title: adNames[nextAdIndex])
+            let newAd = HypeAd(refURL: Constants.BASESTORAGEURL + "\(adNames[nextAdIndex])", name: adNames[nextAdIndex])
             newAd.downloadImage({(result) -> Void in
                 if case let .Success(ad) = result{
                     self.ads.append(ad)
@@ -121,12 +123,12 @@ class MainViewController: UIViewController {
     }
     
     func updateAdCount(){
-        userRef.child("adViewedCount").setValue(userAdsViewed)
+        userRef.child(Constants.ADVIEWEDCOUNTNODE).setValue(userAdsViewed)
         let progress = userAdsViewed % Constants.ADSPERCONTENT
         progressBar.progress = Double(progress + 1)/Double(Constants.ADSPERCONTENT)
         if(progress) == Constants.ADSPERCONTENT - 1 {
             userContentCount += 1
-            userRef.child("contentCount").setValue(userContentCount)
+            userRef.child(Constants.CONTENTCOUNTNODE).setValue(userContentCount)
         }
     }
     
@@ -136,7 +138,6 @@ class MainViewController: UIViewController {
     @IBAction func onSwipeLeftClicked(sender: AnyObject){
         kolodaView.swipe(SwipeResultDirection.Left)
     }
-    
 
 }
 
@@ -219,16 +220,29 @@ extension MainViewController: KolodaViewDelegate {
     func koloda(koloda: KolodaView, didSwipeCardAtIndex index: UInt, inDirection direction: SwipeResultDirection) {
         let newIndex = Int(index) - numAdsSwiped
         
-//        print("SWIPE CARD NAME: \(ads[newIndex].title)\n")
+        if direction == .Up {
+            delegate.onSwipeUp(ads[newIndex], onClose: {(canceled: Bool) in
+                if canceled{
+                    self.kolodaView.revertAction()
+                } else {
+                    self.userAdsViewed += 1
+                    self.updateAdCount()
+                    self.ads.removeAtIndex(newIndex)
+                    self.numAdsSwiped += 1
+                    self.appendAdIfSpace()
+                }
+            })
+//            kolodaView.revertAction()
+            return
+        }
         
-        if direction == .Right {
-            let cardsLikedRef = userRef.child("cardsLiked")
-            cardsLikedRef.childByAutoId().setValue(ads[newIndex].title)
+        else if direction == .Right {
+            let cardsLikedRef = userRef.child(Constants.ADSLIKEDNODE)
+            cardsLikedRef.childByAutoId().setValue(ads[newIndex].getAdNameWithExtension())
         }
         
         userAdsViewed += 1
         updateAdCount()
-        
         ads.removeAtIndex(newIndex)
         numAdsSwiped += 1
         appendAdIfSpace()
@@ -253,7 +267,7 @@ extension MainViewController: KolodaViewDelegate {
 }
 
 protocol MainViewControllerDelegate{
-    func onSwipeUp(ad: HypeAd)
+    func onSwipeUp(ad: HypeAd, onClose: (canceled: Bool)->Void)
 }
 
 

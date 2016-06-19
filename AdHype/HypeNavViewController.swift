@@ -17,21 +17,18 @@ enum VCTransition {
     case SettingsToMain
 }
 
-class HypeNavViewController: UIViewController, MainViewControllerDelegate {
+class HypeNavViewController: UIViewController, MainViewControllerDelegate, GridViewControllerDelegate, SettingsViewControllerDelegate {
+    
     @IBOutlet var gridButton: UIButton!
     @IBOutlet var hypeButton: UIButton!
     @IBOutlet var settingsButton: UIButton!
-    var userName: String? {
-        didSet{
-            settingsViewController?.userName = userName
-        }
-    }
+    var userName: String?
     var password: String?
     var userUID: String!{
         didSet{
 //            mainViewController?.userUID = userUID
 //            gridViewController?.userUID = userUID
-            settingsViewController?.uid = userUID
+//            settingsViewController?.uid = userUID
         }
     }
     
@@ -41,6 +38,10 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate {
     var settingsViewController: SettingsViewController?
     var gridViewController: GridViewController?
     var vcTransition: VCTransition?
+    
+    var onAdSocialVCClosedFunc: ((canceled: Bool)->Void)?
+    
+    var friendIDS: [String]?
     
     @IBOutlet var hypeBarView: UIView!
     
@@ -52,7 +53,6 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate {
         FIRAuth.auth()?.addAuthStateDidChangeListener{auth, user in
             if let authUser = user {
                 self.hypeBarView.hidden = false
-                //   gridViewController?.initImageStore()
                 
                 //Case where there is not a pre-existing VC
                 if self.activeViewController == nil{
@@ -168,11 +168,16 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if segue.identifier == "showUsersTableViewSegue" {
-            let newVC = segue.destinationViewController as! UsersTableViewController
+        if segue.identifier == "showAdSocialViewSegue" {
+            let newVC = segue.destinationViewController as! AdSocialViewController
             newVC.ad = socialAd
-            newVC.ownUID = userUID
             
+        }
+        if segue.identifier == "showUsersVCSegue" {
+            if let ids = friendIDS{
+                let newVC = segue.destinationViewController as! UserTableViewController
+                newVC.existingFriendsIDS = ids
+            }
         }
     }
     
@@ -180,13 +185,40 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate {
         
     }
     
-    @IBAction func unwindFromSwipeUpSegue(segue: UIStoryboardSegue){
-        
+    @IBAction func unwindFromAdSocialViewSegue(segue: UIStoryboardSegue){
+        if(segue.sourceViewController .isKindOfClass(AdSocialViewController)){
+            let sVC = segue.sourceViewController as! AdSocialViewController
+            if let fun = onAdSocialVCClosedFunc{
+                fun(canceled: sVC.didCancel)
+            } else {
+                //PROBABLY COULD HAVE DONE THIS FROM THE BEGINNING
+                mainViewController?.kolodaView.revertAction()
+            }
+        }
+        socialAd = nil
     }
     
-    func onSwipeUp(ad: HypeAd){
+//    @IBAction func unwindFromSendToFriendsSegueSent(segue: UIStoryboardSegue){
+//        
+//    }
+    
+    @IBAction func unwindFromUserTableViewSegue(segue: UIStoryboardSegue){
+        friendIDS = nil
+    }
+    
+    func onSwipeUp(ad: HypeAd, onClose: (canceled: Bool)->Void){
         socialAd = ad
-        self.performSegueWithIdentifier("showUsersTableViewSegue", sender: nil)
+        self.performSegueWithIdentifier("showAdSocialViewSegue", sender: nil)
+        onAdSocialVCClosedFunc = onClose
+    }
+    
+    func onAdDoubleClicked(ad: HypeAd) {
+        socialAd = ad
+        self.performSegueWithIdentifier("showAdSocialViewSegue", sender: nil)
+    }
+    func onAddFriendClicked(existingFriendIDS: [String]){
+        friendIDS = existingFriendIDS
+        self.performSegueWithIdentifier("showUsersVCSegue", sender: nil)
     }
     
 }

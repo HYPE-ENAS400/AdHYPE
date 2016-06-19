@@ -15,6 +15,29 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     
     var ref:FIRDatabaseReference!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        userNameTextEdit.layer.borderColor = UIColor.whiteColor().CGColor
+        userNameTextEdit.layer.cornerRadius = CGFloat(Constants.DEFAULTCORNERRADIUS)
+        userNameTextEdit.layer.borderWidth = CGFloat(Constants.DEFAULTBORDERWIDTH)
+        
+        passwordTextEdit.layer.borderColor = UIColor.whiteColor().CGColor
+        passwordTextEdit.layer.cornerRadius = CGFloat(Constants.DEFAULTCORNERRADIUS)
+        passwordTextEdit.layer.borderWidth = CGFloat(Constants.DEFAULTBORDERWIDTH)
+        
+        signUpButton.layer.cornerRadius = CGFloat(Constants.DEFAULTCORNERRADIUS)
+        signUpButton.layer.shadowRadius = 4
+        signUpButton.layer.shadowOpacity = 0.8
+        signUpButton.layer.shadowOffset = CGSizeZero
+        
+        logInButton.layer.cornerRadius = CGFloat(Constants.DEFAULTCORNERRADIUS)
+        logInButton.layer.shadowRadius = 4
+        logInButton.layer.shadowOpacity = 0.8
+        logInButton.layer.shadowOffset = CGSizeZero
+        
+        
+    }
+    
     override func viewDidAppear(animated: Bool){
         ref = FIRDatabase.database().reference()
     }
@@ -90,7 +113,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
                 self.userUID = user.uid
                 
                 let userRef = self.ref.child("users").child(user.uid)
-                userRef.child("userName").setValue(self.userName)
+//                userRef.child("userName").setValue(self.userName)
                 userRef.child("contentCount").setValue(0)
                 userRef.child("adsViewedCount").setValue(0)
                 

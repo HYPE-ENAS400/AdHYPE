@@ -17,26 +17,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iTunesArtwork" translatesAutoresizingMaskIntoConstraints="NO" id="xOy-4y-Jgh">
-                                <rect key="frame" x="185" y="80" width="230" height="230"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_White" translatesAutoresizingMaskIntoConstraints="NO" id="osx-jG-hvf">
+                                <rect key="frame" x="220" y="220" width="160" height="160"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="230" id="SqV-Gc-Vce"/>
-                                    <constraint firstAttribute="height" constant="230" id="Z1G-yF-SLA"/>
+                                    <constraint firstAttribute="height" constant="160" id="2Nh-fp-hGJ"/>
+                                    <constraint firstAttribute="width" constant="160" id="Eeh-50-F1Y"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HYPE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tB7-1s-UUU">
-                                <rect key="frame" x="189" y="310" width="223" height="103"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="86"/>
-                                <color key="textColor" red="1" green="0.2196078431372549" blue="0.28627450980392155" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="tB7-1s-UUU" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="9Cr-7J-RHw"/>
-                            <constraint firstItem="xOy-4y-Jgh" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="60" id="Obr-zC-UdH"/>
-                            <constraint firstItem="tB7-1s-UUU" firstAttribute="top" secondItem="xOy-4y-Jgh" secondAttribute="bottom" id="Ra4-Of-Zk6"/>
-                            <constraint firstItem="xOy-4y-Jgh" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="TCx-2d-flB"/>
+                            <constraint firstItem="osx-jG-hvf" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="IR0-nE-83T"/>
+                            <constraint firstItem="osx-jG-hvf" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Pg2-pG-LIn"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -46,6 +38,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="iTunesArtwork" width="2133" height="2133"/>
+        <image name="logo_White" width="164" height="152"/>
     </resources>
 </document>

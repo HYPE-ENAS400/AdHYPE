@@ -25,18 +25,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         var storyboard = UIStoryboard(name: "Settings View", bundle:nil)
         let settingsViewController = storyboard.instantiateViewControllerWithIdentifier("settingsVC") as! SettingsViewController
+        settingsViewController.delegate = navViewController
+        
         navViewController.settingsViewController = settingsViewController
         
         storyboard = UIStoryboard(name: "Main Hype View", bundle:nil)
         let mainViewController = storyboard.instantiateViewControllerWithIdentifier("mainHypeView") as! MainViewController
-//        mainViewController.manager = manager
-//        mainViewController.delegate = navViewController
+        mainViewController.delegate = navViewController
         
         navViewController.mainViewController = mainViewController
         
         storyboard = UIStoryboard(name: "Grid View", bundle:nil)
         let gridViewController = storyboard.instantiateViewControllerWithIdentifier("gridViewController") as! GridViewController
-//        gridViewController.manager = manager
+        gridViewController.delegate = navViewController
         
         navViewController.gridViewController = gridViewController
         

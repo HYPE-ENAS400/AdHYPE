@@ -22,13 +22,21 @@ func generateDemoAddQueue(userUID: String){
     let ref = baseRef.child("users").child(userUID).child("AdQueue")
 
     for i in 2...9{
-        ref.childByAutoId().setValue("ads-0" + "\(i)" + ".jpg")
+        let newNode = ref.childByAutoId()
+        newNode.setValue("ads-0" + "\(i)" + ".jpg")
+        newNode.setPriority(0)
     }
     for i in 10...33{
-        ref.childByAutoId().setValue("ads-" + "\(i)" + ".jpg")
+        let newNode = ref.childByAutoId()
+        newNode.setValue("ads-" + "\(i)" + ".jpg")
+        newNode.setPriority(0)
     }
 
 }
+
+//func queryUserNameForUID(uid: String){
+//    
+//}
 
 func prettyPrintJson(object: AnyObject?) -> String {
     var prettyResult: String = ""
