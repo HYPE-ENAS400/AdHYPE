@@ -24,7 +24,7 @@ class AdSocialViewController: UIViewController {
     var ad: HypeAd!
     var canPublish = false
     
-    var didCancel: Bool = false
+    var delegate: AdSocialViewControllerDelegate!
     
     var isCaptionVisible: Bool = false {
         
@@ -124,26 +124,31 @@ class AdSocialViewController: UIViewController {
     }
 
     @IBAction func onCloseButtonClicked(sender: AnyObject) {
-        didCancel = true
-        self.performSegueWithIdentifier("unwindFromAdSocialViewSegue", sender: nil)
+        delegate.onCloseClicked()
     }
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if segue.identifier == "onSendToFriendsSegue" {
-            let newVC = segue.destinationViewController as! FriendsTableViewController
-            newVC.adName = ad.getAdName()
-            if isCaptionVisible {
-                newVC.captionText = captionTextView.text
-                newVC.canPublish = captionTextView.editable
-            }
-        }
-    }
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        
+//        if segue.identifier == "onSendToFriendsSegue" {
+//            let newVC = segue.destinationViewController as! FriendsTableViewController
+//            newVC.adName = ad.getAdName()
+//            if isCaptionVisible {
+//                newVC.captionText = captionTextView.text
+//                newVC.canPublish = captionTextView.editable
+//            }
+//        }
+//    }
 
     @IBAction func onClickSendButton(sender: AnyObject) {
         
-        self.performSegueWithIdentifier("onSendToFriendsSegue", sender: nil)
+        if isCaptionVisible{
+            delegate.onSendClicked(ad.getAdName(), caption: captionTextView.text, canPublish: captionTextView.editable)
+        } else {
+            delegate.onSendClicked(ad.getAdName(), caption: nil, canPublish: false)
+        }
+        
+//        self.performSegueWithIdentifier("onSendToFriendsSegue", sender: nil)
         
 //        if captionTextView.editable == true{
 //            //create a new comment
@@ -156,14 +161,10 @@ class AdSocialViewController: UIViewController {
 //        self.performSegueWithIdentifier("unwindFromAdSocialViewSegue", sender: nil)
     }
     
-    @IBAction func unwindFromSendToFriendsSegueClose(segue: UIStoryboardSegue){
-        
-    }
+
     
     // NOTE If cells are deleted or added, then the indexpath of the cell will not match the sender tag
     // cells should never be added or deleted, however
-    
-    
     @IBAction func onUpVoteClicked(sender: AnyObject) {
         let index = sender.tag
         print("upVote clicked for index \(index)")
@@ -246,6 +247,11 @@ extension AdSocialViewController: UITableViewDataSource{
         return cell
     }
 
+}
+
+protocol AdSocialViewControllerDelegate{
+    func onCloseClicked()
+    func onSendClicked(adName: String, caption: String?, canPublish: Bool)
 }
 
 

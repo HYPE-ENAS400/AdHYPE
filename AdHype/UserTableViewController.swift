@@ -56,6 +56,7 @@ class UserTableViewController: UIViewController, UsersCellDelegate{
             }
         }
     }
+    
     @IBAction func onCloseButtonClicked(sender: AnyObject) {
         self.performSegueWithIdentifier("unwindFromUserTableViewSegue", sender: nil)
     }

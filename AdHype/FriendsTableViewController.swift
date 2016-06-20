@@ -20,6 +20,7 @@ class FriendsTableViewController: UIViewController, UsersCellDelegate{
     var canPublish = false
     
     var recipientIDS = [String]()
+    var delegate: FriendsTableViewControllerDelegate!
     
     override func viewDidLoad() {
         friendTableView.dataSource = self
@@ -57,31 +58,32 @@ class FriendsTableViewController: UIViewController, UsersCellDelegate{
         }
     }
     @IBAction func onSendButtonClicked(sender: AnyObject) {
-//        let usersRef = FIRDatabase.database().reference().child(Constants.USERSNODE)
-//        
-//        guard recipientIDS.count > 0 else {
-//            return
-//        }
-//        
-//        if recipientIDS[0] == Constants.PUBLISHID{
-//            let commentRef = FIRDatabase.database().reference().child(Constants.ADSNODE).child(adName).child(Constants.ADCOMMENTSNODE).childByAutoId()
-//            commentRef.child(Constants.ADCOMMENTTEXTNODE).setValue(captionText)
-//            commentRef.child(Constants.ADCOMMENTVOTENODE).setValue(0)
-//            recipientIDS.removeFirst()
-//        }
-//        
-//        for i in recipientIDS{
-//            let recRef = usersRef.child(i).child(Constants.ADQUEUENODE).childByAutoId()
-//            recRef.child(Constants.ADNAMENODE).setValue(adName)
-//            if let caption = captionText{
-//                recRef.child(Constants.ADCOMMENTTEXTNODE).setValue(caption)
-//            }
-//        }
-
+        let usersRef = FIRDatabase.database().reference().child(Constants.USERSNODE)
+        
+        guard recipientIDS.count > 0 else {
+            return
+        }
+        
+        if recipientIDS[0] == Constants.PUBLISHID{
+            let commentRef = FIRDatabase.database().reference().child(Constants.ADSNODE).child(adName).child(Constants.ADCOMMENTSNODE).childByAutoId()
+            commentRef.child(Constants.ADCOMMENTTEXTNODE).setValue(captionText)
+            commentRef.child(Constants.ADCOMMENTVOTENODE).setValue(0)
+            recipientIDS.removeFirst()
+        }
+        
+        for i in recipientIDS{
+            let recRef = usersRef.child(i).child(Constants.ADQUEUENODE).childByAutoId()
+            recRef.setPriority(1)
+            recRef.child(Constants.ADNAMENODE).setValue(adName)
+            if let caption = captionText{
+                recRef.child(Constants.ADCOMMENTTEXTNODE).setValue(caption)
+            }
+        }
+        delegate.onSentToFriends()
     }
     
     @IBAction func onCloseButtonClicked(sender: AnyObject) {
-        
+        delegate.onBackButtonClicked()
     }
     
 }
@@ -102,4 +104,9 @@ extension FriendsTableViewController: UITableViewDataSource{
         
         return cell
     }
+}
+
+protocol FriendsTableViewControllerDelegate{
+    func onBackButtonClicked()
+    func onSentToFriends()
 }

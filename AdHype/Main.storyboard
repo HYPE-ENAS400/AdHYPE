@@ -64,7 +64,6 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="1uD-Iw-Rov"/>
                                     <constraint firstItem="OWh-ov-uFj" firstAttribute="centerY" secondItem="AIW-P6-mDa" secondAttribute="centerY" id="YxG-FR-w2n"/>
                                     <constraint firstAttribute="height" constant="45" id="bzS-fH-9KU"/>
                                     <constraint firstItem="OWh-ov-uFj" firstAttribute="leading" secondItem="AIW-P6-mDa" secondAttribute="leading" constant="20" id="kOH-lk-BQO"/>
@@ -153,6 +152,76 @@
                 <exit id="35g-Ls-Fig" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="263" y="-216"/>
+        </scene>
+        <!--Social NavVC-->
+        <scene sceneID="g00-z6-Bze">
+            <objects>
+                <viewController id="Tth-DT-5QP" customClass="SocialNavVC" customModule="AdHype" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fv3-6e-dwq"/>
+                        <viewControllerLayoutGuide type="bottom" id="o8F-Hl-ddn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hX9-UW-PUu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CVG-oB-JW4">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="20"/>
+                                <color key="backgroundColor" red="0.79494160349999998" green="0.1812897926" blue="0.23730974660000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="pTQ-DI-xxx"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="707-69-cH0">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Ow-EK-bZd" userLabel="HypeBar">
+                                <rect key="frame" x="-4" y="20" width="328" height="45"/>
+                                <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="jQF-X2-dlV"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                        <integer key="value" value="-1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <integer key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="CVG-oB-JW4" secondAttribute="trailing" id="1Yx-Ht-bFx"/>
+                            <constraint firstItem="707-69-cH0" firstAttribute="leading" secondItem="hX9-UW-PUu" secondAttribute="leading" id="Nch-cs-kXq"/>
+                            <constraint firstItem="2Ow-EK-bZd" firstAttribute="leading" secondItem="hX9-UW-PUu" secondAttribute="leadingMargin" constant="-20" id="OpI-YN-0s9"/>
+                            <constraint firstItem="2Ow-EK-bZd" firstAttribute="top" secondItem="fv3-6e-dwq" secondAttribute="bottom" id="QWl-gt-4JX"/>
+                            <constraint firstItem="CVG-oB-JW4" firstAttribute="leading" secondItem="hX9-UW-PUu" secondAttribute="leading" id="bIm-BB-hCr"/>
+                            <constraint firstItem="707-69-cH0" firstAttribute="top" secondItem="fv3-6e-dwq" secondAttribute="bottom" id="d4q-Gu-ch7"/>
+                            <constraint firstItem="o8F-Hl-ddn" firstAttribute="top" secondItem="707-69-cH0" secondAttribute="bottom" id="q1d-Wk-jwh"/>
+                            <constraint firstItem="CVG-oB-JW4" firstAttribute="top" secondItem="hX9-UW-PUu" secondAttribute="top" id="vJZ-aW-cRR"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2Ow-EK-bZd" secondAttribute="trailing" constant="-20" id="xAD-uR-lfO"/>
+                            <constraint firstAttribute="trailing" secondItem="707-69-cH0" secondAttribute="trailing" id="y5o-Zx-u8y"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="containerView" destination="707-69-cH0" id="Rck-Yq-4mI"/>
+                        <segue destination="8le-Y6-m6g" kind="unwind" identifier="unwindFromAdSocialViewSegue" unwindAction="unwindFromAdSocialViewSegue:" id="ili-us-3Op"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rRj-tz-adx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="8le-Y6-m6g" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="722" y="-128"/>
         </scene>
         <!--Ad Social View Controller-->
         <scene sceneID="B5W-cv-XOY">
@@ -409,7 +478,6 @@
                         <outlet property="captionTextView" destination="KLl-F7-XtI" id="y88-Wh-Qcp"/>
                         <outlet property="tableView" destination="BgP-Sb-P8x" id="Ij4-30-HcX"/>
                         <segue destination="rrb-do-HhT" kind="unwind" identifier="unwindFromAdSocialViewSegue" unwindAction="unwindFromAdSocialViewSegue:" id="S3R-qM-edT"/>
-                        <segue destination="p70-62-XDr" kind="custom" identifier="onSendToFriendsSegue" customClass="customSegue" customModule="AdHype" customModuleProvider="target" id="Fhh-cN-HUj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y7y-rt-j4M" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -425,7 +493,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="741" y="-201"/>
+            <point key="canvasLocation" x="2989" y="-1385"/>
         </scene>
         <!--Friends Table View Controller-->
         <scene sceneID="wQf-Aw-DYk">
@@ -565,14 +633,11 @@
                     <navigationItem key="navigationItem" id="gDI-00-4Oy"/>
                     <connections>
                         <outlet property="friendTableView" destination="66O-NY-NOB" id="K75-5W-ymw"/>
-                        <segue destination="daI-8s-ufX" kind="unwind" identifier="unwindFromSendToFriendsSegueClose" customClass="customUnwindSegue" customModule="AdHype" customModuleProvider="target" unwindAction="unwindFromSendToFriendsSegueClose:" id="tvx-fb-IRc"/>
-                        <segue destination="daI-8s-ufX" kind="unwind" identifier="unwindFromSendToFriendsSegueSent" customClass="customUnwindSegue" customModule="AdHype" customModuleProvider="target" unwindAction="unwindFromSendToFriendsSegueSent:" id="2qZ-dM-FBv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hGF-aU-Nbr" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="daI-8s-ufX" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1202" y="-201"/>
+            <point key="canvasLocation" x="2980" y="-679"/>
         </scene>
         <!--Hype Nav View Controller-->
         <scene sceneID="cpu-lm-2JJ">
@@ -696,8 +761,8 @@
                         <outlet property="hypeButton" destination="zkw-Ps-Kd4" id="Bf9-PM-fNM"/>
                         <outlet property="settingsButton" destination="qfu-TZ-bkh" id="7Ws-d1-a6z"/>
                         <segue destination="PVt-c2-hmz" kind="modal" identifier="logInSegue" id="7bv-Nn-cAj"/>
-                        <segue destination="u7u-pp-sYJ" kind="modal" identifier="showAdSocialViewSegue" id="qvu-Gc-xYG"/>
                         <segue destination="yer-F6-76g" kind="modal" identifier="showUsersVCSegue" id="35V-dW-KmE"/>
+                        <segue destination="Tth-DT-5QP" kind="modal" identifier="showAdSocialViewSegue" id="sfS-bH-TAf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jtF-ZO-W1y" userLabel="First Responder" sceneMemberID="firstResponder"/>

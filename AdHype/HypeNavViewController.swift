@@ -81,6 +81,8 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate, GridV
             }
         }
         
+        super.viewDidAppear(animated)
+        
     }
 
     
@@ -169,7 +171,7 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate, GridV
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "showAdSocialViewSegue" {
-            let newVC = segue.destinationViewController as! AdSocialViewController
+            let newVC = segue.destinationViewController as! SocialNavVC
             newVC.ad = socialAd
             
         }
@@ -186,8 +188,8 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate, GridV
     }
     
     @IBAction func unwindFromAdSocialViewSegue(segue: UIStoryboardSegue){
-        if(segue.sourceViewController .isKindOfClass(AdSocialViewController)){
-            let sVC = segue.sourceViewController as! AdSocialViewController
+        if(segue.sourceViewController .isKindOfClass(SocialNavVC)){
+            let sVC = segue.sourceViewController as! SocialNavVC
             if let fun = onAdSocialVCClosedFunc{
                 fun(canceled: sVC.didCancel)
             } else {
@@ -197,10 +199,6 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate, GridV
         }
         socialAd = nil
     }
-    
-//    @IBAction func unwindFromSendToFriendsSegueSent(segue: UIStoryboardSegue){
-//        
-//    }
     
     @IBAction func unwindFromUserTableViewSegue(segue: UIStoryboardSegue){
         friendIDS = nil

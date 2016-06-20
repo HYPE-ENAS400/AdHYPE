@@ -30,11 +30,7 @@ class customSegue: UIStoryboardSegue{
             
             let destVC = self.destinationViewController as! FriendsTableViewController
             
-            self.sourceViewController.presentViewController(destVC, animated: false, completion: {()->Void in
-                if destVC.shouldDismissVC{
-                    self.sourceViewController.dismissViewControllerAnimated(false, completion: nil)
-                }
-            })
+            self.sourceViewController.presentViewController(destVC, animated: false, completion: nil)
         }
         
         
