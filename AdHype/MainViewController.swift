@@ -94,7 +94,9 @@ class MainViewController: UIViewController {
             let dict = snapshot.value as! [String: String]
             let name = dict[Constants.ADNAMENODE]!
             let captionFromFriend = dict[Constants.ADCAPTIONNODE]
-            let newMetaData = HypeAdMetaData(name: name, key: snapshot.key, isFromFriend: true, captionFromFriend: captionFromFriend)
+            let url = dict[Constants.ADURLNODE]!
+            let primaryTag = dict[Constants.ADPRIMARYTAGNODE]!
+            let newMetaData = HypeAdMetaData(name: name, key: snapshot.key, url: url, primaryTag: primaryTag, isFromFriend: true, captionFromFriend: captionFromFriend)
             self.adsMetaDataQueue.enqueue(newMetaData)
             self.appendAdIfRoom()
         })
@@ -150,7 +152,9 @@ class MainViewController: UIViewController {
                 if let dict = snapshot.value as? [String: String]{
                     if self.isUserInterestedInAd(dict){
                         let name = dict[Constants.ADNAMENODE]!
-                        let newMetaData = HypeAdMetaData(name: name, key: snapshot.key, isFromFriend: false, captionFromFriend: nil)
+                        let url = dict[Constants.ADURLNODE]!
+                        let primaryTag = dict[Constants.ADPRIMARYTAGNODE]!
+                        let newMetaData = HypeAdMetaData(name: name, key: snapshot.key, url: url, primaryTag: primaryTag, isFromFriend: false, captionFromFriend: nil)
                         self.adsMetaDataQueue.enqueue(newMetaData)
                         print("ENQUEUED AD WITH KEY: \(snapshot.key)")
                         if self.adsMetaDataQueue.getTotalCount()<=Constants.MAXNUMADS{
@@ -323,7 +327,8 @@ extension MainViewController: KolodaViewDelegate {
             return
         } else if direction == .Right {
             let cardsLikedRef = userRef.child(Constants.ADSLIKEDNODE)
-            cardsLikedRef.child(ad.getKey()).setValue(ad.getAdNameWithExtension())
+            cardsLikedRef.child(ad.getKey()).setValue(ad.getMetaDataDict())
+            
         }
         onCardSwiped(newIndex, ad: ad)
     }
@@ -349,6 +354,20 @@ extension MainViewController: KolodaViewDelegate {
         ads.removeAtIndex(cardIndex)
         appendAdIfRoom()
         appendToQueueIfRoom(adStoreRef)
+    }
+    
+    func koloda(koloda: KolodaView, didSelectCardAtIndex index: UInt) {
+        let newIndex = getProxyIndex(Int(index))
+        
+        if let url = NSURL(string: ads[newIndex].getURL()){
+            if #available(iOS 9.0, *) {
+                let vc = SFSafariViewController(URL: url, entersReaderIfAvailable: false)
+                presentViewController(vc, animated: true, completion: nil)
+            } else {
+                // Fallback on earlier versions
+            }
+            
+        }
     }
     
     func koloda(koloda: KolodaView, allowedDirectionsForIndex index: UInt) -> [SwipeResultDirection] {

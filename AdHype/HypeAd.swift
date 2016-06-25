@@ -24,12 +24,16 @@ struct HypeAdMetaData{
     var key: String!
     var isFromFriend: Bool = false
     var captionFromFriend: String?
+    var url: String!
+    var primaryTag: String!
     
-    init(name: String, key: String, isFromFriend: Bool, captionFromFriend: String?){
+    init(name: String, key: String, url: String, primaryTag: String, isFromFriend: Bool, captionFromFriend: String?){
         self.name = name
         self.key = key
         self.isFromFriend = isFromFriend
         self.captionFromFriend = captionFromFriend
+        self.url = url
+        self.primaryTag = primaryTag
     }
 }
 
@@ -40,21 +44,18 @@ class HypeAd: Equatable{
     private var downloaded: Bool
 //    private var nodeKey: String?
     
-    private var adName: String
-    private var adIsFromFriend: Bool!
-    private var adCaptionFromFriend: String?
-    private var key: String!
-    
+//    private var adName: String
+//    private var adIsFromFriend: Bool!
+//    private var adCaptionFromFriend: String?
+//    private var key: String!
+    private var adMetaData: HypeAdMetaData
+//    
     
     init(refURL: String, metaData: HypeAdMetaData){
-        
-        self.adCaptionFromFriend = metaData.captionFromFriend
-        self.adIsFromFriend = metaData.isFromFriend
-        self.adName = metaData.name.stringByReplacingOccurrencesOfString(Constants.DEFAULTFILEEXTENSION, withString: "")
-        self.key = metaData.key
+        self.adMetaData = metaData
         
         adStorRef = FIRStorage.storage().referenceForURL(refURL)
-        adPubCommentsRef = FIRDatabase.database().reference().child(Constants.PUBLICADCOMMENTS).child(self.key)
+        adPubCommentsRef = FIRDatabase.database().reference().child(Constants.PUBLICADCOMMENTS).child(self.adMetaData.key)
         downloaded = false
     }
     
@@ -95,25 +96,39 @@ class HypeAd: Equatable{
         return adImage
     }
     func getAdName() -> String{
-        return adName
+        return adMetaData.name
     }
     func setAdName(name: String){
-        adName = name
+        adMetaData.name = name
     }
     func getAdNameWithExtension() -> String {
-        return adName + Constants.DEFAULTFILEEXTENSION
+        return adMetaData.name
     }
     func getAdPubCommentsRef() -> FIRDatabaseReference{
         return adPubCommentsRef
     }
     func isFromFriend() -> Bool{
-        return adIsFromFriend
+        return adMetaData.isFromFriend
     }
     func getCaption() -> String?{
-        return adCaptionFromFriend
+        return adMetaData.captionFromFriend
     }
     func getKey() -> String{
-        return key
+        return adMetaData.key
+    }
+    func getURL() -> String{
+        return adMetaData.url
+    }
+    func getMetaData() -> HypeAdMetaData{
+        return adMetaData
+    }
+    func getMetaDataDict() -> [String: String]{
+        var dict = [String: String]()
+        dict = [Constants.ADNAMENODE: adMetaData.name, Constants.ADPRIMARYTAGNODE: adMetaData.primaryTag, Constants.ADURLNODE: adMetaData.url, Constants.ADISFROMFRIEND: String(adMetaData.isFromFriend)]
+        if let caption = adMetaData.captionFromFriend{
+            dict[Constants.ADCAPTIONNODE] = caption
+        }
+        return dict
     }
     
 }

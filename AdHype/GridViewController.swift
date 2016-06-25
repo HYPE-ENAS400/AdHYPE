@@ -57,7 +57,7 @@ class GridViewController: UICollectionViewController{
         cell.delegate = self
         let adTitle = adNames[indexPath.row]
         let adKey = adKeys[indexPath.row]
-        let newAdMetaData = HypeAdMetaData(name: adTitle, key: adKey, isFromFriend: false, captionFromFriend: nil)
+        let newAdMetaData = HypeAdMetaData(name: adTitle, key: adKey, url: "http://wwww.githyped.com", primaryTag: "hype",isFromFriend: false, captionFromFriend: nil)
         
         cell.cellAd = HypeAd(refURL: Constants.BASESTORAGEURL + adTitle, metaData: newAdMetaData)
         return cell

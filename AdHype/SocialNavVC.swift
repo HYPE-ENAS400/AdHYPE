@@ -96,8 +96,7 @@ extension SocialNavVC: AdSocialViewControllerDelegate{
         let storyboard = UIStoryboard(name: "Send to Friends View", bundle:nil)
         friendsTableViewController = storyboard.instantiateViewControllerWithIdentifier("sendToFriendsView") as! FriendsTableViewController
         
-        friendsTableViewController.adName = ad.getAdName()
-        friendsTableViewController.adKey = ad.getKey()
+        friendsTableViewController.adMetaData = ad.getMetaData()
         friendsTableViewController.canPublish = canPublish
         friendsTableViewController.captionText = caption
         

@@ -36,6 +36,9 @@ struct Constants {
     static let ADCOMMENTVOTENODE = "netVotes"
     static let ADNAMENODE = "name"
     static let ADCAPTIONNODE = "caption"
+    static let ADURLNODE = "url"
+    static let ADPRIMARYTAGNODE = "Primary Tag"
+    static let ADISFROMFRIEND = "isFromFriend"
     static let PUBLICADCOMMENTS = "public ad comments"
     
     static let ADCAPTIONVOTEHISTORYNODE = "adCaptionVoteHistroy"
@@ -45,7 +48,7 @@ struct Constants {
     static let DEFAULTCORNERRADIUS: Float = 15.0
     static let DEFAULTBORDERWIDTH: Float = 2.0
     
-    static let DEFAULTFILEEXTENSION = ".jpg"
+//    static let DEFAULTFILEEXTENSION = ".jpg"
     
     static let PUBLISHID = "1fa837a6-3922-4647-9d30-d982313726ff"
     

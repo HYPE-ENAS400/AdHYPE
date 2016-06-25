@@ -16,8 +16,7 @@ class FriendsTableViewController: UIViewController{
     
     var friends = SelectionDataSource<String>()
     
-    var adName: String!
-    var adKey: String!
+    var adMetaData: HypeAdMetaData!
     
     var captionText: String?
     var canPublish = false
@@ -60,7 +59,7 @@ class FriendsTableViewController: UIViewController{
         }
         
         if recipientIDS[0] == Constants.PUBLISHID{
-            let adRef = FIRDatabase.database().reference().child(Constants.PUBLICADCOMMENTS).child(adKey)
+            let adRef = FIRDatabase.database().reference().child(Constants.PUBLICADCOMMENTS).child(adMetaData.key)
             
             //WHY WAS THIS HERE?
 //            adRef.child(Constants.ADNAMENODE).setValue(adName)
@@ -73,12 +72,14 @@ class FriendsTableViewController: UIViewController{
         }
         
         for i in recipientIDS{
-            let recRef = usersRef.child(i).child(Constants.RECEIVEDADQUEUENODE).child(adKey)
-            recRef.child(Constants.ADNAMENODE).setValue(adName + ".jpg")
+            let recRef = usersRef.child(i).child(Constants.RECEIVEDADQUEUENODE).child(adMetaData.key)
+            recRef.child(Constants.ADNAMENODE).setValue(adMetaData.name)
+            recRef.child(Constants.ADURLNODE).setValue(adMetaData.url)
+            recRef.child(Constants.ADPRIMARYTAGNODE).setValue(adMetaData.primaryTag)
             if let caption = captionText{
                 recRef.child(Constants.ADCAPTIONNODE).setValue(caption)
             }
-            recRef.setPriority(Constants.FROMFRIENDPRIORITY)
+            
         }
         delegate.onSentToFriends()
     }
