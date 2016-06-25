@@ -3,23 +3,13 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "SettingsViewController.onFriendRequestAccepted((key : String, value : String)?) -&gt; ():SettingsViewController.swift">
+         contextName = "UserTableViewController.viewDidLoad() -&gt; ():UserTableViewController.swift">
       </ContextState>
       <ContextState
-         contextName = "LoginViewController.(logInClicked(AnyObject) -&gt; ()).(closure #1):LoginViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "errror.userInfo">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "MainViewController.(appendToQueueIfRoom(FIRDatabaseReference) -&gt; ()).(closure #1).(closure #1):MainViewController.swift">
       </ContextState>
       <ContextState
-         contextName = "AdSocialViewController.prepareForSegue(UIStoryboardSegue, sender : AnyObject?) -&gt; ():AdSocialViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "segue.identifier">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "(generateDemoAddQueue(String, completion : () -&gt; ()) -&gt; ()).(closure #1):UtilityFunctions.swift">
       </ContextState>
       <ContextState
          contextName = "MainViewController.koloda(KolodaView, didSwipeCardAtIndex : UInt, inDirection : SwipeResultDirection) -&gt; ():MainViewController.swift">
@@ -30,18 +20,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "GridViewController.collectionView(UICollectionView, willDisplayCell : UICollectionViewCell, forItemAtIndexPath : NSIndexPath) -&gt; ():GridViewController.swift">
+         contextName = "AdSocialViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:AdSocialViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "MainViewController.kolodaNumberOfCards(KolodaView) -&gt; UInt:MainViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "ads.count + numAdsSwiped">
+               value = "String(ref)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -49,18 +31,10 @@
          contextName = "MainViewController.appendAdIfSpace() -&gt; ():MainViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "ads.count">
+               value = "adsMetaData[nextAdIndex].name">
             </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "MainViewController.kolodaDidRunOutOfCards(KolodaView) -&gt; ():MainViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "SettingsViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:SettingsViewController.swift">
-         <PersistentStrings>
             <PersistentString
-               value = "indexPath.section">
+               value = "ads.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -76,34 +50,67 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "MainViewController.appendAdlAd() -&gt; ():MainViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "adNames">
-            </PersistentString>
-            <PersistentString
-               value = "nextAdIndex">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "UserTableViewController.viewDidLoad() -&gt; ():UserTableViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "MainViewController.(appendAd() -&gt; ()).(closure #1):MainViewController.swift">
+         contextName = "MainViewController.(koloda(KolodaView, didSwipeCardAtIndex : UInt, inDirection : SwipeResultDirection) -&gt; ()).(closure #1):MainViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "self.ads">
             </PersistentString>
+            <PersistentString
+               value = "newIndex">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "SettingsViewController.(textFieldDidEndEditing(UITextField) -&gt; ()).(closure #1):SettingsViewController.swift">
+         contextName = "MainViewController.kolodaDidRunOutOfCards(KolodaView) -&gt; ():MainViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "MainViewController.isUserInterestedInAd([String : String]) -&gt; Bool:MainViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "snapshot.value">
+               value = "adDict[key]">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MainViewController.viewDidLoad() -&gt; ():MainViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "user.displayName">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "KolodaView.reloadData() -&gt; ():KolodaView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "countOfCards">
+            </PersistentString>
+            <PersistentString
+               value = "visibleCards.count">
+            </PersistentString>
+            <PersistentString
+               value = "currentCardIndex">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SettingsViewController.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:SettingsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "indexPath.section">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MainViewController.kolodaNumberOfCards(KolodaView) -&gt; UInt:MainViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "ads.count + numAdsSwiped">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MainViewController.onCardSwiped(Int) -&gt; ():MainViewController.swift">
       </ContextState>
       <ContextState
          contextName = "ImageGridCell.updateWithImage(UIImage?) -&gt; ():ImageGridCell.swift">
@@ -117,35 +124,75 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "MainViewController.(initMainView(String) -&gt; ()).(closure #1):MainViewController.swift">
+         contextName = "MainViewController.appendAdlAd() -&gt; ():MainViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.adNames">
+               value = "adNames">
+            </PersistentString>
+            <PersistentString
+               value = "nextAdIndex">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "KolodaView.reloadData() -&gt; ():KolodaView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "currentCardIndex">
-            </PersistentString>
-            <PersistentString
-               value = "visibleCards.count">
-            </PersistentString>
-            <PersistentString
-               value = "countOfCards">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "MainViewController.(koloda(KolodaView, didSwipeCardAtIndex : UInt, inDirection : SwipeResultDirection) -&gt; ()).(closure #1):MainViewController.swift">
+         contextName = "MainViewController.(appendAd() -&gt; ()).(closure #1):MainViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "self.ads">
             </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SettingsViewController.onFriendRequestAccepted((key : String, value : String)?) -&gt; ():SettingsViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "MainViewController.queryAdMetaData() -&gt; ():MainViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "UserTableViewController.(viewDidLoad() -&gt; ()).(closure #1):UserTableViewController.swift">
+         <PersistentStrings>
             <PersistentString
-               value = "newIndex">
+               value = "self.users">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GridViewController.collectionView(UICollectionView, willDisplayCell : UICollectionViewCell, forItemAtIndexPath : NSIndexPath) -&gt; ():GridViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "AdSocialViewController.prepareForSegue(UIStoryboardSegue, sender : AnyObject?) -&gt; ():AdSocialViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "segue.identifier">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MainViewController.koloda(KolodaView, viewForCardAtIndex : UInt) -&gt; UIView:MainViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "numAdsSwiped">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LoginViewController.(logInClicked(AnyObject) -&gt; ()).(closure #1):LoginViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "errror.userInfo">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SettingsViewController.(textFieldDidEndEditing(UITextField) -&gt; ()).(closure #1):SettingsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "snapshot.value">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

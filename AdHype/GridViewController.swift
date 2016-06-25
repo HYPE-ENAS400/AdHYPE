@@ -22,16 +22,13 @@ class GridViewController: UICollectionViewController{
     
     var delegate: GridViewControllerDelegate!
     
-//    var adNames = [String]()
-    
     override func viewDidLoad(){
         super.viewDidLoad()
         
-        tapGestureRecognizer.requireGestureRecognizerToFail(doubleTapGestureRecognizer)
-        
         collectionView!.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
-        self.collectionView?.reloadData()
+        initGridView((FIRAuth.auth()?.currentUser?.uid)!)
+        tapGestureRecognizer.requireGestureRecognizerToFail(doubleTapGestureRecognizer)
     }
     
     func initGridView(userUID: String){
@@ -45,6 +42,11 @@ class GridViewController: UICollectionViewController{
         })
     }
     
+    func clearGridView(){
+        adNames = [String]()
+        adKeys = [String]()
+    }
+    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return adNames.count
     }
@@ -55,8 +57,9 @@ class GridViewController: UICollectionViewController{
         cell.delegate = self
         let adTitle = adNames[indexPath.row]
         let adKey = adKeys[indexPath.row]
+        let newAdMetaData = HypeAdMetaData(name: adTitle, key: adKey, isFromFriend: false, captionFromFriend: nil)
         
-        cell.cellAd = HypeAd(refURL: Constants.BASESTORAGEURL + adTitle, name: adTitle, nodeKey: adKey)
+        cell.cellAd = HypeAd(refURL: Constants.BASESTORAGEURL + adTitle, metaData: newAdMetaData)
         return cell
         
     }

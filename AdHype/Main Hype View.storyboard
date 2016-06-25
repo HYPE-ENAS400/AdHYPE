@@ -18,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="b9q-t7-lYJ">
-                                <rect key="frame" x="282" y="237" width="37" height="37"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="b9q-t7-lYJ">
+                                <rect key="frame" x="282" y="236" width="37" height="37"/>
                                 <color key="color" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LAa-w3-Xn0">
@@ -41,8 +41,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E5c-vD-C3L" customClass="KYCircularProgress" customModule="AdHype" customModuleProvider="target">
                                 <rect key="frame" x="255" y="480" width="90" height="90"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" layoutMarginsFollowReadableWidth="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cv5-kj-6I1">
-                                        <rect key="frame" x="36" y="27" width="20" height="36"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cv5-kj-6I1">
+                                        <rect key="frame" x="35" y="27" width="20" height="36"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
                                         <color key="textColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -90,9 +90,59 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XhJ-Bz-ihX" userLabel="Out of Cards View">
+                                <rect key="frame" x="200" y="205" width="200" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Vm-Px-ECU">
+                                        <rect key="frame" x="25" y="52" width="150" height="40"/>
+                                        <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="2fD-Cr-95S"/>
+                                            <constraint firstAttribute="width" constant="150" id="fpM-62-vsz"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Refresh Demo">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="refreshButtonClicked:" destination="nvj-Q8-ts0" eventType="touchUpInside" id="69J-fK-Mfd"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Out of Cards" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXX-NK-lgx">
+                                        <rect key="frame" x="0.0" y="4" width="200" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="55X-uP-jSy"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="24"/>
+                                        <color key="textColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="VXX-NK-lgx" secondAttribute="trailing" id="0fH-05-HPU"/>
+                                    <constraint firstItem="VXX-NK-lgx" firstAttribute="top" secondItem="XhJ-Bz-ihX" secondAttribute="top" constant="4" id="JPt-rS-P02"/>
+                                    <constraint firstItem="VXX-NK-lgx" firstAttribute="leading" secondItem="XhJ-Bz-ihX" secondAttribute="leading" id="SZH-pd-VIO"/>
+                                    <constraint firstAttribute="bottom" secondItem="9Vm-Px-ECU" secondAttribute="bottom" constant="8" id="cLX-bB-h7X"/>
+                                    <constraint firstAttribute="height" constant="100" id="i5s-4t-aBA"/>
+                                    <constraint firstItem="9Vm-Px-ECU" firstAttribute="centerX" secondItem="XhJ-Bz-ihX" secondAttribute="centerX" id="pMQ-bF-YCz"/>
+                                    <constraint firstAttribute="width" constant="200" id="qqP-xs-JbI"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                        <integer key="value" value="-20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="XhJ-Bz-ihX" firstAttribute="centerY" secondItem="yzO-AQ-R2d" secondAttribute="centerY" id="727-vm-HRf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="sYA-Z1-beK" secondAttribute="trailing" constant="30" id="DUU-BS-86F"/>
                             <constraint firstItem="bPk-Yh-3XG" firstAttribute="top" secondItem="LAa-w3-Xn0" secondAttribute="bottom" constant="30" id="DZW-jb-sim"/>
                             <constraint firstItem="b9q-t7-lYJ" firstAttribute="centerY" secondItem="yzO-AQ-R2d" secondAttribute="centerY" id="Mj7-IL-rNI"/>
@@ -101,6 +151,7 @@
                             <constraint firstItem="E5c-vD-C3L" firstAttribute="centerX" secondItem="Ne0-Fm-ijb" secondAttribute="centerX" id="Uxh-xk-cV8"/>
                             <constraint firstItem="yzO-AQ-R2d" firstAttribute="leading" secondItem="Ne0-Fm-ijb" secondAttribute="leadingMargin" constant="5" id="aWb-MD-q12"/>
                             <constraint firstAttribute="trailingMargin" secondItem="yzO-AQ-R2d" secondAttribute="trailing" constant="5" id="bmW-7D-HNS"/>
+                            <constraint firstItem="XhJ-Bz-ihX" firstAttribute="centerX" secondItem="yzO-AQ-R2d" secondAttribute="centerX" id="cTE-bD-evj"/>
                             <constraint firstItem="LAa-w3-Xn0" firstAttribute="top" secondItem="yzO-AQ-R2d" secondAttribute="bottom" constant="46" id="gci-w8-JiW"/>
                             <constraint firstItem="sYA-Z1-beK" firstAttribute="top" secondItem="yzO-AQ-R2d" secondAttribute="bottom" constant="46" id="h41-dP-uyl"/>
                             <constraint firstItem="LAa-w3-Xn0" firstAttribute="leading" secondItem="Ne0-Fm-ijb" secondAttribute="leadingMargin" constant="30" id="kRn-jL-KKF"/>
@@ -118,6 +169,7 @@
                         <outlet property="countLabel" destination="cv5-kj-6I1" id="N0Z-ei-GAl"/>
                         <outlet property="kolodaView" destination="yzO-AQ-R2d" id="3yZ-Fx-Jig"/>
                         <outlet property="mainSpinner" destination="b9q-t7-lYJ" id="fim-vc-sD1"/>
+                        <outlet property="outOfCardsView" destination="XhJ-Bz-ihX" id="Rfx-j5-cb5"/>
                         <outlet property="progressBar" destination="E5c-vD-C3L" id="VGW-46-hqD"/>
                     </connections>
                 </viewController>

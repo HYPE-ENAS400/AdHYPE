@@ -9,10 +9,7 @@
 import UIKit
 import Firebase
 
-enum SocialNavVCTransitionDirection{
-    case toRight
-    case toLeft
-}
+
 
 
 class SocialNavVC: UIViewController {
@@ -24,8 +21,9 @@ class SocialNavVC: UIViewController {
     var friendsTableViewController: FriendsTableViewController! = nil
     
     var didCancel = true
+    var wasSwipeUp: Bool!
     
-    var transitionDirection: SocialNavVCTransitionDirection!
+    var transitionDirection: VCTransitionDirection!
 
     
     override func loadView() {
@@ -36,6 +34,7 @@ class SocialNavVC: UIViewController {
         let storyboard = UIStoryboard(name: "Social View", bundle:nil)
         adSocialViewController = storyboard.instantiateViewControllerWithIdentifier("adSocialView") as! AdSocialViewController
         adSocialViewController.ad = ad
+        adSocialViewController.wasSwipeUp = wasSwipeUp
         adSocialViewController.delegate = self
         activeViewController = adSocialViewController
     }
@@ -93,12 +92,15 @@ extension SocialNavVC: AdSocialViewControllerDelegate{
         didCancel = true
         self.performSegueWithIdentifier("unwindFromAdSocialViewSegue", sender: nil)
     }
-    func onSendClicked(adName: String, caption: String?, canPublish: Bool){
+    func onSendClicked(caption: String?, canPublish: Bool){
         let storyboard = UIStoryboard(name: "Send to Friends View", bundle:nil)
         friendsTableViewController = storyboard.instantiateViewControllerWithIdentifier("sendToFriendsView") as! FriendsTableViewController
-        friendsTableViewController.adName = adName
+        
+        friendsTableViewController.adName = ad.getAdName()
+        friendsTableViewController.adKey = ad.getKey()
         friendsTableViewController.canPublish = canPublish
         friendsTableViewController.captionText = caption
+        
         friendsTableViewController.delegate = self
         transitionDirection = .toLeft
         activeViewController = friendsTableViewController
@@ -111,6 +113,7 @@ extension SocialNavVC: FriendsTableViewControllerDelegate{
     func onBackButtonClicked(){
         transitionDirection = .toRight
         activeViewController = adSocialViewController
+        
         friendsTableViewController = nil
     }
     func onSentToFriends(){

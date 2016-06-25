@@ -10,6 +10,7 @@ target 'AdHype' do
     pod 'Firebase/Auth'
     pod 'Firebase/Database'
     pod 'Firebase/Storage'
+    pod 'Firebase/Crash'
     pod 'pop', '~> 1.0'
 
 end

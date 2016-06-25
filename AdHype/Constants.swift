@@ -13,10 +13,12 @@ struct Constants {
     static let ADSPERCONTENT = 4
     static let INVADSPERCONTENT = 0.25
     static let BASESTORAGEURL = "gs://project-8277179768550916139.appspot.com/"
+    
     static let MAXNUMADS = 5
+    static let MAXNUMADQUEUE = 10
     
     
-    static let ADQUEUENODE = "AdQueue"
+    static let RECEIVEDADQUEUENODE = "ReceivedAdsFromFriends"
     static let ADSLIKEDNODE = "cardsLiked"
     static let ADVIEWEDCOUNTNODE = "adViewedCount"
     static let CONTENTCOUNTNODE = "contentCount"
@@ -25,13 +27,18 @@ struct Constants {
     static let USERSNODE = "users"
     static let USERFRIENDREQUESTSNODE = "friendRequests"
     static let USERFRIENDSNODE = "friends"
+    static let USERINTERESTSNODE = "interests"
+    static let USERNEXTADKEY = "nextAdKey"
     
     static let ADSNODE = "ads"
     static let ADCOMMENTSNODE = "comments"
     static let ADCOMMENTTEXTNODE = "text"
     static let ADCOMMENTVOTENODE = "netVotes"
-    static let ADNAMENODE = "adName"
+    static let ADNAMENODE = "name"
     static let ADCAPTIONNODE = "caption"
+    static let PUBLICADCOMMENTS = "public ad comments"
+    
+    static let ADCAPTIONVOTEHISTORYNODE = "adCaptionVoteHistroy"
     
 //    static let ADCOMMENTDOWNNODE = "downVotes"
     
@@ -42,5 +49,10 @@ struct Constants {
     
     static let PUBLISHID = "1fa837a6-3922-4647-9d30-d982313726ff"
     
+    static let DEFAULTADPRIORITY: Int = 1
+    static let FROMFRIENDPRIORITY: Int = 0
+   // static let OUTOFADSPRIORITY: Int = 2
+    
+    static let OUTOFADSUID = "c20534c0-853f-4d09-8b66-01a3530ae412"
     
 }

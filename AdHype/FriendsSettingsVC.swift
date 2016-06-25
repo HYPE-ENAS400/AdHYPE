@@ -1,62 +1,42 @@
 //
-//  SettingsViewController.swift
-//  Hype-2
+//  FriendsSettingsVC.swift
+//  AdHype
 //
-//  Created by max payson on 4/13/16.
-//  Copyright © 2016 Amazon. All rights reserved.
+//  Created by Maxwell Payson on 6/22/16.
+//  Copyright © 2016 Enas400. All rights reserved.
 //
 
 import UIKit
 import Firebase
 
-class SettingsViewController: UIViewController, UITextFieldDelegate, FriendsCellDelegate, FriendsSectionCellDelegate{
-    
-    @IBOutlet weak var userIconOuterView: UIView!
-    @IBOutlet weak var logOutButton: UIButton!
+class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCellDelegate{
     @IBOutlet weak var friendTableView: UITableView!
-    @IBOutlet weak var usernameTextField: UITextField!
     
-    var delegate: SettingsViewControllerDelegate!
+    var isAddFriendButtonDisabled = false
+    var delegate: FriendsSettingsVCDelegate!
+    
+    var friendRequests = SelectionDataSource<String>()
+    var friends = SelectionDataSource<String>()
+    
+    var friendReqDetachInfo: FIRDetachInfo?
+    var friendDetachInfo: FIRDetachInfo?
     
     var usersRef: FIRDatabaseReference!
     
-    var oldUserName: String?
-//    var uid: String?
-    
-    var friendRequests = KeyValueArrays()
-    var friends = KeyValueArrays()
-    
     override func viewDidLoad() {
-        logOutButton.layer.cornerRadius = CGFloat(Constants.DEFAULTCORNERRADIUS)
-        logOutButton.layer.shadowRadius = 4
-        logOutButton.layer.shadowOpacity = 0.8
-        logOutButton.layer.shadowOffset = CGSizeZero
-        logOutButton.layer.shadowColor = UIColor.grayColor().CGColor
-        
-        usernameTextField.delegate = self
-        
-        userIconOuterView.layer.cornerRadius = (userIconOuterView.bounds.size.height/2)
-        
+        super.viewDidLoad()
         friendTableView.dataSource = self
         friendTableView.delegate = self
         friendTableView.allowsSelection = false
         let nib = UINib(nibName: "FriendsSectionCellView", bundle: nil)
         friendTableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "friendsSectionHeader")
-
         
-        guard let user = FIRAuth.auth()?.currentUser else {
-            print("COULD NOT GET USER OPENING SETTINGS")
-            return
-        }
-        
-        if let name = user.displayName{
-            usernameTextField.text = name
-            oldUserName = name
-        }
+        let user = (FIRAuth.auth()?.currentUser)!
         
         usersRef = FIRDatabase.database().reference().child(Constants.USERSNODE)
-        let friendRequestQuery = usersRef.child(user.uid).child(Constants.USERFRIENDREQUESTSNODE).queryOrderedByValue()
-        friendRequestQuery.observeEventType(.ChildAdded, withBlock: {(snapshot)-> Void in
+        let friendRequestQueryRef = usersRef.child(user.uid).child(Constants.USERFRIENDREQUESTSNODE)
+        let friendRequestQuery = friendRequestQueryRef.queryOrderedByValue()
+        let friendReqHandle = friendRequestQuery.observeEventType(.ChildAdded, withBlock: {(snapshot)-> Void in
             if let name = snapshot.value as? String{
                 self.friendRequests.putPair((key: snapshot.key, value: name))
                 
@@ -68,9 +48,11 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FriendsCell
                 print("error fetching friend requests")
             }
         })
+        friendReqDetachInfo = FIRDetachInfo(ref: friendRequestQueryRef, handle: friendReqHandle)
         
-        let friendsQuery = usersRef.child(user.uid).child(Constants.USERFRIENDSNODE).queryOrderedByValue()
-        friendsQuery.observeSingleEventOfType(.ChildAdded, withBlock: {(snapshot) -> Void in
+        let friendsQueryRef = usersRef.child(user.uid).child(Constants.USERFRIENDSNODE)
+        let friendsQuery = friendsQueryRef.queryOrderedByValue()
+        let friendHandle = friendsQuery.observeEventType(.ChildAdded, withBlock: {(snapshot) -> Void in
             if let name = snapshot.value as? String{
                 self.friends.putPair((key: snapshot.key, value: name))
                 let curIndex = self.friends.getCount() - 1
@@ -82,64 +64,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FriendsCell
                 print("error fetching friends")
             }
         })
-        
-    }
-    
-    
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        print("closing first responder")
-        return true
-    }
-    
-    func updateUsername(name: String) {
-        oldUserName = name
-        
-        if let user = FIRAuth.auth()?.currentUser{
-            let changeRequest = user.profileChangeRequest()
-            
-            changeRequest.displayName = name
-            changeRequest.commitChangesWithCompletion({error in
-                if let error = error{
-                    print("COULD NOT CHANGE USERNAME: \(error.localizedDescription)")
-                } else {
-                    print("successfully changed username")
-                }
-            })
-            let ref = FIRDatabase.database().reference().child(Constants.USERNAMESNODE).child(user.uid)
-            ref.setValue(name)
-        }
-    }
-    
-    func textFieldDidEndEditing(textField: UITextField) {
-        let newName = textField.text
-        if newName == oldUserName {
-            return
-        }
-        
-        let ref = FIRDatabase.database().reference().child(Constants.USERNAMESNODE)
-        let query = ref.queryEqualToValue(newName)
-        query.observeSingleEventOfType(.Value, withBlock: {(snapshot) -> Void in
-            if let test = snapshot.value as? String{
-                print("CHECK USERNAME IS RETURNING: \(test)")
-                self.updateUsername(self.oldUserName!)
-                self.usernameTextField.text = ""
-                self.usernameTextField.placeholder = "username must be unique"
-            }
-        })
-        
-        updateUsername(newName!)
-    }
-    
-    
-    @IBAction func onSignOutClicked(sender: AnyObject){
-        let keychainWrapper = KeychainWrapper.standardKeychainAccess()
-        keychainWrapper.removeObjectForKey(Constants.PASSKEY)
-        keychainWrapper.removeObjectForKey(Constants.USERKEY)
-        
-        try! FIRAuth.auth()!.signOut()
-        
+        friendDetachInfo = FIRDetachInfo(ref: friendsQueryRef, handle: friendHandle)
     }
     
     func onFriendRequestAccepted(info: (key: String, value: String)?){
@@ -168,12 +93,13 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, FriendsCell
     }
     
     func addFriendButtonClicked(){
-        delegate.onAddFriendClicked(friends.getKeys())
+        let existingFriendsAndRequests = friends.getKeys() + friendRequests.getKeys()
+        delegate.onAddFriendClicked(existingFriendsAndRequests)
     }
-
+    
 }
 
-extension SettingsViewController: UITableViewDelegate{
+extension FriendsSettingsVC: UITableViewDelegate{
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
@@ -188,6 +114,9 @@ extension SettingsViewController: UITableViewDelegate{
         } else {
             cell.sectionLabel.text = "Friends"
             cell.showAddFriendButton()
+            if isAddFriendButtonDisabled{
+                cell.disableAddFriendButton()
+            }
         }
         
         return cell
@@ -218,7 +147,7 @@ extension SettingsViewController: UITableViewDelegate{
                 //delete the friend from the user's list
                 let friendsRef = usersRef.child(user.uid).child(Constants.USERFRIENDSNODE)
                 friendsRef.child(friendID).removeValue()
-            
+                
                 //delete the user from the friend's list
                 let newFriendsRef = usersRef.child(friendID).child(Constants.USERFRIENDSNODE)
                 newFriendsRef.child(user.uid).removeValue()
@@ -229,10 +158,10 @@ extension SettingsViewController: UITableViewDelegate{
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
     }
-
+    
 }
 
-extension SettingsViewController: UITableViewDataSource{
+extension FriendsSettingsVC: UITableViewDataSource{
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
@@ -258,8 +187,6 @@ extension SettingsViewController: UITableViewDataSource{
     }
 }
 
-protocol SettingsViewControllerDelegate{
-    func onAddFriendClicked(existingFriendIDS: [String])
+protocol FriendsSettingsVCDelegate{
+    func onAddFriendClicked(existingFriendsAndRequestsIDS: [String])
 }
-
-

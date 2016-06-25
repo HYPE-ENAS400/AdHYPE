@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Friends SettingsVC-->
+        <scene sceneID="rLF-aD-IdC">
+            <objects>
+                <viewController storyboardIdentifier="friendsSettingsView" id="v9L-Dh-CPh" customClass="FriendsSettingsVC" customModule="AdHype" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="M2p-cb-FDF"/>
+                        <viewControllerLayoutGuide type="bottom" id="tSz-28-fGF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xZK-YB-vEC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Yuj-Wr-orJ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendsCell" id="Z2D-ZN-fmq" customClass="FriendsCell" customModule="AdHype" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Z2D-ZN-fmq" id="BXz-O8-bsb">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zlh-Tt-xRi">
+                                                    <rect key="frame" x="20" y="8" width="42" height="28"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.3294117647" green="0.3294117647" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wlg-dT-k2g">
+                                                    <rect key="frame" x="555" y="8" width="27" height="27"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="27" id="DKb-H9-gAX"/>
+                                                        <constraint firstAttribute="height" constant="27" id="hab-d6-m9L"/>
+                                                    </constraints>
+                                                    <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
+                                                    <state key="normal" image="GRAYcheck_button"/>
+                                                    <connections>
+                                                        <action selector="onFriendRequestAcceptedButtonClicked:" destination="Z2D-ZN-fmq" eventType="touchUpInside" id="WdH-bT-1Ju"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="wlg-dT-k2g" firstAttribute="trailing" secondItem="BXz-O8-bsb" secondAttribute="trailingMargin" constant="-10" id="BQg-WL-FNS"/>
+                                                <constraint firstItem="zlh-Tt-xRi" firstAttribute="top" secondItem="BXz-O8-bsb" secondAttribute="topMargin" id="Mgh-mP-W6F"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="zlh-Tt-xRi" secondAttribute="bottom" id="kae-12-Jop"/>
+                                                <constraint firstItem="zlh-Tt-xRi" firstAttribute="leading" secondItem="BXz-O8-bsb" secondAttribute="leadingMargin" constant="12" id="oIp-Pr-Jwf"/>
+                                                <constraint firstItem="wlg-dT-k2g" firstAttribute="centerY" secondItem="BXz-O8-bsb" secondAttribute="centerY" id="zIA-lU-TwM"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="confirmRequestButton" destination="wlg-dT-k2g" id="3iH-cy-5fg"/>
+                                            <outlet property="nameLabel" destination="zlh-Tt-xRi" id="9tK-o7-dM8"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                        <integer key="value" value="-2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Yuj-Wr-orJ" firstAttribute="leading" secondItem="xZK-YB-vEC" secondAttribute="leading" id="JOH-B3-LK2"/>
+                            <constraint firstItem="Yuj-Wr-orJ" firstAttribute="top" secondItem="M2p-cb-FDF" secondAttribute="bottom" id="f6Y-Nz-ExV"/>
+                            <constraint firstItem="tSz-28-fGF" firstAttribute="top" secondItem="Yuj-Wr-orJ" secondAttribute="bottom" id="wYQ-I9-s7k"/>
+                            <constraint firstAttribute="trailing" secondItem="Yuj-Wr-orJ" secondAttribute="trailing" id="zzI-8C-pQv"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                <integer key="value" value="-2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="friendTableView" destination="Yuj-Wr-orJ" id="yPE-gT-P3w"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pvg-T2-gne" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="474" y="552"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="GRAYcheck_button" width="57" height="57"/>
+    </resources>
+</document>

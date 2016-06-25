@@ -10,61 +10,70 @@ import UIKit
 import pop
 import Firebase
 
-enum VCTransition {
+enum NavVCTransition {
     case ToSettings
     case ToGrid
     case GridToMain
     case SettingsToMain
 }
 
-class HypeNavViewController: UIViewController, MainViewControllerDelegate, GridViewControllerDelegate, SettingsViewControllerDelegate {
+enum LogInState {
+    case loggedOut
+    case loggedIn
+    case signedUp
+}
+
+class HypeNavViewController: UIViewController, MainViewControllerDelegate, GridViewControllerDelegate, LoginViewControllerDelegate {
     
     @IBOutlet var gridButton: UIButton!
     @IBOutlet var hypeButton: UIButton!
     @IBOutlet var settingsButton: UIButton!
-    var userName: String?
-    var password: String?
-    var userUID: String!{
-        didSet{
-//            mainViewController?.userUID = userUID
-//            gridViewController?.userUID = userUID
-//            settingsViewController?.uid = userUID
-        }
-    }
-    
-    var socialAd: HypeAd!
-    
-    var mainViewController: MainViewController?
-    var settingsViewController: SettingsViewController?
-    var gridViewController: GridViewController?
-    var vcTransition: VCTransition?
-    
-    var onAdSocialVCClosedFunc: ((canceled: Bool)->Void)?
-    
-    var friendIDS: [String]?
-    
     @IBOutlet var hypeBarView: UIView!
-    
     @IBOutlet var containerView: UIView!
     
-    override func viewDidAppear(animated: Bool) {
+    var mainViewController: MainViewController?
+    var settingsViewController: SettingsNavVC?
+    var gridViewController: GridViewController?
+    var vcTransition: NavVCTransition?
+    
+    var onAdSocialVCClosedFunc: ((canceled: Bool)->Void)?
+    var friendIDS: [String]?
+    var socialAd: HypeAd!
+    
+    var userInterests = SelectionDataSource<Bool>()
+    
+    var wasSwipeUp: Bool!
+    
+    private var logInState = LogInState.loggedOut
+    
+    override func viewDidLoad() {
         
         //FOR SOME REASON THIS IS GETTING CALLED TWICE ON STARTUP?
         FIRAuth.auth()?.addAuthStateDidChangeListener{auth, user in
             if let authUser = user {
                 self.hypeBarView.hidden = false
+                self.settingsButton.alpha = 0.7
+                self.hypeButton.alpha = 1
+                self.gridButton.alpha = 0.7
                 
-                //Case where there is not a pre-existing VC
-                if self.activeViewController == nil{
-                    self.gridViewController?.initGridView(authUser.uid)
-                    self.mainViewController?.initMainView(authUser.uid)
+                if self.logInState == .signedUp{
                     self.activeViewController = self.mainViewController
-                    self.settingsButton.alpha = 0.7
-                    self.hypeButton.alpha = 1
-                    self.gridButton.alpha = 0.7
+                    self.createUserNodes(authUser.uid)
+                    self.logInState == .loggedIn
+                } else if self.logInState == .loggedOut{
+                    self.activeViewController = self.mainViewController
+                    self.initializeHype(authUser.uid)
+                    self.logInState = .loggedIn
                 }
                 
             } else {
+                
+                if self.logInState != .loggedOut{
+                    self.logInState = .loggedOut
+                    self.resetViewControllers()
+                }
+
+                
                 let keychainWrapper = KeychainWrapper.standardKeychainAccess()
                 
                 if let uN = keychainWrapper.stringForKey(Constants.USERKEY), pW = keychainWrapper.stringForKey(Constants.PASSKEY){
@@ -81,10 +90,108 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate, GridV
             }
         }
         
-        super.viewDidAppear(animated)
+        super.viewDidLoad()
         
     }
-
+    
+    func initializeHype(uid: String){
+        // get user interests
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+            
+            //once user interests and nextNode are loaded, can start getting Ads
+            var nodesLoaded = 0{
+                didSet{
+                    if nodesLoaded == 2{
+                        self.mainViewController?.queryAdMetaData()
+                    }
+                }
+            }
+            
+            //do this to maintain desired order
+            let userInterestKeys = ["Discovery", "Animals", "Apparel", "Apps & Games", "Babies & Kids", "Cars", "Celebrities", "Entertainment", "Fitness & Health", "Food & Cooking", "Lifestyle & Home", "News", "Outdoors", "Sports", "Tech", "Travel"]
+            
+            for key in userInterestKeys{
+                self.userInterests.putPair((key, true))
+            }
+            let userRef = FIRDatabase.database().reference().child(Constants.USERSNODE).child(uid)
+            
+            let interestsRef = userRef.child(Constants.USERINTERESTSNODE)
+            interestsRef.observeSingleEventOfType(.Value, withBlock: {(snapshot)->Void in
+                
+                if let ar = snapshot.value as? [String : Bool]{
+                    for (interest, liked) in ar{
+                        self.userInterests.setValueForKey(interest, value: liked)
+                    }
+                    self.mainViewController?.userInterests = self.userInterests
+                    nodesLoaded += 1
+                } else{
+                    print("COULD NOT GET USER INTERESTS")
+                }
+                
+            })
+            
+            let nextAdRef = userRef.child(Constants.USERNEXTADKEY)
+            nextAdRef.observeSingleEventOfType(.Value, withBlock: {(snapshot) -> Void in
+                if let key = snapshot.value as? String{
+                    self.mainViewController?.nextQueueKey = key
+                    nodesLoaded += 1
+                } else{
+                    print("COULD NOT GET NEXT AD QUEUE KEY")
+                }
+            })
+            
+        }
+    }
+    
+    
+    func onSignUpClicked(){
+        logInState = .signedUp
+    }
+    
+    private func createUserNodes(uid: String){
+        
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+            //once both interests and nextAdNode are set, initialize hype ads
+            var nodesSet = 0{
+                didSet{
+                    if nodesSet == 2{
+                        self.initializeHype(uid)
+                    }
+                }
+            }
+            let baseRef = FIRDatabase.database().reference()
+            let userRef = baseRef.child(Constants.USERSNODE).child(uid)
+            userRef.child(Constants.CONTENTCOUNTNODE).setValue(0)
+            userRef.child(Constants.ADVIEWEDCOUNTNODE).setValue(0)
+            
+            let defaultInterestDict = ["Discovery" : true, "Animals": true, "Apparel": true, "Apps & Games": true, "Babies & Kids": true, "Cars": true, "Celebrities": true, "Entertainment": true, "Fitness & Health": true, "Food & Cooking": true, "Lifestyle & Home": true, "News": true, "Outdoors": true, "Sports": true, "Tech": true, "Travel": true]
+            userRef.child(Constants.USERINTERESTSNODE).setValue(defaultInterestDict, withCompletionBlock: {(error, ref)-> Void in
+                if let er = error{
+                    print("ERROR setting user preferences: \(er.localizedDescription)")
+                } else{
+                    nodesSet += 1
+                }
+            })
+            
+            let firstAdQuery = baseRef.child(Constants.ADSNODE).queryOrderedByKey().queryLimitedToFirst(1)
+            firstAdQuery.observeSingleEventOfType(.ChildAdded, withBlock: {(snapshot) -> Void in
+                userRef.child(Constants.USERNEXTADKEY).setValue(snapshot.key, withCompletionBlock: { (error, reference) -> Void in
+                    if let er = error{
+                        print("ERROR setting first AdKey: \(er.localizedDescription)")
+                    } else{
+                        nodesSet += 1
+                    }
+                })
+            })
+        }
+    }
+    
+    private func resetViewControllers(){
+        gridViewController?.clearGridView()
+        mainViewController?.resetMainView()
+    }
     
     private var activeViewController: UIViewController?{
         didSet{
@@ -133,24 +240,32 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate, GridV
     
     
     @IBAction func onSettingButtonClicked(sender: AnyObject){
-        if(activeViewController != settingsViewController){
-            vcTransition = VCTransition.ToSettings
-            activeViewController = settingsViewController
-            settingsButton.alpha = 1
-            hypeButton.alpha = 0.7
-            gridButton.alpha = 0.7
+        guard activeViewController != settingsViewController else{
+            return
         }
+        
+        let storyboard = UIStoryboard(name: "Settings Nav View", bundle:nil)
+        settingsViewController = storyboard.instantiateViewControllerWithIdentifier("settingsNavVC") as? SettingsNavVC
+        settingsViewController?.userInterests = userInterests
+        hypeBarView.layer.shadowOpacity = 0.0
+        vcTransition = NavVCTransition.ToSettings
+        settingsButton.alpha = 1
+        hypeButton.alpha = 0.7
+        gridButton.alpha = 0.7
+        activeViewController = settingsViewController
 
     }
     
     @IBAction func onHypeButtonClicked(sender: AnyObject){
         if(activeViewController != mainViewController){
+            hypeBarView.layer.shadowOpacity = 1.0
             if(activeViewController == gridViewController){
-                vcTransition = VCTransition.GridToMain
+                vcTransition = NavVCTransition.GridToMain
             } else if (activeViewController == settingsViewController){
-                vcTransition = VCTransition.SettingsToMain
+                vcTransition = NavVCTransition.SettingsToMain
             }
             activeViewController = mainViewController
+            settingsViewController = nil
             settingsButton.alpha = 0.7
             hypeButton.alpha = 1
             gridButton.alpha = 0.7
@@ -160,7 +275,9 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate, GridV
     @IBAction func onGridButtonClicked(sender: AnyObject){
         
         if(activeViewController != gridViewController){
-            vcTransition = VCTransition.ToGrid
+            settingsViewController = nil
+            hypeBarView.layer.shadowOpacity = 1.0
+            vcTransition = NavVCTransition.ToGrid
             activeViewController = gridViewController
             settingsButton.alpha = 0.7
             hypeButton.alpha = 0.7
@@ -173,13 +290,12 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate, GridV
         if segue.identifier == "showAdSocialViewSegue" {
             let newVC = segue.destinationViewController as! SocialNavVC
             newVC.ad = socialAd
+            newVC.wasSwipeUp = wasSwipeUp
             
         }
-        if segue.identifier == "showUsersVCSegue" {
-            if let ids = friendIDS{
-                let newVC = segue.destinationViewController as! UserTableViewController
-                newVC.existingFriendsIDS = ids
-            }
+        if segue.identifier == "logInSegue" {
+            let newVC = segue.destinationViewController as! LoginViewController
+            newVC.delegate = self
         }
     }
     
@@ -188,6 +304,10 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate, GridV
     }
     
     @IBAction func unwindFromAdSocialViewSegue(segue: UIStoryboardSegue){
+        if !wasSwipeUp {
+            return
+        }
+        
         if(segue.sourceViewController .isKindOfClass(SocialNavVC)){
             let sVC = segue.sourceViewController as! SocialNavVC
             if let fun = onAdSocialVCClosedFunc{
@@ -200,23 +320,19 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate, GridV
         socialAd = nil
     }
     
-    @IBAction func unwindFromUserTableViewSegue(segue: UIStoryboardSegue){
-        friendIDS = nil
-    }
-    
     func onSwipeUp(ad: HypeAd, onClose: (canceled: Bool)->Void){
         socialAd = ad
+        wasSwipeUp = true
         self.performSegueWithIdentifier("showAdSocialViewSegue", sender: nil)
         onAdSocialVCClosedFunc = onClose
     }
     
     func onAdDoubleClicked(ad: HypeAd) {
         socialAd = ad
+        wasSwipeUp = false
         self.performSegueWithIdentifier("showAdSocialViewSegue", sender: nil)
     }
-    func onAddFriendClicked(existingFriendIDS: [String]){
-        friendIDS = existingFriendIDS
-        self.performSegueWithIdentifier("showUsersVCSegue", sender: nil)
-    }
+    
+    
     
 }

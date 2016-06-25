@@ -60,8 +60,8 @@ class ImageGridCell: UICollectionViewCell{
             
         }
         else {
+            imageView.image = nil
             spinner.startAnimating()
-            
         }
     }
     

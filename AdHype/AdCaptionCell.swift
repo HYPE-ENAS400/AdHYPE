@@ -15,14 +15,16 @@ class AdCaptionCell: UITableViewCell{
     @IBOutlet weak var adUpVoteButton: UIButton!
     @IBOutlet weak var adVoteLabel: UILabel!
     
-    
-    
-    func upButtonClicked() {
-        
+    func changeButtonsForUpClicked(){
         adUpVoteButton.setImage(UIImage(named: "REDup_button"), forState: UIControlState.Normal)
         adDownVoteButton.setImage(UIImage(named: "GREYdown_button"), forState: UIControlState.Normal)
         adUpVoteButton.enabled = false
         adDownVoteButton.enabled = true
+    }
+    
+    func upButtonClicked() {
+        
+        changeButtonsForUpClicked()
         
         var votes: Int = Int(adVoteLabel.text!)!
         votes += 1
@@ -30,11 +32,16 @@ class AdCaptionCell: UITableViewCell{
         
     }
     
-    func downButtonClicked(){
+    func changeButtonsForDownClicked(){
         adDownVoteButton.setImage(UIImage(named: "REDdown_button"), forState: UIControlState.Normal)
         adUpVoteButton.setImage(UIImage(named: "GREYup_button"), forState: UIControlState.Normal)
         adDownVoteButton.enabled = false
         adUpVoteButton.enabled = true
+    }
+    
+    func downButtonClicked(){
+
+        changeButtonsForDownClicked()
         
         var votes: Int = Int(adVoteLabel.text!)!
         votes -= 1

@@ -8,18 +8,21 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet var signUpButton: UIButton!
     @IBOutlet var logInButton: UIButton!
     @IBOutlet var errorLabel: UILabel!
-
-    var userUID: String!
+    
     var userName: String!
     var password: String!
     
     var ref:FIRDatabaseReference!
     
+    var delegate: LoginViewControllerDelegate!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         userNameTextEdit.layer.borderColor = UIColor.whiteColor().CGColor
         userNameTextEdit.layer.cornerRadius = CGFloat(Constants.DEFAULTCORNERRADIUS)
         userNameTextEdit.layer.borderWidth = CGFloat(Constants.DEFAULTBORDERWIDTH)
+        
         
         passwordTextEdit.layer.borderColor = UIColor.whiteColor().CGColor
         passwordTextEdit.layer.cornerRadius = CGFloat(Constants.DEFAULTCORNERRADIUS)
@@ -75,9 +78,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
                 keychainWrapper.setString(self.userName, forKey: Constants.USERKEY)
                 keychainWrapper.setString(self.password, forKey: Constants.PASSKEY)
                 
-                self.userUID = user.uid
                 
-                print("Successfully logged in user account with uid: \(self.userUID)")
+                print("Successfully logged in user account with uid: \(user.uid)")
                 self.performSegueWithIdentifier("unwindFromLogInSegue", sender: nil)
             }
         })
@@ -92,6 +94,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         
         userName = userNameTextEdit.text
         password = passwordTextEdit.text
+        
+        delegate.onSignUpClicked()
         
         FIRAuth.auth()?.createUserWithEmail(userName, password: password,
             completion: { (user, error) -> Void in
@@ -110,16 +114,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
                 keychainWrapper.setString(self.userName, forKey: Constants.USERKEY)
                 keychainWrapper.setString(self.password, forKey: Constants.PASSKEY)
 
-                self.userUID = user.uid
                 
-                let userRef = self.ref.child("users").child(user.uid)
-//                userRef.child("userName").setValue(self.userName)
-                userRef.child("contentCount").setValue(0)
-                userRef.child("adsViewedCount").setValue(0)
+//                self.initializeUserNodes(user.uid)
                 
-                generateDemoAddQueue(user.uid)
                 
-                print("Successfully created user account with uid: \(self.userUID)")
+                
+                print("Successfully created user account with uid: \(user.uid)")
                 self.performSegueWithIdentifier("unwindFromLogInSegue", sender: nil)
             }
         })
@@ -145,16 +145,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "unwindFromLogInSegue" {
-            
-            //TODO IS THIS NECESSARY***** OR CAN PUT ON AUTHOBSERVER?
-            let navViewController = segue.destinationViewController as! HypeNavViewController
-            navViewController.userUID = userUID
-            navViewController.userName = userName
-            navViewController.password = password
-
-        }
-    }
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if segue.identifier == "unwindFromLogInSegue" {
+//            
+//            //TODO IS THIS NECESSARY***** OR CAN PUT ON AUTHOBSERVER?
+////            let navViewController = segue.destinationViewController as! HypeNavViewController
 //
+//        }
+//    }
+}
+
+
+protocol LoginViewControllerDelegate{
+    func onSignUpClicked()
 }

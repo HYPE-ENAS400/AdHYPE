@@ -19,12 +19,14 @@ class AdSocialViewController: UIViewController {
     private var captionHiddenFrame: CGRect!
     
     private var adCaptions = [(text: String, netVotes: Int, ref: String)]()
-//    private var adCaptions = [String]()
+    private var adCaptionDetachInfo: FIRDetachInfo?
     
     var ad: HypeAd!
     var canPublish = false
+    var wasSwipeUp: Bool!
     
     var delegate: AdSocialViewControllerDelegate!
+    var adVoteHistoryRef: FIRDatabaseReference!
     
     var isCaptionVisible: Bool = false {
         
@@ -35,7 +37,7 @@ class AdSocialViewController: UIViewController {
             }
             if isCaptionVisible{
                 self.captionTextView.hidden = false
-                UIView.animateWithDuration(0.2, delay: 0.0 , options: .CurveEaseOut, animations: {
+                UIView.animateWithDuration(0.3, delay: 0.0 , options: .CurveEaseOut, animations: {
                     self.captionTextView.frame = self.captionVisibleFrame
                     self.captionTextView.alpha = 0.8
                     
@@ -44,7 +46,7 @@ class AdSocialViewController: UIViewController {
         
                 })
             } else {
-                UIView.animateWithDuration(0.2, delay: 0.0 , options: .CurveEaseOut, animations: {
+                UIView.animateWithDuration(0.3, delay: 0.0 , options: .CurveEaseOut, animations: {
                     self.captionTextView.frame = self.captionHiddenFrame
                     self.captionTextView.alpha = 0
                     
@@ -74,6 +76,7 @@ class AdSocialViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         captionTextView.contentInset.top = 0
         addCaptionButton.layer.cornerRadius = (addCaptionButton.bounds.size.height/2)
         addCaptionButton.layer.shadowRadius = 4
@@ -81,31 +84,47 @@ class AdSocialViewController: UIViewController {
         addCaptionButton.layer.shadowOffset = CGSizeZero
         
         tableView.rowHeight = 70
-        let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        tableView.contentInset = insets
+//        let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//        tableView.contentInset = insets
         
         tableView.dataSource = self
         tableView.delegate = self
         captionTextView.delegate = self
         
-        captionVisibleFrame = self.captionTextView.frame
-        captionHiddenFrame = captionVisibleFrame
-        captionHiddenFrame.origin.y += 70
-        
-//        for _ in 1..<15 {
-//            adCaptions.append("blah blah blah blah blah blah blah blah blah blah")
-//        }
-        
         adImageView.image = ad.getImage()
+        let id = (FIRAuth.auth()?.currentUser?.uid)!
+        adVoteHistoryRef = FIRDatabase.database().reference().child(Constants.USERSNODE).child(id).child(Constants.ADCAPTIONVOTEHISTORYNODE).child(ad.getKey())
         
         ad.fetchAdCaptions({(result: FetchCaptionResult) -> Void in
             if case let .Success(newVal) = result{
                 self.adCaptions.append(newVal)
                 self.tableView.reloadData()
             }
-        })
+            }, getDetachInfo: {(detachInfo: FIRDetachInfo) -> Void in
+                self.adCaptionDetachInfo = detachInfo
+            }
+        )
     }
-
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        captionVisibleFrame = captionTextView.frame
+        captionHiddenFrame = captionVisibleFrame
+        captionHiddenFrame.origin.y += 70
+        if captionTextView.hidden{
+            captionTextView.frame = captionHiddenFrame
+        } else {
+            captionTextView.frame = captionVisibleFrame
+        }
+        
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let detachInfo = adCaptionDetachInfo{
+            detachInfo.ref.removeObserverWithHandle(detachInfo.handle)
+        }
+    }
     
     @IBAction func onCaptionTextViewSwipeDown(sender: AnyObject) {
         isCaptionVisible = false
@@ -119,7 +138,6 @@ class AdSocialViewController: UIViewController {
     }
 
     @IBAction func dismissKeyboardOnImageTap(sender: AnyObject) {
-//        isAddButtonVisible = true
         captionTextView.resignFirstResponder()
     }
 
@@ -127,38 +145,15 @@ class AdSocialViewController: UIViewController {
         delegate.onCloseClicked()
     }
     
-    
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        
-//        if segue.identifier == "onSendToFriendsSegue" {
-//            let newVC = segue.destinationViewController as! FriendsTableViewController
-//            newVC.adName = ad.getAdName()
-//            if isCaptionVisible {
-//                newVC.captionText = captionTextView.text
-//                newVC.canPublish = captionTextView.editable
-//            }
-//        }
-//    }
 
     @IBAction func onClickSendButton(sender: AnyObject) {
         
         if isCaptionVisible{
-            delegate.onSendClicked(ad.getAdName(), caption: captionTextView.text, canPublish: captionTextView.editable)
+            delegate.onSendClicked(captionTextView.text, canPublish: captionTextView.editable)
         } else {
-            delegate.onSendClicked(ad.getAdName(), caption: nil, canPublish: false)
+            delegate.onSendClicked(nil, canPublish: false)
         }
         
-//        self.performSegueWithIdentifier("onSendToFriendsSegue", sender: nil)
-        
-//        if captionTextView.editable == true{
-//            //create a new comment
-//            let commentRef = ad.getAdDatRef().child(Constants.ADCOMMENTSNODE).childByAutoId()
-//            commentRef.child(Constants.ADCOMMENTTEXTNODE).setValue(captionTextView.text)
-//            commentRef.child(Constants.ADCOMMENTVOTENODE).setValue(0)
-//        }
-//        
-//        didCancel = false
-//        self.performSegueWithIdentifier("unwindFromAdSocialViewSegue", sender: nil)
     }
     
 
@@ -173,8 +168,13 @@ class AdSocialViewController: UIViewController {
         cell.upButtonClicked()
         adCaptions[index].netVotes += 1
         
-        let ref = ad.getAdDatRef().child(Constants.ADCOMMENTSNODE).child(adCaptions[index].ref).child(Constants.ADCOMMENTVOTENODE)
-        ref.setValue(adCaptions[index].netVotes)
+        let ref = ad.getAdPubCommentsRef().child(Constants.ADCOMMENTSNODE).child(adCaptions[index].ref).child(Constants.ADCOMMENTVOTENODE)
+        let newVal = 0 - adCaptions[index].netVotes
+        ref.setValue(newVal)
+        
+        if !wasSwipeUp{
+            adVoteHistoryRef.child(adCaptions[index].ref).setValue(true)
+        }
     }
     
     // NOTE If cells are deleted or added, then the indexpath of the cell will not match the sender tag
@@ -187,8 +187,13 @@ class AdSocialViewController: UIViewController {
         cell.downButtonClicked()
         adCaptions[index].netVotes -= 1
         
-        let ref = ad.getAdDatRef().child(Constants.ADCOMMENTSNODE).child(adCaptions[index].ref).child(Constants.ADCOMMENTVOTENODE)
-        ref.setValue(adCaptions[index].netVotes)
+        let ref = ad.getAdPubCommentsRef().child(Constants.ADCOMMENTSNODE).child(adCaptions[index].ref).child(Constants.ADCOMMENTVOTENODE)
+        let newVal = 0 - adCaptions[index].netVotes
+        ref.setValue(newVal)
+        
+        if !wasSwipeUp{
+            adVoteHistoryRef.child(adCaptions[index].ref).setValue(false)
+        }
 
     }
     
@@ -199,7 +204,6 @@ class AdSocialViewController: UIViewController {
 extension AdSocialViewController: UITextViewDelegate{
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if(text == "\n"){
-//            isAddButtonVisible = true
             captionTextView.resignFirstResponder()
             return false
         }
@@ -219,8 +223,7 @@ extension AdSocialViewController: UITextViewDelegate{
 extension AdSocialViewController: UITableViewDelegate{
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
-//        captionTextView.text = adCaptions[indexPath.row]
+
         captionTextView.text = adCaptions[indexPath.row].text
         isCaptionVisible = true
         captionTextView.editable = false
@@ -236,12 +239,21 @@ extension AdSocialViewController: UITableViewDataSource{
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("AdCaptionCell", forIndexPath: indexPath) as! AdCaptionCell
         
+        let ref = adVoteHistoryRef.child(adCaptions[indexPath.row].ref)
+        ref.observeSingleEventOfType(.Value, withBlock: {(snapshot)->Void in
+            if let vote = snapshot.value as? Bool {
+                if vote{
+                    cell.changeButtonsForUpClicked()
+                }else{
+                    cell.changeButtonsForDownClicked()
+                }
+            }
+        })
+        
         cell.adUpVoteButton.tag = indexPath.row
         cell.adDownVoteButton.tag = indexPath.row
         
-        
         cell.adCaptionLabel.text = adCaptions[indexPath.row].text
-//        cell.adCaptionLabel.text = adCaptions[indexPath.row]
         cell.adVoteLabel.text = String(adCaptions[indexPath.row].netVotes)
         
         return cell
@@ -251,7 +263,7 @@ extension AdSocialViewController: UITableViewDataSource{
 
 protocol AdSocialViewControllerDelegate{
     func onCloseClicked()
-    func onSendClicked(adName: String, caption: String?, canPublish: Bool)
+    func onSendClicked(caption: String?, canPublish: Bool)
 }
 
 

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Help SettingsVC-->
+        <scene sceneID="fas-Kf-5kM">
+            <objects>
+                <viewController storyboardIdentifier="helpSettingsView" id="XBP-Q9-Ema" customClass="HelpSettingsVC" customModule="AdHype" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fhG-TW-8yr"/>
+                        <viewControllerLayoutGuide type="bottom" id="qeY-pI-WvS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3Ug-kJ-a90">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rTA-Kf-XWz">
+                                <rect key="frame" x="0.0" y="20" width="600" height="450"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J9Y-TL-KgN">
+                                        <rect key="frame" x="12" y="12" width="576" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="80" id="Qzg-jF-Ze8"/>
+                                        </constraints>
+                                    </pickerView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jz5-Y5-jO6">
+                                        <rect key="frame" x="12" y="96" width="576" height="342"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="jz5-Y5-jO6" firstAttribute="leading" secondItem="rTA-Kf-XWz" secondAttribute="leading" constant="12" id="97y-GG-Ez5"/>
+                                    <constraint firstItem="J9Y-TL-KgN" firstAttribute="top" secondItem="rTA-Kf-XWz" secondAttribute="top" constant="12" id="IN3-xN-TEd"/>
+                                    <constraint firstAttribute="bottom" secondItem="jz5-Y5-jO6" secondAttribute="bottom" constant="12" id="NSx-2h-Ulp"/>
+                                    <constraint firstAttribute="trailing" secondItem="jz5-Y5-jO6" secondAttribute="trailing" constant="12" id="OnN-Ig-zqZ"/>
+                                    <constraint firstItem="jz5-Y5-jO6" firstAttribute="top" secondItem="J9Y-TL-KgN" secondAttribute="bottom" constant="4" id="adG-dp-Kyn"/>
+                                    <constraint firstItem="J9Y-TL-KgN" firstAttribute="leading" secondItem="rTA-Kf-XWz" secondAttribute="leading" constant="12" id="dCM-1S-uVh"/>
+                                    <constraint firstAttribute="trailing" secondItem="J9Y-TL-KgN" secondAttribute="trailing" constant="12" id="owC-OX-J5C"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                        <integer key="value" value="-2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbe-Qx-W81">
+                                <rect key="frame" x="35" y="480" width="530" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="DVY-ZE-gN4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="20"/>
+                                <state key="normal" title="submit">
+                                    <color key="titleColor" red="0.7843137255" green="0.7843137255" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="onSubmitFeedbackButtonClicked:" destination="XBP-Q9-Ema" eventType="touchUpInside" id="bbR-vf-9oC"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fbe-Qx-W81" firstAttribute="leading" secondItem="3Ug-kJ-a90" secondAttribute="leadingMargin" constant="15" id="8bN-kz-ucT"/>
+                            <constraint firstItem="rTA-Kf-XWz" firstAttribute="top" secondItem="fhG-TW-8yr" secondAttribute="bottom" id="9iF-AV-AKv"/>
+                            <constraint firstItem="fbe-Qx-W81" firstAttribute="top" secondItem="rTA-Kf-XWz" secondAttribute="bottom" constant="10" id="K68-3P-fse"/>
+                            <constraint firstItem="rTA-Kf-XWz" firstAttribute="leading" secondItem="3Ug-kJ-a90" secondAttribute="leading" id="PW0-IL-d2O"/>
+                            <constraint firstItem="qeY-pI-WvS" firstAttribute="top" secondItem="fbe-Qx-W81" secondAttribute="bottom" constant="80" id="si3-2O-Zuw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fbe-Qx-W81" secondAttribute="trailing" constant="15" id="wrk-tt-gza"/>
+                            <constraint firstAttribute="trailing" secondItem="rTA-Kf-XWz" secondAttribute="trailing" id="yAS-4h-0mB"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                <integer key="value" value="-2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <connections>
+                        <outlet property="commentTypePicker" destination="J9Y-TL-KgN" id="T9B-YU-enK"/>
+                        <outlet property="feedbackTextView" destination="jz5-Y5-jO6" id="ZNi-Tr-2fW"/>
+                        <outlet property="submitFeedbackButton" destination="fbe-Qx-W81" id="2RX-Rj-o18"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7uj-kI-IXM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="369" y="364"/>
+        </scene>
+    </scenes>
+</document>

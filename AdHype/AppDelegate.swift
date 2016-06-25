@@ -23,13 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let navViewController = window!.rootViewController as! HypeNavViewController
         
-        var storyboard = UIStoryboard(name: "Settings View", bundle:nil)
-        let settingsViewController = storyboard.instantiateViewControllerWithIdentifier("settingsVC") as! SettingsViewController
-        settingsViewController.delegate = navViewController
+//        var storyboard = UIStoryboard(name: "Settings Nav View", bundle:nil)
+//        let settingsViewController = storyboard.instantiateViewControllerWithIdentifier("settingsNavVC") as! SettingsNavVC
+//        
+//        navViewController.settingsViewController = settingsViewController
         
-        navViewController.settingsViewController = settingsViewController
-        
-        storyboard = UIStoryboard(name: "Main Hype View", bundle:nil)
+        var storyboard = UIStoryboard(name: "Main Hype View", bundle:nil)
         let mainViewController = storyboard.instantiateViewControllerWithIdentifier("mainHypeView") as! MainViewController
         mainViewController.delegate = navViewController
         

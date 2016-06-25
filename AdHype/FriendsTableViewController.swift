@@ -9,13 +9,16 @@
 import UIKit
 import Firebase
 
-class FriendsTableViewController: UIViewController, UsersCellDelegate{
+class FriendsTableViewController: UIViewController{
 
-    @IBOutlet weak var friendTableView: UITableView!
     
-    var friends = KeyValueArrays()
+    @IBOutlet weak var friendTableView: SelectionTableView!
+    
+    var friends = SelectionDataSource<String>()
     
     var adName: String!
+    var adKey: String!
+    
     var captionText: String?
     var canPublish = false
     
@@ -23,7 +26,8 @@ class FriendsTableViewController: UIViewController, UsersCellDelegate{
     var delegate: FriendsTableViewControllerDelegate!
     
     override func viewDidLoad() {
-        friendTableView.dataSource = self
+        
+        friendTableView.selectionDelegate = self
         
         guard let user = FIRAuth.auth()?.currentUser else {
             print("COULD NOT GET USER FOR SEND TO FRIENDS")
@@ -48,15 +52,6 @@ class FriendsTableViewController: UIViewController, UsersCellDelegate{
         })
     }
     
-    func onUserButtonClicked(isSelected: Bool, indexNumber: Int){
-        if isSelected{
-            recipientIDS.append(friends.getKeyAtIndex(indexNumber))
-        } else {
-            if let index = recipientIDS.indexOf(friends.getKeyAtIndex(indexNumber)){
-                recipientIDS.removeAtIndex(index)
-            }
-        }
-    }
     @IBAction func onSendButtonClicked(sender: AnyObject) {
         let usersRef = FIRDatabase.database().reference().child(Constants.USERSNODE)
         
@@ -65,19 +60,25 @@ class FriendsTableViewController: UIViewController, UsersCellDelegate{
         }
         
         if recipientIDS[0] == Constants.PUBLISHID{
-            let commentRef = FIRDatabase.database().reference().child(Constants.ADSNODE).child(adName).child(Constants.ADCOMMENTSNODE).childByAutoId()
+            let adRef = FIRDatabase.database().reference().child(Constants.PUBLICADCOMMENTS).child(adKey)
+            
+            //WHY WAS THIS HERE?
+//            adRef.child(Constants.ADNAMENODE).setValue(adName)
+            
+            let commentRef = adRef.child(Constants.ADCOMMENTSNODE).childByAutoId()
+            
             commentRef.child(Constants.ADCOMMENTTEXTNODE).setValue(captionText)
             commentRef.child(Constants.ADCOMMENTVOTENODE).setValue(0)
             recipientIDS.removeFirst()
         }
         
         for i in recipientIDS{
-            let recRef = usersRef.child(i).child(Constants.ADQUEUENODE).childByAutoId()
-            recRef.setPriority(1)
-            recRef.child(Constants.ADNAMENODE).setValue(adName)
+            let recRef = usersRef.child(i).child(Constants.RECEIVEDADQUEUENODE).child(adKey)
+            recRef.child(Constants.ADNAMENODE).setValue(adName + ".jpg")
             if let caption = captionText{
-                recRef.child(Constants.ADCOMMENTTEXTNODE).setValue(caption)
+                recRef.child(Constants.ADCAPTIONNODE).setValue(caption)
             }
+            recRef.setPriority(Constants.FROMFRIENDPRIORITY)
         }
         delegate.onSentToFriends()
     }
@@ -88,21 +89,27 @@ class FriendsTableViewController: UIViewController, UsersCellDelegate{
     
 }
 
-extension FriendsTableViewController: UITableViewDataSource{
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension FriendsTableViewController: SelectionTableViewDelegate{
+    
+    func getNumberOfCells() -> Int {
         return friends.getCount()
     }
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("userCell") as! UsersCell
-        
-        cell.initCell(indexPath.row)
-        if indexPath.row == 0 && canPublish{
-            cell.backgroundColor = UIColor.groupTableViewBackgroundColor()
+    func getCellColorAtIndex(index: Int) -> UIColor? {
+        if canPublish && index == 0{
+            return UIColor.groupTableViewBackgroundColor()
         }
-        cell.userCell.text = friends.getValueAtIndex(indexPath.row)
-        cell.delegate = self
-        
-        return cell
+        return nil
+    }
+    func getCellTextAtIndex(index: Int) -> String? {
+        return friends.getValueAtIndex(index)
+    }
+    func cellAtIndexDeselected(index: Int) {
+        if let delIndex = recipientIDS.indexOf(friends.getKeyAtIndex(index)){
+            recipientIDS.removeAtIndex(delIndex)
+        }
+    }
+    func cellAtIndexSelected(index: Int) {
+        recipientIDS.append(friends.getKeyAtIndex(index))
     }
 }
 

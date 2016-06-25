@@ -9,20 +9,25 @@
 import UIKit
 import Firebase
 
-class UserTableViewController: UIViewController, UsersCellDelegate{
+class UserTableViewController: UIViewController{
 
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
-    @IBOutlet weak var tableView: UITableView!
     
-    var users = KeyValueArrays()
+    @IBOutlet weak var tableView: SelectionTableView!
+    @IBOutlet weak var searchBarContainer: UIView!
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    var usersDataSource = SelectionDataSource<String>()
     
     var friendsIDSToAdd = [String]()
     var existingFriendsIDS: [String]!
     
+    var detachInfo: FIRDetachInfo?
+    
     override func viewDidLoad() {
         
-        tableView.dataSource = self
+        tableView.selectionDelegate = self
         
         guard let user = FIRAuth.auth()?.currentUser else {
             print("error getting username")
@@ -32,28 +37,25 @@ class UserTableViewController: UIViewController, UsersCellDelegate{
         existingFriendsIDS.append(user.uid)
         
         let ref = FIRDatabase.database().reference().child(Constants.USERNAMESNODE)
-        let query = ref.queryOrderedByValue()
-        query.observeSingleEventOfType(.ChildAdded, withBlock: {(snapshot)-> Void in
-            if let name = snapshot.value as? String{
-                if !(self.existingFriendsIDS.contains(snapshot.key)) {
-                    self.users.putPair((key: snapshot.key, value: name))
-                    let newIndex = self.users.getCount() - 1
+        let query = ref.queryOrderedByKey()
+        let friendQueryHandle = query.observeEventType(.ChildAdded, withBlock: {(snapshot)-> Void in
+            if let id = snapshot.value as? String{
+                if !(self.existingFriendsIDS.contains(id)) {
+                    self.usersDataSource.putPair((key: id, value: snapshot.key))
+                    let newIndex = self.usersDataSource.getCount() - 1
                     let newIndexPath = NSIndexPath(forRow: newIndex, inSection: 0)
                     self.tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Automatic)
                 }
             } else {
-                print("Error getting username")
+                print("Error loading user usernames")
             }
         })
+        detachInfo = FIRDetachInfo(ref: ref, handle: friendQueryHandle)
+        
     }
-    
-    func onUserButtonClicked(isSelected: Bool, indexNumber: Int){
-        if isSelected{
-            friendsIDSToAdd.append(users.getKeyAtIndex(indexNumber))
-        } else{
-            if let delIndex = friendsIDSToAdd.indexOf(users.getKeyAtIndex(indexNumber)){
-                friendsIDSToAdd.removeAtIndex(delIndex)
-            }
+    override func viewDidDisappear(animated: Bool) {
+        if let detach = detachInfo{
+            detach.ref.removeObserverWithHandle(detach.handle)
         }
     }
     
@@ -74,17 +76,24 @@ class UserTableViewController: UIViewController, UsersCellDelegate{
     }
 }
 
-extension UserTableViewController: UITableViewDataSource{
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.getCount()
+extension UserTableViewController: SelectionTableViewDelegate{
+    
+    func cellAtIndexSelected(index: Int) {
+        friendsIDSToAdd.append(usersDataSource.getKeyAtIndex(index))
     }
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("userCell") as! UsersCell
-        cell.initCell(indexPath.row)
-        cell.userCell.text = users.getValueAtIndex(indexPath.row)
-        cell.delegate = self
-        
-        return cell
+    func cellAtIndexDeselected(index: Int) {
+        if let delIndex = friendsIDSToAdd.indexOf(usersDataSource.getKeyAtIndex(index)){
+            friendsIDSToAdd.removeAtIndex(delIndex)
+        }
+    }
+    func getCellColorAtIndex(index: Int) -> UIColor? {
+        return nil
+    }
+    func getNumberOfCells() -> Int {
+        return usersDataSource.getCount()
+    }
+    func getCellTextAtIndex(index: Int) -> String? {
+        return usersDataSource.getValueAtIndex(index)
     }
 }
 

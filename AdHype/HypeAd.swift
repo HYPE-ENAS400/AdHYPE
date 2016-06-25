@@ -19,30 +19,42 @@ enum FetchCaptionResult{
     case Failure
 }
 
+struct HypeAdMetaData{
+    var name: String!
+    var key: String!
+    var isFromFriend: Bool = false
+    var captionFromFriend: String?
+    
+    init(name: String, key: String, isFromFriend: Bool, captionFromFriend: String?){
+        self.name = name
+        self.key = key
+        self.isFromFriend = isFromFriend
+        self.captionFromFriend = captionFromFriend
+    }
+}
+
 class HypeAd: Equatable{
     private var adStorRef: FIRStorageReference
-    private var adDatRef: FIRDatabaseReference
+    private var adPubCommentsRef: FIRDatabaseReference
     private var adImage: UIImage?
     private var downloaded: Bool
-    private var nodeKey: String?
+//    private var nodeKey: String?
+    
     private var adName: String
+    private var adIsFromFriend: Bool!
+    private var adCaptionFromFriend: String?
+    private var key: String!
     
-//    private var adCaptions = [(text: String, netVotes: Int, ref: String)]()
     
-    init(refURL: String, name: String){
-        self.adName = name.stringByReplacingOccurrencesOfString(Constants.DEFAULTFILEEXTENSION, withString: "")
-//        print("NEW ADD CREATED TITLED: \(title)\n")
+    init(refURL: String, metaData: HypeAdMetaData){
+        
+        self.adCaptionFromFriend = metaData.captionFromFriend
+        self.adIsFromFriend = metaData.isFromFriend
+        self.adName = metaData.name.stringByReplacingOccurrencesOfString(Constants.DEFAULTFILEEXTENSION, withString: "")
+        self.key = metaData.key
+        
         adStorRef = FIRStorage.storage().referenceForURL(refURL)
-        adDatRef = FIRDatabase.database().reference().child(Constants.ADSNODE).child(self.adName)
-        downloaded = false
-    }
-    
-    init(refURL: String, name: String, nodeKey: String){
-        self.adName = name.stringByReplacingOccurrencesOfString(Constants.DEFAULTFILEEXTENSION, withString: "")
-        self.nodeKey = nodeKey
-        let storage = FIRStorage.storage()
-        adStorRef = storage.referenceForURL(refURL)
-        adDatRef = FIRDatabase.database().reference().child(Constants.ADSNODE).child(self.adName)
+        adPubCommentsRef = FIRDatabase.database().reference().child(Constants.PUBLICADCOMMENTS).child(self.key)
         downloaded = false
     }
     
@@ -59,20 +71,23 @@ class HypeAd: Equatable{
             }
         }
     }
+
     
-    func fetchAdCaptions(complete: (result: FetchCaptionResult) -> Void){
-        let commentsRef = adDatRef.child(Constants.ADCOMMENTSNODE)
+    func fetchAdCaptions(complete: (result: FetchCaptionResult) -> Void, getDetachInfo: (detatchInfo: FIRDetachInfo) -> Void){
+        let commentsRef = adPubCommentsRef.child(Constants.ADCOMMENTSNODE)
         let queryResults = commentsRef.queryOrderedByChild(Constants.ADCOMMENTVOTENODE)
-        queryResults.observeEventType(.ChildAdded, withBlock: {(snapshot)-> Void in
+        let queryHandle = queryResults.observeEventType(.ChildAdded, withBlock: {(snapshot)-> Void in
             if let val = snapshot.value as? NSDictionary{
                 if let caption = val.valueForKey(Constants.ADCOMMENTTEXTNODE) as? String{
                     if let count = val.valueForKey(Constants.ADCOMMENTVOTENODE) as? Int {
-                        complete(result: .Success(text: caption, netVotes: count, ref: snapshot.key))
+                        let votes = 0 - count
+                        complete(result: .Success(text: caption, netVotes: votes, ref: snapshot.key))
                     }
                 }
             }
             complete(result: .Failure)
         })
+        getDetachInfo(detatchInfo: FIRDetachInfo(ref: commentsRef, handle: queryHandle))
         
     }
     
@@ -88,8 +103,17 @@ class HypeAd: Equatable{
     func getAdNameWithExtension() -> String {
         return adName + Constants.DEFAULTFILEEXTENSION
     }
-    func getAdDatRef() -> FIRDatabaseReference{
-        return adDatRef
+    func getAdPubCommentsRef() -> FIRDatabaseReference{
+        return adPubCommentsRef
+    }
+    func isFromFriend() -> Bool{
+        return adIsFromFriend
+    }
+    func getCaption() -> String?{
+        return adCaptionFromFriend
+    }
+    func getKey() -> String{
+        return key
     }
     
 }

@@ -25,6 +25,13 @@ class FriendsSectionCell: UITableViewHeaderFooterView{
     func hideAddFriendButton(){
         addFriendButton.hidden = true
     }
+    func disableAddFriendButton(){
+        addFriendButton.enabled = false
+    }
+    func enableAddFriendButton(){
+        addFriendButton.enabled = true
+    }
+    
     @IBAction func onAddFriendButtonClicked(sender: AnyObject) {
         delegate.addFriendButtonClicked()
     }
