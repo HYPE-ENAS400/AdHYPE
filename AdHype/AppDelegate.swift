@@ -22,26 +22,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRApp.configure()
         
         let navViewController = window!.rootViewController as! HypeNavViewController
+        let storyboard = UIStoryboard(name: "Helper Views", bundle: nil)
+        let helperViewController = storyboard.instantiateViewControllerWithIdentifier("helperViewPageVC") as! HelperViewPageVC
+        navViewController.helpViewController = helperViewController
         
-//        var storyboard = UIStoryboard(name: "Settings Nav View", bundle:nil)
-//        let settingsViewController = storyboard.instantiateViewControllerWithIdentifier("settingsNavVC") as! SettingsNavVC
-//        
-//        navViewController.settingsViewController = settingsViewController
         
-        var storyboard = UIStoryboard(name: "Main Hype View", bundle:nil)
-        let mainViewController = storyboard.instantiateViewControllerWithIdentifier("mainHypeView") as! MainViewController
-        mainViewController.delegate = navViewController
-        
-        navViewController.mainViewController = mainViewController
-        
-//        storyboard = UIStoryboard(name: "Grid View", bundle:nil)
-//        let gridViewController = storyboard.instantiateViewControllerWithIdentifier("gridViewController") as! GridViewController
-//        gridViewController.delegate = navViewController
-
-        storyboard = UIStoryboard(name: "AdBrowser", bundle: nil)
-        let gridViewController = storyboard.instantiateViewControllerWithIdentifier("adBrowserVC") as! AdBrowserViewController
 //
-        navViewController.gridViewController = gridViewController
+////        var storyboard = UIStoryboard(name: "Settings Nav View", bundle:nil)
+////        let settingsViewController = storyboard.instantiateViewControllerWithIdentifier("settingsNavVC") as! SettingsNavVC
+////        
+////        navViewController.settingsViewController = settingsViewController
+//        
+//        var storyboard = UIStoryboard(name: "Main Hype View", bundle:nil)
+//        let mainViewController = storyboard.instantiateViewControllerWithIdentifier("mainHypeView") as! MainViewController
+//        mainViewController.delegate = navViewController
+//        
+//        navViewController.mainViewController = mainViewController
+//        
+////        storyboard = UIStoryboard(name: "Grid View", bundle:nil)
+////        let gridViewController = storyboard.instantiateViewControllerWithIdentifier("gridViewController") as! GridViewController
+////        gridViewController.delegate = navViewController
+//
+//        storyboard = UIStoryboard(name: "AdBrowser", bundle: nil)
+//        let gridViewController = storyboard.instantiateViewControllerWithIdentifier("adBrowserVC") as! AdBrowserViewController
+////
+//        navViewController.gridViewController = gridViewController
 //
         return true
     }

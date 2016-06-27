@@ -33,6 +33,7 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate, GridV
     
     var mainViewController: MainViewController?
     var settingsViewController: SettingsNavVC?
+    var helpViewController: HelperViewPageVC?
     
 //    var gridViewController: GridViewController?
     var gridViewController: AdBrowserViewController?
@@ -50,50 +51,52 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate, GridV
     private var logInState = LogInState.loggedOut
     
     override func viewDidLoad() {
-        
-        //FOR SOME REASON THIS IS GETTING CALLED TWICE ON STARTUP?
-        FIRAuth.auth()?.addAuthStateDidChangeListener{auth, user in
-            if let authUser = user {
-                self.hypeBarView.hidden = false
-                self.settingsButton.alpha = 0.7
-                self.hypeButton.alpha = 1
-                self.gridButton.alpha = 0.7
-                
-                if self.logInState == .signedUp{
-                    self.activeViewController = self.mainViewController
-                    self.createUserNodes(authUser.uid)
-                    self.logInState == .loggedIn
-                } else if self.logInState == .loggedOut{
-                    self.activeViewController = self.mainViewController
-                    self.initializeHype(authUser.uid)
-                    self.logInState = .loggedIn
-                }
-                
-            } else {
-                
-                if self.logInState != .loggedOut{
-                    self.logInState = .loggedOut
-                    self.resetViewControllers()
-                }
-
-                
-                let keychainWrapper = KeychainWrapper.standardKeychainAccess()
-                
-                if let uN = keychainWrapper.stringForKey(Constants.USERKEY), pW = keychainWrapper.stringForKey(Constants.PASSKEY){
-                    FIRAuth.auth()?.signInWithEmail(uN, password: pW, completion:
-                        { (error, authData) -> Void in
-                            if error != nil{
-                                print(error)
-                                self.performSegueWithIdentifier("logInSegue", sender: nil)
-                            }
-                    })
-                } else {
-                    self.performSegueWithIdentifier("logInSegue", sender: nil)
-                }
-            }
-        }
-        
-        super.viewDidLoad()
+        self.hypeBarView.hidden = false
+        activeViewController = helpViewController
+//        
+//        //FOR SOME REASON THIS IS GETTING CALLED TWICE ON STARTUP?
+//        FIRAuth.auth()?.addAuthStateDidChangeListener{auth, user in
+//            if let authUser = user {
+//                self.hypeBarView.hidden = false
+//                self.settingsButton.alpha = 0.7
+//                self.hypeButton.alpha = 1
+//                self.gridButton.alpha = 0.7
+//                
+//                if self.logInState == .signedUp{
+//                    self.activeViewController = self.mainViewController
+//                    self.createUserNodes(authUser.uid)
+//                    self.logInState == .loggedIn
+//                } else if self.logInState == .loggedOut{
+//                    self.activeViewController = self.mainViewController
+//                    self.initializeHype(authUser.uid)
+//                    self.logInState = .loggedIn
+//                }
+//                
+//            } else {
+//                
+//                if self.logInState != .loggedOut{
+//                    self.logInState = .loggedOut
+//                    self.resetViewControllers()
+//                }
+//
+//                
+//                let keychainWrapper = KeychainWrapper.standardKeychainAccess()
+//                
+//                if let uN = keychainWrapper.stringForKey(Constants.USERKEY), pW = keychainWrapper.stringForKey(Constants.PASSKEY){
+//                    FIRAuth.auth()?.signInWithEmail(uN, password: pW, completion:
+//                        { (error, authData) -> Void in
+//                            if error != nil{
+//                                print(error)
+//                                self.performSegueWithIdentifier("logInSegue", sender: nil)
+//                            }
+//                    })
+//                } else {
+//                    self.performSegueWithIdentifier("logInSegue", sender: nil)
+//                }
+//            }
+//        }
+//        
+//        super.viewDidLoad()
         
     }
     
