@@ -46,6 +46,7 @@ class SettingsNavVC: UIViewController, FriendsSettingsVCDelegate, DisplayMessage
         storyboard = UIStoryboard(name: "FriendsSettingsView", bundle: nil)
         friendsSettingsVC = storyboard.instantiateViewControllerWithIdentifier("friendsSettingsView") as? FriendsSettingsVC
         friendsSettingsVC?.delegate = self
+        friendsSettingsVC?.messageDelegate = self
         
         storyboard = UIStoryboard(name: "HelpSettingsView", bundle: nil)
         helpSettingsVC = storyboard.instantiateViewControllerWithIdentifier("helpSettingsView") as? HelpSettingsVC

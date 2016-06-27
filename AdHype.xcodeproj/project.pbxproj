@@ -51,6 +51,9 @@
 		2BB592BE1D1C97C60068AA08 /* SelectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB592BD1D1C97C60068AA08 /* SelectionDataSource.swift */; };
 		2BB592C01D1CAA200068AA08 /* SelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB592BF1D1CAA200068AA08 /* SelectionCell.swift */; };
 		2BB592C81D1CCE780068AA08 /* SelectionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB592C71D1CCE780068AA08 /* SelectionTableView.swift */; };
+		2BB592CA1D1F7A6A0068AA08 /* AdBrowser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BB592C91D1F7A6A0068AA08 /* AdBrowser.storyboard */; };
+		2BB592CC1D1F7B5F0068AA08 /* AdBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB592CB1D1F7B5F0068AA08 /* AdBrowserViewController.swift */; };
+		2BB592CE1D20A1320068AA08 /* AdBrowserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB592CD1D20A1320068AA08 /* AdBrowserTableViewCell.swift */; };
 		2BFD161A1D1AE0C7001A210A /* Settings Nav View.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BFD16191D1AE0C7001A210A /* Settings Nav View.storyboard */; };
 		2BFD161E1D1AF208001A210A /* SettingsNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFD161D1D1AF208001A210A /* SettingsNavVC.swift */; };
 		2BFD16201D1AF5B5001A210A /* UserSettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BFD161F1D1AF5B5001A210A /* UserSettingsView.storyboard */; };
@@ -109,6 +112,9 @@
 		2BB592BD1D1C97C60068AA08 /* SelectionDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionDataSource.swift; sourceTree = "<group>"; };
 		2BB592BF1D1CAA200068AA08 /* SelectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionCell.swift; sourceTree = "<group>"; };
 		2BB592C71D1CCE780068AA08 /* SelectionTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionTableView.swift; sourceTree = "<group>"; };
+		2BB592C91D1F7A6A0068AA08 /* AdBrowser.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AdBrowser.storyboard; sourceTree = "<group>"; };
+		2BB592CB1D1F7B5F0068AA08 /* AdBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdBrowserViewController.swift; sourceTree = "<group>"; };
+		2BB592CD1D20A1320068AA08 /* AdBrowserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdBrowserTableViewCell.swift; sourceTree = "<group>"; };
 		2BFD16191D1AE0C7001A210A /* Settings Nav View.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Settings Nav View.storyboard"; sourceTree = "<group>"; };
 		2BFD161D1D1AF208001A210A /* SettingsNavVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsNavVC.swift; sourceTree = "<group>"; };
 		2BFD161F1D1AF5B5001A210A /* UserSettingsView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserSettingsView.storyboard; sourceTree = "<group>"; };
@@ -235,6 +241,9 @@
 				2B9EAA1F1D1098BA00396A63 /* ImageGridCell.swift */,
 				2B9EAA201D1098BA00396A63 /* GridViewController.swift */,
 				2B9BF4E91D12446300BCD935 /* CustomImageFlowLayout.swift */,
+				2BB592C91D1F7A6A0068AA08 /* AdBrowser.storyboard */,
+				2BB592CB1D1F7B5F0068AA08 /* AdBrowserViewController.swift */,
+				2BB592CD1D20A1320068AA08 /* AdBrowserTableViewCell.swift */,
 			);
 			name = "Hype Grid";
 			sourceTree = "<group>";
@@ -351,6 +360,7 @@
 				2BFD16201D1AF5B5001A210A /* UserSettingsView.storyboard in Resources */,
 				2B9EAA0F1D10954C00396A63 /* Images.xcassets in Resources */,
 				2B6F392E1D1A516B0020F22E /* CustomOverlayView.xib in Resources */,
+				2BB592CA1D1F7A6A0068AA08 /* AdBrowser.storyboard in Resources */,
 				2B75DF131D15E2C80047A0DF /* FriendsSectionCellView.xib in Resources */,
 				2B75DF231D17652C0047A0DF /* Send to Friends View.storyboard in Resources */,
 				2B9EAA091D1093AC00396A63 /* Launch Screen.storyboard in Resources */,
@@ -441,11 +451,13 @@
 				2B66B38F1D1074DC00DE197D /* AppDelegate.swift in Sources */,
 				2B9EAA4C1D10B1BE00396A63 /* DraggableCardView.swift in Sources */,
 				2B75DF251D1766AC0047A0DF /* SocialNavVC.swift in Sources */,
+				2BB592CE1D20A1320068AA08 /* AdBrowserTableViewCell.swift in Sources */,
 				2B75DF0A1D14535D0047A0DF /* AdCaptionCell.swift in Sources */,
 				2B9EAA4D1D10B1BE00396A63 /* KolodaCardStorage.swift in Sources */,
 				2BB592C01D1CAA200068AA08 /* SelectionCell.swift in Sources */,
 				2B6F391A1D18AE140020F22E /* CustomTextField.swift in Sources */,
 				2B9BF4EA1D12446300BCD935 /* CustomImageFlowLayout.swift in Sources */,
+				2BB592CC1D1F7B5F0068AA08 /* AdBrowserViewController.swift in Sources */,
 				2B9EAA311D10A02D00396A63 /* KYCircularProgress.swift in Sources */,
 				2B75DF1F1D1750910047A0DF /* customUnwindSegue.swift in Sources */,
 				2B991F9C1D11A6EE0022675F /* HypeAd.swift in Sources */,

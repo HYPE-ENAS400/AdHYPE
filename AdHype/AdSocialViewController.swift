@@ -165,8 +165,11 @@ class AdSocialViewController: UIViewController {
         print("upVote clicked for index \(index)")
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) as! AdCaptionCell
         
-        cell.upButtonClicked()
-        adCaptions[index].netVotes += 1
+        if cell.hasVoted{
+            adCaptions[index].netVotes += 2
+        } else{
+            adCaptions[index].netVotes += 1
+        }
         
         let ref = ad.getAdPubCommentsRef().child(Constants.ADCOMMENTSNODE).child(adCaptions[index].ref).child(Constants.ADCOMMENTVOTENODE)
         let newVal = 0 - adCaptions[index].netVotes
@@ -175,6 +178,7 @@ class AdSocialViewController: UIViewController {
         if !wasSwipeUp{
             adVoteHistoryRef.child(adCaptions[index].ref).setValue(true)
         }
+        cell.upButtonClicked()
     }
     
     // NOTE If cells are deleted or added, then the indexpath of the cell will not match the sender tag
@@ -184,8 +188,11 @@ class AdSocialViewController: UIViewController {
         print("upVote clicked for index \(index)")
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) as! AdCaptionCell
         
-        cell.downButtonClicked()
-        adCaptions[index].netVotes -= 1
+        if cell.hasVoted{
+            adCaptions[index].netVotes -= 2
+        } else{
+            adCaptions[index].netVotes -= 1
+        }
         
         let ref = ad.getAdPubCommentsRef().child(Constants.ADCOMMENTSNODE).child(adCaptions[index].ref).child(Constants.ADCOMMENTVOTENODE)
         let newVal = 0 - adCaptions[index].netVotes
@@ -194,6 +201,7 @@ class AdSocialViewController: UIViewController {
         if !wasSwipeUp{
             adVoteHistoryRef.child(adCaptions[index].ref).setValue(false)
         }
+        cell.downButtonClicked()
 
     }
     

@@ -22,6 +22,7 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
     var friendDetachInfo: FIRDetachInfo?
     
     var usersRef: FIRDatabaseReference!
+    var messageDelegate: DisplayMessageDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,6 +72,8 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
         if let i = info{
             if let index = friendRequests.getIndexOfPairForKey((i.key)){
                 if let user = FIRAuth.auth()?.currentUser{
+                    
+                    messageDelegate.displayMessage("Friend request accepted!", duration: 1.5)
                     
                     friendRequests.deletePairAtIndex(index)
                     friendTableView.deleteRowsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)], withRowAnimation: .Automatic)

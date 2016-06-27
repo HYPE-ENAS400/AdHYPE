@@ -36,9 +36,12 @@ class GridViewController: UICollectionViewController{
         
         let adQueueRef = userRef.child(Constants.ADSLIKEDNODE)
         adQueueRef.observeEventType(.ChildAdded, withBlock: { (snapshot) in
-            self.adNames.append(snapshot.value as! String)
-            self.adKeys.append(snapshot.key)
-            self.collectionView?.reloadData()
+            if let dict = snapshot.value as? [String: String]{
+                self.adNames.append(dict[Constants.ADNAMENODE]!)
+                self.adKeys.append(snapshot.key)
+                self.collectionView?.reloadData()
+            }
+            
         })
     }
     

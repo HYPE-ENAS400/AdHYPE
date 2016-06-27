@@ -34,12 +34,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         navViewController.mainViewController = mainViewController
         
-        storyboard = UIStoryboard(name: "Grid View", bundle:nil)
-        let gridViewController = storyboard.instantiateViewControllerWithIdentifier("gridViewController") as! GridViewController
-        gridViewController.delegate = navViewController
-        
+//        storyboard = UIStoryboard(name: "Grid View", bundle:nil)
+//        let gridViewController = storyboard.instantiateViewControllerWithIdentifier("gridViewController") as! GridViewController
+//        gridViewController.delegate = navViewController
+
+        storyboard = UIStoryboard(name: "AdBrowser", bundle: nil)
+        let gridViewController = storyboard.instantiateViewControllerWithIdentifier("adBrowserVC") as! AdBrowserViewController
+//
         navViewController.gridViewController = gridViewController
-        
+//
         return true
     }
 

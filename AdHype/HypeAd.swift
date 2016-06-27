@@ -60,6 +60,11 @@ class HypeAd: Equatable{
     }
     
     func downloadImage(completion: (DownloadResult) -> Void){
+        guard !downloaded else{
+            completion(.Success(self))
+            return
+        }
+        
         adStorRef.dataWithMaxSize(1 * 1024 * 1024){ (data, error) -> Void in
             if (error != nil){
                 self.downloaded = false
@@ -122,6 +127,9 @@ class HypeAd: Equatable{
     func getMetaData() -> HypeAdMetaData{
         return adMetaData
     }
+    func getPrimaryTag() -> String{
+        return adMetaData.primaryTag
+    }
     func getMetaDataDict() -> [String: String]{
         var dict = [String: String]()
         dict = [Constants.ADNAMENODE: adMetaData.name, Constants.ADPRIMARYTAGNODE: adMetaData.primaryTag, Constants.ADURLNODE: adMetaData.url, Constants.ADISFROMFRIEND: String(adMetaData.isFromFriend)]
@@ -134,5 +142,5 @@ class HypeAd: Equatable{
 }
 
 func == (lhs: HypeAd, rhs: HypeAd) -> Bool{
-    return lhs.getAdName() == rhs.getAdName()
+    return lhs.getKey() == rhs.getKey()
 }

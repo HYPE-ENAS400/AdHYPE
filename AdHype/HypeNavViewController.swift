@@ -33,7 +33,10 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate, GridV
     
     var mainViewController: MainViewController?
     var settingsViewController: SettingsNavVC?
-    var gridViewController: GridViewController?
+    
+//    var gridViewController: GridViewController?
+    var gridViewController: AdBrowserViewController?
+    
     var vcTransition: NavVCTransition?
     
     var onAdSocialVCClosedFunc: ((canceled: Bool)->Void)?
@@ -189,7 +192,7 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate, GridV
     }
     
     private func resetViewControllers(){
-        gridViewController?.clearGridView()
+//        gridViewController?.clearGridView()
         mainViewController?.resetMainView()
     }
     

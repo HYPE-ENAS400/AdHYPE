@@ -28,6 +28,7 @@ class ImageGridCell: UICollectionViewCell{
     override func prepareForReuse() {
         super.prepareForReuse()
         updateWithImage(nil)
+        cellAd = nil
     }
     
     func highlightCell(){

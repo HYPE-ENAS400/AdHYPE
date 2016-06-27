@@ -23,6 +23,7 @@ class FriendsTableViewController: UIViewController{
     
     var recipientIDS = [String]()
     var delegate: FriendsTableViewControllerDelegate!
+    var detachInfo: FIRDetachInfo!
     
     override func viewDidLoad() {
         
@@ -39,7 +40,7 @@ class FriendsTableViewController: UIViewController{
         
         let ref = FIRDatabase.database().reference().child(Constants.USERSNODE).child(user.uid).child(Constants.USERFRIENDSNODE)
         let query = ref.queryOrderedByValue()
-        query.observeSingleEventOfType(.ChildAdded, withBlock: {(snapshot)-> Void in
+        let handle = query.observeEventType(.ChildAdded, withBlock: {(snapshot)-> Void in
             if let name = snapshot.value as? String{
                 self.friends.putPair((key: snapshot.key, value: name))
                 let newIndex = self.friends.getCount() - 1
@@ -49,6 +50,7 @@ class FriendsTableViewController: UIViewController{
                 print("Error getting username")
             }
         })
+        detachInfo = FIRDetachInfo(ref: ref, handle: handle)
     }
     
     @IBAction func onSendButtonClicked(sender: AnyObject) {
@@ -58,7 +60,8 @@ class FriendsTableViewController: UIViewController{
             return
         }
         
-        if recipientIDS[0] == Constants.PUBLISHID{
+        if let i = recipientIDS.indexOf(Constants.PUBLISHID){
+        
             let adRef = FIRDatabase.database().reference().child(Constants.PUBLICADCOMMENTS).child(adMetaData.key)
             
             //WHY WAS THIS HERE?
@@ -68,7 +71,7 @@ class FriendsTableViewController: UIViewController{
             
             commentRef.child(Constants.ADCOMMENTTEXTNODE).setValue(captionText)
             commentRef.child(Constants.ADCOMMENTVOTENODE).setValue(0)
-            recipientIDS.removeFirst()
+            recipientIDS.removeAtIndex(i)
         }
         
         for i in recipientIDS{
@@ -86,6 +89,11 @@ class FriendsTableViewController: UIViewController{
     
     @IBAction func onCloseButtonClicked(sender: AnyObject) {
         delegate.onBackButtonClicked()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        detachInfo.ref.removeObserverWithHandle(detachInfo.handle)
     }
     
 }
