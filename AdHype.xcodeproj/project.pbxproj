@@ -55,6 +55,7 @@
 		2BB592CC1D1F7B5F0068AA08 /* AdBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB592CB1D1F7B5F0068AA08 /* AdBrowserViewController.swift */; };
 		2BB592CE1D20A1320068AA08 /* AdBrowserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB592CD1D20A1320068AA08 /* AdBrowserTableViewCell.swift */; };
 		2BB592D51D21AAEC0068AA08 /* HelperViewPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB592D41D21AAEC0068AA08 /* HelperViewPageVC.swift */; };
+		2BB592D71D21F6D30068AA08 /* HelperViews.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BB592D61D21F6D30068AA08 /* HelperViews.storyboard */; };
 		2BFD161A1D1AE0C7001A210A /* Settings Nav View.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BFD16191D1AE0C7001A210A /* Settings Nav View.storyboard */; };
 		2BFD161E1D1AF208001A210A /* SettingsNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFD161D1D1AF208001A210A /* SettingsNavVC.swift */; };
 		2BFD16201D1AF5B5001A210A /* UserSettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BFD161F1D1AF5B5001A210A /* UserSettingsView.storyboard */; };
@@ -117,6 +118,7 @@
 		2BB592CB1D1F7B5F0068AA08 /* AdBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdBrowserViewController.swift; sourceTree = "<group>"; };
 		2BB592CD1D20A1320068AA08 /* AdBrowserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdBrowserTableViewCell.swift; sourceTree = "<group>"; };
 		2BB592D41D21AAEC0068AA08 /* HelperViewPageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperViewPageVC.swift; sourceTree = "<group>"; };
+		2BB592D61D21F6D30068AA08 /* HelperViews.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HelperViews.storyboard; sourceTree = "<group>"; };
 		2BFD16191D1AE0C7001A210A /* Settings Nav View.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Settings Nav View.storyboard"; sourceTree = "<group>"; };
 		2BFD161D1D1AF208001A210A /* SettingsNavVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsNavVC.swift; sourceTree = "<group>"; };
 		2BFD161F1D1AF5B5001A210A /* UserSettingsView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserSettingsView.storyboard; sourceTree = "<group>"; };
@@ -173,7 +175,6 @@
 				2B75DF0B1D14B9EA0047A0DF /* Hype Settings */,
 				2BB592CF1D2194400068AA08 /* Helper Views */,
 				2BB592C71D1CCE780068AA08 /* SelectionTableView.swift */,
-				2BB592D41D21AAEC0068AA08 /* HelperViewPageVC.swift */,
 				2B9EAA181D1098B300396A63 /* LoginViewController.swift */,
 				2BB592BF1D1CAA200068AA08 /* SelectionCell.swift */,
 				2B9EAA121D1098A900396A63 /* HypeNavViewController.swift */,
@@ -284,6 +285,8 @@
 		2BB592CF1D2194400068AA08 /* Helper Views */ = {
 			isa = PBXGroup;
 			children = (
+				2BB592D41D21AAEC0068AA08 /* HelperViewPageVC.swift */,
+				2BB592D61D21F6D30068AA08 /* HelperViews.storyboard */,
 			);
 			name = "Helper Views";
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				2B9EAA0D1D1093AC00396A63 /* Grid View.storyboard in Resources */,
 				2BFD16221D1AF7A1001A210A /* FriendsSettingsView.storyboard in Resources */,
 				2B9EAA0C1D1093AC00396A63 /* Main Hype View.storyboard in Resources */,
+				2BB592D71D21F6D30068AA08 /* HelperViews.storyboard in Resources */,
 				2BFD16281D1B4E73001A210A /* HelpSettingsView.storyboard in Resources */,
 				2B66B3A11D10766800DE197D /* GoogleService-Info.plist in Resources */,
 				2B66B3961D1074DC00DE197D /* Assets.xcassets in Resources */,
