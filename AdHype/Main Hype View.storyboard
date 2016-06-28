@@ -88,10 +88,10 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="yzO-AQ-R2d" customClass="KolodaView" customModule="AdHype" customModuleProvider="target">
-                                <rect key="frame" x="121" y="40" width="358" height="430"/>
+                                <rect key="frame" x="129" y="50" width="342" height="410"/>
                                 <subviews>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XhJ-Bz-ihX" userLabel="Out of Cards View">
-                                        <rect key="frame" x="79" y="148.5" width="200" height="100"/>
+                                        <rect key="frame" x="71" y="138.5" width="200" height="100"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Vm-Px-ECU">
                                                 <rect key="frame" x="25" y="52" width="150" height="40"/>
@@ -156,11 +156,11 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="sYA-Z1-beK" secondAttribute="trailing" constant="30" id="DUU-BS-86F"/>
                             <constraint firstItem="bPk-Yh-3XG" firstAttribute="top" secondItem="LAa-w3-Xn0" secondAttribute="bottom" constant="30" id="DZW-jb-sim"/>
-                            <constraint firstItem="E5c-vD-C3L" firstAttribute="top" secondItem="yzO-AQ-R2d" secondAttribute="bottom" constant="10" id="DwC-eH-VTv"/>
+                            <constraint firstItem="E5c-vD-C3L" firstAttribute="top" secondItem="yzO-AQ-R2d" secondAttribute="bottom" constant="20" id="DwC-eH-VTv"/>
                             <constraint firstItem="yzO-AQ-R2d" firstAttribute="centerX" secondItem="Ne0-Fm-ijb" secondAttribute="centerX" id="JlJ-sa-XtZ"/>
                             <constraint firstItem="b9q-t7-lYJ" firstAttribute="centerY" secondItem="XhJ-Bz-ihX" secondAttribute="centerY" id="SDj-x4-d37"/>
                             <constraint firstItem="E5c-vD-C3L" firstAttribute="centerX" secondItem="Ne0-Fm-ijb" secondAttribute="centerX" id="Uxh-xk-cV8"/>
-                            <constraint firstItem="yzO-AQ-R2d" firstAttribute="top" secondItem="5XT-BG-qGo" secondAttribute="bottom" constant="20" id="abF-Vw-tkI"/>
+                            <constraint firstItem="yzO-AQ-R2d" firstAttribute="top" secondItem="5XT-BG-qGo" secondAttribute="bottom" constant="30" id="abF-Vw-tkI"/>
                             <constraint firstItem="LAa-w3-Xn0" firstAttribute="leading" secondItem="Ne0-Fm-ijb" secondAttribute="leadingMargin" constant="30" id="kRn-jL-KKF"/>
                             <constraint firstItem="b9q-t7-lYJ" firstAttribute="centerX" secondItem="Ne0-Fm-ijb" secondAttribute="centerX" id="vrh-O2-rgl"/>
                             <constraint firstItem="bPk-Yh-3XG" firstAttribute="top" secondItem="sYA-Z1-beK" secondAttribute="bottom" constant="30" id="wim-hO-YtB"/>
