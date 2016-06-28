@@ -92,10 +92,19 @@ class MainViewController: UIViewController {
         let receivedAdsRef = userRef.child(Constants.RECEIVEDADQUEUENODE)
         receivedAdsRef.observeEventType(.ChildAdded, withBlock: {(snapshot) -> Void in
             let dict = snapshot.value as! [String: String]
-            let name = dict[Constants.ADNAMENODE]!
+            guard let name = dict[Constants.ADNAMENODE] else{
+                print("ERROR: COULD NOT GET AD NAME")
+                return
+            }
+            guard let url = dict[Constants.ADURLNODE] else {
+                print("ERROR: COULD NOT GET URL FOR AD: \(name)")
+                return
+            }
+            guard let primaryTag = dict[Constants.ADPRIMARYTAGNODE] else {
+                print("ERROR: COULD NOT GET PRIMARY TAG FOR AD: \(name)")
+                return
+            }
             let captionFromFriend = dict[Constants.ADCAPTIONNODE]
-            let url = dict[Constants.ADURLNODE]!
-            let primaryTag = dict[Constants.ADPRIMARYTAGNODE]!
             let newMetaData = HypeAdMetaData(name: name, key: snapshot.key, url: url, primaryTag: primaryTag, isFromFriend: true, captionFromFriend: captionFromFriend)
             self.adsMetaDataQueue.enqueue(newMetaData)
             self.appendAdIfRoom()
@@ -151,9 +160,18 @@ class MainViewController: UIViewController {
             query.observeSingleEventOfType(.ChildAdded, withBlock: {(snapshot) -> Void in
                 if let dict = snapshot.value as? [String: String]{
                     if self.isUserInterestedInAd(dict){
-                        let name = dict[Constants.ADNAMENODE]!
-                        let url = dict[Constants.ADURLNODE]!
-                        let primaryTag = dict[Constants.ADPRIMARYTAGNODE]!
+                        guard let name = dict[Constants.ADNAMENODE] else{
+                            print("ERROR: COULD NOT GET AD NAME")
+                            return
+                        }
+                        guard let url = dict[Constants.ADURLNODE] else {
+                            print("ERROR: COULD NOT GET URL FOR AD: \(name)")
+                            return
+                        }
+                        guard let primaryTag = dict[Constants.ADPRIMARYTAGNODE] else {
+                            print("ERROR: COULD NOT GET PRIMARY TAG FOR AD: \(name)")
+                            return
+                        }
                         let newMetaData = HypeAdMetaData(name: name, key: snapshot.key, url: url, primaryTag: primaryTag, isFromFriend: false, captionFromFriend: nil)
                         self.adsMetaDataQueue.enqueue(newMetaData)
                         print("ENQUEUED AD WITH KEY: \(snapshot.key)")

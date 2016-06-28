@@ -75,13 +75,13 @@ class FriendsTableViewController: UIViewController{
         }
         
         for i in recipientIDS{
+            print("RECIPIENT ID: \(i)")
             let recRef = usersRef.child(i).child(Constants.RECEIVEDADQUEUENODE).child(adMetaData.key)
-            recRef.child(Constants.ADNAMENODE).setValue(adMetaData.name)
-            recRef.child(Constants.ADURLNODE).setValue(adMetaData.url)
-            recRef.child(Constants.ADPRIMARYTAGNODE).setValue(adMetaData.primaryTag)
+            var dict = [Constants.ADNAMENODE: adMetaData.name, Constants.ADURLNODE: adMetaData.url, Constants.ADPRIMARYTAGNODE: adMetaData.primaryTag]
             if let caption = captionText{
-                recRef.child(Constants.ADCAPTIONNODE).setValue(caption)
+                dict[Constants.ADCAPTIONNODE] = caption
             }
+            recRef.setValue(dict)
             
         }
         delegate.onSentToFriends()
