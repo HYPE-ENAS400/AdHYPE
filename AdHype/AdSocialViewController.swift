@@ -148,7 +148,7 @@ class AdSocialViewController: UIViewController {
 
     @IBAction func onClickSendButton(sender: AnyObject) {
         
-        if isCaptionVisible{
+        if isCaptionVisible && captionTextView.text != ""{
             delegate.onSendClicked(captionTextView.text, canPublish: captionTextView.editable)
         } else {
             delegate.onSendClicked(nil, canPublish: false)

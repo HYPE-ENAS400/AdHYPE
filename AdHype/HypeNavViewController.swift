@@ -108,7 +108,7 @@ class HypeNavViewController: CustomNavVC, LoginViewControllerDelegate {
             }
             
             //do this to maintain desired order
-            let userInterestKeys = ["Discovery", "Animals", "Apparel", "Apps & Games", "Babies & Kids", "Cars", "Celebrities", "Entertainment", "Fitness & Health", "Food & Cooking", "Lifestyle & Home", "News", "Outdoors", "Sports", "Tech", "Travel"]
+            let userInterestKeys = ["Discovery", "Animals", "Apparel", "Apps & Games", "Babies & Kids", "Cars", "Celebrities", "Entertainment", "Fitness & Health", "Food & Cooking", "Lifestyle & Home", "Nerd", "News", "Outdoors", "Sports", "Tech", "Travel"]
             
             for key in userInterestKeys{
                 self.userInterests.putPair((key, true))
