@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="a28-7Y-G1O">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="XMd-L7-F6j">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Helper View PageVC-->
-        <scene sceneID="QIM-ud-CUI">
-            <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="a28-7Y-G1O" customClass="HelperViewPageVC" customModule="AdHype" customModuleProvider="target" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5GK-fO-ll5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="112" y="-199"/>
-        </scene>
         <!--Social NavVC-->
         <scene sceneID="g00-z6-Bze">
             <objects>
@@ -83,6 +75,55 @@
                 <exit id="8le-Y6-m6g" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="722" y="-128"/>
+        </scene>
+        <!--Helper Views NavVC-->
+        <scene sceneID="nQl-eJ-hTP">
+            <objects>
+                <viewController id="XMd-L7-F6j" customClass="HelperViewsNavVC" customModule="AdHype" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="j04-M0-hUA"/>
+                        <viewControllerLayoutGuide type="bottom" id="1Ii-dh-lcM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="G4q-x4-RqQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MIr-tc-q0i">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <gestureRecognizers/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OG9-Kq-yOh">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="20"/>
+                                <color key="backgroundColor" red="0.79494160349999998" green="0.1812897926" blue="0.23730974660000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="2cK-Ww-Vux"/>
+                                    <constraint firstAttribute="height" constant="20" id="9YR-aB-1zJ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="0.70129310339999995" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="MIr-tc-q0i" secondAttribute="trailing" id="2Wv-TU-JJf"/>
+                            <constraint firstItem="MIr-tc-q0i" firstAttribute="top" secondItem="j04-M0-hUA" secondAttribute="bottom" id="9RJ-ld-8Kc"/>
+                            <constraint firstItem="1Ii-dh-lcM" firstAttribute="top" secondItem="MIr-tc-q0i" secondAttribute="bottom" id="D7t-aU-9iZ"/>
+                            <constraint firstItem="OG9-Kq-yOh" firstAttribute="leading" secondItem="G4q-x4-RqQ" secondAttribute="leading" id="Mcx-OD-gY3"/>
+                            <constraint firstItem="OG9-Kq-yOh" firstAttribute="top" secondItem="G4q-x4-RqQ" secondAttribute="top" id="MnS-So-Xsc"/>
+                            <constraint firstAttribute="trailing" secondItem="OG9-Kq-yOh" secondAttribute="trailing" id="SLC-gt-oTN"/>
+                            <constraint firstItem="MIr-tc-q0i" firstAttribute="leading" secondItem="G4q-x4-RqQ" secondAttribute="leading" id="dkr-0L-GW9"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="helperNavVCContainerView" destination="MIr-tc-q0i" id="tvV-QD-onP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tJI-M9-Vas" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="135" y="-198"/>
         </scene>
         <!--Hype Nav View Controller-->
         <scene sceneID="cpu-lm-2JJ">

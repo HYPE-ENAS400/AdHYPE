@@ -4,11 +4,6 @@ import Foundation
 import Firebase
 import UIKit
 
-enum VCTransitionDirection{
-    case toRight
-    case toLeft
-}
-
 struct FIRDetachInfo{
     var ref: FIRDatabaseReference
     var handle: FIRDatabaseHandle
