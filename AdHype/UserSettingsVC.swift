@@ -19,7 +19,7 @@ class UserSettingsVC: UIViewController{
     
     var interestsDataSource: SelectionDataSource<Bool>!
     var interestsRef: FIRDatabaseReference!
-    var oldUserName: String?
+//    var oldUserName: String?
     
     let disallowedCharacters = [".", "$", "#", "[", "]", "/", " "]
     
@@ -46,7 +46,8 @@ class UserSettingsVC: UIViewController{
         
         if let name = user.displayName{
             usernameTextField.text = name
-            oldUserName = name
+            usernameTextField.enabled = false
+//            oldUserName = name
         }
     }
     
@@ -59,7 +60,6 @@ class UserSettingsVC: UIViewController{
     }
     
     func updateUsername(name: String) {
-        oldUserName = name
         
         if let user = FIRAuth.auth()?.currentUser{
             let changeRequest = user.profileChangeRequest()
@@ -69,12 +69,14 @@ class UserSettingsVC: UIViewController{
                 if let error = error{
                     print("COULD NOT CHANGE USERNAME: \(error.localizedDescription)")
                 } else {
+                    self.messageDelegate.displayMessage("Successfully changed username!", duration: 1.5)
                     print("successfully changed username")
                 }
             })
             let ref = FIRDatabase.database().reference().child(Constants.USERNAMESNODE).child(name)
             ref.setValue(user.uid)
         }
+        
     }
     
 //    @IBAction func onSaveClicked(sender: AnyObject) {
@@ -113,26 +115,37 @@ extension UserSettingsVC: SelectionTableViewDelegate{
 extension UserSettingsVC: UITextFieldDelegate{
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        print("closing first responder")
         return true
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
-        let newName = textField.text?.lowercaseString
-        if newName == oldUserName {
-            return
-        }
         
-        let ref = FIRDatabase.database().reference().child(Constants.USERNAMESNODE).child(newName!)
-        ref.observeSingleEventOfType(.Value, withBlock: {(snapshot) -> Void in
-            if snapshot.exists(){
-                print("CHECK USERNAME IS RETURNING: \(newName)")
-                self.usernameTextField.text = self.oldUserName
-                self.messageDelegate.displayMessage("username must be unique", duration: 1.5)
-            } else{
-                self.updateUsername(newName!)
-            }
-        })
+        
+        let alertController = UIAlertController(title: "Heads Up", message: "User Name can't be changed once set", preferredStyle: .Alert)
+        
+        let confirmAction = UIAlertAction(title: "Okay", style: .Default) { (action) in
+            let newName = textField.text?.lowercaseString
+            
+            let ref = FIRDatabase.database().reference().child(Constants.USERNAMESNODE).child(newName!)
+            ref.observeSingleEventOfType(.Value, withBlock: {(snapshot) -> Void in
+                if snapshot.exists(){
+                    print("CHECK USERNAME IS RETURNING: \(newName)")
+                    self.usernameTextField.text = ""
+                    self.messageDelegate.displayMessage("username must be unique", duration: 1.5)
+                } else{
+                    self.updateUsername(newName!)
+                }
+            })
+        }
+        alertController.addAction(confirmAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel){ (action) in
+            textField.becomeFirstResponder()
+        }
+        alertController.addAction(cancelAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+        alertController.view.tintColor = UIColor(red: 255/255, green: 56/255, blue: 73/255, alpha: 1)
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {

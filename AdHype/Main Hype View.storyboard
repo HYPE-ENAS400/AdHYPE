@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -19,7 +20,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="b9q-t7-lYJ">
-                                <rect key="frame" x="282" y="236" width="37" height="37"/>
+                                <rect key="frame" x="282" y="220" width="37" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="cqU-w5-fKK"/>
+                                    <constraint firstAttribute="width" constant="37" id="eJl-U5-kGl"/>
+                                </constraints>
                                 <color key="color" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LAa-w3-Xn0">
@@ -83,80 +88,83 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="yzO-AQ-R2d" customClass="KolodaView" customModule="AdHype" customModuleProvider="target">
-                                <rect key="frame" x="25" y="45" width="550" height="419"/>
+                                <rect key="frame" x="121" y="40" width="358" height="430"/>
+                                <subviews>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XhJ-Bz-ihX" userLabel="Out of Cards View">
+                                        <rect key="frame" x="79" y="148.5" width="200" height="100"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Vm-Px-ECU">
+                                                <rect key="frame" x="25" y="52" width="150" height="40"/>
+                                                <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="zNh-xM-wH1"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <state key="normal" title="Refresh Demo">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="refreshButtonClicked:" destination="nvj-Q8-ts0" eventType="touchUpInside" id="69J-fK-Mfd"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Out of Cards" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXX-NK-lgx">
+                                                <rect key="frame" x="0.0" y="4" width="200" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="55X-uP-jSy"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="hxm-IU-n2D"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="24"/>
+                                                <color key="textColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="2ET-xd-xWs"/>
+                                            <constraint firstItem="VXX-NK-lgx" firstAttribute="top" secondItem="XhJ-Bz-ihX" secondAttribute="top" constant="4" id="6qu-FN-4oz"/>
+                                            <constraint firstAttribute="bottom" secondItem="9Vm-Px-ECU" secondAttribute="bottom" constant="8" id="7pd-k8-N4M"/>
+                                            <constraint firstItem="VXX-NK-lgx" firstAttribute="leading" secondItem="XhJ-Bz-ihX" secondAttribute="leading" id="JSR-mq-05T"/>
+                                            <constraint firstAttribute="height" constant="100" id="SVX-oi-yUS"/>
+                                            <constraint firstAttribute="trailing" secondItem="9Vm-Px-ECU" secondAttribute="trailing" constant="25" id="iDE-uk-GAy"/>
+                                            <constraint firstAttribute="trailing" secondItem="VXX-NK-lgx" secondAttribute="trailing" id="ipx-BW-NBn"/>
+                                            <constraint firstItem="9Vm-Px-ECU" firstAttribute="leading" secondItem="XhJ-Bz-ihX" secondAttribute="leading" constant="25" id="tDo-Dl-mH3"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                                <integer key="value" value="-20"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="XhJ-Bz-ihX" firstAttribute="centerX" secondItem="yzO-AQ-R2d" secondAttribute="centerX" id="MVB-N2-hAd"/>
+                                    <constraint firstAttribute="width" secondItem="yzO-AQ-R2d" secondAttribute="height" multiplier="5/6" id="vN4-7D-VaJ"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
                                         <integer key="value" value="-10"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XhJ-Bz-ihX" userLabel="Out of Cards View">
-                                <rect key="frame" x="200" y="205" width="200" height="100"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Vm-Px-ECU">
-                                        <rect key="frame" x="25" y="52" width="150" height="40"/>
-                                        <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="2fD-Cr-95S"/>
-                                            <constraint firstAttribute="width" constant="150" id="fpM-62-vsz"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="Refresh Demo">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="20"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="refreshButtonClicked:" destination="nvj-Q8-ts0" eventType="touchUpInside" id="69J-fK-Mfd"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Out of Cards" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXX-NK-lgx">
-                                        <rect key="frame" x="0.0" y="4" width="200" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="55X-uP-jSy"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="24"/>
-                                        <color key="textColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="VXX-NK-lgx" secondAttribute="trailing" id="0fH-05-HPU"/>
-                                    <constraint firstItem="VXX-NK-lgx" firstAttribute="top" secondItem="XhJ-Bz-ihX" secondAttribute="top" constant="4" id="JPt-rS-P02"/>
-                                    <constraint firstItem="VXX-NK-lgx" firstAttribute="leading" secondItem="XhJ-Bz-ihX" secondAttribute="leading" id="SZH-pd-VIO"/>
-                                    <constraint firstAttribute="bottom" secondItem="9Vm-Px-ECU" secondAttribute="bottom" constant="8" id="cLX-bB-h7X"/>
-                                    <constraint firstAttribute="height" constant="100" id="i5s-4t-aBA"/>
-                                    <constraint firstItem="9Vm-Px-ECU" firstAttribute="centerX" secondItem="XhJ-Bz-ihX" secondAttribute="centerX" id="pMQ-bF-YCz"/>
-                                    <constraint firstAttribute="width" constant="200" id="qqP-xs-JbI"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
-                                        <integer key="value" value="-20"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="XhJ-Bz-ihX" firstAttribute="centerY" secondItem="yzO-AQ-R2d" secondAttribute="centerY" id="727-vm-HRf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="sYA-Z1-beK" secondAttribute="trailing" constant="30" id="DUU-BS-86F"/>
                             <constraint firstItem="bPk-Yh-3XG" firstAttribute="top" secondItem="LAa-w3-Xn0" secondAttribute="bottom" constant="30" id="DZW-jb-sim"/>
-                            <constraint firstItem="b9q-t7-lYJ" firstAttribute="centerY" secondItem="yzO-AQ-R2d" secondAttribute="centerY" id="Mj7-IL-rNI"/>
-                            <constraint firstItem="yzO-AQ-R2d" firstAttribute="top" secondItem="5XT-BG-qGo" secondAttribute="bottom" constant="25" id="OSj-TZ-Puq"/>
-                            <constraint firstItem="b9q-t7-lYJ" firstAttribute="centerX" secondItem="Ne0-Fm-ijb" secondAttribute="centerX" id="QqD-Ga-CQL"/>
+                            <constraint firstItem="E5c-vD-C3L" firstAttribute="top" secondItem="yzO-AQ-R2d" secondAttribute="bottom" constant="10" id="DwC-eH-VTv"/>
+                            <constraint firstItem="yzO-AQ-R2d" firstAttribute="centerX" secondItem="Ne0-Fm-ijb" secondAttribute="centerX" id="JlJ-sa-XtZ"/>
+                            <constraint firstItem="b9q-t7-lYJ" firstAttribute="centerY" secondItem="XhJ-Bz-ihX" secondAttribute="centerY" id="SDj-x4-d37"/>
                             <constraint firstItem="E5c-vD-C3L" firstAttribute="centerX" secondItem="Ne0-Fm-ijb" secondAttribute="centerX" id="Uxh-xk-cV8"/>
-                            <constraint firstItem="yzO-AQ-R2d" firstAttribute="leading" secondItem="Ne0-Fm-ijb" secondAttribute="leadingMargin" constant="5" id="aWb-MD-q12"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="yzO-AQ-R2d" secondAttribute="trailing" constant="5" id="bmW-7D-HNS"/>
-                            <constraint firstItem="XhJ-Bz-ihX" firstAttribute="centerX" secondItem="yzO-AQ-R2d" secondAttribute="centerX" id="cTE-bD-evj"/>
-                            <constraint firstItem="LAa-w3-Xn0" firstAttribute="top" secondItem="yzO-AQ-R2d" secondAttribute="bottom" constant="46" id="gci-w8-JiW"/>
-                            <constraint firstItem="sYA-Z1-beK" firstAttribute="top" secondItem="yzO-AQ-R2d" secondAttribute="bottom" constant="46" id="h41-dP-uyl"/>
+                            <constraint firstItem="yzO-AQ-R2d" firstAttribute="top" secondItem="5XT-BG-qGo" secondAttribute="bottom" constant="20" id="abF-Vw-tkI"/>
                             <constraint firstItem="LAa-w3-Xn0" firstAttribute="leading" secondItem="Ne0-Fm-ijb" secondAttribute="leadingMargin" constant="30" id="kRn-jL-KKF"/>
-                            <constraint firstItem="yzO-AQ-R2d" firstAttribute="centerX" secondItem="Ne0-Fm-ijb" secondAttribute="centerX" id="lFt-xX-fvh"/>
+                            <constraint firstItem="b9q-t7-lYJ" firstAttribute="centerX" secondItem="Ne0-Fm-ijb" secondAttribute="centerX" id="vrh-O2-rgl"/>
                             <constraint firstItem="bPk-Yh-3XG" firstAttribute="top" secondItem="sYA-Z1-beK" secondAttribute="bottom" constant="30" id="wim-hO-YtB"/>
+                            <constraint firstItem="b9q-t7-lYJ" firstAttribute="top" secondItem="5XT-BG-qGo" secondAttribute="bottom" constant="200" id="ypj-NL-nuY"/>
                             <constraint firstItem="bPk-Yh-3XG" firstAttribute="top" secondItem="E5c-vD-C3L" secondAttribute="bottom" constant="30" id="zmK-xs-FUi"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>

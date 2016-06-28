@@ -23,6 +23,7 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
     
     var usersRef: FIRDatabaseReference!
     var messageDelegate: DisplayMessageDelegate!
+    var hasFriendRequests = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,12 +39,15 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
         let friendRequestQueryRef = usersRef.child(user.uid).child(Constants.USERFRIENDREQUESTSNODE)
         let friendRequestQuery = friendRequestQueryRef.queryOrderedByValue()
         let friendReqHandle = friendRequestQuery.observeEventType(.ChildAdded, withBlock: {(snapshot)-> Void in
+            
+            self.hasFriendRequests = true
             if let name = snapshot.value as? String{
                 self.friendRequests.putPair((key: snapshot.key, value: name))
                 
-                let curIndex = self.friendRequests.getCount() - 1
-                let newIndexPath = NSIndexPath(forRow: curIndex, inSection: 0)
-                self.friendTableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Automatic)
+//                let curIndex = self.friendRequests.getCount() - 1
+//                let newIndexPath = NSIndexPath(forRow: curIndex, inSection: 0)
+//                self.friendTableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Automatic)
+                self.friendTableView.reloadData()
                 
             } else {
                 print("error fetching friend requests")
@@ -57,8 +61,12 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
             if let name = snapshot.value as? String{
                 self.friends.putPair((key: snapshot.key, value: name))
                 let curIndex = self.friends.getCount() - 1
-                let newIndexpath = NSIndexPath(forRow: curIndex, inSection: 1)
+                var section = 0
+                if self.hasFriendRequests{
+                    section = 1
+                }
                 
+                let newIndexpath = NSIndexPath(forRow: curIndex, inSection: section)
                 //THERE WAS AN ERROR HERE
                 self.friendTableView.insertRowsAtIndexPaths([newIndexpath], withRowAnimation: .Automatic)
             } else {
@@ -104,14 +112,14 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
 
 extension FriendsSettingsVC: UITableViewDelegate{
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        return 50
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let cell = tableView.dequeueReusableHeaderFooterViewWithIdentifier("friendsSectionHeader") as! FriendsSectionCell
         cell.delegate = self
-        if section == 0 {
+        if section == 0 && hasFriendRequests{
             cell.sectionLabel.text = "Friend Requests"
             cell.hideAddFriendButton()
         } else {
@@ -134,7 +142,7 @@ extension FriendsSettingsVC: UITableViewDelegate{
                 return
             }
             
-            if indexPath.section == 0 {
+            if indexPath.section == 0 && hasFriendRequests{
                 
                 //delete the friend request
                 let requestRef = usersRef.child(user.uid).child(Constants.USERFRIENDREQUESTSNODE)
@@ -166,20 +174,24 @@ extension FriendsSettingsVC: UITableViewDelegate{
 
 extension FriendsSettingsVC: UITableViewDataSource{
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        if hasFriendRequests{
+            return 2
+        }
+        return 1
+
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        if section == 0 && hasFriendRequests{
             return friendRequests.getCount()
-        } else {
-            return friends.getCount()
         }
+        return friends.getCount()
+
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("friendsCell") as! FriendsCell
         cell.delegate = self
-        if indexPath.section == 0{
+        if indexPath.section == 0 && hasFriendRequests{
             cell.showCircleView()
             cell.setFriendInfo(friendRequests.getPairAtIndex(indexPath.row))
         } else {

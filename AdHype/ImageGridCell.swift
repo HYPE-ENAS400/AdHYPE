@@ -23,6 +23,7 @@ class ImageGridCell: UICollectionViewCell{
     override func awakeFromNib() {
         super.awakeFromNib()
         updateWithImage(nil)
+        cellAd = nil
     }
     
     override func prepareForReuse() {

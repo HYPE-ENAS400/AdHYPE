@@ -27,8 +27,6 @@ class AdCaptionCell: UITableViewCell{
     
     func upButtonClicked() {
         
-        changeButtonsForUpClicked()
-        
         var votes: Int = Int(adVoteLabel.text!)!
         if hasVoted{
             votes += 2
@@ -36,8 +34,8 @@ class AdCaptionCell: UITableViewCell{
             votes += 1
         }
         adVoteLabel.text = String(votes)
-        hasVoted = true
-        
+
+        changeButtonsForUpClicked()
     }
     
     func changeButtonsForDownClicked(){
@@ -50,8 +48,6 @@ class AdCaptionCell: UITableViewCell{
     }
     
     func downButtonClicked(){
-
-        changeButtonsForDownClicked()
         
         var votes: Int = Int(adVoteLabel.text!)!
         if hasVoted{
@@ -60,6 +56,8 @@ class AdCaptionCell: UITableViewCell{
             votes -= 1
         }
         adVoteLabel.text = String(votes)
+        
+        changeButtonsForDownClicked()
     }
     
     

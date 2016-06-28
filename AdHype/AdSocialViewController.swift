@@ -175,9 +175,8 @@ class AdSocialViewController: UIViewController {
         let newVal = 0 - adCaptions[index].netVotes
         ref.setValue(newVal)
         
-        if !wasSwipeUp{
-            adVoteHistoryRef.child(adCaptions[index].ref).setValue(true)
-        }
+        adVoteHistoryRef.child(adCaptions[index].ref).setValue(true)
+
         cell.upButtonClicked()
     }
     
@@ -198,9 +197,9 @@ class AdSocialViewController: UIViewController {
         let newVal = 0 - adCaptions[index].netVotes
         ref.setValue(newVal)
         
-        if !wasSwipeUp{
-            adVoteHistoryRef.child(adCaptions[index].ref).setValue(false)
-        }
+        
+        adVoteHistoryRef.child(adCaptions[index].ref).setValue(false)
+
         cell.downButtonClicked()
 
     }

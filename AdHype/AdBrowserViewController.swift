@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SafariServices
 
 class AdBrowserViewController: UIViewController{
     
@@ -16,6 +17,8 @@ class AdBrowserViewController: UIViewController{
     var adLikedRef: FIRDatabaseReference!
     var interests = [String]()
     var adStore = [String: [HypeAd]]()
+    
+    var delegate: AdBrowserViewControllerDelegate!
     
 
     override func viewDidLoad() {
@@ -85,10 +88,25 @@ extension AdBrowserViewController: UIGestureRecognizerDelegate{
         if let cell = getCellForGestureRecognizer(gestureRecognizer){
             if cell.isDeleteActive{
                 cell.hideDeleteButton()
+            } else{
+                if let url = NSURL(string: cell.cellAd.getURL()){
+                    if #available(iOS 9.0, *) {
+                        let vc = SFSafariViewController(URL: url, entersReaderIfAvailable: false)
+                        presentViewController(vc, animated: true, completion: nil)
+                    } else {
+                        // Fallback on earlier versions
+                    }
+                    
+                }
             }
         }
         
         
+    }
+    func handleDoubleTap(gestureRecognizer: UITapGestureRecognizer){
+        if let cell = getCellForGestureRecognizer(gestureRecognizer){
+            delegate.onAdFromBrowserDoubleClicked(cell.cellAd)
+        }
     }
 }
 
@@ -154,12 +172,18 @@ extension AdBrowserViewController: UITableViewDelegate, UITableViewDataSource{
         lpgr.delegate = self
         lpgr.delaysTouchesBegan = true
         
+        let dtgr = UITapGestureRecognizer(target: self, action: #selector(AdBrowserViewController.handleDoubleTap))
+        dtgr.numberOfTapsRequired = 2
+        dtgr.delegate = self
+        
         let tgr = UITapGestureRecognizer(target: self, action: #selector(AdBrowserViewController.handleTap))
+        tgr.numberOfTapsRequired = 1
         tgr.delegate = self
-        tgr.requireGestureRecognizerToFail(lpgr)
+        tgr.requireGestureRecognizerToFail(dtgr)
         
         tvCell.adCollectionView.addGestureRecognizer(lpgr)
         tvCell.adCollectionView.addGestureRecognizer(tgr)
+        tvCell.adCollectionView.addGestureRecognizer(dtgr)
         
         tvCell.setCollectionViewDataSourceDelegate(self, forRow: indexPath.row)
     }
@@ -168,4 +192,8 @@ extension AdBrowserViewController: UITableViewDelegate, UITableViewDataSource{
         cell.categoryLabel.text = interests[indexPath.row]
         return cell
     }
+}
+
+protocol AdBrowserViewControllerDelegate{
+    func onAdFromBrowserDoubleClicked(ad: HypeAd)
 }

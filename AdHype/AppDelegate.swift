@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         storyboard = UIStoryboard(name: "AdBrowser", bundle: nil)
         let gridViewController = storyboard.instantiateViewControllerWithIdentifier("adBrowserVC") as! AdBrowserViewController
-//
+        gridViewController.delegate = navViewController
         navViewController.gridViewController = gridViewController
 //
         return true

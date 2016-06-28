@@ -113,6 +113,14 @@
          contextName = "MainViewController.onCardSwiped(Int) -&gt; ():MainViewController.swift">
       </ContextState>
       <ContextState
+         contextName = "UserSettingsVC.(updateUsername(String) -&gt; ()).(closure #2):UserSettingsVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "snapshot.key">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ImageGridCell.updateWithImage(UIImage?) -&gt; ():ImageGridCell.swift">
          <PersistentStrings>
             <PersistentString

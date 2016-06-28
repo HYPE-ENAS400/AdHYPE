@@ -23,7 +23,7 @@ enum LogInState {
     case signedUp
 }
 
-class HypeNavViewController: UIViewController, MainViewControllerDelegate, GridViewControllerDelegate, LoginViewControllerDelegate {
+class HypeNavViewController: UIViewController, MainViewControllerDelegate, LoginViewControllerDelegate {
     
     @IBOutlet var gridButton: UIButton!
     @IBOutlet var hypeButton: UIButton!
@@ -330,12 +330,11 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate, GridV
         onAdSocialVCClosedFunc = onClose
     }
     
-    func onAdDoubleClicked(ad: HypeAd) {
+}
+extension HypeNavViewController: AdBrowserViewControllerDelegate{
+    func onAdFromBrowserDoubleClicked(ad: HypeAd) {
         socialAd = ad
         wasSwipeUp = false
         self.performSegueWithIdentifier("showAdSocialViewSegue", sender: nil)
     }
-    
-    
-    
 }
