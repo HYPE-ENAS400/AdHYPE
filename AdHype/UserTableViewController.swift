@@ -23,6 +23,7 @@ class UserTableViewController: UIViewController{
     
     var friendsIDSToAdd = [String]()
     var existingFriendsIDS: [String]!
+    var checkedIDSForNoSearch: [String]!
     
     var detachInfo: FIRDetachInfo?
     var queryDetachInfo: FIRDetachInfo?
@@ -41,27 +42,44 @@ class UserTableViewController: UIViewController{
         existingFriendsIDS.append(user.uid)
         
         searchController.searchResultsUpdater = self
+        searchController.delegate = self
+        
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
+        searchController.view.tintColor = UIColor(red: 255/255, green: 56/255, blue: 73/255, alpha: 1)
         
-        let ref = FIRDatabase.database().reference().child(Constants.USERNAMESNODE)
+        let baseRef = FIRDatabase.database().reference()
+        let sentReqRef = baseRef.child(Constants.USERSNODE).child(user.uid).child(Constants.SENTFRIENDREQUESTSNODE)
+        sentReqRef.observeSingleEventOfType(.Value, withBlock: {(snapshot) -> Void in
+            if let dict = snapshot.value as? [String: Bool]{
+                for (id, _) in dict{
+                    self.existingFriendsIDS.append(id)
+                }
+            }
+            self.queryUsernames(baseRef.child(Constants.USERNAMESNODE))
+        })
+    
+        
+    }
+    
+    func queryUsernames(ref: FIRDatabaseReference){
         let query = ref.queryOrderedByKey()
         let friendQueryHandle = query.observeEventType(.ChildAdded, withBlock: {(snapshot)-> Void in
             if let id = snapshot.value as? String{
-//                if !(self.existingFriendsIDS.contains(id)) {
+                if !(self.existingFriendsIDS.contains(id)) {
                     self.usersDataSource.putPair((key: id, value: snapshot.key))
                     let newIndex = self.usersDataSource.getCount() - 1
                     let newIndexPath = NSIndexPath(forRow: newIndex, inSection: 0)
                     self.tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Automatic)
-//                }
+                }
             } else {
                 print("Error loading user usernames")
             }
         })
         detachInfo = FIRDetachInfo(ref: ref, handle: friendQueryHandle)
-        
     }
+    
     override func viewDidDisappear(animated: Bool) {
         if let detach = detachInfo{
             detach.ref.removeObserverWithHandle(detach.handle)
@@ -78,8 +96,11 @@ class UserTableViewController: UIViewController{
             return
         }
         for id in friendsIDSToAdd{
-            let ref = FIRDatabase.database().reference().child(Constants.USERSNODE).child(id).child(Constants.USERFRIENDREQUESTSNODE)
+            let baseRef = FIRDatabase.database().reference().child(Constants.USERSNODE)
+            let ref = baseRef.child(id).child(Constants.USERFRIENDREQUESTSNODE)
             ref.child(user.uid).setValue(user.displayName)
+            let sentReqRef = baseRef.child(user.uid).child(Constants.SENTFRIENDREQUESTSNODE)
+            sentReqRef.child(id).setValue(true)
         }
         self.performSegueWithIdentifier("unwindFromUserTableViewSegue", sender: nil)
     }
@@ -110,10 +131,17 @@ extension UserTableViewController: UISearchResultsUpdating, UISearchControllerDe
         let query = ref.queryOrderedByKey().queryStartingAtValue(startText).queryEndingAtValue(endText)
         let handle = query.observeEventType(.ChildAdded, withBlock: {(snapshot)->Void in
             if let key = snapshot.value as? String{
-                self.searchUsersDataSource.putPair((key: key, value: snapshot.key))
-                self.tableView.reloadData()
+                if !(self.existingFriendsIDS.contains(snapshot.key)) {
+                    self.searchUsersDataSource.putPair((key: key, value: snapshot.key))
+                    if self.friendsIDSToAdd.contains(key){
+                        self.tableView.addPreselectedIndex(self.searchUsersDataSource.getCount() - 1)
+                    }
+                    self.tableView.reloadData()
+                }
             }
         })
+        tableView.clearSelectedIndices()
+        tableView.reloadData()
         queryDetachInfo = FIRDetachInfo(ref: ref, handle: handle)
         
     }
@@ -126,16 +154,36 @@ extension UserTableViewController: UISearchResultsUpdating, UISearchControllerDe
         if let info = queryDetachInfo{
             info.ref.removeObserverWithHandle(info.handle)
         }
+        tableView.clearSelectedIndices()
+        for id in friendsIDSToAdd{
+            tableView.addPreselectedIndex(usersDataSource.getIndexOfPairForKey(id))
+        }
+        tableView.reloadData()
     }
 }
 
 extension UserTableViewController: SelectionTableViewDelegate{
     
+    func isSearchActive() -> Bool {
+        return searchController.active && searchController.searchBar.text != ""
+    }
+    
     func cellAtIndexSelected(index: Int) {
-        friendsIDSToAdd.append(usersDataSource.getKeyAtIndex(index))
+        if isSearchActive(){
+            friendsIDSToAdd.append(searchUsersDataSource.getKeyAtIndex(index))
+        } else{
+            friendsIDSToAdd.append(usersDataSource.getKeyAtIndex(index))
+        }
     }
     func cellAtIndexDeselected(index: Int) {
-        if let delIndex = friendsIDSToAdd.indexOf(usersDataSource.getKeyAtIndex(index)){
+        var delID: String
+        if isSearchActive(){
+            delID = searchUsersDataSource.getKeyAtIndex(index)
+        } else{
+            delID = usersDataSource.getKeyAtIndex(index)
+        }
+        
+        if let delIndex = friendsIDSToAdd.indexOf(delID){
             friendsIDSToAdd.removeAtIndex(delIndex)
         }
     }
@@ -144,13 +192,13 @@ extension UserTableViewController: SelectionTableViewDelegate{
         return nil
     }
     func getNumberOfCells() -> Int {
-        if searchController.active && searchController.searchBar.text != "" {
+        if isSearchActive() {
             return searchUsersDataSource.getCount()
         }
         return usersDataSource.getCount()
     }
     func getCellTextAtIndex(index: Int) -> String? {
-        if searchController.active && searchController.searchBar.text != "" {
+        if isSearchActive(){
             return searchUsersDataSource.getValueAtIndex(index)
         }
         return usersDataSource.getValueAtIndex(index)

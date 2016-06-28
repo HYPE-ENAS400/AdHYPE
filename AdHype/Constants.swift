@@ -26,6 +26,7 @@ struct Constants {
     static let USERNAMESNODE = "UserNames"
     static let USERSNODE = "users"
     static let USERFRIENDREQUESTSNODE = "friendRequests"
+    static let SENTFRIENDREQUESTSNODE = "sentFriendRequests"
     static let USERFRIENDSNODE = "friends"
     static let USERINTERESTSNODE = "interests"
     static let USERNEXTADKEY = "nextAdKey"

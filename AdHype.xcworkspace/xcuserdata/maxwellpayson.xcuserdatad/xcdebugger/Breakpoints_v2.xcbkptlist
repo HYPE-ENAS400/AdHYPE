@@ -856,22 +856,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AdHype/UserTableViewController.swift"
-            timestampString = "488790673.372834"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "AdHype/SettingsNavVC.swift"
             timestampString = "488783356.234972"
             startingColumnNumber = "9223372036854775807"
@@ -896,54 +880,6 @@
             endingLineNumber = "117"
             landmarkName = "onAddFriendClicked(_:)"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AdHype/UserTableViewController.swift"
-            timestampString = "488790673.372834"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "viewDidDisappear(_:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AdHype.UserTableViewController.viewDidDisappear (Swift.Bool) -&gt; ()"
-                  moduleName = "AdHype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/maxwellpayson/iOSProjects/AdHype/AdHype/UserTableViewController.swift"
-                  timestampString = "488319444.244226"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "62"
-                  endingLineNumber = "62"
-                  offsetFromSymbolStart = "32">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AdHype.UserTableViewController.viewDidDisappear (Swift.Bool) -&gt; ()"
-                  moduleName = "AdHype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/maxwellpayson/iOSProjects/AdHype/AdHype/UserTableViewController.swift"
-                  timestampString = "488319444.244345"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "62"
-                  endingLineNumber = "62"
-                  offsetFromSymbolStart = "88">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1257,11 +1193,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/SelectionTableView.swift"
-            timestampString = "488578977.706575"
+            timestampString = "488824317.110372"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
             landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1321,11 +1257,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/SelectionTableView.swift"
-            timestampString = "488580316.117416"
+            timestampString = "488824317.110372"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1718,12 +1654,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/UserTableViewController.swift"
-            timestampString = "488790673.372834"
+            timestampString = "488824543.093768"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
-            landmarkName = "getNumberOfCells()"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "filterContentForSearchText(_:scope:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1734,12 +1670,140 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/UserTableViewController.swift"
-            timestampString = "488790673.372834"
+            timestampString = "488824543.093768"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "filterContentForSearchText(_:scope:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdHype/UserTableViewController.swift"
+            timestampString = "488824543.093768"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
+            landmarkName = "filterContentForSearchText(_:scope:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdHype/UserTableViewController.swift"
+            timestampString = "488824722.698696"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "didDismissSearchController(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdHype/UserTableViewController.swift"
+            timestampString = "488824722.698696"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "isSearchActive()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdHype/UserTableViewController.swift"
+            timestampString = "488824722.698696"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "isSearchActive()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdHype/UserTableViewController.swift"
+            timestampString = "488824543.093768"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "filterContentForSearchText(_:scope:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AdHype.UserTableViewController.(filterContentForSearchText (Swift.String, scope : Swift.String) -&gt; ()).(closure #1)"
+                  moduleName = "AdHype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/maxwellpayson/iOSProjects/AdHype/AdHype/UserTableViewController.swift"
+                  timestampString = "488824422.548445"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "131"
+                  endingLineNumber = "131"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AdHype.UserTableViewController.(filterContentForSearchText (Swift.String, scope : Swift.String) -&gt; ()).(closure #1)"
+                  moduleName = "AdHype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/maxwellpayson/iOSProjects/AdHype/AdHype/UserTableViewController.swift"
+                  timestampString = "488824422.548604"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "131"
+                  endingLineNumber = "131"
+                  offsetFromSymbolStart = "344">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdHype/UserTableViewController.swift"
+            timestampString = "488824557.244637"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "153"
             endingLineNumber = "153"
-            landmarkName = "getCellTextAtIndex(_:)"
+            landmarkName = "didDismissSearchController(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1750,12 +1814,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/UserTableViewController.swift"
-            timestampString = "488790673.372834"
+            timestampString = "488824558.494085"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "filterContentForSearchText(_:scope:)"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
+            landmarkName = "didDismissSearchController(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AdHype.UserTableViewController.didDismissSearchController (__ObjC.UISearchController) -&gt; ()"
+                  moduleName = "AdHype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/maxwellpayson/iOSProjects/AdHype/AdHype/UserTableViewController.swift"
+                  timestampString = "488824558.507142"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "154"
+                  endingLineNumber = "154"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AdHype.UserTableViewController.didDismissSearchController (__ObjC.UISearchController) -&gt; ()"
+                  moduleName = "AdHype"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/maxwellpayson/iOSProjects/AdHype/AdHype/UserTableViewController.swift"
+                  timestampString = "488824558.507458"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "154"
+                  endingLineNumber = "154"
+                  offsetFromSymbolStart = "96">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdHype/UserTableViewController.swift"
+            timestampString = "488824722.698696"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
+            landmarkName = "cellAtIndexDeselected(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

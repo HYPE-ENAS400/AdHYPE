@@ -26,6 +26,9 @@ class SelectionTableView: UITableView, UITableViewDelegate, UITableViewDataSourc
             selectedIndices.append(i)
         }
     }
+    func clearSelectedIndices(){
+        selectedIndices.removeAll()
+    }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! SelectionCell
@@ -63,6 +66,7 @@ class SelectionTableView: UITableView, UITableViewDelegate, UITableViewDataSourc
         
         return cell
     }
+    
 }
 
 protocol SelectionTableViewDelegate{
