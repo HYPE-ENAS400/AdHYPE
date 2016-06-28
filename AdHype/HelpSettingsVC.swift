@@ -68,10 +68,14 @@ class HelpSettingsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         feedbackTextView.text = ""
     }
     
+    func getUserName() -> String{
+        return (FIRAuth.auth()?.currentUser?.displayName)!
+    }
+    
     @IBAction func onSubmitFeedbackButtonClicked(sender: AnyObject) {
         messageDelegate.displayMessage("Thank you!", duration: 1.5)
         let ref = FIRDatabase.database().reference().child("feedback")
-        ref.child(pickerData[selectedRow]).childByAutoId().setValue(feedbackTextView.text)
+        ref.child(pickerData[selectedRow]).childByAutoId().setValue(feedbackTextView.text + "from: \(getUserName())")
         feedbackTextView.text = ""
         
     }

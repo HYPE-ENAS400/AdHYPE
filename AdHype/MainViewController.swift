@@ -178,11 +178,12 @@ class MainViewController: UIViewController {
     }
     
     func isUserInterestedInAd(adDict: [String: String])->Bool{
+        //switch so iterates through dictionary, write script so dict only has key if ad fits category
         for key in userInterests.getKeys(){
             guard let val = userInterests.getValueForKey(key) else{
                 continue
             }
-            if adDict[key]! == "1" && val{
+            if adDict[key] != nil && val{
                 return true
             }
         }

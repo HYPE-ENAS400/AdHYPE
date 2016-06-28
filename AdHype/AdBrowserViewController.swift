@@ -66,7 +66,7 @@ extension AdBrowserViewController: UIGestureRecognizerDelegate{
         }
         let tableCell = adTableView.cellForRowAtIndexPath(NSIndexPath(forRow: tag, inSection: 0)) as! AdBrowserTableViewCell
         let p = gestureRecognizer.locationInView(tableCell.adCollectionView)
-        if let indexPath: NSIndexPath = (tableCell.adCollectionView.indexPathForItemAtPoint(p))!{
+        if let indexPath: NSIndexPath = (tableCell.adCollectionView.indexPathForItemAtPoint(p)){
             if let cell = tableCell.adCollectionView.cellForItemAtIndexPath(indexPath) as? ImageGridCell{
                 return cell
             }

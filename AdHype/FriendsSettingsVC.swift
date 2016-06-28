@@ -43,10 +43,6 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
             self.hasFriendRequests = true
             if let name = snapshot.value as? String{
                 self.friendRequests.putPair((key: snapshot.key, value: name))
-                
-//                let curIndex = self.friendRequests.getCount() - 1
-//                let newIndexPath = NSIndexPath(forRow: curIndex, inSection: 0)
-//                self.friendTableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Automatic)
                 self.friendTableView.reloadData()
                 
             } else {
@@ -84,11 +80,16 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
                     messageDelegate.displayMessage("Friend request accepted!", duration: 1.5)
                     
                     friendRequests.deletePairAtIndex(index)
+                    
                     friendTableView.deleteRowsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)], withRowAnimation: .Automatic)
                     
                     //delete the friend request
                     let requestRef = usersRef.child(user.uid).child(Constants.USERFRIENDREQUESTSNODE)
                     requestRef.child(i.key).removeValue()
+                    
+                    //delete sent friend request from new friends account
+                    let sentRequestRef = usersRef.child(i.key).child(Constants.SENTFRIENDREQUESTSNODE)
+                    sentRequestRef.child(user.uid).removeValue()
                     
                     //add the new friend to the user's friend list
                     let friendsRef = usersRef.child(user.uid).child(Constants.USERFRIENDSNODE)
@@ -97,7 +98,7 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
                     //add the user to the new friend's friend list
                     let newFriendsRef = usersRef.child(i.key).child(Constants.USERFRIENDSNODE)
                     newFriendsRef.child(user.uid).setValue(user.displayName)
-                    
+                
                 }
             }
         }
@@ -145,8 +146,13 @@ extension FriendsSettingsVC: UITableViewDelegate{
             if indexPath.section == 0 && hasFriendRequests{
                 
                 //delete the friend request
+                let friendReqID = friendRequests.getKeyAtIndex(indexPath.row)
+                
                 let requestRef = usersRef.child(user.uid).child(Constants.USERFRIENDREQUESTSNODE)
-                requestRef.child(friendRequests.getKeyAtIndex(indexPath.row)).removeValue()
+                requestRef.child(friendReqID).removeValue()
+                
+                let sentRequestRef = usersRef.child(friendReqID).child(Constants.SENTFRIENDREQUESTSNODE)
+                sentRequestRef.child(user.uid).removeValue()
                 
                 friendRequests.deletePairAtIndex(indexPath.row)
                 
