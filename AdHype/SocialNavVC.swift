@@ -9,12 +9,14 @@
 import UIKit
 import Firebase
 
-
-
-
-class SocialNavVC: UIViewController {
+class SocialNavVC: CustomNavVC {
     
-    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var socialNavVCContainerView: UIView!{
+        didSet{
+            super.containerView = socialNavVCContainerView
+        }
+    }
+
     var ad: HypeAd!
     
     var adSocialViewController: AdSocialViewController! = nil
@@ -22,8 +24,6 @@ class SocialNavVC: UIViewController {
     
     var didCancel = true
     var wasSwipeUp: Bool!
-    
-    var transitionDirection: VCTransitionDirection!
 
     
     override func loadView() {
@@ -36,53 +36,9 @@ class SocialNavVC: UIViewController {
         adSocialViewController.ad = ad
         adSocialViewController.wasSwipeUp = wasSwipeUp
         adSocialViewController.delegate = self
-        activeViewController = adSocialViewController
+        setActiveViewController(nil, viewController: adSocialViewController)
     }
-    
-    private var activeViewController: UIViewController?{
-        didSet{
-            removeInactiveViewController(oldValue)
-            updateActiveViewController()
-        }
-    }
-    
-    private func removeInactiveViewController(inactiveViewController: UIViewController?){
-        if let inActiveVC = inactiveViewController{
-            inActiveVC.willMoveToParentViewController(nil)
-            
-            if let transition = transitionDirection{
-                let animation = CATransition()
-                
-                
-                animation.type = kCATransitionPush
-                
-                switch transition{
-                case .toRight:
-                    animation.subtype = kCATransitionFromLeft
-                case .toLeft:
-                    animation.subtype = kCATransitionFromRight
-                }
-                
-                containerView.layer.addAnimation(animation, forKey: "test")
-                
-            }
-            
-            inActiveVC.view.removeFromSuperview()
-            inActiveVC.removeFromParentViewController()
-        }
-        
-    }
-    
-    private func updateActiveViewController(){
-        
-        if let activeVC = activeViewController {
-            
-            activeVC.view.frame = containerView.bounds
-            addChildViewController(activeVC)
-            containerView.addSubview(activeVC.view)
-            activeVC.didMoveToParentViewController(self)
-        }
-    }
+
     
 }
 
@@ -101,8 +57,7 @@ extension SocialNavVC: AdSocialViewControllerDelegate{
         friendsTableViewController.captionText = caption
         
         friendsTableViewController.delegate = self
-        transitionDirection = .toLeft
-        activeViewController = friendsTableViewController
+        setActiveViewController(.toLeft, viewController: friendsTableViewController)
         
     }
     
@@ -110,9 +65,7 @@ extension SocialNavVC: AdSocialViewControllerDelegate{
 
 extension SocialNavVC: FriendsTableViewControllerDelegate{
     func onBackButtonClicked(){
-        transitionDirection = .toRight
-        activeViewController = adSocialViewController
-        
+        setActiveViewController(.toRight, viewController: adSocialViewController)
         friendsTableViewController = nil
     }
     func onSentToFriends(){

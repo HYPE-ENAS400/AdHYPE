@@ -8,10 +8,15 @@
 
 import UIKit
 
-class SettingsNavVC: UIViewController, FriendsSettingsVCDelegate, DisplayMessageDelegate{
+class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDelegate{
     
     @IBOutlet weak var barView: UIView!
-    @IBOutlet weak var containerView: UIView!
+    
+    @IBOutlet weak var settingsNavVCContainerView: UIView!{
+        didSet{
+            super.containerView = settingsNavVCContainerView
+        }
+    }
     @IBOutlet weak var userButton: UIButton!
     @IBOutlet weak var friendsButton: UIButton!
     
@@ -23,7 +28,6 @@ class SettingsNavVC: UIViewController, FriendsSettingsVCDelegate, DisplayMessage
     
     var existingIDS: [String]?
     
-    var transitionDirection: VCTransitionDirection!
     var userInterests: SelectionDataSource<Bool>!
     
     var userSettingsVC: UserSettingsVC?
@@ -41,7 +45,7 @@ class SettingsNavVC: UIViewController, FriendsSettingsVCDelegate, DisplayMessage
         userSettingsVC = storyboard.instantiateViewControllerWithIdentifier("userSettingsView") as? UserSettingsVC
         userSettingsVC?.messageDelegate = self
         userSettingsVC?.interestsDataSource = userInterests
-        activeViewController = userSettingsVC
+        setActiveViewController(nil, viewController: userSettingsVC)
         
         storyboard = UIStoryboard(name: "FriendsSettingsView", bundle: nil)
         friendsSettingsVC = storyboard.instantiateViewControllerWithIdentifier("friendsSettingsView") as? FriendsSettingsVC
@@ -78,43 +82,35 @@ class SettingsNavVC: UIViewController, FriendsSettingsVCDelegate, DisplayMessage
         }
     }
     
-    private var activeViewController: UIViewController?{
-        didSet{
-            removeInactiveViewController(oldValue)
-            updateActiveViewController()
-        }
-    }
     
     @IBAction func onUserButtonClicked(sender: AnyObject) {
-        if (activeViewController != userSettingsVC){
+        if !isViewControllerActiveVC(userSettingsVC){
             userUnderlineView.hidden = false
             friendUnderlineView.hidden = true
             helpUnderlineView.hidden = true
+            setActiveViewController(.toRight, viewController: userSettingsVC)
             transitionDirection = .toRight
-            activeViewController = userSettingsVC
         }
     }
     @IBAction func onFriendButtonClicked(sender: AnyObject) {
-        if (activeViewController != friendsSettingsVC){
+        if !isViewControllerActiveVC(friendsSettingsVC){
             friendUnderlineView.hidden = false
             helpUnderlineView.hidden = true
             userUnderlineView.hidden = true
-            if activeViewController == userSettingsVC{
-                transitionDirection = .toLeft
+            if isViewControllerActiveVC(userSettingsVC){
+                setActiveViewController(.toLeft, viewController: friendsSettingsVC)
             } else{
-                transitionDirection = .toRight
+                setActiveViewController(.toRight, viewController: friendsSettingsVC)
             }
-            activeViewController = friendsSettingsVC
         }
     }
     
     @IBAction func onHelpButtonClicked(sender: AnyObject) {
-        if (activeViewController != helpSettingsVC){
+        if !isViewControllerActiveVC(helpSettingsVC){
             helpUnderlineView.hidden = false
             userUnderlineView.hidden = true
             friendUnderlineView.hidden = true
-            transitionDirection = .toLeft
-            activeViewController = helpSettingsVC
+            setActiveViewController(.toLeft, viewController: helpSettingsVC)
         }
     }
     func onAddFriendClicked(existingFriendsAndRequestsIDS: [String]){
@@ -134,44 +130,6 @@ class SettingsNavVC: UIViewController, FriendsSettingsVCDelegate, DisplayMessage
     
     @IBAction func unwindFromUserTableViewSegue(segue: UIStoryboardSegue){
         existingIDS = nil
-    }
-    
-    private func removeInactiveViewController(inactiveViewController: UIViewController?){
-        if let inActiveVC = inactiveViewController{
-            inActiveVC.willMoveToParentViewController(nil)
-            
-            if let transition = transitionDirection{
-                let animation = CATransition()
-                
-                
-                animation.type = kCATransitionPush
-                
-                switch transition{
-                case .toRight:
-                    animation.subtype = kCATransitionFromLeft
-                case .toLeft:
-                    animation.subtype = kCATransitionFromRight
-                }
-                
-                containerView.layer.addAnimation(animation, forKey: "test")
-                
-            }
-            
-            inActiveVC.view.removeFromSuperview()
-            inActiveVC.removeFromParentViewController()
-        }
-        
-    }
-    
-    private func updateActiveViewController(){
-        
-        if let activeVC = activeViewController {
-            
-            activeVC.view.frame = containerView.bounds
-            addChildViewController(activeVC)
-            containerView.addSubview(activeVC.view)
-            activeVC.didMoveToParentViewController(self)
-        }
     }
     
     override func viewWillDisappear(animated: Bool) {

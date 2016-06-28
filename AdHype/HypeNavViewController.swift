@@ -10,34 +10,30 @@ import UIKit
 import pop
 import Firebase
 
-enum NavVCTransition {
-    case ToSettings
-    case ToGrid
-    case GridToMain
-    case SettingsToMain
-}
-
 enum LogInState {
     case loggedOut
     case loggedIn
     case signedUp
 }
 
-class HypeNavViewController: UIViewController, MainViewControllerDelegate, LoginViewControllerDelegate {
+class HypeNavViewController: CustomNavVC, LoginViewControllerDelegate {
     
     @IBOutlet var gridButton: UIButton!
     @IBOutlet var hypeButton: UIButton!
     @IBOutlet var settingsButton: UIButton!
     @IBOutlet var hypeBarView: UIView!
-    @IBOutlet var containerView: UIView!
+    
+    @IBOutlet weak var hypeNavViewContainerView: UIView!{
+        didSet{
+            super.containerView = hypeNavViewContainerView
+        }
+    }
     
     var mainViewController: MainViewController?
     var settingsViewController: SettingsNavVC?
     
 //    var gridViewController: GridViewController?
     var gridViewController: AdBrowserViewController?
-    
-    var vcTransition: NavVCTransition?
     
     var onAdSocialVCClosedFunc: ((canceled: Bool)->Void)?
     var friendIDS: [String]?
@@ -60,11 +56,11 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate, Login
                 self.gridButton.alpha = 0.7
                 
                 if self.logInState == .signedUp{
-                    self.activeViewController = self.mainViewController
+                    self.setActiveViewController(nil, viewController: self.mainViewController)
                     self.createUserNodes(authUser.uid)
                     self.logInState == .loggedIn
                 } else if self.logInState == .loggedOut{
-                    self.activeViewController = self.mainViewController
+                    self.setActiveViewController(nil, viewController: self.mainViewController)
                     self.initializeHype(authUser.uid)
                     self.logInState = .loggedIn
                 }
@@ -196,54 +192,9 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate, Login
         mainViewController?.resetMainView()
     }
     
-    private var activeViewController: UIViewController?{
-        didSet{
-            removeInactiveViewController(oldValue)
-            updateActiveViewController()
-        }
-    }
-    
-    private func removeInactiveViewController(inactiveViewController: UIViewController?){
-        if let inActiveVC = inactiveViewController{
-            inActiveVC.willMoveToParentViewController(nil)
-            
-            if let transition = vcTransition{
-                let animation = CATransition()
-                animation.type = kCATransitionPush
-                
-                switch transition{
-                case .ToGrid:
-                    animation.subtype = kCATransitionFromRight
-                case .ToSettings:
-                    animation.subtype = kCATransitionFromLeft
-                case .SettingsToMain:
-                    animation.subtype = kCATransitionFromRight
-                case .GridToMain:
-                    animation.subtype = kCATransitionFromLeft
-                }
-                containerView.layer.addAnimation(animation, forKey: "test")
-            }
-
-            inActiveVC.view.removeFromSuperview()
-            inActiveVC.removeFromParentViewController()
-        }
-
-    }
-    
-    private func updateActiveViewController(){
-        
-        if let activeVC = activeViewController {
-            
-            activeVC.view.frame = containerView.bounds
-            addChildViewController(activeVC)
-            containerView.addSubview(activeVC.view)
-            activeVC.didMoveToParentViewController(self)
-        }
-    }
-    
     
     @IBAction func onSettingButtonClicked(sender: AnyObject){
-        guard activeViewController != settingsViewController else{
+        guard !isViewControllerActiveVC(settingsViewController) else{
             return
         }
         
@@ -251,41 +202,42 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate, Login
         settingsViewController = storyboard.instantiateViewControllerWithIdentifier("settingsNavVC") as? SettingsNavVC
         settingsViewController?.userInterests = userInterests
         hypeBarView.layer.shadowOpacity = 0.0
-        vcTransition = NavVCTransition.ToSettings
         settingsButton.alpha = 1
         hypeButton.alpha = 0.7
         gridButton.alpha = 0.7
-        activeViewController = settingsViewController
+        setActiveViewController(.toRight, viewController: settingsViewController)
 
     }
     
     @IBAction func onHypeButtonClicked(sender: AnyObject){
-        if(activeViewController != mainViewController){
-            hypeBarView.layer.shadowOpacity = 1.0
-            if(activeViewController == gridViewController){
-                vcTransition = NavVCTransition.GridToMain
-            } else if (activeViewController == settingsViewController){
-                vcTransition = NavVCTransition.SettingsToMain
-            }
-            activeViewController = mainViewController
-            settingsViewController = nil
-            settingsButton.alpha = 0.7
-            hypeButton.alpha = 1
-            gridButton.alpha = 0.7
+        guard !isViewControllerActiveVC(mainViewController) else {
+            return
+        }
+        settingsViewController = nil
+        hypeBarView.layer.shadowOpacity = 1.0
+        settingsButton.alpha = 0.7
+        hypeButton.alpha = 1
+        gridButton.alpha = 0.7
+        
+        if isViewControllerActiveVC(gridViewController){
+            setActiveViewController(.toRight, viewController: mainViewController)
+        } else {
+            setActiveViewController(.toLeft, viewController: mainViewController)
         }
     }
     
     @IBAction func onGridButtonClicked(sender: AnyObject){
-        
-        if(activeViewController != gridViewController){
-            settingsViewController = nil
-            hypeBarView.layer.shadowOpacity = 1.0
-            vcTransition = NavVCTransition.ToGrid
-            activeViewController = gridViewController
-            settingsButton.alpha = 0.7
-            hypeButton.alpha = 0.7
-            gridButton.alpha = 1
+        guard !isViewControllerActiveVC(gridViewController) else {
+            return
         }
+        
+        settingsViewController = nil
+        hypeBarView.layer.shadowOpacity = 1.0
+        settingsButton.alpha = 0.7
+        hypeButton.alpha = 0.7
+        gridButton.alpha = 1
+        setActiveViewController(.toLeft, viewController: gridViewController)
+
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -323,14 +275,16 @@ class HypeNavViewController: UIViewController, MainViewControllerDelegate, Login
         socialAd = nil
     }
     
+}
+extension HypeNavViewController: MainViewControllerDelegate{
     func onSwipeUp(ad: HypeAd, onClose: (canceled: Bool)->Void){
         socialAd = ad
         wasSwipeUp = true
         self.performSegueWithIdentifier("showAdSocialViewSegue", sender: nil)
         onAdSocialVCClosedFunc = onClose
     }
-    
 }
+
 extension HypeNavViewController: AdBrowserViewControllerDelegate{
     func onAdFromBrowserDoubleClicked(ad: HypeAd) {
         socialAd = ad

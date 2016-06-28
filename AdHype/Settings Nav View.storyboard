@@ -169,6 +169,7 @@
                         <outlet property="helpUnderlineView" destination="KF2-so-nN9" id="1pG-Pl-tYO"/>
                         <outlet property="messageBar" destination="x4o-tP-LVU" id="sTF-Cb-uVS"/>
                         <outlet property="messageBarLabel" destination="bop-6c-dAA" id="jqK-YT-pl6"/>
+                        <outlet property="settingsNavVCContainerView" destination="2PP-uQ-mND" id="wUd-mz-QiI"/>
                         <outlet property="userButton" destination="ocw-rn-aKh" id="dp8-lV-Mf8"/>
                         <outlet property="userUnderlineView" destination="BeW-eM-km2" id="wam-4y-ndy"/>
                         <segue destination="zoH-Dh-zXG" kind="presentation" identifier="showUsersTableVC" id="BjJ-cg-O00"/>

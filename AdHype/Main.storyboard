@@ -68,6 +68,7 @@
                     </view>
                     <connections>
                         <outlet property="containerView" destination="707-69-cH0" id="Rck-Yq-4mI"/>
+                        <outlet property="socialNavVCContainerView" destination="707-69-cH0" id="bah-RK-YLE"/>
                         <segue destination="8le-Y6-m6g" kind="unwind" identifier="unwindFromAdSocialViewSegue" unwindAction="unwindFromAdSocialViewSegue:" id="ili-us-3Op"/>
                     </connections>
                 </viewController>
@@ -201,6 +202,7 @@
                         <outlet property="gridButton" destination="982-Bu-p55" id="FgH-2G-W9c"/>
                         <outlet property="hypeBarView" destination="wRn-LC-op9" id="7EG-3a-B3F"/>
                         <outlet property="hypeButton" destination="zkw-Ps-Kd4" id="Bf9-PM-fNM"/>
+                        <outlet property="hypeNavViewContainerView" destination="grp-ky-qvK" id="ugS-Pv-QgO"/>
                         <outlet property="settingsButton" destination="qfu-TZ-bkh" id="7Ws-d1-a6z"/>
                         <segue destination="PVt-c2-hmz" kind="modal" identifier="logInSegue" id="7bv-Nn-cAj"/>
                         <segue destination="Tth-DT-5QP" kind="modal" identifier="showAdSocialViewSegue" id="sfS-bH-TAf"/>
