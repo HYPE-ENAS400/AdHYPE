@@ -26,7 +26,7 @@
                                         <rect key="frame" x="0.0" y="28" width="600" height="160"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YSX-gT-s7N" id="fN6-N1-4P5">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="160"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="159.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="des-po-jxg">
