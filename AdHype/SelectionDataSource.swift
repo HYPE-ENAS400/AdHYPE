@@ -68,5 +68,9 @@ class SelectionDataSource<T>{
     func getValues() -> [T]{
         return values
     }
+    func clear(){
+        keys.removeAll()
+        values.removeAll()
+    }
     
 }

@@ -64,6 +64,14 @@
          contextName = "MainViewController.kolodaDidRunOutOfCards(KolodaView) -&gt; ():MainViewController.swift">
       </ContextState>
       <ContextState
+         contextName = "UserTableViewController.filterContentForSearchText(String, scope : String) -&gt; ():UserTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "nextCharDict[lastChar]!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "MainViewController.isUserInterestedInAd([String : String]) -&gt; Bool:MainViewController.swift">
          <PersistentStrings>
             <PersistentString
