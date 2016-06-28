@@ -59,13 +59,13 @@
                                                                         </userDefinedRuntimeAttributes>
                                                                     </activityIndicatorView>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VYV-N1-f7D">
-                                                                        <rect key="frame" x="5" y="5" width="156" height="119"/>
+                                                                        <rect key="frame" x="5" y="7" width="156" height="115"/>
                                                                         <subviews>
                                                                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zqb-4j-YoG">
-                                                                                <rect key="frame" x="2" y="2" width="152" height="115"/>
+                                                                                <rect key="frame" x="2" y="2" width="152" height="111"/>
                                                                             </imageView>
                                                                             <button hidden="YES" opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PLA-wD-4Ox">
-                                                                                <rect key="frame" x="0.0" y="79" width="156" height="40"/>
+                                                                                <rect key="frame" x="0.0" y="75" width="156" height="40"/>
                                                                                 <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="40" id="Mhu-Hj-V33"/>
@@ -111,8 +111,8 @@
                                                             <gestureRecognizers/>
                                                             <constraints>
                                                                 <constraint firstItem="qsw-za-NI6" firstAttribute="centerX" secondItem="f0C-Yy-tbq" secondAttribute="centerX" id="5sj-hz-khc"/>
-                                                                <constraint firstAttribute="bottom" secondItem="VYV-N1-f7D" secondAttribute="bottom" constant="5" id="Ksc-MJ-JmE"/>
-                                                                <constraint firstItem="VYV-N1-f7D" firstAttribute="top" secondItem="f0C-Yy-tbq" secondAttribute="top" constant="5" id="OQx-Hy-p3z"/>
+                                                                <constraint firstAttribute="bottom" secondItem="VYV-N1-f7D" secondAttribute="bottom" constant="7" id="Ksc-MJ-JmE"/>
+                                                                <constraint firstItem="VYV-N1-f7D" firstAttribute="top" secondItem="f0C-Yy-tbq" secondAttribute="top" constant="7" id="OQx-Hy-p3z"/>
                                                                 <constraint firstItem="qsw-za-NI6" firstAttribute="centerY" secondItem="f0C-Yy-tbq" secondAttribute="centerY" id="eNq-Rs-tJ9"/>
                                                                 <constraint firstAttribute="trailing" secondItem="VYV-N1-f7D" secondAttribute="trailing" constant="5" id="fcL-6W-h0s"/>
                                                                 <constraint firstItem="VYV-N1-f7D" firstAttribute="leading" secondItem="f0C-Yy-tbq" secondAttribute="leading" constant="5" id="zTz-Cw-wcA"/>

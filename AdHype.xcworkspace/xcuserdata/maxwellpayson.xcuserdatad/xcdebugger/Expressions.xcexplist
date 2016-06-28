@@ -129,6 +129,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "UserTableViewController.(filterContentForSearchText(String, scope : String) -&gt; ()).(closure #1):UserTableViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ImageGridCell.updateWithImage(UIImage?) -&gt; ():ImageGridCell.swift">
          <PersistentStrings>
             <PersistentString

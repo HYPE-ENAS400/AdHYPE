@@ -156,9 +156,9 @@ extension AdBrowserViewController: UICollectionViewDelegate, UICollectionViewDat
 }
 
 extension AdBrowserViewController: UITableViewDelegate, UITableViewDataSource{
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 155
-    }
+//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        return 155
+//    }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return interests.count

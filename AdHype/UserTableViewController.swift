@@ -131,7 +131,7 @@ extension UserTableViewController: UISearchResultsUpdating, UISearchControllerDe
         let query = ref.queryOrderedByKey().queryStartingAtValue(startText).queryEndingAtValue(endText)
         let handle = query.observeEventType(.ChildAdded, withBlock: {(snapshot)->Void in
             if let key = snapshot.value as? String{
-                if !(self.existingFriendsIDS.contains(snapshot.key)) {
+                if !(self.existingFriendsIDS.contains(key)) {
                     self.searchUsersDataSource.putPair((key: key, value: snapshot.key))
                     if self.friendsIDSToAdd.contains(key){
                         self.tableView.addPreselectedIndex(self.searchUsersDataSource.getCount() - 1)
