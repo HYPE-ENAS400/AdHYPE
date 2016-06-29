@@ -10,13 +10,13 @@ import UIKit
 import pop
 import Firebase
 
-enum LogInState {
-    case loggedOut
-    case loggedIn
-    case signedUp
-}
+//enum LogInState {
+//    case loggedOut
+//    case loggedIn
+//    case signedUp
+//}
 
-class HypeNavViewController: CustomNavVC, LoginViewControllerDelegate {
+class HypeNavViewController: CustomNavVC {
     
     @IBOutlet var gridButton: UIButton!
     @IBOutlet var hypeButton: UIButton!
@@ -43,35 +43,29 @@ class HypeNavViewController: CustomNavVC, LoginViewControllerDelegate {
     
     var wasSwipeUp: Bool!
     
-    private var logInState = LogInState.loggedOut
+//    private var logInState = LogInState.loggedOut
+    
+    private var shouldInitOnAuthStateChange = true
+    var shouldInitFromSignUp = false
     
     override func viewDidLoad() {
         
         //FOR SOME REASON THIS IS GETTING CALLED TWICE ON STARTUP?
         FIRAuth.auth()?.addAuthStateDidChangeListener{auth, user in
             if let authUser = user {
-                self.hypeBarView.hidden = false
-                self.settingsButton.alpha = 0.7
-                self.hypeButton.alpha = 1
-                self.gridButton.alpha = 0.7
-                
-                if self.logInState == .signedUp{
-                    self.setActiveViewController(nil, viewController: self.mainViewController)
-                    self.createUserNodes(authUser.uid)
-                    self.logInState == .loggedIn
-                } else if self.logInState == .loggedOut{
+                if self.shouldInitOnAuthStateChange{
+                    self.hypeBarView.hidden = false
+                    self.settingsButton.alpha = 0.7
+                    self.hypeButton.alpha = 1
+                    self.gridButton.alpha = 0.7
                     self.setActiveViewController(nil, viewController: self.mainViewController)
                     self.initializeHype(authUser.uid)
-                    self.logInState = .loggedIn
+                    self.shouldInitOnAuthStateChange = false
                 }
                 
             } else {
-                
-                if self.logInState != .loggedOut{
-                    self.logInState = .loggedOut
-                    self.resetViewControllers()
-                }
-
+                //reset view controllers?
+                self.shouldInitOnAuthStateChange = false
                 
                 let keychainWrapper = KeychainWrapper.standardKeychainAccess()
                 
@@ -141,11 +135,6 @@ class HypeNavViewController: CustomNavVC, LoginViewControllerDelegate {
             })
             
         }
-    }
-    
-    
-    func onSignUpClicked(){
-        logInState = .signedUp
     }
     
     private func createUserNodes(uid: String){
@@ -255,7 +244,18 @@ class HypeNavViewController: CustomNavVC, LoginViewControllerDelegate {
     }
     
     @IBAction func unwindFromLogInSegue(segue: UIStoryboardSegue){
-        
+        self.hypeBarView.hidden = false
+        self.settingsButton.alpha = 0.7
+        self.hypeButton.alpha = 1
+        self.gridButton.alpha = 0.7
+        if shouldInitFromSignUp{
+            print("USER UID: \((FIRAuth.auth()?.currentUser?.uid)!)")
+            self.setActiveViewController(nil, viewController: self.mainViewController)
+            createUserNodes((FIRAuth.auth()?.currentUser?.uid)!)
+        } else {
+            self.setActiveViewController(nil, viewController: self.mainViewController)
+            self.initializeHype((FIRAuth.auth()?.currentUser?.uid)!)
+        }
     }
     
     @IBAction func unwindFromAdSocialViewSegue(segue: UIStoryboardSegue){

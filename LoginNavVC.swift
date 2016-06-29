@@ -10,6 +10,9 @@ import UIKit
 
 class LoginNavVC: CustomNavVC{
     
+    var loginStoryboard = UIStoryboard(name: "LoginViews", bundle:nil)
+    var shouldInitFromSignup = false
+    
     @IBOutlet weak var loginNavVCViewContainer: UIView!{
         didSet{
             super.containerView = loginNavVCViewContainer
@@ -17,14 +20,27 @@ class LoginNavVC: CustomNavVC{
     }
     
     var logInViewController: LoginViewController?
+    var signUpUserInfoVC: SignUpUserInfoVC?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let storyboard = UIStoryboard(name: "LoginViews", bundle:nil)
-        logInViewController = storyboard.instantiateViewControllerWithIdentifier("logInView") as? LoginViewController
+        logInViewController = loginStoryboard.instantiateViewControllerWithIdentifier("logInView") as? LoginViewController
         logInViewController?.delegate = self
         setActiveViewController(nil, viewController: logInViewController)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "unwindFromLogInSegue" {
+            let navVC = segue.destinationViewController as! HypeNavViewController
+            navVC.shouldInitFromSignUp = shouldInitFromSignup
+        }
+    }
+}
+
+extension LoginNavVC: SignUpUserInfoVCDelegate{
+    func onUserInfoSubmitted() {
+        self.performSegueWithIdentifier("unwindFromLogInSegue", sender: nil)
     }
 }
 
@@ -32,9 +48,13 @@ extension LoginNavVC: LoginViewControllerDelegate{
     //NEED ANOTHER FUNCTION THAT TELLS NAVVC THAT WAS LOGGED IN, MAYBE CHANGE ORDER OF WHEN INITIALIZE THINGS GET CALLED?
     
     func onSignedUp() {
-        
+        shouldInitFromSignup = true
+        signUpUserInfoVC = loginStoryboard.instantiateViewControllerWithIdentifier("signUpUserInfoView") as? SignUpUserInfoVC
+        signUpUserInfoVC?.delegate = self
+        setActiveViewController(.toLeft, viewController: signUpUserInfoVC)
     }
     func onLoggedIn(){
+        shouldInitFromSignup = false
         self.performSegueWithIdentifier("unwindFromLogInSegue", sender: nil)
     }
 }

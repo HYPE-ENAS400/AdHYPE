@@ -57,6 +57,7 @@
 		2BB592DF1D223BD40068AA08 /* CustomNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB592DE1D223BD40068AA08 /* CustomNavVC.swift */; };
 		2BB5931A1D2345F00068AA08 /* LoginNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB593191D2345F00068AA08 /* LoginNavVC.swift */; };
 		2BB5931C1D23463D0068AA08 /* LoginViews.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BB5931B1D23463D0068AA08 /* LoginViews.storyboard */; };
+		2BB5931E1D2426750068AA08 /* SignUpUserInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB5931D1D2426750068AA08 /* SignUpUserInfoVC.swift */; };
 		2BFD161A1D1AE0C7001A210A /* Settings Nav View.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BFD16191D1AE0C7001A210A /* Settings Nav View.storyboard */; };
 		2BFD161E1D1AF208001A210A /* SettingsNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFD161D1D1AF208001A210A /* SettingsNavVC.swift */; };
 		2BFD16201D1AF5B5001A210A /* UserSettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BFD161F1D1AF5B5001A210A /* UserSettingsView.storyboard */; };
@@ -121,6 +122,7 @@
 		2BB592DE1D223BD40068AA08 /* CustomNavVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavVC.swift; sourceTree = "<group>"; };
 		2BB593191D2345F00068AA08 /* LoginNavVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginNavVC.swift; sourceTree = "<group>"; };
 		2BB5931B1D23463D0068AA08 /* LoginViews.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginViews.storyboard; sourceTree = "<group>"; };
+		2BB5931D1D2426750068AA08 /* SignUpUserInfoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpUserInfoVC.swift; sourceTree = "<group>"; };
 		2BFD16191D1AE0C7001A210A /* Settings Nav View.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Settings Nav View.storyboard"; sourceTree = "<group>"; };
 		2BFD161D1D1AF208001A210A /* SettingsNavVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsNavVC.swift; sourceTree = "<group>"; };
 		2BFD161F1D1AF5B5001A210A /* UserSettingsView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserSettingsView.storyboard; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				2B9EAA181D1098B300396A63 /* LoginViewController.swift */,
 				2BB593191D2345F00068AA08 /* LoginNavVC.swift */,
 				2BB5931B1D23463D0068AA08 /* LoginViews.storyboard */,
+				2BB5931D1D2426750068AA08 /* SignUpUserInfoVC.swift */,
 			);
 			name = LogIn;
 			path = ..;
@@ -458,6 +461,7 @@
 				2B75DF0F1D15C6760047A0DF /* FriendsSectionCell.swift in Sources */,
 				2B9EAA511D10B1BE00396A63 /* SwipeResultDirection.swift in Sources */,
 				2BFD16261D1AFC50001A210A /* FriendsSettingsVC.swift in Sources */,
+				2BB5931E1D2426750068AA08 /* SignUpUserInfoVC.swift in Sources */,
 				2BFD16241D1AF9E1001A210A /* UserSettingsVC.swift in Sources */,
 				2B9EAA231D1098BA00396A63 /* ImageGridCell.swift in Sources */,
 				2B9EAA341D10A02D00396A63 /* Constants.swift in Sources */,

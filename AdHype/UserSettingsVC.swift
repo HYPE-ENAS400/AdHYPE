@@ -30,9 +30,10 @@ class UserSettingsVC: UIViewController{
             return
         }
         
+        usernameTextField.enabled = false
+        
         initializeButtonLayer(logOutButton)
         
-        usernameTextField.delegate = self
         interestsTableView.selectionDelegate = self
         for i in 0..<interestsDataSource.getCount(){
             if interestsDataSource.getValueAtIndex(i){
@@ -46,8 +47,6 @@ class UserSettingsVC: UIViewController{
         
         if let name = user.displayName{
             usernameTextField.text = name
-            usernameTextField.enabled = false
-//            oldUserName = name
         }
     }
     
@@ -58,26 +57,7 @@ class UserSettingsVC: UIViewController{
         button.layer.shadowOffset = CGSizeZero
         button.layer.shadowColor = UIColor.grayColor().CGColor
     }
-    
-    func updateUsername(name: String) {
-        
-        if let user = FIRAuth.auth()?.currentUser{
-            let changeRequest = user.profileChangeRequest()
-            
-            changeRequest.displayName = name
-            changeRequest.commitChangesWithCompletion({error in
-                if let error = error{
-                    print("COULD NOT CHANGE USERNAME: \(error.localizedDescription)")
-                } else {
-                    self.messageDelegate.displayMessage("Successfully changed username!", duration: 1.5)
-                    print("successfully changed username")
-                }
-            })
-            let ref = FIRDatabase.database().reference().child(Constants.USERNAMESNODE).child(name)
-            ref.setValue(user.uid)
-        }
-        
-    }
+
     
 //    @IBAction func onSaveClicked(sender: AnyObject) {
 //        messageDelegate.displayMessage("Saved!", duration: 1.5)
@@ -104,54 +84,10 @@ extension UserSettingsVC: SelectionTableViewDelegate{
     func getNumberOfCells() -> Int {
         return interestsDataSource.getCount()
     }
-    func getCellTextAtIndex(index: Int) -> String? {
-        return interestsDataSource.getKeyAtIndex(index)
+    func getCellTextAtIndex(index: Int) -> SelectionCellTextData? {
+        return SelectionCellTextData(main: interestsDataSource.getKeyAtIndex(index), detail: nil)
     }
     func getCellColorAtIndex(index: Int) -> UIColor? {
         return nil
-    }
-}
-
-extension UserSettingsVC: UITextFieldDelegate{
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func textFieldDidEndEditing(textField: UITextField) {
-        
-        
-        let alertController = UIAlertController(title: "Heads Up", message: "User Name can't be changed once set", preferredStyle: .Alert)
-        
-        let confirmAction = UIAlertAction(title: "Okay", style: .Default) { (action) in
-            let newName = textField.text?.lowercaseString
-            
-            let ref = FIRDatabase.database().reference().child(Constants.USERNAMESNODE).child(newName!)
-            ref.observeSingleEventOfType(.Value, withBlock: {(snapshot) -> Void in
-                if snapshot.exists(){
-                    print("CHECK USERNAME IS RETURNING: \(newName)")
-                    self.usernameTextField.text = ""
-                    self.messageDelegate.displayMessage("username must be unique", duration: 1.5)
-                } else{
-                    self.updateUsername(newName!)
-                }
-            })
-        }
-        alertController.addAction(confirmAction)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel){ (action) in
-            textField.becomeFirstResponder()
-        }
-        alertController.addAction(cancelAction)
-        
-        self.presentViewController(alertController, animated: true, completion: nil)
-        alertController.view.tintColor = UIColor(red: 255/255, green: 56/255, blue: 73/255, alpha: 1)
-    }
-    
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        if (disallowedCharacters.contains(string)) {
-            return false
-        }
-        return true
     }
 }

@@ -12,6 +12,7 @@ class SelectionCell: UITableViewCell{
     
     @IBOutlet weak var selectionIndicatorView: UIView!
     @IBOutlet weak var userCell: UILabel!
+    @IBOutlet weak var detailLabel: UILabel!
     
     func initCell(isCellSelected: Bool){
         selectionIndicatorView.layer.cornerRadius = (selectionIndicatorView.layer.bounds.size.width/2)

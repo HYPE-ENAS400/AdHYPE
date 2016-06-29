@@ -18,8 +18,10 @@ class UserTableViewController: UIViewController{
     
     let searchController = UISearchController(searchResultsController: nil)
     
-    var usersDataSource = SelectionDataSource<String>()
-    var searchUsersDataSource = SelectionDataSource<String>()
+    var usersDataSource = SelectionDataSource<SelectionCellTextData>()
+    var searchUsersDataSource = SelectionDataSource<SelectionCellTextData>()
+    
+    var userFullName: String?
     
     var friendsIDSToAdd = [String]()
     var existingFriendsIDS: [String]!
@@ -50,6 +52,14 @@ class UserTableViewController: UIViewController{
         searchController.view.tintColor = UIColor(red: 255/255, green: 56/255, blue: 73/255, alpha: 1)
         
         let baseRef = FIRDatabase.database().reference()
+        
+        let userFullNameRef = baseRef.child(Constants.USERNAMESNODE).child(user.displayName!).child(Constants.USERFULLNAME)
+        userFullNameRef.observeSingleEventOfType(.Value, withBlock: {(snapshot) -> Void in
+            if let fn = snapshot.value as? String{
+                self.userFullName = fn
+            }
+        })
+        
         let sentReqRef = baseRef.child(Constants.USERSNODE).child(user.uid).child(Constants.SENTFRIENDREQUESTSNODE)
         sentReqRef.observeSingleEventOfType(.Value, withBlock: {(snapshot) -> Void in
             if let dict = snapshot.value as? [String: Bool]{
@@ -66,15 +76,21 @@ class UserTableViewController: UIViewController{
     func queryUsernames(ref: FIRDatabaseReference){
         let query = ref.queryOrderedByKey()
         let friendQueryHandle = query.observeEventType(.ChildAdded, withBlock: {(snapshot)-> Void in
-            if let id = snapshot.value as? String{
-                if !(self.existingFriendsIDS.contains(id)) {
-                    self.usersDataSource.putPair((key: id, value: snapshot.key))
+            if let dict = snapshot.value as? [String: String]{
+                guard let id = dict[Constants.USERUID] else{
+                    return
+                }
+                if !(self.existingFriendsIDS.contains(id)){
+                    let fn = dict[Constants.USERFULLNAME]
+                    let newTextData = SelectionCellTextData(main: snapshot.key, detail: fn)
+                    self.usersDataSource.putPair((key: id, value: newTextData))
                     let newIndex = self.usersDataSource.getCount() - 1
                     let newIndexPath = NSIndexPath(forRow: newIndex, inSection: 0)
                     self.tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Automatic)
+                } else {
+                    print("Error loading user usernames")
                 }
-            } else {
-                print("Error loading user usernames")
+                
             }
         })
         detachInfo = FIRDetachInfo(ref: ref, handle: friendQueryHandle)
@@ -95,10 +111,17 @@ class UserTableViewController: UIViewController{
             print("could not get user when sending friend requests")
             return
         }
+        
+        var nameDict = [Constants.USERDISPLAYNAME: user.displayName!]
+        if let fn = userFullName{
+            nameDict[Constants.USERFULLNAME] = fn
+        }
+        
         for id in friendsIDSToAdd{
             let baseRef = FIRDatabase.database().reference().child(Constants.USERSNODE)
             let ref = baseRef.child(id).child(Constants.USERFRIENDREQUESTSNODE)
-            ref.child(user.uid).setValue(user.displayName)
+            ref.child(user.uid).setValue(nameDict)
+            
             let sentReqRef = baseRef.child(user.uid).child(Constants.SENTFRIENDREQUESTSNODE)
             sentReqRef.child(id).setValue(true)
         }
@@ -130,13 +153,17 @@ extension UserTableViewController: UISearchResultsUpdating, UISearchControllerDe
         
         let query = ref.queryOrderedByKey().queryStartingAtValue(startText).queryEndingAtValue(endText)
         let handle = query.observeEventType(.ChildAdded, withBlock: {(snapshot)->Void in
-            if let key = snapshot.value as? String{
-                if !(self.existingFriendsIDS.contains(key)) {
-                    self.searchUsersDataSource.putPair((key: key, value: snapshot.key))
-                    if self.friendsIDSToAdd.contains(key){
-                        self.tableView.addPreselectedIndex(self.searchUsersDataSource.getCount() - 1)
-                    }
-                    self.tableView.reloadData()
+            if let dict = snapshot.value as? [String: String]{
+                guard let id = dict[Constants.USERUID] else{
+                    return
+                }
+                if !(self.existingFriendsIDS.contains(id)){
+                    let fn = dict[Constants.USERFULLNAME]
+                    let newTextData = SelectionCellTextData(main: snapshot.key, detail: fn)
+                    self.usersDataSource.putPair((key: id, value: newTextData))
+                    let newIndex = self.usersDataSource.getCount() - 1
+                    let newIndexPath = NSIndexPath(forRow: newIndex, inSection: 0)
+                    self.tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Automatic)
                 }
             }
         })
@@ -197,7 +224,7 @@ extension UserTableViewController: SelectionTableViewDelegate{
         }
         return usersDataSource.getCount()
     }
-    func getCellTextAtIndex(index: Int) -> String? {
+    func getCellTextAtIndex(index: Int) -> SelectionCellTextData? {
         if isSearchActive(){
             return searchUsersDataSource.getValueAtIndex(index)
         }

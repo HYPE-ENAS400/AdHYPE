@@ -87,8 +87,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     }
     
     @IBAction func signUpClicked(sender: AnyObject){
-        //TODO Invalidate button
-        
+            
         logInButton.userInteractionEnabled = false
         signUpButton.userInteractionEnabled = false
         
