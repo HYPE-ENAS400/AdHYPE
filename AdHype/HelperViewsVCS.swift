@@ -250,19 +250,21 @@ class UpSwipePageVC: UIViewController{
 class CommentPageVC: UIViewController{
     
     @IBOutlet weak var captionTextView: UITextView!
-    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addCaptionButton: UIButton!
+    @IBOutlet weak var divider1View: UIView!
     @IBOutlet weak var adImageView: UIImageView!
+    @IBOutlet weak var caption1View: UIView!
     
+    @IBOutlet weak var votesView: UIView!
+    @IBOutlet weak var plusView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        captionTextView.contentInset.top = 0
+        //captionTextView.contentInset.top = 0
         addCaptionButton.layer.cornerRadius = (addCaptionButton.bounds.size.height/2)
         addCaptionButton.layer.shadowRadius = 4
         addCaptionButton.layer.shadowOpacity = 0.6
         addCaptionButton.layer.shadowOffset = CGSizeZero
         
-        tableView.rowHeight = 70
         
         /*initTouchIndicatorOuterViewFrame = touchIndicatorOuterView.frame
         
