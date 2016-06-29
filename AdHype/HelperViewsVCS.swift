@@ -249,12 +249,14 @@ class UpSwipePageVC: UIViewController{
 
 class CommentPageVC: UIViewController{
     
-    @IBOutlet weak var captionTextView: UITextView!
     @IBOutlet weak var addCaptionButton: UIButton!
     @IBOutlet weak var divider1View: UIView!
     @IBOutlet weak var adImageView: UIImageView!
     @IBOutlet weak var caption1View: UIView!
     
+    @IBOutlet weak var touchIndicatorInnerView: UIView!
+    @IBOutlet weak var touchIndicatorOuterView: UIView!
+    @IBOutlet weak var myCaptionView: UIView!
     @IBOutlet weak var votesView: UIView!
     @IBOutlet weak var plusView: UIView!
     override func viewDidLoad() {
