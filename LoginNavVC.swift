@@ -29,6 +29,8 @@ class LoginNavVC: CustomNavVC{
 }
 
 extension LoginNavVC: LoginViewControllerDelegate{
+    //NEED ANOTHER FUNCTION THAT TELLS NAVVC THAT WAS LOGGED IN, MAYBE CHANGE ORDER OF WHEN INITIALIZE THINGS GET CALLED?
+    
     func onSignedUp() {
         
     }
