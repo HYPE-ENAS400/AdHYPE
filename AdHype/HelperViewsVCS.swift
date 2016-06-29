@@ -259,6 +259,9 @@ class CommentPageVC: UIViewController{
     @IBOutlet weak var myCaptionView: UIView!
     @IBOutlet weak var votesView: UIView!
     @IBOutlet weak var plusView: UIView!
+    
+    var initTouchIndicatorOuterViewFrame: CGRect!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //captionTextView.contentInset.top = 0
@@ -268,13 +271,76 @@ class CommentPageVC: UIViewController{
         addCaptionButton.layer.shadowOffset = CGSizeZero
         
         
-        /*initTouchIndicatorOuterViewFrame = touchIndicatorOuterView.frame
+        initTouchIndicatorOuterViewFrame = touchIndicatorOuterView.frame
         
         touchIndicatorOuterView.layer.cornerRadius = (touchIndicatorOuterView.layer.frame.size.width/2)
         touchIndicatorInnerView.layer.cornerRadius = (touchIndicatorInnerView.layer.frame.size.width/2)
- */
         
+        self.touchIndicatorOuterView.center.y = self.caption1View.center.y
+        self.touchIndicatorOuterView.center.x = self.caption1View.center.x
+
+ 
     }
+    
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.touchIndicatorOuterView.center.y = self.caption1View.center.y
+        self.touchIndicatorOuterView.center.x = self.caption1View.center.x
+        animateTouchIndicatorAppearance()
+    }
+    
+    func animateTouchIndicatorAppearance(){
+        UIView.animateWithDuration(1, delay: 1, options: .CurveLinear, animations: {
+            self.touchIndicatorOuterView.alpha = 0.5
+            self.touchIndicatorInnerView.alpha = 0.5
+            
+            }, completion: { finished in
+                self.caption1View.backgroundColor = UIColor.lightGrayColor();
+                self.animateTouchIndicatorDisappearance()
+        })
+    }
+    func animateTouchIndicatorDisappearance(){
+        UIView.animateWithDuration(0.2, delay: 1 , options: .CurveEaseOut, animations: {
+            self.touchIndicatorOuterView.alpha = 0.2
+            self.touchIndicatorInnerView.alpha = 0.2
+            }, completion: { finished in
+                self.animateColorReturn()
+        })
+    }
+    
+    func animateColorReturn(){
+        UIView.animateWithDuration(0.5, delay: 0.1 , options: .CurveLinear, animations: {
+            self.touchIndicatorOuterView.alpha = 0
+            self.touchIndicatorInnerView.alpha = 0
+            self.caption1View.backgroundColor = UIColor.whiteColor();
+            
+            }, completion: { finished in
+                self.resetAndRestartAnimation()
+        })
+    }
+    
+    
+    func resetAndRestartAnimation(){
+        UIView.animateWithDuration(0.1, delay: 0 , options: .CurveEaseOut, animations: {
+            }, completion: { finished in
+                self.animateTouchIndicatorAppearance()
+        })
+    }
+    
+    func resetAnimationsOnClose(){
+        touchIndicatorOuterView.layer.removeAllAnimations()
+        touchIndicatorInnerView.layer.removeAllAnimations()
+        //cardContainerView.layer.removeAllAnimations()
+        //cardContainerView.frame = initCardContainerFrame
+        touchIndicatorOuterView.frame = initTouchIndicatorOuterViewFrame
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        resetAnimationsOnClose()
+    }
+
     
     
 }

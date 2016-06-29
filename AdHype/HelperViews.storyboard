@@ -156,7 +156,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VgY-GF-Xsz">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HYPE_ad" translatesAutoresizingMaskIntoConstraints="NO" id="VgY-GF-Xsz">
                                 <rect key="frame" x="0.0" y="45" width="414" height="497"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
@@ -165,7 +165,7 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
-                                        <integer key="value" value="1"/>
+                                        <integer key="value" value="-10"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
@@ -232,6 +232,11 @@
                                     <constraint firstItem="kIr-uA-fh8" firstAttribute="leading" secondItem="rm5-PY-ES8" secondAttribute="leading" constant="4" id="krN-f6-5PM"/>
                                     <constraint firstAttribute="trailing" secondItem="kIr-uA-fh8" secondAttribute="trailing" constant="4" id="rYC-Bb-Rhs"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AUB-EU-Obu">
                                 <rect key="frame" x="0.0" y="542" width="414" height="70"/>
@@ -271,7 +276,6 @@
                                                 <state key="normal" image="GREYdown_button"/>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="s6Q-Iu-shI" secondAttribute="bottom" constant="10" id="0EF-Vr-nU9"/>
                                             <constraint firstAttribute="width" constant="85" id="3KC-fB-sJg"/>
@@ -295,6 +299,11 @@
                                     <constraint firstAttribute="height" constant="70" id="qDX-0o-BIk"/>
                                     <constraint firstItem="ggL-Fo-SdG" firstAttribute="top" secondItem="AUB-EU-Obu" secondAttribute="top" id="uY9-K9-sMO"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                        <integer key="value" value="-10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ocP-z1-sfG" userLabel="Caption3 View">
                                 <rect key="frame" x="0.0" y="613" width="414" height="70"/>
@@ -473,19 +482,23 @@
                             <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="keO-hG-KUq">
                                 <rect key="frame" x="0.0" y="442" width="414" height="30"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nBO-Vd-gGu">
-                                        <rect key="frame" x="186" y="4" width="42" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1O2-8q-XCt">
+                                        <rect key="frame" x="0.0" y="4" width="414" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="nBO-Vd-gGu" firstAttribute="centerX" secondItem="keO-hG-KUq" secondAttribute="centerX" id="0Gy-Nz-YAx"/>
                                     <constraint firstAttribute="height" constant="30" id="9UN-qs-4B0"/>
-                                    <constraint firstItem="nBO-Vd-gGu" firstAttribute="centerY" secondItem="keO-hG-KUq" secondAttribute="centerY" id="S2T-OK-4lK"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.zPosition" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -511,11 +524,11 @@
                             <constraint firstItem="AUB-EU-Obu" firstAttribute="top" secondItem="mMj-5L-AuT" secondAttribute="bottom" id="SFQ-EV-4LX"/>
                             <constraint firstAttribute="trailing" secondItem="Vgg-XD-Z2D" secondAttribute="trailing" id="Xoc-dj-kuz"/>
                             <constraint firstItem="rjF-vz-MqT" firstAttribute="top" secondItem="AUB-EU-Obu" secondAttribute="bottom" id="c68-eq-PDh"/>
+                            <constraint firstItem="rm5-PY-ES8" firstAttribute="centerX" secondItem="qiR-65-Bn5" secondAttribute="centerX" id="ePd-L6-bOX"/>
                             <constraint firstItem="VgY-GF-Xsz" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" id="egA-BZ-LAJ"/>
                             <constraint firstItem="mMj-5L-AuT" firstAttribute="top" secondItem="keO-hG-KUq" secondAttribute="bottom" id="gwj-zv-ruG"/>
                             <constraint firstAttribute="trailing" secondItem="VgY-GF-Xsz" secondAttribute="trailing" id="jRY-PF-mC1"/>
                             <constraint firstItem="Vgg-XD-Z2D" firstAttribute="top" secondItem="ocP-z1-sfG" secondAttribute="bottom" id="nYd-sX-j3j"/>
-                            <constraint firstItem="rm5-PY-ES8" firstAttribute="centerX" secondItem="keO-hG-KUq" secondAttribute="centerX" id="rSx-0S-YTe"/>
                             <constraint firstAttribute="trailing" secondItem="pTC-mj-bS4" secondAttribute="trailing" id="uAQ-lJ-dr7"/>
                             <constraint firstItem="pTC-mj-bS4" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" id="vbh-Jl-Nr3"/>
                             <constraint firstItem="AUB-EU-Obu" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" id="xmc-ZD-cLF"/>
@@ -536,7 +549,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nG9-fs-pns" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="236" y="1026"/>
+            <point key="canvasLocation" x="257" y="1088"/>
         </scene>
         <!--Left Swipe PageVC-->
         <scene sceneID="lX6-8x-aGL">
@@ -814,6 +827,7 @@
     <resources>
         <image name="GREYdown_button" width="56" height="34"/>
         <image name="GREYup_button" width="56" height="34"/>
+        <image name="HYPE_ad" width="250" height="300"/>
         <image name="close_button" width="55" height="55"/>
         <image name="grid_button" width="36" height="36"/>
         <image name="plus_button" width="86" height="86"/>
