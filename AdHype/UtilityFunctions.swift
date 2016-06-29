@@ -12,6 +12,22 @@ struct FIRDetachInfo{
         self.handle = handle
     }
 }
+struct SelectionCellTextData{
+    var main: String
+    var detail: String?
+    init(main: String, detail: String?){
+        self.main = main
+        self.detail = detail
+    }
+}
+
+func convertSelectionCellTextDataToUserNamesDict(data: SelectionCellTextData)->[String: String]{
+    var dict = [Constants.USERDISPLAYNAME: data.main]
+    if let fullName = data.detail{
+        dict[Constants.USERFULLNAME] = fullName
+    }
+    return dict
+}
 
 protocol DisplayMessageDelegate{
     func displayMessage(message: String, duration: Double)

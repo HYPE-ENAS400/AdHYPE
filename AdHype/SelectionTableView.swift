@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 // Handles the logic of a view control with a selection table, default methods must be overriden
 //class SelectionTableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 class SelectionTableView: UITableView, UITableViewDelegate, UITableViewDataSource{
@@ -44,6 +45,10 @@ class SelectionTableView: UITableView, UITableViewDelegate, UITableViewDataSourc
         }
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 55
+    }
+    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return selectionDelegate.getNumberOfCells()
@@ -62,8 +67,10 @@ class SelectionTableView: UITableView, UITableViewDelegate, UITableViewDataSourc
         } else{
             cell.initCell(false)
         }
-        cell.userCell.text = selectionDelegate.getCellTextAtIndex(indexPath.row)
-        
+        if let data = selectionDelegate.getCellTextAtIndex(indexPath.row){
+            cell.userCell.text = data.main
+            cell.detailLabel.text = data.detail
+        }
         return cell
     }
     
@@ -73,6 +80,6 @@ protocol SelectionTableViewDelegate{
     func cellAtIndexSelected(index: Int)
     func cellAtIndexDeselected(index: Int)
     func getNumberOfCells()->Int
-    func getCellTextAtIndex(index: Int) -> String?
+    func getCellTextAtIndex(index: Int) -> SelectionCellTextData?
     func getCellColorAtIndex(index: Int) -> UIColor?
 }

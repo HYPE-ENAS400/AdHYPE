@@ -15,13 +15,15 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
     var isAddFriendButtonDisabled = false
     var delegate: FriendsSettingsVCDelegate!
     
-    var friendRequests = SelectionDataSource<String>()
-    var friends = SelectionDataSource<String>()
+    var friendRequests = SelectionDataSource<SelectionCellTextData>()
+    
+    var friends = SelectionDataSource<SelectionCellTextData>()
     
     var friendReqDetachInfo: FIRDetachInfo?
     var friendDetachInfo: FIRDetachInfo?
     
     var usersRef: FIRDatabaseReference!
+    var userFullName: String?
     var messageDelegate: DisplayMessageDelegate!
     var hasFriendRequests = false
     
@@ -35,14 +37,24 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
         
         let user = (FIRAuth.auth()?.currentUser)!
         
+        let userFullNameRef = FIRDatabase.database().reference().child(Constants.USERNAMESNODE).child(user.displayName!).child(Constants.USERFULLNAME)
+        userFullNameRef.observeSingleEventOfType(.Value, withBlock: {(snapshot) -> Void in
+            if let fn = snapshot.value as? String{
+                self.userFullName = fn
+            }
+        })
+        
         usersRef = FIRDatabase.database().reference().child(Constants.USERSNODE)
         let friendRequestQueryRef = usersRef.child(user.uid).child(Constants.USERFRIENDREQUESTSNODE)
         let friendRequestQuery = friendRequestQueryRef.queryOrderedByValue()
         let friendReqHandle = friendRequestQuery.observeEventType(.ChildAdded, withBlock: {(snapshot)-> Void in
-            
+            print(snapshot)
             self.hasFriendRequests = true
-            if let name = snapshot.value as? String{
-                self.friendRequests.putPair((key: snapshot.key, value: name))
+            if let nameDict = snapshot.value as? [String: String]{
+                let un = nameDict[Constants.USERDISPLAYNAME]!
+                let fn = nameDict[Constants.USERFULLNAME]
+                let newTextData = SelectionCellTextData(main: un, detail: fn)
+                self.friendRequests.putPair((key: snapshot.key, value: newTextData))
                 self.friendTableView.reloadData()
                 
             } else {
@@ -54,8 +66,11 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
         let friendsQueryRef = usersRef.child(user.uid).child(Constants.USERFRIENDSNODE)
         let friendsQuery = friendsQueryRef.queryOrderedByValue()
         let friendHandle = friendsQuery.observeEventType(.ChildAdded, withBlock: {(snapshot) -> Void in
-            if let name = snapshot.value as? String{
-                self.friends.putPair((key: snapshot.key, value: name))
+            if let nameDict = snapshot.value as? [String: String]{
+                let un = nameDict[Constants.USERDISPLAYNAME]!
+                let fn = nameDict[Constants.USERFULLNAME]
+                let newTextData = SelectionCellTextData(main: un, detail: fn)
+                self.friends.putPair((key: snapshot.key, value: newTextData))
                 let curIndex = self.friends.getCount() - 1
                 var section = 0
                 if self.hasFriendRequests{
@@ -72,7 +87,7 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
         friendDetachInfo = FIRDetachInfo(ref: friendsQueryRef, handle: friendHandle)
     }
     
-    func onFriendRequestAccepted(info: (key: String, value: String)?){
+    func onFriendRequestAccepted(info: (key: String, value: SelectionCellTextData)?){
         if let i = info{
             if let index = friendRequests.getIndexOfPairForKey((i.key)){
                 if let user = FIRAuth.auth()?.currentUser{
@@ -93,12 +108,15 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
                     
                     //add the new friend to the user's friend list
                     let friendsRef = usersRef.child(user.uid).child(Constants.USERFRIENDSNODE)
-                    friendsRef.child(i.key).setValue(i.value)
+                    friendsRef.child(i.key).setValue(convertSelectionCellTextDataToUserNamesDict(i.value))
                     
                     //add the user to the new friend's friend list
                     let newFriendsRef = usersRef.child(i.key).child(Constants.USERFRIENDSNODE)
-                    newFriendsRef.child(user.uid).setValue(user.displayName)
-                
+                    var nameDict = [Constants.USERDISPLAYNAME: user.displayName!]
+                    if let fullName = userFullName{
+                        nameDict[Constants.USERFULLNAME] = fullName
+                    }
+                    newFriendsRef.child(user.uid).setValue(nameDict)
                 }
             }
         }
@@ -113,7 +131,10 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
 
 extension FriendsSettingsVC: UITableViewDelegate{
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return 60
+    }
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 55
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -135,6 +156,7 @@ extension FriendsSettingsVC: UITableViewDelegate{
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
         if editingStyle == .Delete {
             print("DELETE")
             

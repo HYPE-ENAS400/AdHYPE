@@ -156,9 +156,11 @@ extension AdBrowserViewController: UICollectionViewDelegate, UICollectionViewDat
 }
 
 extension AdBrowserViewController: UITableViewDelegate, UITableViewDataSource{
-//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        return 155
-//    }
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        let width = UIScreen.mainScreen().bounds.size.width
+        let height = width * 6 / (3*5)
+        return 35 + height
+    }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return interests.count
@@ -184,6 +186,7 @@ extension AdBrowserViewController: UITableViewDelegate, UITableViewDataSource{
         tvCell.adCollectionView.addGestureRecognizer(lpgr)
         tvCell.adCollectionView.addGestureRecognizer(tgr)
         tvCell.adCollectionView.addGestureRecognizer(dtgr)
+        tvCell.adCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 5, right: 5)
         
         tvCell.setCollectionViewDataSourceDelegate(self, forRow: indexPath.row)
     }

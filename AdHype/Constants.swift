@@ -30,6 +30,11 @@ struct Constants {
     static let USERFRIENDSNODE = "friends"
     static let USERINTERESTSNODE = "interests"
     static let USERNEXTADKEY = "nextAdKey"
+    static let USERDISPLAYNAME = "displayName"
+    static let USERUID = "userUID"
+    static let USERFULLNAME = "userFullName"
+    static let USERGENDER = "userGender"
+    static let USERAGE = "userAge"
     
     static let ADSNODE = "ads"
     static let ADCOMMENTSNODE = "comments"

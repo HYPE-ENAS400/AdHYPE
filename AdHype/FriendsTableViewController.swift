@@ -14,7 +14,7 @@ class FriendsTableViewController: UIViewController{
     
     @IBOutlet weak var friendTableView: SelectionTableView!
     
-    var friends = SelectionDataSource<String>()
+    var friends = SelectionDataSource<SelectionCellTextData>()
     
     var adMetaData: HypeAdMetaData!
     
@@ -35,14 +35,17 @@ class FriendsTableViewController: UIViewController{
         }
         
         if canPublish{
-            friends.putPair((key: Constants.PUBLISHID, value: "Publish Caption"))
+            friends.putPair((key: Constants.PUBLISHID, value: SelectionCellTextData(main: "Publish", detail: nil)))
         }
         
         let ref = FIRDatabase.database().reference().child(Constants.USERSNODE).child(user.uid).child(Constants.USERFRIENDSNODE)
         let query = ref.queryOrderedByValue()
         let handle = query.observeEventType(.ChildAdded, withBlock: {(snapshot)-> Void in
-            if let name = snapshot.value as? String{
-                self.friends.putPair((key: snapshot.key, value: name))
+            if let nameDict = snapshot.value as? [String: String]{
+                let un = nameDict[Constants.USERDISPLAYNAME]!
+                let fn = nameDict[Constants.USERFULLNAME]
+                let newNameData = SelectionCellTextData(main: un, detail: fn)
+                self.friends.putPair((key: snapshot.key, value: newNameData))
                 let newIndex = self.friends.getCount() - 1
                 let newIndexPath = NSIndexPath(forRow: newIndex, inSection: 0)
                 self.friendTableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Automatic)
@@ -109,7 +112,7 @@ extension FriendsTableViewController: SelectionTableViewDelegate{
         }
         return nil
     }
-    func getCellTextAtIndex(index: Int) -> String? {
+    func getCellTextAtIndex(index: Int) -> SelectionCellTextData? {
         return friends.getValueAtIndex(index)
     }
     func cellAtIndexDeselected(index: Int) {
