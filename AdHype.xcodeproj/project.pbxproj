@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B66B38F1D1074DC00DE197D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B66B38E1D1074DC00DE197D /* AppDelegate.swift */; };
 		2B66B3961D1074DC00DE197D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B66B3951D1074DC00DE197D /* Assets.xcassets */; };
 		2B66B3A11D10766800DE197D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B66B3A01D10766800DE197D /* GoogleService-Info.plist */; };
 		2B6F391A1D18AE140020F22E /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6F39191D18AE140020F22E /* CustomTextField.swift */; };
@@ -66,12 +65,12 @@
 		2BFD16261D1AFC50001A210A /* FriendsSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFD16251D1AFC50001A210A /* FriendsSettingsVC.swift */; };
 		2BFD16281D1B4E73001A210A /* HelpSettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BFD16271D1B4E73001A210A /* HelpSettingsView.storyboard */; };
 		2BFD162C1D1B51D2001A210A /* HelpSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFD162B1D1B51D2001A210A /* HelpSettingsVC.swift */; };
+		5C43DF681D2318760096D4E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C43DF671D2318760096D4E1 /* AppDelegate.swift */; };
 		CCA91E9B5903761119F27F1B /* Pods_AdHype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 479328FD1DB99A9E103C7C07 /* Pods_AdHype.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2B66B38B1D1074DC00DE197D /* AdHype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdHype.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2B66B38E1D1074DC00DE197D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B66B3951D1074DC00DE197D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B66B39A1D1074DC00DE197D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B66B3A01D10766800DE197D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -132,6 +131,7 @@
 		2BFD16271D1B4E73001A210A /* HelpSettingsView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HelpSettingsView.storyboard; sourceTree = "<group>"; };
 		2BFD162B1D1B51D2001A210A /* HelpSettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpSettingsVC.swift; sourceTree = "<group>"; };
 		479328FD1DB99A9E103C7C07 /* Pods_AdHype.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdHype.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C43DF671D2318760096D4E1 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A06D04D0A963EAAFA297BACF /* Pods-AdHype.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdHype.release.xcconfig"; path = "Pods/Target Support Files/Pods-AdHype/Pods-AdHype.release.xcconfig"; sourceTree = "<group>"; };
 		EEA7A7F2EB011F4CEF3605CC /* Pods-AdHype.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdHype.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AdHype/Pods-AdHype.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -169,7 +169,6 @@
 		2B66B38D1D1074DC00DE197D /* AdHype */ = {
 			isa = PBXGroup;
 			children = (
-				2B66B38E1D1074DC00DE197D /* AppDelegate.swift */,
 				2B9EAA451D10B1AA00396A63 /* Koloda */,
 				2B9EAA371D10A04B00396A63 /* Utility */,
 				2B9EAA031D10939B00396A63 /* Storyboards */,
@@ -188,6 +187,7 @@
 				2B66B3951D1074DC00DE197D /* Assets.xcassets */,
 				2B66B39A1D1074DC00DE197D /* Info.plist */,
 				2B66B3A01D10766800DE197D /* GoogleService-Info.plist */,
+				5C43DF671D2318760096D4E1 /* AppDelegate.swift */,
 			);
 			path = AdHype;
 			sourceTree = "<group>";
@@ -469,9 +469,9 @@
 				2B6F39281D19FD3D0020F22E /* Queue.swift in Sources */,
 				2B9EAA4E1D10B1BE00396A63 /* KolodaView.swift in Sources */,
 				2BB592C81D1CCE780068AA08 /* SelectionTableView.swift in Sources */,
+				5C43DF681D2318760096D4E1 /* AppDelegate.swift in Sources */,
 				2B9EAA4F1D10B1BE00396A63 /* KolodaViewAnimatior.swift in Sources */,
 				2BB592D91D21F92E0068AA08 /* HelperViewsVCS.swift in Sources */,
-				2B66B38F1D1074DC00DE197D /* AppDelegate.swift in Sources */,
 				2B9EAA4C1D10B1BE00396A63 /* DraggableCardView.swift in Sources */,
 				2B75DF251D1766AC0047A0DF /* SocialNavVC.swift in Sources */,
 				2BB592CE1D20A1320068AA08 /* AdBrowserTableViewCell.swift in Sources */,

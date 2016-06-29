@@ -16,7 +16,7 @@ class HelperViewsNavVC: CustomNavVC{
         }
     }
     
-    var pageVCIDs = ["rightSwipePageVC", "leftSwipePageVC"]
+    var pageVCIDs = ["rightSwipePageVC", "leftSwipePageVC", "upSwipePageVC"]
     
     var curVCIndex = 0
     
@@ -38,6 +38,7 @@ class HelperViewsNavVC: CustomNavVC{
         lsgr.direction = .Left
         lsgr.delegate = self
         view.addGestureRecognizer(lsgr)
+        
     }
 }
 
@@ -64,4 +65,5 @@ extension HelperViewsNavVC: UIGestureRecognizerDelegate{
         setActiveViewController(.toLeft, viewController: vc)
         curVCIndex = nextIndex
     }
+    
 }
