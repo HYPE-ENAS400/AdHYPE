@@ -78,9 +78,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
                 keychainWrapper.setString(self.userName, forKey: Constants.USERKEY)
                 keychainWrapper.setString(self.password, forKey: Constants.PASSKEY)
                 
+                self.delegate.onLoggedIn()
                 
                 print("Successfully logged in user account with uid: \(user.uid)")
-                self.performSegueWithIdentifier("unwindFromLogInSegue", sender: nil)
             }
         })
     
@@ -94,8 +94,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         
         userName = userNameTextEdit.text
         password = passwordTextEdit.text
-        
-        delegate.onSignUpClicked()
         
         FIRAuth.auth()?.createUserWithEmail(userName, password: password,
             completion: { (user, error) -> Void in
@@ -113,14 +111,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
                 let keychainWrapper = KeychainWrapper.standardKeychainAccess()
                 keychainWrapper.setString(self.userName, forKey: Constants.USERKEY)
                 keychainWrapper.setString(self.password, forKey: Constants.PASSKEY)
-
                 
-//                self.initializeUserNodes(user.uid)
-                
-                
+                self.delegate.onSignedUp()
                 
                 print("Successfully created user account with uid: \(user.uid)")
-                self.performSegueWithIdentifier("unwindFromLogInSegue", sender: nil)
             }
         })
     }
@@ -144,18 +138,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
             errorLabel.text = "Error signing you in"
         }
     }
-    
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "unwindFromLogInSegue" {
-//            
-//            //TODO IS THIS NECESSARY***** OR CAN PUT ON AUTHOBSERVER?
-////            let navViewController = segue.destinationViewController as! HypeNavViewController
-//
-//        }
-//    }
 }
 
 
 protocol LoginViewControllerDelegate{
-    func onSignUpClicked()
+    func onSignedUp()
+    func onLoggedIn()
 }

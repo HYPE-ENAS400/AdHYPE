@@ -249,8 +249,8 @@ class HypeNavViewController: CustomNavVC, LoginViewControllerDelegate {
             
         }
         if segue.identifier == "logInSegue" {
-            let newVC = segue.destinationViewController as! LoginViewController
-            newVC.delegate = self
+            let newVC = segue.destinationViewController as! LoginNavVC
+//            newVC.delegate = self
         }
     }
     

@@ -55,6 +55,8 @@
 		2BB592CC1D1F7B5F0068AA08 /* AdBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB592CB1D1F7B5F0068AA08 /* AdBrowserViewController.swift */; };
 		2BB592CE1D20A1320068AA08 /* AdBrowserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB592CD1D20A1320068AA08 /* AdBrowserTableViewCell.swift */; };
 		2BB592DF1D223BD40068AA08 /* CustomNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB592DE1D223BD40068AA08 /* CustomNavVC.swift */; };
+		2BB5931A1D2345F00068AA08 /* LoginNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB593191D2345F00068AA08 /* LoginNavVC.swift */; };
+		2BB5931C1D23463D0068AA08 /* LoginViews.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BB5931B1D23463D0068AA08 /* LoginViews.storyboard */; };
 		2BFD161A1D1AE0C7001A210A /* Settings Nav View.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BFD16191D1AE0C7001A210A /* Settings Nav View.storyboard */; };
 		2BFD161E1D1AF208001A210A /* SettingsNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFD161D1D1AF208001A210A /* SettingsNavVC.swift */; };
 		2BFD16201D1AF5B5001A210A /* UserSettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BFD161F1D1AF5B5001A210A /* UserSettingsView.storyboard */; };
@@ -96,7 +98,7 @@
 		2B9EAA081D1093AC00396A63 /* Grid View.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Grid View.storyboard"; sourceTree = "<group>"; };
 		2B9EAA0E1D10954C00396A63 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2B9EAA121D1098A900396A63 /* HypeNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HypeNavViewController.swift; sourceTree = "<group>"; };
-		2B9EAA181D1098B300396A63 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		2B9EAA181D1098B300396A63 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = AdHype/LoginViewController.swift; sourceTree = "<group>"; };
 		2B9EAA1F1D1098BA00396A63 /* ImageGridCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageGridCell.swift; sourceTree = "<group>"; };
 		2B9EAA201D1098BA00396A63 /* GridViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
 		2B9EAA2B1D109FD000396A63 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +119,8 @@
 		2BB592CB1D1F7B5F0068AA08 /* AdBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdBrowserViewController.swift; sourceTree = "<group>"; };
 		2BB592CD1D20A1320068AA08 /* AdBrowserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdBrowserTableViewCell.swift; sourceTree = "<group>"; };
 		2BB592DE1D223BD40068AA08 /* CustomNavVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavVC.swift; sourceTree = "<group>"; };
+		2BB593191D2345F00068AA08 /* LoginNavVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginNavVC.swift; sourceTree = "<group>"; };
+		2BB5931B1D23463D0068AA08 /* LoginViews.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginViews.storyboard; sourceTree = "<group>"; };
 		2BFD16191D1AE0C7001A210A /* Settings Nav View.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Settings Nav View.storyboard"; sourceTree = "<group>"; };
 		2BFD161D1D1AF208001A210A /* SettingsNavVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsNavVC.swift; sourceTree = "<group>"; };
 		2BFD161F1D1AF5B5001A210A /* UserSettingsView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserSettingsView.storyboard; sourceTree = "<group>"; };
@@ -171,7 +175,7 @@
 				2B9EAA261D109CB700396A63 /* Hype Ad Main */,
 				2B8AB8261D1336BE0004B138 /* Hype Ad Social */,
 				2B75DF0B1D14B9EA0047A0DF /* Hype Settings */,
-				2B9EAA181D1098B300396A63 /* LoginViewController.swift */,
+				2BB593181D2345D50068AA08 /* LogIn */,
 				2BB592C71D1CCE780068AA08 /* SelectionTableView.swift */,
 				2BB592BF1D1CAA200068AA08 /* SelectionCell.swift */,
 				2B9EAA121D1098A900396A63 /* HypeNavViewController.swift */,
@@ -280,6 +284,17 @@
 			name = Koloda;
 			sourceTree = "<group>";
 		};
+		2BB593181D2345D50068AA08 /* LogIn */ = {
+			isa = PBXGroup;
+			children = (
+				2B9EAA181D1098B300396A63 /* LoginViewController.swift */,
+				2BB593191D2345F00068AA08 /* LoginNavVC.swift */,
+				2BB5931B1D23463D0068AA08 /* LoginViews.storyboard */,
+			);
+			name = LogIn;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		8B6A45E6ADDDEA5D89C417A3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -360,6 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B9EAA0A1D1093AC00396A63 /* Main.storyboard in Resources */,
+				2BB5931C1D23463D0068AA08 /* LoginViews.storyboard in Resources */,
 				2BFD16201D1AF5B5001A210A /* UserSettingsView.storyboard in Resources */,
 				2B9EAA0F1D10954C00396A63 /* Images.xcassets in Resources */,
 				2B6F392E1D1A516B0020F22E /* CustomOverlayView.xib in Resources */,
@@ -471,6 +487,7 @@
 				2B9EAA321D10A02D00396A63 /* UtilityFunctions.swift in Sources */,
 				2B75DF0D1D14BA150047A0DF /* FriendsCell.swift in Sources */,
 				2B9EAA151D1098A900396A63 /* HypeNavViewController.swift in Sources */,
+				2BB5931A1D2345F00068AA08 /* LoginNavVC.swift in Sources */,
 				2B6F392C1D1A51540020F22E /* CustomOverlayView.swift in Sources */,
 				2B75DF151D15E7E00047A0DF /* UserTableViewController.swift in Sources */,
 			);
