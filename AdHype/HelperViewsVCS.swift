@@ -253,12 +253,13 @@ class CommentPageVC: UIViewController{
     @IBOutlet weak var divider1View: UIView!
     @IBOutlet weak var adImageView: UIImageView!
     @IBOutlet weak var caption1View: UIView!
+    @IBOutlet weak var addCatptionButton: UIButton!
     
     @IBOutlet weak var touchIndicatorInnerView: UIView!
     @IBOutlet weak var touchIndicatorOuterView: UIView!
-    @IBOutlet weak var myCaptionView: UIView!
     @IBOutlet weak var votesView: UIView!
     @IBOutlet weak var plusView: UIView!
+    @IBOutlet weak var myCaptionText: UITextView!
     
     var initTouchIndicatorOuterViewFrame: CGRect!
     
@@ -287,16 +288,18 @@ class CommentPageVC: UIViewController{
         super.viewDidAppear(animated)
         self.touchIndicatorOuterView.center.y = self.caption1View.center.y
         self.touchIndicatorOuterView.center.x = self.caption1View.center.x
+        self.myCaptionText.alpha = 0
         animateTouchIndicatorAppearance()
     }
     
     func animateTouchIndicatorAppearance(){
-        UIView.animateWithDuration(1, delay: 1, options: .CurveLinear, animations: {
+        UIView.animateWithDuration(0.5, delay: 1, options: .CurveLinear, animations: {
             self.touchIndicatorOuterView.alpha = 0.5
             self.touchIndicatorInnerView.alpha = 0.5
             
             }, completion: { finished in
                 self.caption1View.backgroundColor = UIColor.lightGrayColor();
+                self.myCaptionText.alpha = 0.7
                 self.animateTouchIndicatorDisappearance()
         })
     }
@@ -315,6 +318,31 @@ class CommentPageVC: UIViewController{
             self.touchIndicatorInnerView.alpha = 0
             self.caption1View.backgroundColor = UIColor.whiteColor();
             
+            }, completion: { finished in
+                //self.resetAndRestartAnimation()
+                self.touchIndicatorOuterView.center.y = self.plusView.center.y
+                self.touchIndicatorOuterView.center.x = self.addCaptionButton.center.x
+                self.animateAddComment()
+        })
+    }
+    
+    func animateAddComment(){
+        UIView.animateWithDuration(0.5, delay: 1, options: .CurveLinear, animations: {
+            self.touchIndicatorOuterView.alpha = 0.5
+            self.touchIndicatorInnerView.alpha = 0.5
+            
+            }, completion: { finished in
+                self.caption1View.backgroundColor = UIColor.lightGrayColor();
+                self.myCaptionText.alpha = 0.7
+                self.myCaptionText.text = ""
+                self.animateCommentIndicatorDisappearance()
+        })
+    }
+    
+    func animateCommentIndicatorDisappearance(){
+        UIView.animateWithDuration(0.2, delay: 1 , options: .CurveEaseOut, animations: {
+            self.touchIndicatorOuterView.alpha = 0.2
+            self.touchIndicatorInnerView.alpha = 0.2
             }, completion: { finished in
                 self.resetAndRestartAnimation()
         })

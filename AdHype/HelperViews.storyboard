@@ -221,6 +221,11 @@
                                     <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kIr-uA-fh8" userLabel="Touch Indicator Inner View">
                                         <rect key="frame" x="4" y="4" width="52" height="52"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="keyPath">
+                                                <integer key="value" value="3"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -383,7 +388,7 @@
                                         <state key="normal" image="plus_button"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
-                                                <integer key="value" value="3"/>
+                                                <integer key="value" value="0"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </button>
@@ -479,27 +484,15 @@
                                     <constraint firstItem="DuU-Ci-hDN" firstAttribute="leading" secondItem="eyT-3p-mlr" secondAttribute="trailing" id="orJ-ct-TBx"/>
                                 </constraints>
                             </view>
-                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="keO-hG-KUq">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="this is a caption" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ndp-4A-0Rk">
                                 <rect key="frame" x="0.0" y="442" width="414" height="30"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1O2-8q-XCt">
-                                        <rect key="frame" x="0.0" y="4" width="414" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="9UN-qs-4B0"/>
+                                    <constraint firstAttribute="height" constant="30" id="G8L-f1-WW1"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.zPosition" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -509,12 +502,10 @@
                             <constraint firstItem="VgY-GF-Xsz" firstAttribute="top" secondItem="pTC-mj-bS4" secondAttribute="bottom" id="9W9-up-NT0"/>
                             <constraint firstItem="ocP-z1-sfG" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" id="AAu-vM-CCN"/>
                             <constraint firstItem="XJb-UC-3tj" firstAttribute="top" secondItem="Vgg-XD-Z2D" secondAttribute="bottom" id="D38-OR-jyW"/>
-                            <constraint firstAttribute="trailing" secondItem="keO-hG-KUq" secondAttribute="trailing" id="DCe-3K-IlY"/>
                             <constraint firstItem="rjF-vz-MqT" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" constant="10" id="DJk-Bf-O2k"/>
                             <constraint firstItem="Vgg-XD-Z2D" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" constant="10" id="FN7-iO-e9I"/>
                             <constraint firstItem="XJb-UC-3tj" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" id="FuA-cc-pMr"/>
                             <constraint firstItem="AUB-EU-Obu" firstAttribute="top" secondItem="VgY-GF-Xsz" secondAttribute="bottom" id="GDu-uB-dJT"/>
-                            <constraint firstItem="keO-hG-KUq" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" id="Gj4-Z3-Pxi"/>
                             <constraint firstItem="rm5-PY-ES8" firstAttribute="centerY" secondItem="qiR-65-Bn5" secondAttribute="centerY" id="Hvm-Hi-XjX"/>
                             <constraint firstAttribute="trailing" secondItem="XJb-UC-3tj" secondAttribute="trailing" id="I6X-lN-ONj"/>
                             <constraint firstItem="ocP-z1-sfG" firstAttribute="top" secondItem="rjF-vz-MqT" secondAttribute="bottom" id="JI1-tN-Yu4"/>
@@ -526,10 +517,12 @@
                             <constraint firstItem="rjF-vz-MqT" firstAttribute="top" secondItem="AUB-EU-Obu" secondAttribute="bottom" id="c68-eq-PDh"/>
                             <constraint firstItem="rm5-PY-ES8" firstAttribute="centerX" secondItem="qiR-65-Bn5" secondAttribute="centerX" id="ePd-L6-bOX"/>
                             <constraint firstItem="VgY-GF-Xsz" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" id="egA-BZ-LAJ"/>
-                            <constraint firstItem="mMj-5L-AuT" firstAttribute="top" secondItem="keO-hG-KUq" secondAttribute="bottom" id="gwj-zv-ruG"/>
                             <constraint firstAttribute="trailing" secondItem="VgY-GF-Xsz" secondAttribute="trailing" id="jRY-PF-mC1"/>
+                            <constraint firstItem="mMj-5L-AuT" firstAttribute="top" secondItem="Ndp-4A-0Rk" secondAttribute="bottom" id="mk5-Xb-2RZ"/>
                             <constraint firstItem="Vgg-XD-Z2D" firstAttribute="top" secondItem="ocP-z1-sfG" secondAttribute="bottom" id="nYd-sX-j3j"/>
+                            <constraint firstItem="Ndp-4A-0Rk" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" id="r6f-bc-asU"/>
                             <constraint firstAttribute="trailing" secondItem="pTC-mj-bS4" secondAttribute="trailing" id="uAQ-lJ-dr7"/>
+                            <constraint firstAttribute="trailing" secondItem="Ndp-4A-0Rk" secondAttribute="trailing" id="vK5-cP-9VG"/>
                             <constraint firstItem="pTC-mj-bS4" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" id="vbh-Jl-Nr3"/>
                             <constraint firstItem="AUB-EU-Obu" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" id="xmc-ZD-cLF"/>
                         </constraints>
@@ -538,9 +531,10 @@
                     <connections>
                         <outlet property="adImageView" destination="VgY-GF-Xsz" id="Cm0-gs-eUm"/>
                         <outlet property="addCaptionButton" destination="gpK-s9-9nT" id="ODG-h2-H5n"/>
+                        <outlet property="addCatptionButton" destination="gpK-s9-9nT" id="sg4-R0-IkA"/>
                         <outlet property="caption1View" destination="AUB-EU-Obu" id="Is2-7M-VK9"/>
                         <outlet property="divider1View" destination="rjF-vz-MqT" id="eMd-kc-fmq"/>
-                        <outlet property="myCaptionView" destination="keO-hG-KUq" id="BZ9-zJ-r2g"/>
+                        <outlet property="myCaptionText" destination="Ndp-4A-0Rk" id="USN-k8-XXq"/>
                         <outlet property="plusView" destination="mMj-5L-AuT" id="Ytn-8v-ZLl"/>
                         <outlet property="touchIndicatorInnerView" destination="kIr-uA-fh8" id="fpd-hW-IDZ"/>
                         <outlet property="touchIndicatorOuterView" destination="rm5-PY-ES8" id="Nrw-Sg-1vq"/>
