@@ -254,14 +254,20 @@ class CommentPageVC: UIViewController{
     @IBOutlet weak var adImageView: UIImageView!
     @IBOutlet weak var caption1View: UIView!
     @IBOutlet weak var addCatptionButton: UIButton!
-    
+    @IBOutlet weak var CommentTouchOuterView: UIView!
+    @IBOutlet weak var CommentTouchInnerView: UIView!
     @IBOutlet weak var myCaptionText: UILabel!
     @IBOutlet weak var touchIndicatorInnerView: UIView!
     @IBOutlet weak var touchIndicatorOuterView: UIView!
     @IBOutlet weak var votesView: UIView!
     @IBOutlet weak var plusView: UIView!
+    @IBOutlet weak var myCommentBarView: UIView!
+    @IBOutlet weak var sendTouchOuterView: UIView!
+    @IBOutlet weak var sendTouchInnerView: UIView!
     
     var initTouchIndicatorOuterViewFrame: CGRect!
+    var initCommentTouchOuterViewFrame : CGRect!
+    var initSendTouchOuterViewFrame: CGRect!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -277,6 +283,17 @@ class CommentPageVC: UIViewController{
         touchIndicatorOuterView.layer.cornerRadius = (touchIndicatorOuterView.layer.frame.size.width/2)
         touchIndicatorInnerView.layer.cornerRadius = (touchIndicatorInnerView.layer.frame.size.width/2)
         
+        initCommentTouchOuterViewFrame = CommentTouchOuterView.frame
+        
+        CommentTouchOuterView.layer.cornerRadius = (CommentTouchOuterView.layer.frame.size.width/2)
+        CommentTouchInnerView.layer.cornerRadius = (CommentTouchInnerView.layer.frame.size.width/2)
+        
+        initSendTouchOuterViewFrame = sendTouchInnerView.frame
+        
+        sendTouchOuterView.layer.cornerRadius = (sendTouchOuterView.layer.frame.size.width/2)
+        sendTouchInnerView.layer.cornerRadius = (sendTouchInnerView.layer.frame.size.width/2)
+        
+        
         //self.touchIndicatorOuterView.center.y = self.caption1View.center.y
         //self.touchIndicatorOuterView.center.x = self.caption1View.center.x
 
@@ -286,69 +303,64 @@ class CommentPageVC: UIViewController{
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.touchIndicatorOuterView.center.y = self.caption1View.center.y
-        self.touchIndicatorOuterView.center.x = self.caption1View.center.x
         self.myCaptionText.alpha = 0
-        animateTouchIndicatorAppearance()
+        delay(2){
+            self.caption1View.backgroundColor = UIColor.lightGrayColor();
+            self.animateTouchIndicatorAppearance()}
     }
     
     func animateTouchIndicatorAppearance(){
-        UIView.animateWithDuration(0.5, delay: 0, options: .CurveLinear, animations: {
+        UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
             self.touchIndicatorOuterView.alpha = 0.5
             self.touchIndicatorInnerView.alpha = 0.5
             
             }, completion: { finished in
-                self.caption1View.backgroundColor = UIColor.lightGrayColor();
-                self.myCaptionText.text = "I actually like the ads in here"
-                self.myCaptionText.alpha = 0.7
-                
+                self.myCaptionText.alpha = 0
                 self.animateTouchIndicatorDisappearance()
         })
     }
     func animateTouchIndicatorDisappearance(){
-        UIView.animateWithDuration(0.2, delay: 1 , options: .CurveEaseOut, animations: {
-            self.touchIndicatorOuterView.alpha = 0.2
-            self.touchIndicatorInnerView.alpha = 0.2
+        UIView.animateWithDuration(0.5, delay: 0 , options: .CurveLinear, animations: {
+            self.touchIndicatorOuterView.alpha = 0
+            self.touchIndicatorInnerView.alpha = 0
             }, completion: { finished in
                 self.animateColorReturn()
         })
     }
     
     func animateColorReturn(){
-        UIView.animateWithDuration(0.5, delay: 1 , options: .CurveLinear, animations: {
-            self.touchIndicatorOuterView.alpha = 0
-            self.touchIndicatorInnerView.alpha = 0
+        UIView.animateWithDuration(0.25, delay: 0 , options: .CurveLinear, animations: {
+            self.myCaptionText.alpha = 1
+            self.myCaptionText.text = "I actually like the ads in here"
+            self.myCaptionText.center.y -= 70
+            self.myCommentBarView.alpha=0.6
+            self.myCommentBarView.center.y -= 70
             self.caption1View.backgroundColor = UIColor.whiteColor();
             
             }, completion: { finished in
                 //self.resetAndRestartAnimation()
-                self.touchIndicatorOuterView.center.y = self.plusView.center.y
-                self.touchIndicatorOuterView.center.x = self.addCaptionButton.center.x
                 self.animateAddComment()
         })
     }
     
     func animateAddComment(){
-        UIView.animateWithDuration(0.5, delay: 1, options: .CurveLinear, animations: {
-            self.touchIndicatorOuterView.alpha = 0.5
-            self.touchIndicatorInnerView.alpha = 0.5
-            self.touchIndicatorOuterView.center.y = self.plusView.center.y
-            self.touchIndicatorOuterView.center.x = self.addCaptionButton.center.x
+        UIView.animateWithDuration(0.5, delay: 5, options: .CurveLinear, animations: {
+            self.CommentTouchOuterView.alpha = 0.7
+            self.CommentTouchInnerView.alpha = 0.7
             
             }, completion: { finished in
                 self.myCaptionText.text = ""
-                self.myCaptionText.alpha = 0.7
                 self.animateCommentIndicatorDisappearance()
         })
     }
     
     func animateCommentIndicatorDisappearance(){
-        UIView.animateWithDuration(0.2, delay: 0 , options: .CurveEaseOut, animations: {
-            self.touchIndicatorOuterView.alpha = 0.2
-            self.touchIndicatorInnerView.alpha = 0.2
+        UIView.animateWithDuration(0.5, delay: 0 , options: .CurveEaseOut, animations: {
+            self.CommentTouchOuterView.alpha = 0.2
+            self.CommentTouchInnerView.alpha = 0.2
             }, completion: { finished in
-                self.touchIndicatorOuterView.alpha = 0
-                self.touchIndicatorInnerView.alpha = 0
+                self.CommentTouchOuterView.alpha = 0
+                self.CommentTouchInnerView.alpha = 0
                 self.animateTypeComment()
         })
     }
@@ -356,6 +368,7 @@ class CommentPageVC: UIViewController{
     func appendletter(index: Int){
         var myTextArray: [String] = ["G", "E", "T"," ","H","Y","P","E","D"]
         if (index>myTextArray.count-1){
+            self.sendButtonPressAppear()
             return
         }
         else{delay(0.5){
@@ -366,16 +379,32 @@ class CommentPageVC: UIViewController{
     }
     
     func animateTypeComment(){
-        self.appendletter(0)
-        delay(0.2){
-            self.resetAndRestartAnimation()}
+        delay(1){self.appendletter(0)}
     }
     
+    
+    func sendButtonPressAppear(){
+        UIView.animateWithDuration(0.5, delay: 2, options: .CurveLinear, animations: {
+            self.sendTouchOuterView.alpha = 0.5
+            self.sendTouchInnerView.alpha = 0.5
+        
+            }, completion: { finished in
+                delay(5){
+                    self.resetAndRestartAnimation()}
+        })
+    }
+
     
     func resetAndRestartAnimation(){
         UIView.animateWithDuration(0.1, delay: 0 , options: .CurveEaseOut, animations: {
             }, completion: { finished in
-                self.animateTouchIndicatorAppearance()
+                self.sendTouchOuterView.alpha = 0
+                self.sendTouchInnerView.alpha = 0
+                self.myCaptionText.text = ""
+                self.myCommentBarView.alpha = 0
+                delay(5){
+                    self.caption1View.backgroundColor = UIColor.lightGrayColor();
+                    self.animateTouchIndicatorAppearance()}
         })
     }
     
@@ -383,6 +412,9 @@ class CommentPageVC: UIViewController{
         touchIndicatorOuterView.layer.removeAllAnimations()
         touchIndicatorInnerView.layer.removeAllAnimations()
         touchIndicatorOuterView.frame = initTouchIndicatorOuterViewFrame
+        CommentTouchOuterView.layer.removeAllAnimations()
+        CommentTouchOuterView.layer.removeAllAnimations()
+        CommentTouchOuterView.frame = initCommentTouchOuterViewFrame
     }
     
     override func viewWillDisappear(animated: Bool) {
