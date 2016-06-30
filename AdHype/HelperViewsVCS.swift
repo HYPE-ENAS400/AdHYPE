@@ -345,8 +345,8 @@ class CommentPageVC: UIViewController{
     
     func animateAddComment(){
         UIView.animateWithDuration(0.5, delay: 5, options: .CurveLinear, animations: {
-            self.CommentTouchOuterView.alpha = 0.5
-            self.CommentTouchInnerView.alpha = 0.5
+            self.CommentTouchOuterView.alpha = 0.7
+            self.CommentTouchInnerView.alpha = 0.7
             
             }, completion: { finished in
                 self.myCaptionText.text = ""
@@ -355,7 +355,7 @@ class CommentPageVC: UIViewController{
     }
     
     func animateCommentIndicatorDisappearance(){
-        UIView.animateWithDuration(0.2, delay: 0 , options: .CurveEaseOut, animations: {
+        UIView.animateWithDuration(0.5, delay: 0 , options: .CurveEaseOut, animations: {
             self.CommentTouchOuterView.alpha = 0.2
             self.CommentTouchInnerView.alpha = 0.2
             }, completion: { finished in

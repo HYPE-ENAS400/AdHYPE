@@ -22,7 +22,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zre-Ms-q6f">
                                 <rect key="frame" x="148" y="85" width="304" height="365"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KuT-o0-Hqr">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HYPE_ad" translatesAutoresizingMaskIntoConstraints="NO" id="KuT-o0-Hqr">
                                         <rect key="frame" x="4" y="4" width="296" height="357"/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
@@ -192,10 +192,10 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <view alpha="0.0" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tdf-tJ-wq5" userLabel="Touch Indicator Outer View">
+                                    <view alpha="0.0" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tdf-tJ-wq5" userLabel="Touch Indicator Outer View">
                                         <rect key="frame" x="344" y="-4" width="60" height="60"/>
                                         <subviews>
-                                            <view alpha="0.0" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="098-dx-qfK" userLabel="Touch Indicator Inner View">
+                                            <view alpha="0.0" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="098-dx-qfK" userLabel="Touch Indicator Inner View">
                                                 <rect key="frame" x="4" y="4" width="52" height="52"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <userDefinedRuntimeAttributes>
@@ -228,6 +228,7 @@
                                     <constraint firstAttribute="trailing" secondItem="CDw-e0-lZf" secondAttribute="trailing" constant="20" id="91S-DF-rYT"/>
                                     <constraint firstItem="lrA-iK-6ex" firstAttribute="centerY" secondItem="pTC-mj-bS4" secondAttribute="centerY" id="Rpg-yS-q1t"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="bog-IE-gKi"/>
+                                    <constraint firstItem="Tdf-tJ-wq5" firstAttribute="centerY" secondItem="pTC-mj-bS4" secondAttribute="centerY" id="ezx-C2-mj8"/>
                                     <constraint firstAttribute="height" constant="45" id="hoK-Mr-0hF"/>
                                     <constraint firstAttribute="trailing" secondItem="CDw-e0-lZf" secondAttribute="trailing" constant="20" id="iLI-m1-WQ8"/>
                                     <constraint firstItem="lrA-iK-6ex" firstAttribute="leading" secondItem="pTC-mj-bS4" secondAttribute="leading" constant="20" id="sLA-P6-Ppo"/>
@@ -644,7 +645,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4w5-SD-rso">
                                 <rect key="frame" x="148" y="85" width="304" height="365"/>
                                 <subviews>
-                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U3w-Ne-jOn">
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HYPE_ad" translatesAutoresizingMaskIntoConstraints="NO" id="U3w-Ne-jOn">
                                         <rect key="frame" x="4" y="4" width="296" height="357"/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
@@ -780,7 +781,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tGz-bG-XEb">
                                 <rect key="frame" x="148" y="85" width="304" height="365"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TNc-Zi-bIK">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HYPE_ad" translatesAutoresizingMaskIntoConstraints="NO" id="TNc-Zi-bIK">
                                         <rect key="frame" x="4" y="4" width="296" height="357"/>
                                     </imageView>
                                 </subviews>
