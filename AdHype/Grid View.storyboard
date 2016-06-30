@@ -81,11 +81,36 @@
                                                     <action selector="onBackButtonClicked:" destination="Iuo-30-MQF" eventType="touchUpInside" id="dzG-FM-GJu"/>
                                                 </connections>
                                             </button>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ztR-Up-cHn" userLabel="messageBar">
+                                                <rect key="frame" x="0.0" y="-40" width="600" height="40"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dg6-R5-t8h">
+                                                        <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                        <color key="textColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.7843137255" green="0.7843137255" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="Fw6-eO-vy5"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Dg6-R5-t8h" secondAttribute="trailing" id="RTX-Yz-no9"/>
+                                                    <constraint firstItem="Dg6-R5-t8h" firstAttribute="leading" secondItem="ztR-Up-cHn" secondAttribute="leading" id="Rom-RG-jZo"/>
+                                                    <constraint firstItem="Dg6-R5-t8h" firstAttribute="top" secondItem="ztR-Up-cHn" secondAttribute="top" id="kZ3-or-aFV"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Dg6-R5-t8h" secondAttribute="bottom" id="wRM-am-GfA"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                                        <integer key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.7843137255" green="0.7843137255" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="iIW-WP-mBu" secondAttribute="trailing" id="2Hw-sL-PbX"/>
                                             <constraint firstAttribute="height" constant="40" id="67y-zH-cBh"/>
+                                            <constraint firstAttribute="trailing" secondItem="ztR-Up-cHn" secondAttribute="trailing" id="99i-0v-h9C"/>
                                             <constraint firstItem="iIW-WP-mBu" firstAttribute="top" secondItem="knz-8E-ecl" secondAttribute="top" id="Cuj-To-vyg"/>
                                             <constraint firstItem="OiN-wT-Xl9" firstAttribute="top" secondItem="knz-8E-ecl" secondAttribute="top" constant="5" id="E6w-Wu-hUQ"/>
                                             <constraint firstItem="wK9-NP-w7O" firstAttribute="leading" secondItem="knz-8E-ecl" secondAttribute="leading" id="Fkp-Pt-5Rm"/>
@@ -98,10 +123,12 @@
                                             <constraint firstItem="iIW-WP-mBu" firstAttribute="width" secondItem="wK9-NP-w7O" secondAttribute="width" id="VHa-Ba-heT"/>
                                             <constraint firstItem="FQ5-RG-BCR" firstAttribute="leading" secondItem="knz-8E-ecl" secondAttribute="leading" id="aeX-tz-62O"/>
                                             <constraint firstItem="woz-bu-V28" firstAttribute="leading" secondItem="knz-8E-ecl" secondAttribute="leading" constant="20" id="fl6-KW-nqz"/>
+                                            <constraint firstAttribute="bottom" secondItem="ztR-Up-cHn" secondAttribute="bottom" constant="40" id="gRO-hT-lO4"/>
                                             <constraint firstItem="sJU-sp-dck" firstAttribute="leading" secondItem="FQ5-RG-BCR" secondAttribute="trailing" id="k6b-Wu-c49"/>
                                             <constraint firstItem="wK9-NP-w7O" firstAttribute="top" secondItem="knz-8E-ecl" secondAttribute="top" id="mkh-Yv-kLw"/>
                                             <constraint firstAttribute="bottom" secondItem="wK9-NP-w7O" secondAttribute="bottom" id="qI2-MI-E1t"/>
                                             <constraint firstItem="woz-bu-V28" firstAttribute="centerY" secondItem="knz-8E-ecl" secondAttribute="centerY" id="vpt-lL-dra"/>
+                                            <constraint firstItem="ztR-Up-cHn" firstAttribute="leading" secondItem="knz-8E-ecl" secondAttribute="leading" id="wfx-bx-tni"/>
                                             <constraint firstAttribute="bottom" secondItem="sJU-sp-dck" secondAttribute="bottom" id="xSC-cR-rA7"/>
                                             <constraint firstItem="iIW-WP-mBu" firstAttribute="leading" secondItem="wK9-NP-w7O" secondAttribute="trailing" id="yXJ-ss-jvv"/>
                                         </constraints>
@@ -149,6 +176,8 @@
                         <outlet property="friendLabel" destination="OiN-wT-Xl9" id="IHY-H2-IW1"/>
                         <outlet property="friendUnderlineView" destination="sJU-sp-dck" id="SXZ-JC-2Uj"/>
                         <outlet property="gridViewNavVCContainerView" destination="DhV-aU-6Pp" id="7d4-bn-Oe0"/>
+                        <outlet property="messageBar" destination="ztR-Up-cHn" id="Cd4-zd-fJR"/>
+                        <outlet property="messageBarLabel" destination="Dg6-R5-t8h" id="O7L-fs-2aa"/>
                         <outlet property="selectionBar" destination="knz-8E-ecl" id="UeN-a0-cIU"/>
                         <outlet property="userButton" destination="wK9-NP-w7O" id="k1G-R3-PqC"/>
                         <outlet property="userUnderlineView" destination="FQ5-RG-BCR" id="4Z2-hn-noY"/>

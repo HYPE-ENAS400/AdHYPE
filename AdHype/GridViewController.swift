@@ -19,8 +19,10 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     var interests = [String]()
     var adStore = [String: [HypeAd]]()
     var userID: String!
+    var isFriendGrid: Bool = false
     
     var delegate: GridViewControllerDelegate!
+    var messageDelegate: DisplayMessageDelegate!
     
     override func viewDidLoad(){
         super.viewDidLoad()
@@ -98,6 +100,9 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
         cell.delegate = self
         let cellAd = adStore[interests[indexPath.section]]![indexPath.row]
         print("ADDING CELL FOR AD: \(cellAd.getAdName())")
+        if isFriendGrid{
+            cell.changeDeleteButtonToSaveButton()
+        }
         cell.cellAd = cellAd
         return cell
         
@@ -163,12 +168,25 @@ extension GridViewController: ImageGridCellDelegate{
             return
         }
         
-        //
-        adsLikedRef.child(Constants.ADSLIKEDNODE).child(ad.getKey()).removeValue()
-        
-        adStore[ad.getPrimaryTag()]?.removeAtIndex(index)
-        
-        collectionView?.deleteItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: interestIndex)])
+        if !isFriendGrid{
+            adsLikedRef.child(Constants.ADSLIKEDNODE).child(ad.getKey()).removeValue()
+            
+            adStore[ad.getPrimaryTag()]?.removeAtIndex(index)
+            
+            collectionView?.deleteItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: interestIndex)])
+        } else{
+            guard let userID = FIRAuth.auth()?.currentUser?.uid else {
+                return
+            }
+            let userLikedAdsRef = FIRDatabase.database().reference().child(Constants.USERSNODE).child(userID).child(Constants.ADSLIKEDNODE)
+            userLikedAdsRef.child(ad.getKey()).setValue(ad.getMetaDataDict(), withCompletionBlock: {(error, ref) -> Void in
+                if let er = error{
+                    print("ERROR: COULD NOT SAVE FRIEND AD: \(er.localizedDescription)")
+                    return
+                }
+                self.messageDelegate.displayMessage("Ad saved to your board!", duration: 1.5)
+            })
+        }
         
     }
 }

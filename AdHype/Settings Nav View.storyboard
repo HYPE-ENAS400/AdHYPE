@@ -73,10 +73,10 @@
                                         </constraints>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x4o-tP-LVU" userLabel="messageBar">
-                                        <rect key="frame" x="0.0" y="-35" width="600" height="35"/>
+                                        <rect key="frame" x="0.0" y="-35" width="600" height="40"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bop-6c-dAA">
-                                                <rect key="frame" x="0.0" y="0.0" width="600" height="35"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                 <color key="textColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -85,7 +85,7 @@
                                         <color key="backgroundColor" red="0.7843137255" green="0.7843137255" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="bop-6c-dAA" secondAttribute="trailing" id="AJ5-J5-sjb"/>
-                                            <constraint firstAttribute="height" constant="35" id="NLB-ss-TJJ"/>
+                                            <constraint firstAttribute="height" constant="40" id="NLB-ss-TJJ"/>
                                             <constraint firstAttribute="bottom" secondItem="bop-6c-dAA" secondAttribute="bottom" id="fdD-jk-CLB"/>
                                             <constraint firstItem="bop-6c-dAA" firstAttribute="top" secondItem="x4o-tP-LVU" secondAttribute="top" id="poR-Wu-VDx"/>
                                             <constraint firstItem="bop-6c-dAA" firstAttribute="leading" secondItem="x4o-tP-LVU" secondAttribute="leading" id="vDS-GK-0Ed"/>

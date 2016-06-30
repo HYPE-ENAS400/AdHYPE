@@ -286,7 +286,7 @@ extension HypeNavViewController: MainViewControllerDelegate{
     }
 }
 
-extension HypeNavViewController: GridViewNavVCDelegate{
+extension HypeNavViewController: GridViewControllerDelegate{
     func onAdFromGridDoubleClicked(ad: HypeAd) {
         socialAd = ad
         wasSwipeUp = false

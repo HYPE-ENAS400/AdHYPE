@@ -17,6 +17,9 @@ class GridViewNavVC: CustomNavVC{
     @IBOutlet weak var selectionBar: UIView!
     @IBOutlet weak var friendLabel: UILabel!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var messageBarLabel: UILabel!
+    @IBOutlet weak var messageBar: UIView!
+    
     
     @IBOutlet weak var gridViewNavVCContainerView: UIView!{
         didSet{
@@ -29,9 +32,10 @@ class GridViewNavVC: CustomNavVC{
     var userGridVC: GridViewController?
     var gridViewFriendsVC: GridViewFriendsVC?
     var adjustmentWidth: CGFloat!
+    private var hiddenBarFrame: CGRect!
+    private var visibleBarFrame: CGRect!
     
-    
-    var delegate: GridViewNavVCDelegate!
+    var delegate: GridViewControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,10 +45,19 @@ class GridViewNavVC: CustomNavVC{
         gridStoryboard = UIStoryboard(name: "Grid View", bundle: nil)
         userGridVC = gridStoryboard.instantiateViewControllerWithIdentifier("gridViewController") as? GridViewController
         userGridVC?.userID = userID
+        userGridVC?.messageDelegate = self
+        userGridVC?.delegate = delegate
         setActiveViewController(nil, viewController: userGridVC)
         
         adjustmentWidth = CGRectGetWidth(selectionBar.frame)
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        hiddenBarFrame = messageBar.frame
+        visibleBarFrame = hiddenBarFrame
+        visibleBarFrame.origin.y += hiddenBarFrame.size.height
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -93,6 +106,24 @@ class GridViewNavVC: CustomNavVC{
     
 }
 
+extension GridViewNavVC: DisplayMessageDelegate{
+    func displayMessage(message: String, duration: Double){
+        messageBarLabel.text = message
+        self.messageBar.hidden = false
+        let animateDuration = 0.2
+        UIView.animateWithDuration(animateDuration, animations: {
+            self.messageBar.frame = self.visibleBarFrame
+        })
+        delay(duration + animateDuration){
+            UIView.animateWithDuration(animateDuration, animations: {
+                self.messageBar.frame = self.hiddenBarFrame
+                }, completion: {(succes) in
+                    self.messageBar.hidden = true
+            })
+        }
+    }
+}
+
 extension GridViewNavVC: GridViewFriendsVCDelegate{
     func onGridFriendClicked(id: String, username: String) {
         friendLabel.text = username
@@ -116,10 +147,9 @@ extension GridViewNavVC: GridViewFriendsVCDelegate{
         
         let newVC = gridStoryboard.instantiateViewControllerWithIdentifier("gridViewController") as? GridViewController
         newVC?.userID = id
+        newVC?.isFriendGrid = true
+        newVC?.messageDelegate = self
+        newVC?.delegate = delegate
         setActiveViewController(.toLeft, viewController: newVC)
     }
-}
-
-protocol GridViewNavVCDelegate{
-    func onAdFromGridDoubleClicked(ad: HypeAd)
 }
