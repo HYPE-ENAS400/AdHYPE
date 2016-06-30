@@ -277,8 +277,8 @@ class CommentPageVC: UIViewController{
         touchIndicatorOuterView.layer.cornerRadius = (touchIndicatorOuterView.layer.frame.size.width/2)
         touchIndicatorInnerView.layer.cornerRadius = (touchIndicatorInnerView.layer.frame.size.width/2)
         
-        self.touchIndicatorOuterView.center.y = self.caption1View.center.y
-        self.touchIndicatorOuterView.center.x = self.caption1View.center.x
+        //self.touchIndicatorOuterView.center.y = self.caption1View.center.y
+        //self.touchIndicatorOuterView.center.x = self.caption1View.center.x
 
  
     }
@@ -293,7 +293,7 @@ class CommentPageVC: UIViewController{
     }
     
     func animateTouchIndicatorAppearance(){
-        UIView.animateWithDuration(0.5, delay: 1, options: .CurveLinear, animations: {
+        UIView.animateWithDuration(0.5, delay: 0, options: .CurveLinear, animations: {
             self.touchIndicatorOuterView.alpha = 0.5
             self.touchIndicatorInnerView.alpha = 0.5
             
@@ -301,6 +301,7 @@ class CommentPageVC: UIViewController{
                 self.caption1View.backgroundColor = UIColor.lightGrayColor();
                 self.myCaptionText.text = "I actually like the ads in here"
                 self.myCaptionText.alpha = 0.7
+                
                 self.animateTouchIndicatorDisappearance()
         })
     }
@@ -314,7 +315,7 @@ class CommentPageVC: UIViewController{
     }
     
     func animateColorReturn(){
-        UIView.animateWithDuration(0.5, delay: 0.1 , options: .CurveLinear, animations: {
+        UIView.animateWithDuration(0.5, delay: 1 , options: .CurveLinear, animations: {
             self.touchIndicatorOuterView.alpha = 0
             self.touchIndicatorInnerView.alpha = 0
             self.caption1View.backgroundColor = UIColor.whiteColor();
@@ -331,6 +332,8 @@ class CommentPageVC: UIViewController{
         UIView.animateWithDuration(0.5, delay: 1, options: .CurveLinear, animations: {
             self.touchIndicatorOuterView.alpha = 0.5
             self.touchIndicatorInnerView.alpha = 0.5
+            self.touchIndicatorOuterView.center.y = self.plusView.center.y
+            self.touchIndicatorOuterView.center.x = self.addCaptionButton.center.x
             
             }, completion: { finished in
                 self.myCaptionText.text = ""
@@ -340,7 +343,7 @@ class CommentPageVC: UIViewController{
     }
     
     func animateCommentIndicatorDisappearance(){
-        UIView.animateWithDuration(0.2, delay: 1 , options: .CurveEaseOut, animations: {
+        UIView.animateWithDuration(0.2, delay: 0 , options: .CurveEaseOut, animations: {
             self.touchIndicatorOuterView.alpha = 0.2
             self.touchIndicatorInnerView.alpha = 0.2
             }, completion: { finished in
@@ -379,8 +382,6 @@ class CommentPageVC: UIViewController{
     func resetAnimationsOnClose(){
         touchIndicatorOuterView.layer.removeAllAnimations()
         touchIndicatorInnerView.layer.removeAllAnimations()
-        //cardContainerView.layer.removeAllAnimations()
-        //cardContainerView.frame = initCardContainerFrame
         touchIndicatorOuterView.frame = initTouchIndicatorOuterViewFrame
     }
     
