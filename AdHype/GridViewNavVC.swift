@@ -84,6 +84,13 @@ class GridViewNavVC: CustomNavVC{
         setActiveViewController(.toRight, viewController: gridViewFriendsVC)
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        friendLabel.center.x -= adjustmentWidth
+        backButton.center.x -= adjustmentWidth
+
+    }
+    
 }
 
 extension GridViewNavVC: GridViewFriendsVCDelegate{
