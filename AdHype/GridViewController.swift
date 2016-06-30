@@ -180,7 +180,7 @@ extension GridViewController: ImageGridCellDelegate{
         }
         
         if !isFriendGrid{
-            adsLikedRef.child(Constants.ADSLIKEDNODE).child(ad.getKey()).removeValue()
+            adsLikedRef.child(ad.getKey()).removeValue()
             
             adStore[ad.getPrimaryTag()]?.removeAtIndex(index)
             
