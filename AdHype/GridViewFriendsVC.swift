@@ -14,6 +14,7 @@ class GridViewFriendsVC: UIViewController{
     @IBOutlet weak var friendsTableView: UITableView!
     var friends = [(id: String, names: SelectionCellTextData)]()
     var delegate: GridViewFriendsVCDelegate!
+    var detachInfo: FIRDetachInfo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,7 @@ class GridViewFriendsVC: UIViewController{
         
         let ref = FIRDatabase.database().reference().child(Constants.USERSNODE).child(getUserUID()).child(Constants.USERFRIENDSNODE)
         let query = ref.queryOrderedByChild(Constants.USERDISPLAYNAME)
-        query.observeEventType(.ChildAdded, withBlock: {(snapshot) -> Void in
+        let handle = query.observeEventType(.ChildAdded, withBlock: {(snapshot) -> Void in
             print(snapshot)
             if let nameDict = snapshot.value as? [String: String]{
                 let un = nameDict[Constants.USERDISPLAYNAME]!
@@ -33,10 +34,18 @@ class GridViewFriendsVC: UIViewController{
                 self.friendsTableView.reloadData()
             }
         })
+        detachInfo = FIRDetachInfo(ref: ref, handle: handle)
     }
     func getUserUID()->String{
         return (FIRAuth.auth()?.currentUser?.uid)!
     }
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let info = detachInfo{
+            info.ref.removeObserverWithHandle(info.handle)
+        }
+    }
+    
 }
 
 extension GridViewFriendsVC: UITableViewDataSource, UITableViewDelegate{

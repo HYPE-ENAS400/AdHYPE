@@ -101,7 +101,10 @@ class GridViewNavVC: CustomNavVC{
         super.viewDidDisappear(animated)
         friendLabel.center.x -= adjustmentWidth
         backButton.center.x -= adjustmentWidth
-
+        userUnderlineView.hidden = false
+        friendUnderlineView.hidden = true
+        setActiveViewController(nil, viewController: userGridVC)
+        gridViewFriendsVC = nil
     }
     
 }

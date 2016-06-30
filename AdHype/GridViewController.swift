@@ -20,6 +20,7 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     var adStore = [String: [HypeAd]]()
     var userID: String!
     var isFriendGrid: Bool = false
+    var detachInfo: FIRDetachInfo?
     
     var delegate: GridViewControllerDelegate!
     var messageDelegate: DisplayMessageDelegate!
@@ -36,7 +37,7 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     func initGridView(id: String){
         adsLikedRef = FIRDatabase.database().reference().child(Constants.USERSNODE).child(id).child(Constants.ADSLIKEDNODE)
         let query = adsLikedRef.queryOrderedByChild(Constants.ADPRIMARYTAGNODE)
-        query.observeEventType(.ChildAdded, withBlock: {(snapshot) -> Void in
+        let handle = query.observeEventType(.ChildAdded, withBlock: {(snapshot) -> Void in
             if let dict = snapshot.value as? [String: String]{
                 let name = dict[Constants.ADNAMENODE]!
                 let url = dict[Constants.ADURLNODE]!
@@ -56,6 +57,7 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
                 self.collectionView?.reloadData()
             }
         })
+        detachInfo = FIRDetachInfo(ref: adsLikedRef, handle: handle)
     }
     
     func clearGridView(){
@@ -149,6 +151,15 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
                     }
                     
                 }
+            }
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isFriendGrid {
+            if let info = detachInfo{
+                info.ref.removeObserverWithHandle(info.handle)
             }
         }
     }
