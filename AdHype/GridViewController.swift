@@ -10,15 +10,15 @@ import UIKit
 import SafariServices
 import Firebase
 
-class GridViewController: UICollectionViewController{
+class GridViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
     
     @IBOutlet var tapGestureRecognizer: UITapGestureRecognizer!
     @IBOutlet var doubleTapGestureRecognizer: UITapGestureRecognizer!
     
-    var userRef: FIRDatabaseReference!
-    
-    var adNames = [String]()
-    var adKeys = [String]()
+    var adsLikedRef: FIRDatabaseReference!
+    var interests = [String]()
+    var adStore = [String: [HypeAd]]()
+    var userID: String!
     
     var delegate: GridViewControllerDelegate!
     
@@ -27,42 +27,78 @@ class GridViewController: UICollectionViewController{
         
         collectionView!.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
-        initGridView((FIRAuth.auth()?.currentUser?.uid)!)
+        initGridView(userID)
         tapGestureRecognizer.requireGestureRecognizerToFail(doubleTapGestureRecognizer)
     }
     
-    func initGridView(userUID: String){
-        userRef = FIRDatabase.database().reference().child(Constants.USERSNODE).child(userUID)
-        
-        let adQueueRef = userRef.child(Constants.ADSLIKEDNODE)
-        adQueueRef.observeEventType(.ChildAdded, withBlock: { (snapshot) in
+    func initGridView(id: String){
+        adsLikedRef = FIRDatabase.database().reference().child(Constants.USERSNODE).child(id).child(Constants.ADSLIKEDNODE)
+        let query = adsLikedRef.queryOrderedByChild(Constants.ADPRIMARYTAGNODE)
+        query.observeEventType(.ChildAdded, withBlock: {(snapshot) -> Void in
             if let dict = snapshot.value as? [String: String]{
-                self.adNames.append(dict[Constants.ADNAMENODE]!)
-                self.adKeys.append(snapshot.key)
+                let name = dict[Constants.ADNAMENODE]!
+                let url = dict[Constants.ADURLNODE]!
+                let key = snapshot.key
+                let primarytag = dict[Constants.ADPRIMARYTAGNODE]!
+                let newAdMetaData = HypeAdMetaData(name: name, key: key, url: url, primaryTag: primarytag, isFromFriend: false, captionFromFriend: nil)
+                
+                if self.interests.contains(primarytag){
+                    self.adStore[primarytag]?.append(HypeAd(refURL: Constants.BASESTORAGEURL + name, metaData: newAdMetaData))
+                    print("added \(name) to category \(primarytag)")
+                }
+                else{
+                    self.interests.append(primarytag)
+                    self.adStore[primarytag] = [HypeAd(refURL: Constants.BASESTORAGEURL + name, metaData: newAdMetaData)]
+                    print("created category \(primarytag) to add \(name)")
+                }
                 self.collectionView?.reloadData()
             }
-            
         })
     }
     
     func clearGridView(){
-        adNames = [String]()
-        adKeys = [String]()
+        interests = [String]()
+        adStore = [String: [HypeAd]]()
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        let numberOfColumns: CGFloat = 3.0
+        let insets = collectionView.contentInset
+        let w = CGRectGetWidth(collectionView.bounds) - (insets.right + insets.left)
+        let itemWidth = (w - (numberOfColumns - 1)) / numberOfColumns
+        return CGSizeMake(itemWidth, itemWidth*(6.0/5.0))
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSizeMake(CGRectGetWidth(collectionView.bounds), 40)
+    }
+    
+    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return interests.count
+    }
+    
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        
+
+        let suppView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "gridSectionCell", forIndexPath: indexPath) as! GridSectionCell
+        suppView.sectionLabel.text = interests[indexPath.section]
+
+        
+        return suppView
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return adNames.count
+        return adStore[interests[section]]!.count
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let identifier = "UICollectionViewCell"
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! ImageGridCell
         cell.delegate = self
-        let adTitle = adNames[indexPath.row]
-        let adKey = adKeys[indexPath.row]
-        let newAdMetaData = HypeAdMetaData(name: adTitle, key: adKey, url: "http://wwww.githyped.com", primaryTag: "hype",isFromFriend: false, captionFromFriend: nil)
-        
-        cell.cellAd = HypeAd(refURL: Constants.BASESTORAGEURL + adTitle, metaData: newAdMetaData)
+        let cellAd = adStore[interests[indexPath.section]]![indexPath.row]
+        print("ADDING CELL FOR AD: \(cellAd.getAdName())")
+        cell.cellAd = cellAd
         return cell
         
     }
@@ -71,30 +107,44 @@ class GridViewController: UICollectionViewController{
         (cell as! ImageGridCell).downloadImageForAd()
     }
     
-    func getCellFromLocation(location: CGPoint) -> ImageGridCell {
-        let selectedIndexPath: NSIndexPath = self.collectionView!.indexPathForItemAtPoint(location)!
-        let cell = self.collectionView!.cellForItemAtIndexPath(selectedIndexPath) as! ImageGridCell
-        return cell
+    private func getCellFromGesture(gesture: UIGestureRecognizer) -> ImageGridCell? {
+        let pointInCollectionView: CGPoint = gesture.locationInView(self.collectionView)
+        if let selectedIndexPath: NSIndexPath = self.collectionView!.indexPathForItemAtPoint(pointInCollectionView)!{
+            if let cell = self.collectionView!.cellForItemAtIndexPath(selectedIndexPath) as? ImageGridCell{
+                return cell
+            }
+        }
+        return nil
     }
     
     @IBAction func didDoubleTapCollectionView(gesture: UITapGestureRecognizer){
-        let pointInCollectionView: CGPoint = gesture.locationInView(self.collectionView)
-        let selectedIndexPath: NSIndexPath = self.collectionView!.indexPathForItemAtPoint(pointInCollectionView)!
-        let cell = collectionView?.cellForItemAtIndexPath(selectedIndexPath) as! ImageGridCell
-        delegate.onAdDoubleClicked(cell.cellAd)
+        if let cell = getCellFromGesture(gesture){
+            delegate.onAdFromGridDoubleClicked(cell.cellAd)
+        }
+        
     }
     
     @IBAction func didLongTapCollectionView(gesture: UILongPressGestureRecognizer){
-        let pointInCollectionView: CGPoint = gesture.locationInView(self.collectionView)
-        let cell = getCellFromLocation(pointInCollectionView)
-        cell.showDeleteButton()
+        if let cell = getCellFromGesture(gesture){
+            cell.showDeleteButton()
+        }
     }
     
     @IBAction func didTapCollectionView(gesture: UITapGestureRecognizer){
-        let pointInCollectionView: CGPoint = gesture.locationInView(self.collectionView)
-        let cell = getCellFromLocation(pointInCollectionView)
-        if cell.isDeleteActive {
-            cell.hideDeleteButton()
+        if let cell = getCellFromGesture(gesture){
+            if cell.isDeleteActive{
+                cell.hideDeleteButton()
+            } else{
+                if let url = NSURL(string: cell.cellAd.getURL()){
+                    if #available(iOS 9.0, *) {
+                        let vc = SFSafariViewController(URL: url, entersReaderIfAvailable: false)
+                        presentViewController(vc, animated: true, completion: nil)
+                    } else {
+                        // Fallback on earlier versions
+                    }
+                    
+                }
+            }
         }
     }
 
@@ -103,22 +153,27 @@ class GridViewController: UICollectionViewController{
 extension GridViewController: ImageGridCellDelegate{
     func onPressedDelete(ad: HypeAd){
         
-        guard let adNameIndex = adNames.indexOf(ad.getAdNameWithExtension()) else {
+        guard let interestIndex = interests.indexOf(ad.getPrimaryTag()) else {
+            print("INTEREST FOR AD TO BE DELETED DOES NOT EXIST")
+            return
+        }
+        
+        guard let index = adStore[ad.getPrimaryTag()]?.indexOf(ad) else {
             print("ERROR ACCESSING AD NAME TO DELETE")
             return
         }
-//
-        userRef.child(Constants.ADSLIKEDNODE).child(adKeys[adNameIndex]).removeValue()
         
-        adNames.removeAtIndex(adNameIndex)
-        adKeys.removeAtIndex(adNameIndex)
+        //
+        adsLikedRef.child(Constants.ADSLIKEDNODE).child(ad.getKey()).removeValue()
         
-        collectionView!.deleteItemsAtIndexPaths([NSIndexPath(forRow:adNameIndex, inSection: 0)])
+        adStore[ad.getPrimaryTag()]?.removeAtIndex(index)
+        
+        collectionView?.deleteItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: interestIndex)])
         
     }
 }
 
 protocol GridViewControllerDelegate{
-    func onAdDoubleClicked(ad: HypeAd)
+    func onAdFromGridDoubleClicked(ad: HypeAd)
 }
 

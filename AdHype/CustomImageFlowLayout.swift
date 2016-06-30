@@ -17,7 +17,7 @@ class CustomImageFlowLayout: UICollectionViewFlowLayout{
         let insets = collectionView!.contentInset
         return CGRectGetWidth(collectionView!.bounds) - (insets.left + insets.right)
     }
-
+    
     
     override init(){
         super.init()
@@ -32,7 +32,7 @@ class CustomImageFlowLayout: UICollectionViewFlowLayout{
     func setupLayout() {
         minimumInteritemSpacing = 1.0
         minimumLineSpacing = 1.0
-        scrollDirection = .Horizontal
+        scrollDirection = .Vertical
     }
     
     override var itemSize: CGSize{
