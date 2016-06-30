@@ -255,11 +255,11 @@ class CommentPageVC: UIViewController{
     @IBOutlet weak var caption1View: UIView!
     @IBOutlet weak var addCatptionButton: UIButton!
     
+    @IBOutlet weak var myCaptionText: UILabel!
     @IBOutlet weak var touchIndicatorInnerView: UIView!
     @IBOutlet weak var touchIndicatorOuterView: UIView!
     @IBOutlet weak var votesView: UIView!
     @IBOutlet weak var plusView: UIView!
-    @IBOutlet weak var myCaptionText: UITextView!
     
     var initTouchIndicatorOuterViewFrame: CGRect!
     
@@ -299,6 +299,7 @@ class CommentPageVC: UIViewController{
             
             }, completion: { finished in
                 self.caption1View.backgroundColor = UIColor.lightGrayColor();
+                self.myCaptionText.text = "I actually like the ads in here"
                 self.myCaptionText.alpha = 0.7
                 self.animateTouchIndicatorDisappearance()
         })
@@ -332,9 +333,8 @@ class CommentPageVC: UIViewController{
             self.touchIndicatorInnerView.alpha = 0.5
             
             }, completion: { finished in
-                self.caption1View.backgroundColor = UIColor.lightGrayColor();
-                self.myCaptionText.alpha = 0.7
                 self.myCaptionText.text = ""
+                self.myCaptionText.alpha = 0.7
                 self.animateCommentIndicatorDisappearance()
         })
     }
@@ -344,8 +344,28 @@ class CommentPageVC: UIViewController{
             self.touchIndicatorOuterView.alpha = 0.2
             self.touchIndicatorInnerView.alpha = 0.2
             }, completion: { finished in
-                self.resetAndRestartAnimation()
+                self.touchIndicatorOuterView.alpha = 0
+                self.touchIndicatorInnerView.alpha = 0
+                self.animateTypeComment()
         })
+    }
+    
+    func appendletter(index: Int){
+        var myTextArray: [String] = ["G", "E", "T"," ","H","Y","P","E","D"]
+        if (index>myTextArray.count-1){
+            return
+        }
+        else{delay(0.5){
+            self.myCaptionText.text = self.myCaptionText.text! + myTextArray[index]
+            self.appendletter(index+1)
+            }
+        }
+    }
+    
+    func animateTypeComment(){
+        self.appendletter(0)
+        delay(0.2){
+            self.resetAndRestartAnimation()}
     }
     
     

@@ -484,15 +484,15 @@
                                     <constraint firstItem="DuU-Ci-hDN" firstAttribute="leading" secondItem="eyT-3p-mlr" secondAttribute="trailing" id="orJ-ct-TBx"/>
                                 </constraints>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="this is a caption" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ndp-4A-0Rk">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gvw-lk-dS5">
                                 <rect key="frame" x="0.0" y="442" width="414" height="30"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="G8L-f1-WW1"/>
+                                    <constraint firstAttribute="height" constant="30" id="LSc-ZK-VCE"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -513,16 +513,16 @@
                             <constraint firstAttribute="trailing" secondItem="AUB-EU-Obu" secondAttribute="trailing" id="Pr1-nz-3SA"/>
                             <constraint firstAttribute="trailing" secondItem="mMj-5L-AuT" secondAttribute="trailing" id="SDG-AC-oh6"/>
                             <constraint firstItem="AUB-EU-Obu" firstAttribute="top" secondItem="mMj-5L-AuT" secondAttribute="bottom" id="SFQ-EV-4LX"/>
+                            <constraint firstAttribute="trailing" secondItem="Gvw-lk-dS5" secondAttribute="trailing" id="Tqj-EF-coU"/>
                             <constraint firstAttribute="trailing" secondItem="Vgg-XD-Z2D" secondAttribute="trailing" id="Xoc-dj-kuz"/>
+                            <constraint firstItem="Gvw-lk-dS5" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" id="apW-7V-DVV"/>
                             <constraint firstItem="rjF-vz-MqT" firstAttribute="top" secondItem="AUB-EU-Obu" secondAttribute="bottom" id="c68-eq-PDh"/>
                             <constraint firstItem="rm5-PY-ES8" firstAttribute="centerX" secondItem="qiR-65-Bn5" secondAttribute="centerX" id="ePd-L6-bOX"/>
                             <constraint firstItem="VgY-GF-Xsz" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" id="egA-BZ-LAJ"/>
                             <constraint firstAttribute="trailing" secondItem="VgY-GF-Xsz" secondAttribute="trailing" id="jRY-PF-mC1"/>
-                            <constraint firstItem="mMj-5L-AuT" firstAttribute="top" secondItem="Ndp-4A-0Rk" secondAttribute="bottom" id="mk5-Xb-2RZ"/>
+                            <constraint firstItem="mMj-5L-AuT" firstAttribute="top" secondItem="Gvw-lk-dS5" secondAttribute="bottom" id="mk6-GO-h8A"/>
                             <constraint firstItem="Vgg-XD-Z2D" firstAttribute="top" secondItem="ocP-z1-sfG" secondAttribute="bottom" id="nYd-sX-j3j"/>
-                            <constraint firstItem="Ndp-4A-0Rk" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" id="r6f-bc-asU"/>
                             <constraint firstAttribute="trailing" secondItem="pTC-mj-bS4" secondAttribute="trailing" id="uAQ-lJ-dr7"/>
-                            <constraint firstAttribute="trailing" secondItem="Ndp-4A-0Rk" secondAttribute="trailing" id="vK5-cP-9VG"/>
                             <constraint firstItem="pTC-mj-bS4" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" id="vbh-Jl-Nr3"/>
                             <constraint firstItem="AUB-EU-Obu" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" id="xmc-ZD-cLF"/>
                         </constraints>
@@ -534,7 +534,7 @@
                         <outlet property="addCatptionButton" destination="gpK-s9-9nT" id="sg4-R0-IkA"/>
                         <outlet property="caption1View" destination="AUB-EU-Obu" id="Is2-7M-VK9"/>
                         <outlet property="divider1View" destination="rjF-vz-MqT" id="eMd-kc-fmq"/>
-                        <outlet property="myCaptionText" destination="Ndp-4A-0Rk" id="USN-k8-XXq"/>
+                        <outlet property="myCaptionText" destination="Gvw-lk-dS5" id="NMZ-ca-9IL"/>
                         <outlet property="plusView" destination="mMj-5L-AuT" id="Ytn-8v-ZLl"/>
                         <outlet property="touchIndicatorInnerView" destination="kIr-uA-fh8" id="fpd-hW-IDZ"/>
                         <outlet property="touchIndicatorOuterView" destination="rm5-PY-ES8" id="Nrw-Sg-1vq"/>
