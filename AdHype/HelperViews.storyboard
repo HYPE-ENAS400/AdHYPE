@@ -215,10 +215,10 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rm5-PY-ES8" userLabel="Touch Indicator Outer View">
+                            <view alpha="0.0" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rm5-PY-ES8" userLabel="Touch Indicator Outer View">
                                 <rect key="frame" x="177" y="338" width="60" height="60"/>
                                 <subviews>
-                                    <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kIr-uA-fh8" userLabel="Touch Indicator Inner View">
+                                    <view alpha="0.0" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kIr-uA-fh8" userLabel="Touch Indicator Inner View">
                                         <rect key="frame" x="4" y="4" width="52" height="52"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <userDefinedRuntimeAttributes>
@@ -506,7 +506,6 @@
                             <constraint firstItem="Vgg-XD-Z2D" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" constant="10" id="FN7-iO-e9I"/>
                             <constraint firstItem="XJb-UC-3tj" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" id="FuA-cc-pMr"/>
                             <constraint firstItem="AUB-EU-Obu" firstAttribute="top" secondItem="VgY-GF-Xsz" secondAttribute="bottom" id="GDu-uB-dJT"/>
-                            <constraint firstItem="rm5-PY-ES8" firstAttribute="centerY" secondItem="qiR-65-Bn5" secondAttribute="centerY" id="Hvm-Hi-XjX"/>
                             <constraint firstAttribute="trailing" secondItem="XJb-UC-3tj" secondAttribute="trailing" id="I6X-lN-ONj"/>
                             <constraint firstItem="ocP-z1-sfG" firstAttribute="top" secondItem="rjF-vz-MqT" secondAttribute="bottom" id="JI1-tN-Yu4"/>
                             <constraint firstAttribute="trailing" secondItem="ocP-z1-sfG" secondAttribute="trailing" id="Mdu-MS-7Ne"/>
@@ -517,7 +516,6 @@
                             <constraint firstAttribute="trailing" secondItem="Vgg-XD-Z2D" secondAttribute="trailing" id="Xoc-dj-kuz"/>
                             <constraint firstItem="Gvw-lk-dS5" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" id="apW-7V-DVV"/>
                             <constraint firstItem="rjF-vz-MqT" firstAttribute="top" secondItem="AUB-EU-Obu" secondAttribute="bottom" id="c68-eq-PDh"/>
-                            <constraint firstItem="rm5-PY-ES8" firstAttribute="centerX" secondItem="qiR-65-Bn5" secondAttribute="centerX" id="ePd-L6-bOX"/>
                             <constraint firstItem="VgY-GF-Xsz" firstAttribute="leading" secondItem="qiR-65-Bn5" secondAttribute="leading" id="egA-BZ-LAJ"/>
                             <constraint firstAttribute="trailing" secondItem="VgY-GF-Xsz" secondAttribute="trailing" id="jRY-PF-mC1"/>
                             <constraint firstItem="mMj-5L-AuT" firstAttribute="top" secondItem="Gvw-lk-dS5" secondAttribute="bottom" id="mk6-GO-h8A"/>

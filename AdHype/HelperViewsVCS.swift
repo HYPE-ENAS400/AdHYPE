@@ -286,14 +286,16 @@ class CommentPageVC: UIViewController{
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.touchIndicatorOuterView.center.y = self.caption1View.center.y
-        self.touchIndicatorOuterView.center.x = self.caption1View.center.x
+        let y  = self.caption1View.center.y
+        let x = self.caption1View.center.x
+        self.touchIndicatorOuterView.center.y = y
+        self.touchIndicatorOuterView.center.x = x
         self.myCaptionText.alpha = 0
         animateTouchIndicatorAppearance()
     }
     
     func animateTouchIndicatorAppearance(){
-        UIView.animateWithDuration(0.5, delay: 0, options: .CurveLinear, animations: {
+        UIView.animateWithDuration(0.5, delay: 1, options: .CurveLinear, animations: {
             self.touchIndicatorOuterView.alpha = 0.5
             self.touchIndicatorInnerView.alpha = 0.5
             
@@ -301,12 +303,19 @@ class CommentPageVC: UIViewController{
                 self.caption1View.backgroundColor = UIColor.lightGrayColor();
                 self.myCaptionText.text = "I actually like the ads in here"
                 self.myCaptionText.alpha = 0.7
-                
+                let y  = self.caption1View.center.y
+                let x = self.caption1View.center.x
+                self.touchIndicatorOuterView.center.y = y
+                self.touchIndicatorOuterView.center.x = x
                 self.animateTouchIndicatorDisappearance()
         })
     }
     func animateTouchIndicatorDisappearance(){
-        UIView.animateWithDuration(0.2, delay: 1 , options: .CurveEaseOut, animations: {
+        UIView.animateWithDuration(0.2, delay: 0 , options: .CurveLinear, animations: {
+            let y  = self.caption1View.center.y
+            let x = self.caption1View.center.x
+            self.touchIndicatorOuterView.center.y = y
+            self.touchIndicatorOuterView.center.x = x
             self.touchIndicatorOuterView.alpha = 0.2
             self.touchIndicatorInnerView.alpha = 0.2
             }, completion: { finished in
@@ -338,6 +347,8 @@ class CommentPageVC: UIViewController{
             }, completion: { finished in
                 self.myCaptionText.text = ""
                 self.myCaptionText.alpha = 0.7
+                self.touchIndicatorOuterView.center.y = self.plusView.center.y
+                self.touchIndicatorOuterView.center.x = self.addCaptionButton.center.x
                 self.animateCommentIndicatorDisappearance()
         })
     }
@@ -356,6 +367,7 @@ class CommentPageVC: UIViewController{
     func appendletter(index: Int){
         var myTextArray: [String] = ["G", "E", "T"," ","H","Y","P","E","D"]
         if (index>myTextArray.count-1){
+            self.resetAndRestartAnimation()
             return
         }
         else{delay(0.5){
@@ -367,8 +379,6 @@ class CommentPageVC: UIViewController{
     
     func animateTypeComment(){
         self.appendletter(0)
-        delay(0.2){
-            self.resetAndRestartAnimation()}
     }
     
     
