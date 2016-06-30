@@ -201,7 +201,10 @@ class MainViewController: UIViewController {
             guard let val = userInterests.getValueForKey(key) else{
                 continue
             }
-            if adDict[key] != nil && val{
+            guard let isInterestedString = adDict[key] else{
+                continue
+            }
+            if isInterestedString != "" && val{
                 return true
             }
         }

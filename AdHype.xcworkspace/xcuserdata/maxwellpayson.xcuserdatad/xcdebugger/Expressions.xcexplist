@@ -3,6 +3,9 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "SelectionTableView.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:SelectionTableView.swift">
+      </ContextState>
+      <ContextState
          contextName = "UserTableViewController.viewDidLoad() -&gt; ():UserTableViewController.swift">
       </ContextState>
       <ContextState
@@ -75,6 +78,9 @@
          contextName = "MainViewController.isUserInterestedInAd([String : String]) -&gt; Bool:MainViewController.swift">
          <PersistentStrings>
             <PersistentString
+               value = "">
+            </PersistentString>
+            <PersistentString
                value = "adDict[key]">
             </PersistentString>
          </PersistentStrings>
@@ -146,6 +152,9 @@
                value = "view.center">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "GridViewController.collectionView(UICollectionView, layout : UICollectionViewLayout, sizeForItemAtIndexPath : NSIndexPath) -&gt; CGSize:GridViewController.swift">
       </ContextState>
       <ContextState
          contextName = "MainViewController.appendAdlAd() -&gt; ():MainViewController.swift">
