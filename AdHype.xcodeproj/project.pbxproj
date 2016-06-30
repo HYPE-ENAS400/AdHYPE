@@ -58,6 +58,10 @@
 		2BB5931A1D2345F00068AA08 /* LoginNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB593191D2345F00068AA08 /* LoginNavVC.swift */; };
 		2BB5931C1D23463D0068AA08 /* LoginViews.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BB5931B1D23463D0068AA08 /* LoginViews.storyboard */; };
 		2BB5931E1D2426750068AA08 /* SignUpUserInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB5931D1D2426750068AA08 /* SignUpUserInfoVC.swift */; };
+		2BB593261D24791A0068AA08 /* GridSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB593251D24791A0068AA08 /* GridSectionCell.swift */; };
+		2BB593291D24CC5B0068AA08 /* GridViewNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB593281D24CC5B0068AA08 /* GridViewNavVC.swift */; };
+		2BB5932B1D24D8920068AA08 /* GridViewFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB5932A1D24D8920068AA08 /* GridViewFriendCell.swift */; };
+		2BB5932D1D24D9530068AA08 /* GridViewFriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB5932C1D24D9530068AA08 /* GridViewFriendsVC.swift */; };
 		2BFD161A1D1AE0C7001A210A /* Settings Nav View.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BFD16191D1AE0C7001A210A /* Settings Nav View.storyboard */; };
 		2BFD161E1D1AF208001A210A /* SettingsNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFD161D1D1AF208001A210A /* SettingsNavVC.swift */; };
 		2BFD16201D1AF5B5001A210A /* UserSettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BFD161F1D1AF5B5001A210A /* UserSettingsView.storyboard */; };
@@ -123,6 +127,10 @@
 		2BB593191D2345F00068AA08 /* LoginNavVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginNavVC.swift; sourceTree = "<group>"; };
 		2BB5931B1D23463D0068AA08 /* LoginViews.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginViews.storyboard; sourceTree = "<group>"; };
 		2BB5931D1D2426750068AA08 /* SignUpUserInfoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpUserInfoVC.swift; sourceTree = "<group>"; };
+		2BB593251D24791A0068AA08 /* GridSectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridSectionCell.swift; sourceTree = "<group>"; };
+		2BB593281D24CC5B0068AA08 /* GridViewNavVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridViewNavVC.swift; sourceTree = "<group>"; };
+		2BB5932A1D24D8920068AA08 /* GridViewFriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridViewFriendCell.swift; sourceTree = "<group>"; };
+		2BB5932C1D24D9530068AA08 /* GridViewFriendsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridViewFriendsVC.swift; sourceTree = "<group>"; };
 		2BFD16191D1AE0C7001A210A /* Settings Nav View.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Settings Nav View.storyboard"; sourceTree = "<group>"; };
 		2BFD161D1D1AF208001A210A /* SettingsNavVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsNavVC.swift; sourceTree = "<group>"; };
 		2BFD161F1D1AF5B5001A210A /* UserSettingsView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserSettingsView.storyboard; sourceTree = "<group>"; };
@@ -246,13 +254,15 @@
 		2B9EAA271D109CFA00396A63 /* Hype Grid */ = {
 			isa = PBXGroup;
 			children = (
+				2BB593271D24B50B0068AA08 /* AdBrowser */,
 				2B9EAA081D1093AC00396A63 /* Grid View.storyboard */,
 				2B9EAA1F1D1098BA00396A63 /* ImageGridCell.swift */,
 				2B9EAA201D1098BA00396A63 /* GridViewController.swift */,
 				2B9BF4E91D12446300BCD935 /* CustomImageFlowLayout.swift */,
-				2BB592C91D1F7A6A0068AA08 /* AdBrowser.storyboard */,
-				2BB592CB1D1F7B5F0068AA08 /* AdBrowserViewController.swift */,
-				2BB592CD1D20A1320068AA08 /* AdBrowserTableViewCell.swift */,
+				2BB593251D24791A0068AA08 /* GridSectionCell.swift */,
+				2BB593281D24CC5B0068AA08 /* GridViewNavVC.swift */,
+				2BB5932C1D24D9530068AA08 /* GridViewFriendsVC.swift */,
+				2BB5932A1D24D8920068AA08 /* GridViewFriendCell.swift */,
 			);
 			name = "Hype Grid";
 			sourceTree = "<group>";
@@ -296,6 +306,16 @@
 			);
 			name = LogIn;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		2BB593271D24B50B0068AA08 /* AdBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				2BB592CD1D20A1320068AA08 /* AdBrowserTableViewCell.swift */,
+				2BB592CB1D1F7B5F0068AA08 /* AdBrowserViewController.swift */,
+				2BB592C91D1F7A6A0068AA08 /* AdBrowser.storyboard */,
+			);
+			name = AdBrowser;
 			sourceTree = "<group>";
 		};
 		8B6A45E6ADDDEA5D89C417A3 /* Pods */ = {
@@ -459,6 +479,7 @@
 				2B9EAA501D10B1BE00396A63 /* OverlayView.swift in Sources */,
 				2BB592DF1D223BD40068AA08 /* CustomNavVC.swift in Sources */,
 				2B75DF0F1D15C6760047A0DF /* FriendsSectionCell.swift in Sources */,
+				2BB593261D24791A0068AA08 /* GridSectionCell.swift in Sources */,
 				2B9EAA511D10B1BE00396A63 /* SwipeResultDirection.swift in Sources */,
 				2BFD16261D1AFC50001A210A /* FriendsSettingsVC.swift in Sources */,
 				2BB5931E1D2426750068AA08 /* SignUpUserInfoVC.swift in Sources */,
@@ -466,6 +487,7 @@
 				2B9EAA231D1098BA00396A63 /* ImageGridCell.swift in Sources */,
 				2B9EAA341D10A02D00396A63 /* Constants.swift in Sources */,
 				2BFD161E1D1AF208001A210A /* SettingsNavVC.swift in Sources */,
+				2BB5932D1D24D9530068AA08 /* GridViewFriendsVC.swift in Sources */,
 				2B9EAA241D1098BA00396A63 /* GridViewController.swift in Sources */,
 				2BFD162C1D1B51D2001A210A /* HelpSettingsVC.swift in Sources */,
 				2B6F39281D19FD3D0020F22E /* Queue.swift in Sources */,
@@ -488,10 +510,12 @@
 				2BB592BE1D1C97C60068AA08 /* SelectionDataSource.swift in Sources */,
 				2B75DF1D1D1749620047A0DF /* customSegue.swift in Sources */,
 				2B75DF1B1D1734400047A0DF /* FriendsTableViewController.swift in Sources */,
+				2BB593291D24CC5B0068AA08 /* GridViewNavVC.swift in Sources */,
 				2B9EAA321D10A02D00396A63 /* UtilityFunctions.swift in Sources */,
 				2B75DF0D1D14BA150047A0DF /* FriendsCell.swift in Sources */,
 				2B9EAA151D1098A900396A63 /* HypeNavViewController.swift in Sources */,
 				2BB5931A1D2345F00068AA08 /* LoginNavVC.swift in Sources */,
+				2BB5932B1D24D8920068AA08 /* GridViewFriendCell.swift in Sources */,
 				2B6F392C1D1A51540020F22E /* CustomOverlayView.swift in Sources */,
 				2B75DF151D15E7E00047A0DF /* UserTableViewController.swift in Sources */,
 			);

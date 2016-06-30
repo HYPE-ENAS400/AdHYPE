@@ -18,6 +18,7 @@ class ImageGridCell: UICollectionViewCell{
     var isDeleteActive = false
     var delegate: ImageGridCellDelegate!
     var cellAd: HypeAd!
+    var isSaveButton: Bool = false
     
     
     override func awakeFromNib() {
@@ -67,6 +68,14 @@ class ImageGridCell: UICollectionViewCell{
         }
     }
     
+    func changeDeleteButtonToSaveButton(){
+        isSaveButton = true
+        deleteButton.backgroundColor = UIColor.grayColor()
+        deleteButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        deleteButton.setTitle("SAVE!", forState: .Normal)
+    }
+
+    
     func showDeleteButton(){
         deleteButton.hidden = false
         isDeleteActive = true
@@ -88,8 +97,10 @@ class ImageGridCell: UICollectionViewCell{
     
     
     @IBAction func onPressedDeleteButton(sender: AnyObject) {
-        imageView.image = nil
-        spinner.startAnimating()
+        if !isSaveButton{
+            imageView.image = nil
+            spinner.startAnimating()
+        }
         deleteButton.hidden = true
         delegate.onPressedDelete(cellAd)
     }

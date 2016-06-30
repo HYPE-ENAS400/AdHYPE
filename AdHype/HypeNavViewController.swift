@@ -31,9 +31,10 @@ class HypeNavViewController: CustomNavVC {
     
     var mainViewController: MainViewController?
     var settingsViewController: SettingsNavVC?
+    var gridViewController: GridViewNavVC?
     
 //    var gridViewController: GridViewController?
-    var gridViewController: AdBrowserViewController?
+//    var gridViewController: AdBrowserViewController?
     
     var onAdSocialVCClosedFunc: ((canceled: Bool)->Void)?
     var friendIDS: [String]?
@@ -221,7 +222,7 @@ class HypeNavViewController: CustomNavVC {
         }
         
         settingsViewController = nil
-        hypeBarView.layer.shadowOpacity = 1.0
+        hypeBarView.layer.shadowOpacity = 0.0
         settingsButton.alpha = 0.7
         hypeButton.alpha = 0.7
         gridButton.alpha = 1
@@ -285,8 +286,8 @@ extension HypeNavViewController: MainViewControllerDelegate{
     }
 }
 
-extension HypeNavViewController: AdBrowserViewControllerDelegate{
-    func onAdFromBrowserDoubleClicked(ad: HypeAd) {
+extension HypeNavViewController: GridViewControllerDelegate{
+    func onAdFromGridDoubleClicked(ad: HypeAd) {
         socialAd = ad
         wasSwipeUp = false
         self.performSegueWithIdentifier("showAdSocialViewSegue", sender: nil)
