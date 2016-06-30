@@ -114,7 +114,7 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     private func getCellFromGesture(gesture: UIGestureRecognizer) -> ImageGridCell? {
         let pointInCollectionView: CGPoint = gesture.locationInView(self.collectionView)
-        if let selectedIndexPath: NSIndexPath = self.collectionView!.indexPathForItemAtPoint(pointInCollectionView)!{
+        if let selectedIndexPath: NSIndexPath = self.collectionView?.indexPathForItemAtPoint(pointInCollectionView){
             if let cell = self.collectionView!.cellForItemAtIndexPath(selectedIndexPath) as? ImageGridCell{
                 return cell
             }
