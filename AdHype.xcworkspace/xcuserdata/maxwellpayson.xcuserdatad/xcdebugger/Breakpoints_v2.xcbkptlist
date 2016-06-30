@@ -154,7 +154,23 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/MainViewController.swift"
-            timestampString = "488842312.962184"
+            timestampString = "488996099.228483"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "352"
+            endingLineNumber = "352"
+            landmarkName = "koloda(_:didSwipeCardAtIndex:inDirection:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AdHype/MainViewController.swift"
+            timestampString = "488996099.228483"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "349"
@@ -170,27 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/MainViewController.swift"
-            timestampString = "488842312.962184"
+            timestampString = "488996099.228483"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "346"
-            endingLineNumber = "346"
-            landmarkName = "koloda(_:didSwipeCardAtIndex:inDirection:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AdHype/MainViewController.swift"
-            timestampString = "488842312.962184"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "340"
-            endingLineNumber = "340"
+            startingLineNumber = "343"
+            endingLineNumber = "343"
             landmarkName = "koloda(_:didSwipeCardAtIndex:inDirection:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/MainViewController.swift"
-            timestampString = "488842312.962184"
+            timestampString = "488996099.228483"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "338"
-            endingLineNumber = "338"
+            startingLineNumber = "341"
+            endingLineNumber = "341"
             landmarkName = "koloda(_:didSwipeCardAtIndex:inDirection:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -282,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/MainViewController.swift"
-            timestampString = "488842312.962184"
+            timestampString = "488996099.228483"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "347"
-            endingLineNumber = "347"
+            startingLineNumber = "350"
+            endingLineNumber = "350"
             landmarkName = "koloda(_:didSwipeCardAtIndex:inDirection:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -298,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/ImageGridCell.swift"
-            timestampString = "488754575.816573"
+            timestampString = "488994072.343345"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "updateWithImage(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -745,11 +745,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/MainViewController.swift"
-            timestampString = "488842312.962184"
+            timestampString = "488996099.228483"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
             landmarkName = "koloda(_:viewForCardAtIndex:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -953,11 +953,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/MainViewController.swift"
-            timestampString = "488842312.962184"
+            timestampString = "488996099.228483"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "370"
-            endingLineNumber = "370"
+            startingLineNumber = "373"
+            endingLineNumber = "373"
             landmarkName = "onCardSwiped(_:ad:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1004,22 +1004,6 @@
             timestampString = "488842312.962184"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
-            landmarkName = "isUserInterestedInAd(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AdHype/MainViewController.swift"
-            timestampString = "488842312.962184"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
             startingLineNumber = "182"
             endingLineNumber = "182"
             landmarkName = "appendToQueueIfRoom(_:)"
@@ -1033,11 +1017,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/MainViewController.swift"
-            timestampString = "488842312.962184"
+            timestampString = "488996099.228483"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
             landmarkName = "refreshButtonClicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1049,11 +1033,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/MainViewController.swift"
-            timestampString = "488842312.962184"
+            timestampString = "488996099.228483"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
+            startingLineNumber = "245"
+            endingLineNumber = "245"
             landmarkName = "refreshButtonClicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1541,102 +1525,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AdHype/HelperViewsVCS.swift"
-            timestampString = "488771975.536776"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
-            landmarkName = "resetAnimationsOnClose()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AdHype/HelperViewsVCS.swift"
-            timestampString = "488771373.412573"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "animateTouchIndicatorAppearance()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AdHype/HelperViewsVCS.swift"
-            timestampString = "488771373.412573"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "animateTouchIndicatorAppearance()"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AdHype.RightSwipePageVC.animateTouchIndicatorAppearance () -&gt; ()"
-                  moduleName = "AdHype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/maxwellpayson/iOSProjects/AdHype/AdHype/HelperViewsVCS.swift"
-                  timestampString = "488771373.549779"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "51"
-                  endingLineNumber = "51"
-                  offsetFromSymbolStart = "20">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AdHype.RightSwipePageVC.(animateTouchIndicatorAppearance () -&gt; ()).(closure #1)"
-                  moduleName = "AdHype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/maxwellpayson/iOSProjects/AdHype/AdHype/HelperViewsVCS.swift"
-                  timestampString = "488771373.549886"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AdHype/HelperViewsVCS.swift"
-            timestampString = "488771975.536776"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "viewWillDisappear(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "AdHype/UserTableViewController.swift"
             timestampString = "488925612.097595"
             startingColumnNumber = "9223372036854775807"
@@ -2038,12 +1926,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/GridViewController.swift"
-            timestampString = "488956232.472591"
+            timestampString = "489001160.722608"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:atIndexPath:)"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "didDoubleTapCollectionView(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2054,11 +1942,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/GridViewFriendsVC.swift"
-            timestampString = "488956487.681753"
+            timestampString = "489001160.722608"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
@@ -2070,11 +1958,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/GridViewFriendsVC.swift"
-            timestampString = "488958890.319359"
+            timestampString = "489001160.722608"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -2086,12 +1974,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/HelperViewsVCS.swift"
-            timestampString = "488991022.586512"
+            timestampString = "489003412.161592"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "379"
-            endingLineNumber = "379"
-            landmarkName = "resetAndRestartAnimation()"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
+            landmarkName = "appendletter(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2102,13 +1990,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/HelperViewsVCS.swift"
-            timestampString = "488991022.586512"
+            timestampString = "489003412.161592"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "385"
-            endingLineNumber = "385"
-            landmarkName = "resetAnimationsOnClose()"
-            landmarkType = "5">
+            startingLineNumber = "242"
+            endingLineNumber = "242"
+            landmarkName = "CommentPageVC"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2118,12 +2006,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/HelperViewsVCS.swift"
-            timestampString = "488991022.586512"
+            timestampString = "489003412.161592"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "386"
-            endingLineNumber = "386"
-            landmarkName = "resetAnimationsOnClose()"
+            startingLineNumber = "243"
+            endingLineNumber = "243"
+            landmarkName = "sendButtonPressAppear()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
