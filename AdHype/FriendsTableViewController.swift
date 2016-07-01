@@ -65,7 +65,7 @@ class FriendsTableViewController: UIViewController{
         
         let user = FIRAuth.auth()?.currentUser
         let baseRef = FIRDatabase.database().reference()
-        let timeStamp = String(NSDate().timeIntervalSince1970)
+        let timeStamp = String(Int(NSDate().timeIntervalSince1970))
         
         if let i = recipientIDS.indexOf(Constants.PUBLISHID){
         

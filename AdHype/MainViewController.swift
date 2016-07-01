@@ -340,7 +340,7 @@ extension MainViewController: KolodaViewDelegate {
         let newIndex = getProxyIndex(Int(index))
         
         let ad = ads[newIndex]
-        let timeStamp = String(NSDate().timeIntervalSince1970)
+        let timeStamp = String(Int(NSDate().timeIntervalSince1970))
         
         if direction == .Up {
             delegate.onSwipeUp(ad, onClose: {(canceled: Bool) in
