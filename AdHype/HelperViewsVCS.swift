@@ -265,6 +265,7 @@ class CommentPageVC: UIViewController{
     @IBOutlet weak var myCommentBarView: UIView!
     @IBOutlet weak var sendTouchOuterView: UIView!
     @IBOutlet weak var sendTouchInnerView: UIView!
+    @IBOutlet weak var instructionLabel: UILabel!
     
     var initTouchIndicatorOuterViewFrame: CGRect!
     var initCommentTouchOuterViewFrame : CGRect!
@@ -277,6 +278,7 @@ class CommentPageVC: UIViewController{
         addCaptionButton.layer.shadowRadius = 4
         addCaptionButton.layer.shadowOpacity = 0.6
         addCaptionButton.layer.shadowOffset = CGSizeZero
+        instructionLabel.text = "In the social view make and vote on comments and send content to friend."
         
         
         initTouchIndicatorOuterViewFrame = touchIndicatorOuterView.frame
@@ -305,7 +307,7 @@ class CommentPageVC: UIViewController{
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.myCaptionText.alpha = 0
-        delay(2){
+        delay(5){
             self.caption1View.backgroundColor = UIColor.lightGrayColor();
             self.animateTouchIndicatorAppearance()}
     }
@@ -314,6 +316,7 @@ class CommentPageVC: UIViewController{
         UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
             self.touchIndicatorOuterView.alpha = 0.5
             self.touchIndicatorInnerView.alpha = 0.5
+            self.instructionLabel.text = "Tap a comment to add it to the photo."
             
             }, completion: { finished in
                 self.myCaptionText.alpha = 0
@@ -348,10 +351,12 @@ class CommentPageVC: UIViewController{
         UIView.animateWithDuration(0.5, delay: 5, options: .CurveLinear, animations: {
             self.CommentTouchOuterView.alpha = 0.7
             self.CommentTouchInnerView.alpha = 0.7
+
             
             }, completion: { finished in
                 self.myCaptionText.text = ""
                 self.animateCommentIndicatorDisappearance()
+                self.instructionLabel.text = "Tap the + to write your own."
         })
     }
     
@@ -390,6 +395,7 @@ class CommentPageVC: UIViewController{
             self.sendTouchInnerView.alpha = 0.5
         
             }, completion: { finished in
+                self.instructionLabel.text = "Tap the airplane to send to a friend, or publish the comment."
                 delay(5){
                     self.resetAndRestartAnimation()}
         })
@@ -403,6 +409,7 @@ class CommentPageVC: UIViewController{
                 self.sendTouchInnerView.alpha = 0
                 self.myCaptionText.text = ""
                 self.myCommentBarView.alpha = 0
+                self.instructionLabel.text = "In the social view make and vote on comments and send content to friend."
                 delay(5){
                     self.caption1View.backgroundColor = UIColor.lightGrayColor();
                     self.animateTouchIndicatorAppearance()}
@@ -692,20 +699,29 @@ class BoardPageVC: UIViewController{
             self.deleteTouchOuterView.alpha = 0.5
             
             }, completion: { finished in
-                delay(1){
                     self.deleteLabel.alpha = 0
                     self.view3.layer.shadowOpacity = 0
                     self.view3.layer.shadowRadius = 0
-                    self.deleteTouchOuterView.center.y -= 50
-                    self.animateHypeTouchAppearance()}
+                    self.animateDeleteDisapperance()
         })
         
     }
     
+    func animateDeleteDisapperance(){
+        UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
+            self.deleteTouchInnerView.alpha = 0
+            self.deleteTouchOuterView.alpha = 0
+            
+            }, completion: { finished in
+                    self.deleteTouchOuterView.center.y -= 50
+                    self.animateHypeTouchAppearance()
+        })
+    }
+    
     func animateHypeTouchAppearance(){
-        UIView.animateWithDuration(0.3, delay: 2, options: .CurveLinear, animations: {
-            self.hypeTouchInnerView.alpha = 0.5
-            self.hypeTouchOuterView.alpha = 0.5
+        UIView.animateWithDuration(0.2, delay: 2, options: .CurveLinear, animations: {
+            self.hypeTouchInnerView.alpha = 0.7
+            self.hypeTouchOuterView.alpha = 0.7
             
             }, completion: { finished in
                 self.animateHypeTouchDisappearance()
@@ -722,9 +738,9 @@ class BoardPageVC: UIViewController{
     }
     
     func animateHypeDoubleTouchAppearance(){
-        UIView.animateWithDuration(0.3, delay: 2, options: .CurveLinear, animations: {
-            self.hypeTouchInnerView.alpha = 0.5
-            self.hypeTouchOuterView.alpha = 0.5
+        UIView.animateWithDuration(0.2, delay: 0.3, options: .CurveLinear, animations: {
+            self.hypeTouchInnerView.alpha = 0.7
+            self.hypeTouchOuterView.alpha = 0.7
             
             }, completion: { finished in
                 self.animateHypeDoubleTouchDisappearance()
