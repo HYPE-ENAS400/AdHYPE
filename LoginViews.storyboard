@@ -248,7 +248,7 @@
                                 </segments>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wFz-w6-NQS">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wFz-w6-NQS">
                                 <rect key="frame" x="31" y="438" width="258" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -303,6 +303,13 @@
                                     <constraint firstAttribute="height" constant="50" id="tJE-1d-xkX"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="ruX-9k-ohh">
+                                <rect key="frame" x="145" y="382" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="4Ie-xP-mOZ"/>
+                                    <constraint firstAttribute="height" constant="30" id="ouz-3q-L4i"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
@@ -318,6 +325,7 @@
                             <constraint firstItem="4KU-UB-jpG" firstAttribute="leading" secondItem="ofY-ya-vpE" secondAttribute="leadingMargin" id="HFS-Io-VOx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZBN-L5-Xlb" secondAttribute="trailing" constant="-4" id="IZv-71-0Mm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qbg-5N-O5Q" secondAttribute="trailing" constant="-8" id="KOn-63-ijj"/>
+                            <constraint firstItem="ruX-9k-ohh" firstAttribute="centerX" secondItem="ofY-ya-vpE" secondAttribute="centerX" id="L8p-gl-1oS"/>
                             <constraint firstItem="ZBN-L5-Xlb" firstAttribute="leading" secondItem="ofY-ya-vpE" secondAttribute="leadingMargin" constant="-4" id="LZY-e9-Pul"/>
                             <constraint firstAttribute="trailingMargin" secondItem="4KU-UB-jpG" secondAttribute="trailing" id="O1w-aZ-IcE"/>
                             <constraint firstItem="wFz-w6-NQS" firstAttribute="leading" secondItem="ofY-ya-vpE" secondAttribute="leadingMargin" constant="15" id="X0r-j0-vZN"/>
@@ -327,6 +335,7 @@
                             <constraint firstItem="ago-4O-ZYA" firstAttribute="top" secondItem="4KU-UB-jpG" secondAttribute="bottom" constant="30" id="exp-18-T0M"/>
                             <constraint firstItem="Xa7-of-RxI" firstAttribute="top" secondItem="wFz-w6-NQS" secondAttribute="bottom" constant="80" id="ezP-Or-7i2"/>
                             <constraint firstItem="44e-pe-Jhi" firstAttribute="top" secondItem="ZBN-L5-Xlb" secondAttribute="bottom" constant="35" id="izf-aU-iu7"/>
+                            <constraint firstItem="ruX-9k-ohh" firstAttribute="top" secondItem="qbg-5N-O5Q" secondAttribute="bottom" constant="40" id="jFU-aJ-kbF"/>
                             <constraint firstItem="5iL-eJ-4Dw" firstAttribute="leading" secondItem="ofY-ya-vpE" secondAttribute="leadingMargin" constant="-4" id="vcL-Jx-vKS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="wFz-w6-NQS" secondAttribute="trailing" constant="15" id="w92-YE-g1w"/>
                             <constraint firstItem="qbg-5N-O5Q" firstAttribute="top" secondItem="ZBN-L5-Xlb" secondAttribute="bottom" constant="35" id="wO2-62-zwE"/>
@@ -343,6 +352,7 @@
                         <outlet property="ageTextField" destination="44e-pe-Jhi" id="DlG-ef-n1j"/>
                         <outlet property="fullNameTextField" destination="A9h-id-CbW" id="va6-RP-MAc"/>
                         <outlet property="genderSegmentControl" destination="qbg-5N-O5Q" id="CFc-Z7-wqm"/>
+                        <outlet property="spinner" destination="ruX-9k-ohh" id="Skt-kD-JlQ"/>
                         <outlet property="submitButton" destination="wFz-w6-NQS" id="Hpo-UI-ITJ"/>
                         <outlet property="usernameErrorLabel" destination="5iL-eJ-4Dw" id="hbr-oW-Kf3"/>
                         <outlet property="usernameTextField" destination="ago-4O-ZYA" id="xs7-xW-J6a"/>

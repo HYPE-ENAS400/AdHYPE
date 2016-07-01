@@ -49,12 +49,13 @@ extension LoginNavVC: SignUpUserInfoVCDelegate{
 }
 
 extension LoginNavVC: LoginViewControllerDelegate{
-    //NEED ANOTHER FUNCTION THAT TELLS NAVVC THAT WAS LOGGED IN, MAYBE CHANGE ORDER OF WHEN INITIALIZE THINGS GET CALLED?
     
     func onSignedUp(userName: String, password: String) {
+        if signUpUserInfoVC == nil {
+            signUpUserInfoVC = loginStoryboard.instantiateViewControllerWithIdentifier("signUpUserInfoView") as? SignUpUserInfoVC
+            signUpUserInfoVC?.delegate = self
+        }
         shouldInitFromSignup = true
-        signUpUserInfoVC = loginStoryboard.instantiateViewControllerWithIdentifier("signUpUserInfoView") as? SignUpUserInfoVC
-        signUpUserInfoVC?.delegate = self
         signUpUserInfoVC?.userName = userName
         signUpUserInfoVC?.password = password
         setActiveViewController(.toLeft, viewController: signUpUserInfoVC)

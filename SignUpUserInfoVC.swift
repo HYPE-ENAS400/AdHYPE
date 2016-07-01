@@ -18,6 +18,8 @@ class SignUpUserInfoVC: UIViewController{
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var usernameErrorLabel: UILabel!
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     var userName: String!
     var password: String!
     
@@ -86,8 +88,10 @@ class SignUpUserInfoVC: UIViewController{
             if let er = error{
                 print("COULD NOT SET USERNAME: \(er.localizedDescription)")
                 self.submitButton.enabled = true
+                self.spinner.stopAnimating()
                 return
             } else{
+                self.spinner.stopAnimating()
                 self.delegate.onUserInfoSubmitted()
             }
         })
@@ -106,6 +110,7 @@ class SignUpUserInfoVC: UIViewController{
             if let error = error{
                 print("COULD NOT CHANGE USERNAME: \(error.localizedDescription)")
                 self.submitButton.enabled = true
+                self.spinner.stopAnimating()
             } else {
                 print("successfully changed username")
                 self.setUserDatabaseValues(user)
@@ -115,7 +120,7 @@ class SignUpUserInfoVC: UIViewController{
     
     @IBAction func onSubmitButtonClicked(sender: AnyObject) {
         submitButton.enabled = false
-        
+        spinner.startAnimating()
         if let user = FIRAuth.auth()?.currentUser{
             updateUserInformation(user)
         } else {
@@ -127,7 +132,7 @@ class SignUpUserInfoVC: UIViewController{
                         let userInfo: NSDictionary = error.userInfo
                         print("ERROR: \(userInfo.valueForKey("error_name"))")
                         self.delegate.onUserSignUpFailed(String(userInfo.valueForKey("error_name")!))
-                        
+                        self.spinner.stopAnimating()
                     } else if let user = user{
                         //TODO fix the optional?
                         
@@ -165,7 +170,7 @@ extension SignUpUserInfoVC: UITextFieldDelegate{
         guard newName != "" else{
             return
         }
-        
+        spinner.startAnimating()
         let ref = FIRDatabase.database().reference().child(Constants.USERNAMESNODE).child(newName)
         ref.observeSingleEventOfType(.Value, withBlock: {(snapshot) -> Void in
             if snapshot.exists(){
@@ -173,10 +178,12 @@ extension SignUpUserInfoVC: UITextFieldDelegate{
                 self.usernameTextField.text = ""
                 self.usernameErrorLabel.hidden = false
                 self.submitButton.enabled = false
+                self.spinner.stopAnimating()
             } else{
                 self.usernameErrorLabel.hidden = true
                 self.submitButton.enabled = true
                 self.username = newName
+                self.spinner.stopAnimating()
             }
         })
 

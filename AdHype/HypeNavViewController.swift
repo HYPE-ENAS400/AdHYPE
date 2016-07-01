@@ -155,7 +155,7 @@ class HypeNavViewController: CustomNavVC {
             userRef.child(Constants.CONTENTCOUNTNODE).setValue(0)
             userRef.child(Constants.ADVIEWEDCOUNTNODE).setValue(0)
             
-            let defaultInterestDict = ["Discovery" : true, "Animals": true, "Apparel": true, "Apps & Games": true, "Babies & Kids": true, "Cars": true, "Celebrities": true, "Entertainment": true, "Fitness & Health": true, "Food & Cooking": true, "Lifestyle & Home": true, "News": true, "Outdoors": true, "Sports": true, "Tech": true, "Travel": true]
+            let defaultInterestDict = ["Discovery" : true, "Animals": true, "Apparel": true, "Apps & Games": true, "Babies & Kids": true, "Cars": true, "Celebrities": true, "Entertainment": true, "Fitness & Health": true, "Food & Cooking": true, "Lifestyle & Home": true, "Nerd": true, "News": true, "Outdoors": true, "Sports": true, "Tech": true, "Travel": true]
             userRef.child(Constants.USERINTERESTSNODE).setValue(defaultInterestDict, withCompletionBlock: {(error, ref)-> Void in
                 if let er = error{
                     print("ERROR setting user preferences: \(er.localizedDescription)")
@@ -188,14 +188,21 @@ class HypeNavViewController: CustomNavVC {
             return
         }
         
-        let storyboard = UIStoryboard(name: "Settings Nav View", bundle:nil)
-        settingsViewController = storyboard.instantiateViewControllerWithIdentifier("settingsNavVC") as? SettingsNavVC
-        settingsViewController?.userInterests = userInterests
         hypeBarView.layer.shadowOpacity = 0.6
         settingsButton.alpha = 1
         hypeButton.alpha = 0.7
         gridButton.alpha = 0.7
+        
+        let storyboard = UIStoryboard(name: "Settings Nav View", bundle:nil)
+        settingsViewController = storyboard.instantiateViewControllerWithIdentifier("settingsNavVC") as? SettingsNavVC
+        settingsViewController?.userInterests = userInterests
+        
+        if isViewControllerActiveVC(gridViewController){
+            gridViewController?.clearLoadedVCsWhenSettingsOrHypeClicked()
+        }
         setActiveViewController(.toRight, viewController: settingsViewController)
+        
+        
 
     }
     
@@ -210,6 +217,7 @@ class HypeNavViewController: CustomNavVC {
         gridButton.alpha = 0.7
         
         if isViewControllerActiveVC(gridViewController){
+            gridViewController?.clearLoadedVCsWhenSettingsOrHypeClicked()
             setActiveViewController(.toRight, viewController: mainViewController)
         } else {
             setActiveViewController(.toLeft, viewController: mainViewController)

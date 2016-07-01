@@ -92,7 +92,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         userName = userNameTextEdit.text
         password = passwordTextEdit.text
         
-        self.delegate.onSignedUp(userName, password: password)
+        delegate.onSignedUp(userName, password: password)
+        
     
     }
     

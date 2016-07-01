@@ -64,13 +64,14 @@ class GridViewNavVC: CustomNavVC{
         hiddenBarFrame = messageBar.frame
         visibleBarFrame = hiddenBarFrame
         visibleBarFrame.origin.y += hiddenBarFrame.size.height
+        
+
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        friendLabel.center.x += adjustmentWidth
-        backButton.center.x += adjustmentWidth
-    }
+//    override func viewDidAppear(animated: Bool) {
+//        super.viewDidAppear(animated)
+//
+//    }
     
     @IBAction func onFriendButtonClicked(sender: AnyObject) {
         guard !isViewControllerActiveVC(gridViewFriendsVC) else {
@@ -106,17 +107,15 @@ class GridViewNavVC: CustomNavVC{
                 self.backButton.hidden = true
                 self.friendLabel.hidden = true
                 self.friendUnderlineView.hidden = false
+                self.friendLabel.center.x -= self.adjustmentWidth
+                self.backButton.center.x -= self.adjustmentWidth
         })
         setActiveViewController(.toRight, viewController: gridViewFriendsVC)
         friendGridVC = nil
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        if !isViewControllerActiveVC(friendGridVC){
-            friendLabel.center.x -= adjustmentWidth
-            backButton.center.x -= adjustmentWidth
-        } else {
+    func clearLoadedVCsWhenSettingsOrHypeClicked(){
+        if isViewControllerActiveVC(friendGridVC){
             friendButton.center.x += self.adjustmentWidth
             userButton.center.x += self.adjustmentWidth
         }
@@ -126,6 +125,12 @@ class GridViewNavVC: CustomNavVC{
         gridViewFriendsVC = nil
         friendGridVC = nil
     }
+    
+//    override func viewDidDisappear(animated: Bool) {
+//        super.viewDidDisappear(animated)
+//        friendLabel.center.x -= adjustmentWidth
+//        backButton.center.x -= adjustmentWidth
+//    }
     
 }
 
@@ -149,6 +154,8 @@ extension GridViewNavVC: DisplayMessageDelegate{
 
 extension GridViewNavVC: GridViewFriendsVCDelegate{
     func onGridFriendClicked(id: String, username: String) {
+        friendLabel.center.x += adjustmentWidth
+        backButton.center.x += adjustmentWidth
         friendLabel.text = username
         userUnderlineView.hidden = true
         friendUnderlineView.hidden = true
