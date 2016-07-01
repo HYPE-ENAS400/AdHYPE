@@ -18,6 +18,9 @@ class SignUpUserInfoVC: UIViewController{
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var usernameErrorLabel: UILabel!
     
+    var userName: String!
+    var password: String!
+    
     var delegate: SignUpUserInfoVCDelegate!
     var username: String?
     
@@ -58,7 +61,7 @@ class SignUpUserInfoVC: UIViewController{
         ageTextField.resignFirstResponder()
     }
     
-    func setDatabaseValues(user: FIRUser){
+    func setUserDatabaseValues(user: FIRUser){
         let baseRef = FIRDatabase.database().reference()
         
         let userRef = baseRef.child(Constants.USERSNODE).child(user.uid)
@@ -90,29 +93,53 @@ class SignUpUserInfoVC: UIViewController{
         })
     }
     
-    @IBAction func onSubmitButtonClicked(sender: AnyObject) {
+    func updateUserInformation(user: FIRUser){
+        
         guard let un = username else {
             return
         }
         
-        if let user = FIRAuth.auth()?.currentUser{
-            submitButton.enabled = false
-            
-            let changeRequest = user.profileChangeRequest()
-            
-            changeRequest.displayName = un
-            changeRequest.commitChangesWithCompletion({error in
-                if let error = error{
-                    print("COULD NOT CHANGE USERNAME: \(error.localizedDescription)")
-                    self.submitButton.enabled = true
-                } else {
-                    print("successfully changed username")
-                    self.setDatabaseValues(user)
-                }
-            })
-            
-
+        let changeRequest = user.profileChangeRequest()
         
+        changeRequest.displayName = un
+        changeRequest.commitChangesWithCompletion({error in
+            if let error = error{
+                print("COULD NOT CHANGE USERNAME: \(error.localizedDescription)")
+                self.submitButton.enabled = true
+            } else {
+                print("successfully changed username")
+                self.setUserDatabaseValues(user)
+            }
+        })
+    }
+    
+    @IBAction func onSubmitButtonClicked(sender: AnyObject) {
+        submitButton.enabled = false
+        
+        if let user = FIRAuth.auth()?.currentUser{
+            updateUserInformation(user)
+        } else {
+        
+            FIRAuth.auth()?.createUserWithEmail(userName, password: password,
+                completion: { (user, error) -> Void in
+                    if let error = error{
+                        
+                        let userInfo: NSDictionary = error.userInfo
+                        print("ERROR: \(userInfo.valueForKey("error_name"))")
+                        self.delegate.onUserSignUpFailed(String(userInfo.valueForKey("error_name")!))
+                        
+                    } else if let user = user{
+                        //TODO fix the optional?
+                        
+                        self.updateUserInformation(user)
+                        
+                        let keychainWrapper = KeychainWrapper.standardKeychainAccess()
+                        keychainWrapper.setString(self.userName, forKey: Constants.USERKEY)
+                        keychainWrapper.setString(self.password, forKey: Constants.PASSKEY)
+                        
+                        print("Successfully created user account with uid: \(user.uid)")
+                    }
+            })
         }
         
     }
@@ -168,4 +195,5 @@ extension SignUpUserInfoVC: UITextFieldDelegate{
 
 protocol SignUpUserInfoVCDelegate{
     func onUserInfoSubmitted()
+    func onUserSignUpFailed(errorInfo: String)
 }

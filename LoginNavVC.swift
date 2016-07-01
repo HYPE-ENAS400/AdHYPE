@@ -39,6 +39,10 @@ class LoginNavVC: CustomNavVC{
 }
 
 extension LoginNavVC: SignUpUserInfoVCDelegate{
+    func onUserSignUpFailed(errorInfo: String) {
+        setActiveViewController(.toRight, viewController: logInViewController)
+        logInViewController?.displayLoginError(errorInfo)
+    }
     func onUserInfoSubmitted() {
         self.performSegueWithIdentifier("unwindFromLogInSegue", sender: nil)
     }
@@ -47,10 +51,12 @@ extension LoginNavVC: SignUpUserInfoVCDelegate{
 extension LoginNavVC: LoginViewControllerDelegate{
     //NEED ANOTHER FUNCTION THAT TELLS NAVVC THAT WAS LOGGED IN, MAYBE CHANGE ORDER OF WHEN INITIALIZE THINGS GET CALLED?
     
-    func onSignedUp() {
+    func onSignedUp(userName: String, password: String) {
         shouldInitFromSignup = true
         signUpUserInfoVC = loginStoryboard.instantiateViewControllerWithIdentifier("signUpUserInfoView") as? SignUpUserInfoVC
         signUpUserInfoVC?.delegate = self
+        signUpUserInfoVC?.userName = userName
+        signUpUserInfoVC?.password = password
         setActiveViewController(.toLeft, viewController: signUpUserInfoVC)
     }
     func onLoggedIn(){
