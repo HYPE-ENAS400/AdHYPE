@@ -20,6 +20,7 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
     @IBOutlet weak var userButton: UIButton!
     @IBOutlet weak var friendsButton: UIButton!
     
+    @IBOutlet weak var helpButton: UIButton!
     @IBOutlet weak var messageBar: UIView!
     @IBOutlet weak var messageBarLabel: UILabel!
     private var hiddenBarFrame: CGRect!
@@ -40,7 +41,9 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
     
     override func loadView() {
         super.loadView()
-        
+        helpButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
+        userButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
+        friendsButton.imageView?.contentMode   = UIViewContentMode.ScaleAspectFit
         var storyboard = UIStoryboard(name: "UserSettingsView", bundle: nil)
         userSettingsVC = storyboard.instantiateViewControllerWithIdentifier("userSettingsView") as? UserSettingsVC
         userSettingsVC?.messageDelegate = self

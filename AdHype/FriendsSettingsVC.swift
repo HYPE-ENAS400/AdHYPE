@@ -131,7 +131,7 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
 
 extension FriendsSettingsVC: UITableViewDelegate{
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
+        return 50
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 55
@@ -155,48 +155,56 @@ extension FriendsSettingsVC: UITableViewDelegate{
         return cell
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    @available(iOS 8.0, *)
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let button1 = UITableViewRowAction(style: .Default, title: "Delete", handler: { (action, indexPath) in
+//            print("button1 pressed!")
+            self.onDeleteFriendorRequest(indexPath)
+        })
+        button1.backgroundColor = UIColor(red: 255/255, green: 56/255, blue: 73/255, alpha: 1)
         
-        if editingStyle == .Delete {
-            print("DELETE")
-            
-            guard let user = FIRAuth.auth()?.currentUser else {
-                print("could not get current user")
-                return
-            }
-            
-            if indexPath.section == 0 && hasFriendRequests{
-                
-                //delete the friend request
-                let friendReqID = friendRequests.getKeyAtIndex(indexPath.row)
-                
-                let requestRef = usersRef.child(user.uid).child(Constants.USERFRIENDREQUESTSNODE)
-                requestRef.child(friendReqID).removeValue()
-                
-                let sentRequestRef = usersRef.child(friendReqID).child(Constants.SENTFRIENDREQUESTSNODE)
-                sentRequestRef.child(user.uid).removeValue()
-                
-                friendRequests.deletePairAtIndex(indexPath.row)
-                
-                
-            } else {
-                
-                let friendID = friends.getKeyAtIndex(indexPath.row)
-                
-                //delete the friend from the user's list
-                let friendsRef = usersRef.child(user.uid).child(Constants.USERFRIENDSNODE)
-                friendsRef.child(friendID).removeValue()
-                
-                //delete the user from the friend's list
-                let newFriendsRef = usersRef.child(friendID).child(Constants.USERFRIENDSNODE)
-                newFriendsRef.child(user.uid).removeValue()
-                
-                
-                friends.deletePairAtIndex(indexPath.row)
-            }
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        }
+        return [button1]
     }
+    
+    func onDeleteFriendorRequest(indexPath: NSIndexPath) {
+            
+        guard let user = FIRAuth.auth()?.currentUser else {
+            print("could not get current user")
+            return
+        }
+        
+        if indexPath.section == 0 && hasFriendRequests{
+            
+            //delete the friend request
+            let friendReqID = friendRequests.getKeyAtIndex(indexPath.row)
+            
+            let requestRef = usersRef.child(user.uid).child(Constants.USERFRIENDREQUESTSNODE)
+            requestRef.child(friendReqID).removeValue()
+            
+            let sentRequestRef = usersRef.child(friendReqID).child(Constants.SENTFRIENDREQUESTSNODE)
+            sentRequestRef.child(user.uid).removeValue()
+            
+            friendRequests.deletePairAtIndex(indexPath.row)
+            
+            
+        } else {
+            
+            let friendID = friends.getKeyAtIndex(indexPath.row)
+            
+            //delete the friend from the user's list
+            let friendsRef = usersRef.child(user.uid).child(Constants.USERFRIENDSNODE)
+            friendsRef.child(friendID).removeValue()
+            
+            //delete the user from the friend's list
+            let newFriendsRef = usersRef.child(friendID).child(Constants.USERFRIENDSNODE)
+            newFriendsRef.child(user.uid).removeValue()
+            
+            
+            friends.deletePairAtIndex(indexPath.row)
+        }
+        friendTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+    }
+
     
 }
 

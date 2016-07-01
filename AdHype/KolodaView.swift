@@ -11,14 +11,19 @@ import pop
 
 //Default values
 private let defaultCountOfVisibleCards = 3
-private let backgroundCardsTopMargin: CGFloat = 8.0
+//private let backgroundCardsTopMargin: CGFloat = 8.0
+//private let backgroundCardsScalePercent: CGFloat = 0.95
+//private let backgroundCardsLeftMargin: CGFloat = 8.0
+private let backgroundCardsTopMargin: CGFloat = 4.0
 private let backgroundCardsScalePercent: CGFloat = 0.95
-private let backgroundCardsLeftMargin: CGFloat = 8.0
+private let backgroundCardsLeftMargin: CGFloat = 4.0
+
 private let backgroundCardFrameAnimationDuration: NSTimeInterval = 0.2
 
 //Opacity values
 private let defaultAlphaValueOpaque: CGFloat = 1.0
-private let defaultAlphaValueTransparent: CGFloat = 0.0
+//private let defaultAlphaValueTransparent: CGFloat = 0.0
+private let defaultAlphaValueTransparent: CGFloat = 0.35
 private let defaultAlphaValueSemiTransparent: CGFloat = 0.7
 
 public protocol KolodaViewDataSource:class {

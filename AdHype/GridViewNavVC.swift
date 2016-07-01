@@ -29,8 +29,11 @@ class GridViewNavVC: CustomNavVC{
     
     
     var gridStoryboard: UIStoryboard!
+    
     var userGridVC: GridViewController?
     var gridViewFriendsVC: GridViewFriendsVC?
+    var friendGridVC: GridViewController?
+    
     var adjustmentWidth: CGFloat!
     private var hiddenBarFrame: CGRect!
     private var visibleBarFrame: CGRect!
@@ -42,6 +45,9 @@ class GridViewNavVC: CustomNavVC{
         guard let userID = FIRAuth.auth()?.currentUser?.uid else{
             return
         }
+        userButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
+        friendButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
+        
         gridStoryboard = UIStoryboard(name: "Grid View", bundle: nil)
         userGridVC = gridStoryboard.instantiateViewControllerWithIdentifier("gridViewController") as? GridViewController
         userGridVC?.userID = userID
@@ -67,6 +73,10 @@ class GridViewNavVC: CustomNavVC{
     }
     
     @IBAction func onFriendButtonClicked(sender: AnyObject) {
+        guard !isViewControllerActiveVC(gridViewFriendsVC) else {
+            return
+        }
+        
         gridViewFriendsVC = gridStoryboard.instantiateViewControllerWithIdentifier("gridViewFriendsVC") as? GridViewFriendsVC
         gridViewFriendsVC?.delegate = self
         setActiveViewController(.toLeft, viewController: gridViewFriendsVC)
@@ -75,6 +85,9 @@ class GridViewNavVC: CustomNavVC{
     }
     
     @IBAction func onUserButtonClicked(sender: AnyObject) {
+        guard !isViewControllerActiveVC(userGridVC) else {
+            return
+        }
         setActiveViewController(.toRight, viewController: userGridVC)
         gridViewFriendsVC = nil
         userUnderlineView.hidden = false
@@ -95,16 +108,23 @@ class GridViewNavVC: CustomNavVC{
                 self.friendUnderlineView.hidden = false
         })
         setActiveViewController(.toRight, viewController: gridViewFriendsVC)
+        friendGridVC = nil
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        friendLabel.center.x -= adjustmentWidth
-        backButton.center.x -= adjustmentWidth
+        if !isViewControllerActiveVC(friendGridVC){
+            friendLabel.center.x -= adjustmentWidth
+            backButton.center.x -= adjustmentWidth
+        } else {
+            friendButton.center.x += self.adjustmentWidth
+            userButton.center.x += self.adjustmentWidth
+        }
         userUnderlineView.hidden = false
         friendUnderlineView.hidden = true
         setActiveViewController(nil, viewController: userGridVC)
         gridViewFriendsVC = nil
+        friendGridVC = nil
     }
     
 }
@@ -148,11 +168,11 @@ extension GridViewNavVC: GridViewFriendsVCDelegate{
         
         
         
-        let newVC = gridStoryboard.instantiateViewControllerWithIdentifier("gridViewController") as? GridViewController
-        newVC?.userID = id
-        newVC?.isFriendGrid = true
-        newVC?.messageDelegate = self
-        newVC?.delegate = delegate
-        setActiveViewController(.toLeft, viewController: newVC)
+        friendGridVC = gridStoryboard.instantiateViewControllerWithIdentifier("gridViewController") as? GridViewController
+        friendGridVC?.userID = id
+        friendGridVC?.isFriendGrid = true
+        friendGridVC?.messageDelegate = self
+        friendGridVC?.delegate = delegate
+        setActiveViewController(.toLeft, viewController: friendGridVC)
     }
 }

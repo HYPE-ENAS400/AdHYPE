@@ -63,26 +63,50 @@ class FriendsTableViewController: UIViewController{
             return
         }
         
+        let user = FIRAuth.auth()?.currentUser
+        let baseRef = FIRDatabase.database().reference()
+        let timeStamp = String(NSDate().timeIntervalSince1970)
+        
         if let i = recipientIDS.indexOf(Constants.PUBLISHID){
         
-            let adRef = FIRDatabase.database().reference().child(Constants.PUBLICADCOMMENTS).child(adMetaData.key)
-            
-            //WHY WAS THIS HERE?
-//            adRef.child(Constants.ADNAMENODE).setValue(adName)
+            let adRef = baseRef.child(Constants.PUBLICADCOMMENTS).child(adMetaData.key)
             
             let commentRef = adRef.child(Constants.ADCOMMENTSNODE).childByAutoId()
             
             commentRef.child(Constants.ADCOMMENTTEXTNODE).setValue(captionText)
             commentRef.child(Constants.ADCOMMENTVOTENODE).setValue(0)
+            commentRef.child(Constants.ADCOMMENTTOTALVOTES).setValue(0)
+            
+            if let id = user?.uid{
+                let aggregateUserCaptionsRef = baseRef.child(Constants.USERSNODE).child(id).child(Constants.AGGREGATEUSERCAPTIONS).child(adMetaData.key)
+                aggregateUserCaptionsRef.child(timeStamp).setValue(captionText)
+            }
+            
             recipientIDS.removeAtIndex(i)
+        }
+        
+        guard recipientIDS.count > 0 else{
+            return
+        }
+        
+        if let id = user?.uid{
+            let aggregateSentRef = baseRef.child(Constants.USERSNODE).child(id).child(Constants.AGGREGATECARDSSENT).child(adMetaData.key)
+            aggregateSentRef.child(timeStamp).setValue(recipientIDS.count)
+        }
+        
+        var caption: String?
+        if let text = captionText{
+            if let un = FIRAuth.auth()?.currentUser?.displayName{
+                caption = "from: \(un): " + text
+            }
         }
         
         for i in recipientIDS{
             print("RECIPIENT ID: \(i)")
             let recRef = usersRef.child(i).child(Constants.RECEIVEDADQUEUENODE).child(adMetaData.key)
             var dict = [Constants.ADNAMENODE: adMetaData.name, Constants.ADURLNODE: adMetaData.url, Constants.ADPRIMARYTAGNODE: adMetaData.primaryTag]
-            if let caption = captionText{
-                dict[Constants.ADCAPTIONNODE] = caption
+            if let text = caption{
+                dict[Constants.ADCAPTIONNODE] = text
             }
             recRef.setValue(dict)
             

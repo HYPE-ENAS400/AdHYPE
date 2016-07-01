@@ -159,6 +159,9 @@ class MainViewController: UIViewController {
             
             query.observeSingleEventOfType(.ChildAdded, withBlock: {(snapshot) -> Void in
                 if let dict = snapshot.value as? [String: String]{
+//                    let name = dict[Constants.ADNAMENODE]!
+//                    print("name: \(name)")
+                    
                     if self.isUserInterestedInAd(dict){
                         guard let name = dict[Constants.ADNAMENODE] else{
                             print("ERROR: COULD NOT GET AD NAME")
@@ -174,12 +177,12 @@ class MainViewController: UIViewController {
                         }
                         let newMetaData = HypeAdMetaData(name: name, key: snapshot.key, url: url, primaryTag: primaryTag, isFromFriend: false, captionFromFriend: nil)
                         self.adsMetaDataQueue.enqueue(newMetaData)
-                        print("ENQUEUED AD WITH KEY: \(snapshot.key)")
+//                        print("ENQUEUED AD WITH NAME: \(name)")
                         if self.adsMetaDataQueue.getTotalCount()<=Constants.MAXNUMADS{
                             self.appendAdIfRoom() 
                         }
                     }
-                    if let nextKey = dict["nextKey"]{
+                    if let nextKey = dict["nextAdKey"]{
                         self.nextQueueKey = nextKey
                         self.appendToQueueIfRoom(ref)
                     } else{
@@ -337,6 +340,7 @@ extension MainViewController: KolodaViewDelegate {
         let newIndex = getProxyIndex(Int(index))
         
         let ad = ads[newIndex]
+        let timeStamp = String(NSDate().timeIntervalSince1970)
         
         if direction == .Up {
             delegate.onSwipeUp(ad, onClose: {(canceled: Bool) in
@@ -344,14 +348,23 @@ extension MainViewController: KolodaViewDelegate {
                     self.kolodaView.revertAction()
                 } else {
                     self.onCardSwiped(newIndex, ad: ad)
+                    let cardsLikedRef = self.userRef.child(Constants.ADSLIKEDNODE)
+                    cardsLikedRef.child(ad.getKey()).setValue(ad.getMetaDataDict())
                 }
             })
             return
         } else if direction == .Right {
             let cardsLikedRef = userRef.child(Constants.ADSLIKEDNODE)
             cardsLikedRef.child(ad.getKey()).setValue(ad.getMetaDataDict())
+            let aggregateCardsRef = userRef.child(Constants.AGGREGATECARDSLIKED).child(ad.getKey())
+            aggregateCardsRef.child(timeStamp).setValue(true)
             
+        } else {
+            let aggregateCardsRef = userRef.child(Constants.AGGREGATECARDSDISLIKED).child(ad.getKey())
+            aggregateCardsRef.child(timeStamp).setValue(true)
         }
+        
+        
         onCardSwiped(newIndex, ad: ad)
     }
     

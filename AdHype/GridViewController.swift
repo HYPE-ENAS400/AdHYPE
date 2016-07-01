@@ -126,8 +126,17 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     @IBAction func didDoubleTapCollectionView(gesture: UITapGestureRecognizer){
         if let cell = getCellFromGesture(gesture){
-            delegate.onAdFromGridDoubleClicked(cell.cellAd)
+            if let url = NSURL(string: cell.cellAd.getURL()){
+                if #available(iOS 9.0, *) {
+                    let vc = SFSafariViewController(URL: url, entersReaderIfAvailable: false)
+                    presentViewController(vc, animated: true, completion: nil)
+                } else {
+                    // Fallback on earlier versions
+                }
+                
+            }
         }
+
         
     }
     
@@ -142,15 +151,8 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
             if cell.isDeleteActive{
                 cell.hideDeleteButton()
             } else{
-                if let url = NSURL(string: cell.cellAd.getURL()){
-                    if #available(iOS 9.0, *) {
-                        let vc = SFSafariViewController(URL: url, entersReaderIfAvailable: false)
-                        presentViewController(vc, animated: true, completion: nil)
-                    } else {
-                        // Fallback on earlier versions
-                    }
-                    
-                }
+                // decided wanted this action when single tapped
+                delegate.onAdFromGridDoubleClicked(cell.cellAd)
             }
         }
     }

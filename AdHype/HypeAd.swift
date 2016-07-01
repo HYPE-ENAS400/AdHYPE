@@ -15,7 +15,7 @@ enum DownloadResult {
 }
 
 enum FetchCaptionResult{
-    case Success((text: String, netVotes: Int, ref: String))
+    case Success((text: String, netVotes: Int, totalVotes: Int?, ref: String))
     case Failure
 }
 
@@ -86,8 +86,9 @@ class HypeAd: Equatable{
             if let val = snapshot.value as? NSDictionary{
                 if let caption = val.valueForKey(Constants.ADCOMMENTTEXTNODE) as? String{
                     if let count = val.valueForKey(Constants.ADCOMMENTVOTENODE) as? Int {
+                        let totalVotes = val.valueForKey(Constants.ADCOMMENTTOTALVOTES) as? Int
                         let votes = 0 - count
-                        complete(result: .Success(text: caption, netVotes: votes, ref: snapshot.key))
+                        complete(result: .Success(text: caption, netVotes: votes, totalVotes: totalVotes, ref: snapshot.key))
                     }
                 }
             }

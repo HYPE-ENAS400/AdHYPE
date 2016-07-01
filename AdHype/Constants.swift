@@ -22,6 +22,10 @@ struct Constants {
     static let ADSLIKEDNODE = "cardsLiked"
     static let ADVIEWEDCOUNTNODE = "adViewedCount"
     static let CONTENTCOUNTNODE = "contentCount"
+    static let AGGREGATECARDSLIKED = "aggregateCardsLiked"
+    static let AGGREGATECARDSDISLIKED = "aggregateCardsDisliked"
+    static let AGGREGATECARDSSENT = "aggregateCardsSent"
+    static let AGGREGATEUSERCAPTIONS = "aggregateUserCaptions"
     
     static let USERNAMESNODE = "UserNames"
     static let USERSNODE = "users"
@@ -40,6 +44,7 @@ struct Constants {
     static let ADCOMMENTSNODE = "comments"
     static let ADCOMMENTTEXTNODE = "text"
     static let ADCOMMENTVOTENODE = "netVotes"
+    static let ADCOMMENTTOTALVOTES = "totalVotes"
     static let ADNAMENODE = "name"
     static let ADCAPTIONNODE = "caption"
     static let ADURLNODE = "url"

@@ -30,7 +30,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zlh-Tt-xRi">
-                                                    <rect key="frame" x="20" y="8" width="535" height="20"/>
+                                                    <rect key="frame" x="20" y="8" width="532" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="k2v-mw-uk7"/>
                                                     </constraints>
@@ -39,10 +39,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wlg-dT-k2g">
-                                                    <rect key="frame" x="555" y="17" width="27" height="27"/>
+                                                    <rect key="frame" x="552" y="15.5" width="30" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="27" id="DKb-H9-gAX"/>
-                                                        <constraint firstAttribute="height" constant="27" id="hab-d6-m9L"/>
+                                                        <constraint firstAttribute="width" constant="30" id="DKb-H9-gAX"/>
+                                                        <constraint firstAttribute="height" constant="30" id="hab-d6-m9L"/>
                                                     </constraints>
                                                     <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
                                                     <state key="normal" image="GRAYcheck_button"/>
@@ -51,7 +51,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eu0-LO-del">
-                                                    <rect key="frame" x="24" y="30" width="531" height="20"/>
+                                                    <rect key="frame" x="24" y="30" width="528" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="Z70-3H-2N4"/>
                                                     </constraints>

@@ -191,7 +191,7 @@ class HypeNavViewController: CustomNavVC {
         let storyboard = UIStoryboard(name: "Settings Nav View", bundle:nil)
         settingsViewController = storyboard.instantiateViewControllerWithIdentifier("settingsNavVC") as? SettingsNavVC
         settingsViewController?.userInterests = userInterests
-        hypeBarView.layer.shadowOpacity = 0.0
+        hypeBarView.layer.shadowOpacity = 0.6
         settingsButton.alpha = 1
         hypeButton.alpha = 0.7
         gridButton.alpha = 0.7
@@ -222,7 +222,7 @@ class HypeNavViewController: CustomNavVC {
         }
         
         settingsViewController = nil
-        hypeBarView.layer.shadowOpacity = 0.0
+        hypeBarView.layer.shadowOpacity = 0.6
         settingsButton.alpha = 0.7
         hypeButton.alpha = 0.7
         gridButton.alpha = 1

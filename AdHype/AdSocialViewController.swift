@@ -18,7 +18,7 @@ class AdSocialViewController: UIViewController {
     private var captionVisibleFrame: CGRect!
     private var captionHiddenFrame: CGRect!
     
-    private var adCaptions = [(text: String, netVotes: Int, ref: String)]()
+    private var adCaptions = [(text: String, netVotes: Int, totalVotes: Int?, ref: String)]()
     private var adCaptionDetachInfo: FIRDetachInfo?
     
     var ad: HypeAd!
@@ -169,11 +169,18 @@ class AdSocialViewController: UIViewController {
             adCaptions[index].netVotes += 2
         } else{
             adCaptions[index].netVotes += 1
+            adCaptions[index].totalVotes? += 1
         }
         
-        let ref = ad.getAdPubCommentsRef().child(Constants.ADCOMMENTSNODE).child(adCaptions[index].ref).child(Constants.ADCOMMENTVOTENODE)
+        let commentRef = ad.getAdPubCommentsRef().child(Constants.ADCOMMENTSNODE).child(adCaptions[index].ref)
+        let netRef = commentRef.child(Constants.ADCOMMENTVOTENODE)
         let newVal = 0 - adCaptions[index].netVotes
-        ref.setValue(newVal)
+        netRef.setValue(newVal)
+        if let totalVotes = adCaptions[index].totalVotes{
+            let totalRef = commentRef.child(Constants.ADCOMMENTTOTALVOTES)
+            totalRef.setValue(totalVotes)
+        }
+
         
         adVoteHistoryRef.child(adCaptions[index].ref).setValue(true)
 
@@ -191,11 +198,17 @@ class AdSocialViewController: UIViewController {
             adCaptions[index].netVotes -= 2
         } else{
             adCaptions[index].netVotes -= 1
+            adCaptions[index].totalVotes? += 1
         }
         
-        let ref = ad.getAdPubCommentsRef().child(Constants.ADCOMMENTSNODE).child(adCaptions[index].ref).child(Constants.ADCOMMENTVOTENODE)
+        let commentRef = ad.getAdPubCommentsRef().child(Constants.ADCOMMENTSNODE).child(adCaptions[index].ref)
+        let netRef = commentRef.child(Constants.ADCOMMENTVOTENODE)
         let newVal = 0 - adCaptions[index].netVotes
-        ref.setValue(newVal)
+        netRef.setValue(newVal)
+        if let totalVotes = adCaptions[index].totalVotes{
+            let totalRef = commentRef.child(Constants.ADCOMMENTTOTALVOTES)
+            totalRef.setValue(totalVotes)
+        }
         
         
         adVoteHistoryRef.child(adCaptions[index].ref).setValue(false)

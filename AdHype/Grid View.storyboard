@@ -24,7 +24,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="knz-8E-ecl" userLabel="HypeBar">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iIW-WP-mBu">
+                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iIW-WP-mBu">
                                                 <rect key="frame" x="300" y="0.0" width="300" height="40"/>
                                                 <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="2"/>
                                                 <state key="normal" image="Friend_button">
@@ -41,7 +41,7 @@
                                                     <constraint firstAttribute="height" constant="2" id="k73-jx-z8B"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wK9-NP-w7O">
+                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wK9-NP-w7O">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="40"/>
                                                 <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="2"/>
                                                 <state key="normal" image="Person_button">
@@ -73,7 +73,7 @@
                                                     <constraint firstAttribute="height" constant="30" id="2pt-T7-h7Z"/>
                                                     <constraint firstAttribute="width" constant="30" id="35C-sV-WPZ"/>
                                                 </constraints>
-                                                <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
+                                                <inset key="contentEdgeInsets" minX="6" minY="2" maxX="6" maxY="2"/>
                                                 <state key="normal" image="back_button">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>

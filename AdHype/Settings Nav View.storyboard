@@ -48,7 +48,7 @@
                                             <constraint firstAttribute="height" constant="2" id="coW-Dr-noL"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9JP-yb-7hm">
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9JP-yb-7hm">
                                         <rect key="frame" x="400" y="0.0" width="200" height="40"/>
                                         <inset key="contentEdgeInsets" minX="0.0" minY="2" maxX="0.0" maxY="2"/>
                                         <state key="normal" image="Question_button">
@@ -73,7 +73,7 @@
                                         </constraints>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x4o-tP-LVU" userLabel="messageBar">
-                                        <rect key="frame" x="0.0" y="-35" width="600" height="40"/>
+                                        <rect key="frame" x="0.0" y="-40" width="600" height="40"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bop-6c-dAA">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
@@ -110,7 +110,7 @@
                                     <constraint firstAttribute="bottom" secondItem="xve-BO-u71" secondAttribute="bottom" id="OTL-Gu-TV5"/>
                                     <constraint firstAttribute="trailing" secondItem="KF2-so-nN9" secondAttribute="trailing" id="Vlm-Rq-fZX"/>
                                     <constraint firstAttribute="trailing" secondItem="9JP-yb-7hm" secondAttribute="trailing" id="YNp-or-u0M"/>
-                                    <constraint firstItem="x4o-tP-LVU" firstAttribute="top" secondItem="tOW-w9-cOS" secondAttribute="top" constant="-35" id="Zgz-dp-iDy"/>
+                                    <constraint firstItem="x4o-tP-LVU" firstAttribute="top" secondItem="tOW-w9-cOS" secondAttribute="top" constant="-40" id="Zgz-dp-iDy"/>
                                     <constraint firstAttribute="bottom" secondItem="BeW-eM-km2" secondAttribute="bottom" id="bhT-8i-m5H"/>
                                     <constraint firstAttribute="bottom" secondItem="2Ip-kI-Odo" secondAttribute="bottom" id="g2n-QU-ujv"/>
                                     <constraint firstItem="2Ip-kI-Odo" firstAttribute="leading" secondItem="ocw-rn-aKh" secondAttribute="trailing" id="gib-dq-1e3"/>
@@ -166,6 +166,7 @@
                         <outlet property="containerView" destination="2PP-uQ-mND" id="kTM-J7-SbI"/>
                         <outlet property="friendUnderlineView" destination="2Ip-kI-Odo" id="5QN-N3-bUp"/>
                         <outlet property="friendsButton" destination="xve-BO-u71" id="KdR-OA-71m"/>
+                        <outlet property="helpButton" destination="9JP-yb-7hm" id="HFA-5w-HVy"/>
                         <outlet property="helpUnderlineView" destination="KF2-so-nN9" id="1pG-Pl-tYO"/>
                         <outlet property="messageBar" destination="x4o-tP-LVU" id="sTF-Cb-uVS"/>
                         <outlet property="messageBarLabel" destination="bop-6c-dAA" id="jqK-YT-pl6"/>
