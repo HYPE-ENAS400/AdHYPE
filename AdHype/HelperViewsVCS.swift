@@ -486,10 +486,6 @@ class SendPublishPageVC: UIViewController{
         
         sendTouchOuterView.layer.cornerRadius = (sendTouchOuterView.layer.frame.size.width/2)
         sendTouchInnerView.layer.cornerRadius = (sendTouchInnerView.layer.frame.size.width/2)
-        
-        //self.publishTouchOuterView.alpha = 1
-        //self.mTouchOuterView.alpha = 1
-        //self.sendTouchOuterView.alpha = 1
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -574,5 +570,206 @@ class SendPublishPageVC: UIViewController{
         resetAnimationsOnClose()
     }
 
+}
+
+class BoardPageVC: UIViewController{
+    @IBOutlet weak var view1: UIView!
+    @IBOutlet weak var hypeAdView: UIView!
+    @IBOutlet weak var view3: UIView!
+    @IBOutlet weak var hypeTouchOuterView: UIView!
+    @IBOutlet weak var hypeTouchInnerView: UIView!
+    @IBOutlet weak var deleteTouchOuterView: UIView!
+    @IBOutlet weak var deleteTouchInnerView: UIView!
+    @IBOutlet weak var deleteLabel: UIButton!
+    @IBOutlet weak var boardViewButton: UIButton!
+    @IBOutlet weak var boardTouchOuterView: UIView!
+    @IBOutlet weak var bourdTouchInnerView: UIView!
+    @IBOutlet weak var friendTouchOuterView: UIView!
+    @IBOutlet weak var friendTouchInnerView: UIView!
+    @IBOutlet weak var friendNarBar: UIView!
+    @IBOutlet weak var userNavBar: UIView!
+    
+    var initHypeTouchOuterViewFrame: CGRect!
+    var initDeleteTouchOuterViewFrame: CGRect!
+    var initBoardTouchOuterViewFrame: CGRect!
+    var initFriendTouchOuterViewFrame: CGRect!
+
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view1.layer.cornerRadius = 3
+        view1.backgroundColor = UIColor.whiteColor()
+        view1.layer.shadowOpacity = 1
+        view1.layer.shadowOffset = CGSizeZero
+        view1.layer.shadowRadius = 2
+        
+        hypeAdView.layer.cornerRadius = 3
+        hypeAdView.backgroundColor = UIColor.whiteColor()
+        hypeAdView.layer.shadowOpacity = 1
+        hypeAdView.layer.shadowOffset = CGSizeZero
+        hypeAdView.layer.shadowRadius = 2
+        
+        view3.layer.cornerRadius = 3
+        view3.backgroundColor = UIColor.whiteColor()
+        view3.layer.shadowOpacity = 1
+        view3.layer.shadowOffset = CGSizeZero
+        view3.layer.shadowRadius = 2
+        
+        
+        initHypeTouchOuterViewFrame = hypeTouchOuterView.frame
+        
+        hypeTouchOuterView.layer.cornerRadius = (hypeTouchOuterView.layer.frame.size.width/2)
+        hypeTouchInnerView.layer.cornerRadius = (hypeTouchInnerView.layer.frame.size.width/2)
+        
+        initBoardTouchOuterViewFrame = boardTouchOuterView.frame
+        
+        boardTouchOuterView.layer.cornerRadius = (boardTouchOuterView.layer.frame.size.width/2)
+        bourdTouchInnerView.layer.cornerRadius = (bourdTouchInnerView.layer.frame.size.width/2)
+        
+        initDeleteTouchOuterViewFrame = deleteTouchOuterView.frame
+        
+        deleteTouchOuterView.layer.cornerRadius = (deleteTouchOuterView.layer.frame.size.width/2)
+        deleteTouchInnerView.layer.cornerRadius = (deleteTouchInnerView.layer.frame.size.width/2)
+        
+        initFriendTouchOuterViewFrame = friendTouchOuterView.frame
+        
+        friendTouchOuterView.layer.cornerRadius = (friendTouchOuterView.layer.frame.size.width/2)
+        friendTouchInnerView.layer.cornerRadius = (friendTouchInnerView.layer.frame.size.width/2)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.animateBoardTouchAppearance()
+    }
+    
+    func animateBoardTouchAppearance(){
+        UIView.animateWithDuration(0.5, delay: 2, options: .CurveLinear, animations: {
+            self.bourdTouchInnerView.alpha = 0.5
+            self.boardTouchOuterView.alpha = 0.5
+            
+            }, completion: { finished in
+                self.deleteLabel.alpha = 1
+                self.boardViewButton.alpha = 1
+                self.animateBoardTouchDisappearance()
+        })
+    }
+    
+    func animateBoardTouchDisappearance(){
+        UIView.animateWithDuration(0.5, delay: 0 , options: .CurveLinear, animations: {
+            self.boardTouchOuterView.alpha = 0
+            self.bourdTouchInnerView.alpha = 0
+            }, completion: { finished in
+                self.animateDeleteTouchAppearance()
+        })
+    }
+    
+    func animateDeleteTouchAppearance(){
+        UIView.animateWithDuration(0.5, delay: 2, options: .CurveLinear, animations: {
+            self.deleteTouchInnerView.alpha = 0.5
+            self.deleteTouchOuterView.alpha = 0.5
+
+            
+            }, completion: { finished in
+                delay(1){
+                    self.deleteLabel.alpha = 1
+                    self.animateDeleteTouchDisappearance()}
+        })
+    }
+    
+    func animateDeleteTouchDisappearance(){
+        UIView.animateWithDuration(0.5, delay: 0 , options: .CurveLinear, animations: {
+            self.deleteTouchOuterView.alpha = 0
+            self.deleteTouchInnerView.alpha = 0
+            }, completion: { finished in
+                self.deleteTouchOuterView.center.y += 50
+                self.animateDeleteAppearance()
+        })
+    }
+    
+    func animateDeleteAppearance(){
+        UIView.animateWithDuration(0.5, delay: 1, options: .CurveLinear, animations: {
+            self.deleteTouchInnerView.alpha = 0.5
+            self.deleteTouchOuterView.alpha = 0.5
+            
+            }, completion: { finished in
+                delay(1){
+                    self.deleteLabel.alpha = 0
+                    self.view3.layer.shadowOpacity = 0
+                    self.view3.layer.shadowRadius = 0
+                    self.deleteTouchOuterView.center.y -= 50
+                    self.animateHypeTouchAppearance()}
+        })
+        
+    }
+    
+    func animateHypeTouchAppearance(){
+        UIView.animateWithDuration(0.3, delay: 2, options: .CurveLinear, animations: {
+            self.hypeTouchInnerView.alpha = 0.5
+            self.hypeTouchOuterView.alpha = 0.5
+            
+            }, completion: { finished in
+                self.animateHypeTouchDisappearance()
+        })
+    }
+    
+    func animateHypeTouchDisappearance(){
+        UIView.animateWithDuration(0.2, delay: 0 , options: .CurveLinear, animations: {
+            self.hypeTouchOuterView.alpha = 0
+            self.hypeTouchInnerView.alpha = 0
+            }, completion: { finished in
+                self.animateHypeDoubleTouchAppearance()
+        })
+    }
+    
+    func animateHypeDoubleTouchAppearance(){
+        UIView.animateWithDuration(0.3, delay: 2, options: .CurveLinear, animations: {
+            self.hypeTouchInnerView.alpha = 0.5
+            self.hypeTouchOuterView.alpha = 0.5
+            
+            }, completion: { finished in
+                self.animateHypeDoubleTouchDisappearance()
+        })
+    }
+    
+    func animateHypeDoubleTouchDisappearance(){
+        UIView.animateWithDuration(0.2, delay: 0 , options: .CurveLinear, animations: {
+            self.hypeTouchOuterView.alpha = 0
+            self.hypeTouchInnerView.alpha = 0
+            }, completion: { finished in
+                self.resetAndRestartAnimation()
+        })
+    }
+    
+    func resetAndRestartAnimation(){
+        UIView.animateWithDuration(0.1, delay: 3 , options: .CurveEaseOut, animations: {
+            }, completion: { finished in
+                self.view3.layer.shadowOpacity = 1
+                self.view3.layer.shadowRadius = 2
+                self.boardViewButton.alpha = 0.699999988079071
+                self.animateBoardTouchAppearance()
+        })
+    }
+    
+    func resetAnimationsOnClose(){
+        boardTouchOuterView.layer.removeAllAnimations()
+        bourdTouchInnerView.layer.removeAllAnimations()
+        boardTouchOuterView.frame = initBoardTouchOuterViewFrame
+        hypeTouchOuterView.layer.removeAllAnimations()
+        hypeTouchInnerView.layer.removeAllAnimations()
+        hypeTouchOuterView.frame = initBoardTouchOuterViewFrame
+        friendTouchOuterView.layer.removeAllAnimations()
+        friendTouchInnerView.layer.removeAllAnimations()
+        friendTouchOuterView.frame = initFriendTouchOuterViewFrame
+        deleteTouchOuterView.layer.removeAllAnimations()
+        deleteTouchInnerView.layer.removeAllAnimations()
+        deleteTouchOuterView.frame = initFriendTouchOuterViewFrame
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        resetAnimationsOnClose()
+    }
     
 }
+
+    
