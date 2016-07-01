@@ -278,7 +278,8 @@ class CommentPageVC: UIViewController{
         addCaptionButton.layer.shadowRadius = 4
         addCaptionButton.layer.shadowOpacity = 0.6
         addCaptionButton.layer.shadowOffset = CGSizeZero
-        instructionLabel.text = "In the social view make and vote on comments and send content to friend."
+        instructionLabel.text = "In the social view, vote on, and make comments, or send content to friends!"
+        instructionLabel.layer.cornerRadius = 20
         
         
         initTouchIndicatorOuterViewFrame = touchIndicatorOuterView.frame
@@ -316,7 +317,7 @@ class CommentPageVC: UIViewController{
         UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
             self.touchIndicatorOuterView.alpha = 0.5
             self.touchIndicatorInnerView.alpha = 0.5
-            self.instructionLabel.text = "Tap a comment to add it to the photo."
+            self.instructionLabel.text = "Tap a published comment to add it to the photo."
             
             }, completion: { finished in
                 self.myCaptionText.alpha = 0
@@ -356,7 +357,7 @@ class CommentPageVC: UIViewController{
             }, completion: { finished in
                 self.myCaptionText.text = ""
                 self.animateCommentIndicatorDisappearance()
-                self.instructionLabel.text = "Tap the + to write your own."
+                self.instructionLabel.text = "Or tap the plus to write your own."
         })
     }
     
@@ -395,7 +396,7 @@ class CommentPageVC: UIViewController{
             self.sendTouchInnerView.alpha = 0.5
         
             }, completion: { finished in
-                self.instructionLabel.text = "Tap the airplane to send to a friend, or publish the comment."
+                self.instructionLabel.text = "Tap the airplane to select friends to send it to, or publish the comment."
                 delay(5){
                     self.resetAndRestartAnimation()}
         })
@@ -409,7 +410,7 @@ class CommentPageVC: UIViewController{
                 self.sendTouchInnerView.alpha = 0
                 self.myCaptionText.text = ""
                 self.myCommentBarView.alpha = 0
-                self.instructionLabel.text = "In the social view make and vote on comments and send content to friend."
+                self.instructionLabel.text = "In the social view, vote on, and make comments, or send content to friends!"
                 delay(5){
                     self.caption1View.backgroundColor = UIColor.lightGrayColor();
                     self.animateTouchIndicatorAppearance()}
@@ -450,6 +451,7 @@ class SendPublishPageVC: UIViewController{
     @IBOutlet weak var publishTouchInnerView: UIView!
     @IBOutlet weak var sendTouchOuterView: UIView!
     @IBOutlet weak var sendTouchInnerView: UIView!
+    @IBOutlet weak var intructionLabel: UILabel!
     
     
     var initPublishTouchOuterViewFrame: CGRect!
@@ -526,6 +528,7 @@ class SendPublishPageVC: UIViewController{
             
             }, completion: { finished in
                 self.mButton.backgroundColor = UIColor(red: 1, green: 56/255, blue: 73/255, alpha: 1);
+                self.intructionLabel.text = "and which friends to send it to."
                 self.animateMTouchDisppearance()
         })
     }
@@ -544,8 +547,10 @@ class SendPublishPageVC: UIViewController{
             self.sendTouchInnerView.alpha = 0.5
             
             }, completion: { finished in
+                self.intructionLabel.text = "When you're done, press the airplane to send it off."
                 delay(2){
                     self.resetAndRestartAnimation()}
+                
         })
     }
     
@@ -556,6 +561,7 @@ class SendPublishPageVC: UIViewController{
                 self.sendTouchInnerView.alpha = 0
                 self.publishButton.backgroundColor = UIColor.whiteColor();
                 self.mButton.backgroundColor = UIColor.whiteColor();
+                self.intructionLabel.text = "Select if you would like to publish your caption..."
                 self.animatePublishTouchAppearance()
         })
     }
@@ -570,6 +576,7 @@ class SendPublishPageVC: UIViewController{
         sendTouchOuterView.layer.removeAllAnimations()
         sendTouchInnerView.layer.removeAllAnimations()
         sendTouchOuterView.frame = initSendTouchOuterViewFrame
+        self.intructionLabel.text = "Select if you would like to publish your caption..."
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -595,6 +602,8 @@ class BoardPageVC: UIViewController{
     @IBOutlet weak var friendTouchInnerView: UIView!
     @IBOutlet weak var friendNarBar: UIView!
     @IBOutlet weak var userNavBar: UIView!
+    
+    @IBOutlet weak var instructionLabel: UILabel!
     
     var initHypeTouchOuterViewFrame: CGRect!
     var initDeleteTouchOuterViewFrame: CGRect!
@@ -658,6 +667,7 @@ class BoardPageVC: UIViewController{
                 self.deleteLabel.alpha = 1
                 self.boardViewButton.alpha = 1
                 self.animateBoardTouchDisappearance()
+                self.instructionLabel.text = "Tap the icon at the top right to acces your board"
         })
     }
     
@@ -666,6 +676,7 @@ class BoardPageVC: UIViewController{
             self.boardTouchOuterView.alpha = 0
             self.bourdTouchInnerView.alpha = 0
             }, completion: { finished in
+                self.instructionLabel.text = "Tap and hold an add to be able to get the delete option."
                 self.animateDeleteTouchAppearance()
         })
     }
@@ -697,6 +708,7 @@ class BoardPageVC: UIViewController{
         UIView.animateWithDuration(0.5, delay: 1, options: .CurveLinear, animations: {
             self.deleteTouchInnerView.alpha = 0.5
             self.deleteTouchOuterView.alpha = 0.5
+            self.instructionLabel.text = "Then tap delete to confirm."
             
             }, completion: { finished in
                     self.deleteLabel.alpha = 0
@@ -724,6 +736,7 @@ class BoardPageVC: UIViewController{
             self.hypeTouchOuterView.alpha = 0.7
             
             }, completion: { finished in
+                self.instructionLabel.text = "Double tap a photo to return to its social view."
                 self.animateHypeTouchDisappearance()
         })
     }
@@ -763,6 +776,7 @@ class BoardPageVC: UIViewController{
                 self.view3.layer.shadowRadius = 2
                 self.boardViewButton.alpha = 0.699999988079071
                 self.animateBoardTouchAppearance()
+                self.instructionLabel.text = "Liked ads are saved in your board."
         })
     }
     
@@ -779,6 +793,7 @@ class BoardPageVC: UIViewController{
         deleteTouchOuterView.layer.removeAllAnimations()
         deleteTouchInnerView.layer.removeAllAnimations()
         deleteTouchOuterView.frame = initFriendTouchOuterViewFrame
+        self.instructionLabel.text = "Liked ads are saved in your board."
     }
     
     override func viewWillDisappear(animated: Bool) {
