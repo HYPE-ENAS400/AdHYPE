@@ -278,7 +278,7 @@ class CommentPageVC: UIViewController{
         addCaptionButton.layer.shadowRadius = 4
         addCaptionButton.layer.shadowOpacity = 0.6
         addCaptionButton.layer.shadowOffset = CGSizeZero
-        instructionLabel.text = "In the social view, vote on, and make comments, or send content to friends!"
+        instructionLabel.text = "In Social View make or vote on captions and send content to friends!"
         instructionLabel.layer.cornerRadius = 20
         
         
@@ -557,12 +557,13 @@ class SendPublishPageVC: UIViewController{
     func resetAndRestartAnimation(){
         UIView.animateWithDuration(0.1, delay: 3 , options: .CurveEaseOut, animations: {
             }, completion: { finished in
+                delay(2){
                 self.sendTouchOuterView.alpha = 0
                 self.sendTouchInnerView.alpha = 0
                 self.publishButton.backgroundColor = UIColor.whiteColor();
                 self.mButton.backgroundColor = UIColor.whiteColor();
                 self.intructionLabel.text = "Select if you would like to publish your caption..."
-                self.animatePublishTouchAppearance()
+                    self.animatePublishTouchAppearance()}
         })
     }
     
@@ -602,6 +603,8 @@ class BoardPageVC: UIViewController{
     @IBOutlet weak var friendTouchInnerView: UIView!
     @IBOutlet weak var friendNarBar: UIView!
     @IBOutlet weak var userNavBar: UIView!
+    
+    
     
     @IBOutlet weak var instructionLabel: UILabel!
     
@@ -660,14 +663,14 @@ class BoardPageVC: UIViewController{
     
     func animateBoardTouchAppearance(){
         UIView.animateWithDuration(0.5, delay: 2, options: .CurveLinear, animations: {
-            self.bourdTouchInnerView.alpha = 0.5
-            self.boardTouchOuterView.alpha = 0.5
+            self.instructionLabel.text = "Tap the icon at the top right to access your board."
+            self.bourdTouchInnerView.alpha = 0.7
+            self.boardTouchOuterView.alpha = 0.7
             
             }, completion: { finished in
                 self.deleteLabel.alpha = 1
                 self.boardViewButton.alpha = 1
                 self.animateBoardTouchDisappearance()
-                self.instructionLabel.text = "Tap the icon at the top right to acces your board"
         })
     }
     
@@ -676,13 +679,17 @@ class BoardPageVC: UIViewController{
             self.boardTouchOuterView.alpha = 0
             self.bourdTouchInnerView.alpha = 0
             }, completion: { finished in
-                self.instructionLabel.text = "Tap and hold an add to be able to get the delete option."
-                self.animateDeleteTouchAppearance()
+                delay(2){
+                    self.instructionLabel.text = "This is where your liked ads are saved."
+                }
+                delay(5){
+                self.instructionLabel.text = "Tap and hold a photo for the delete option."
+                    self.animateDeleteTouchAppearance()}
         })
     }
     
     func animateDeleteTouchAppearance(){
-        UIView.animateWithDuration(0.5, delay: 2, options: .CurveLinear, animations: {
+        UIView.animateWithDuration(0.5, delay: 1, options: .CurveLinear, animations: {
             self.deleteTouchInnerView.alpha = 0.5
             self.deleteTouchOuterView.alpha = 0.5
 
@@ -700,7 +707,8 @@ class BoardPageVC: UIViewController{
             self.deleteTouchInnerView.alpha = 0
             }, completion: { finished in
                 self.deleteTouchOuterView.center.y += 50
-                self.animateDeleteAppearance()
+                delay(1){
+                    self.animateDeleteAppearance()}
         })
     }
     
@@ -731,7 +739,7 @@ class BoardPageVC: UIViewController{
     }
     
     func animateHypeTouchAppearance(){
-        UIView.animateWithDuration(0.2, delay: 2, options: .CurveLinear, animations: {
+        UIView.animateWithDuration(0.3, delay: 2, options: .CurveLinear, animations: {
             self.hypeTouchInnerView.alpha = 0.7
             self.hypeTouchOuterView.alpha = 0.7
             
@@ -765,18 +773,51 @@ class BoardPageVC: UIViewController{
             self.hypeTouchOuterView.alpha = 0
             self.hypeTouchInnerView.alpha = 0
             }, completion: { finished in
-                self.resetAndRestartAnimation()
+                delay(4){
+                    self.animateFriendAppearance()}
+        })
+    }
+    
+    func animateFriendAppearance(){
+        UIView.animateWithDuration(0.5, delay: 1, options: .CurveLinear, animations: {
+            self.friendTouchInnerView.alpha = 0.5
+            self.friendTouchOuterView.alpha = 0.5
+            self.instructionLabel.text = "Tap the friend icon to see your friends' boards."
+            
+            }, completion: { finished in
+                self.userNavBar.backgroundColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1);
+                self.friendNarBar.backgroundColor = UIColor(red: 1, green: 56/255, blue: 73/255, alpha: 1);
+                self.view3.layer.shadowOpacity = 1
+                self.view3.layer.shadowRadius = 2
+                self.animateFriendDisapperance()
+        })
+        
+    }
+    
+    func animateFriendDisapperance(){
+        UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
+            self.friendTouchInnerView.alpha = 0
+            self.friendTouchOuterView.alpha = 0
+            
+            }, completion: { finished in
+                delay(3){
+                self.instructionLabel.text = "Here you can save friends' photos with a long press."}
+                delay(5){
+                    self.resetAndRestartAnimation()}
         })
     }
     
     func resetAndRestartAnimation(){
-        UIView.animateWithDuration(0.1, delay: 3 , options: .CurveEaseOut, animations: {
+        UIView.animateWithDuration(2, delay: 4 , options: .CurveEaseOut, animations: {
             }, completion: { finished in
-                self.view3.layer.shadowOpacity = 1
-                self.view3.layer.shadowRadius = 2
+                delay(2){
                 self.boardViewButton.alpha = 0.699999988079071
-                self.animateBoardTouchAppearance()
-                self.instructionLabel.text = "Liked ads are saved in your board."
+                self.friendNarBar.backgroundColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1);
+                self.userNavBar.backgroundColor = UIColor(red: 1, green: 56/255, blue: 73/255, alpha: 1);
+                self.instructionLabel.text = "Liked ads are saved in your board."}
+                delay(5){
+                    self.animateBoardTouchAppearance()}
+
         })
     }
     
