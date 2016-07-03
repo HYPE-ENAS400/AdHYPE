@@ -160,8 +160,8 @@ extension UserTableViewController: UISearchResultsUpdating, UISearchControllerDe
                 if !(self.existingFriendsIDS.contains(id)){
                     let fn = dict[Constants.USERFULLNAME]
                     let newTextData = SelectionCellTextData(main: snapshot.key, detail: fn)
-                    self.usersDataSource.putPair((key: id, value: newTextData))
-                    let newIndex = self.usersDataSource.getCount() - 1
+                    self.searchUsersDataSource.putPair((key: id, value: newTextData))
+                    let newIndex = self.searchUsersDataSource.getCount() - 1
                     let newIndexPath = NSIndexPath(forRow: newIndex, inSection: 0)
                     self.tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Automatic)
                 }

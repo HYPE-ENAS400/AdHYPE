@@ -61,8 +61,8 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     func clearGridView(){
-        interests = [String]()
-        adStore = [String: [HypeAd]]()
+        interests.removeAll()
+        adStore.removeAll()
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {

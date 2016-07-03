@@ -68,10 +68,10 @@ class GridViewNavVC: CustomNavVC{
 
     }
     
-//    override func viewDidAppear(animated: Bool) {
-//        super.viewDidAppear(animated)
-//
-//    }
+    func clearUserGridView(){
+        userGridVC?.clearGridView()
+    }
+    
     
     @IBAction func onFriendButtonClicked(sender: AnyObject) {
         guard !isViewControllerActiveVC(gridViewFriendsVC) else {
@@ -124,6 +124,8 @@ class GridViewNavVC: CustomNavVC{
         setActiveViewController(nil, viewController: userGridVC)
         gridViewFriendsVC = nil
         friendGridVC = nil
+        friendLabel.hidden = true
+        backButton.hidden = true
     }
     
 //    override func viewDidDisappear(animated: Bool) {

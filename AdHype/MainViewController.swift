@@ -226,7 +226,7 @@ class MainViewController: UIViewController {
     }
     
     func resetMainView(){
-        ads = [HypeAd]()
+        ads.removeAll()
         adsMetaDataQueue = Queue<HypeAdMetaData>()
         numAdsSwiped = 0
         outOfCardsView.hidden = true

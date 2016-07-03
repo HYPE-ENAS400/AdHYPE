@@ -10,18 +10,14 @@ import UIKit
 import Firebase
 
 class SignUpUserInfoVC: UIViewController{
-
+    
     @IBOutlet weak var usernameTextField: CustomTextField!
     @IBOutlet weak var fullNameTextField: CustomTextField!
     @IBOutlet weak var ageTextField: CustomTextField!
     @IBOutlet weak var genderSegmentControl: UISegmentedControl!
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var usernameErrorLabel: UILabel!
-    
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    
-    var userName: String!
-    var password: String!
     
     var delegate: SignUpUserInfoVCDelegate!
     var username: String?
@@ -54,7 +50,7 @@ class SignUpUserInfoVC: UIViewController{
         submitButton.layer.shadowRadius = 4
         submitButton.layer.shadowOpacity = 0.8
         submitButton.layer.shadowOffset = CGSizeZero
-
+        
     }
     
     @IBAction func onTap(sender: AnyObject) {
@@ -63,7 +59,7 @@ class SignUpUserInfoVC: UIViewController{
         ageTextField.resignFirstResponder()
     }
     
-    func setUserDatabaseValues(user: FIRUser){
+    func setDatabaseValues(user: FIRUser){
         let baseRef = FIRDatabase.database().reference()
         
         let userRef = baseRef.child(Constants.USERSNODE).child(user.uid)
@@ -97,54 +93,30 @@ class SignUpUserInfoVC: UIViewController{
         })
     }
     
-    func updateUserInformation(user: FIRUser){
-        
+    @IBAction func onSubmitButtonClicked(sender: AnyObject) {
         guard let un = username else {
             return
         }
-        
-        let changeRequest = user.profileChangeRequest()
-        
-        changeRequest.displayName = un
-        changeRequest.commitChangesWithCompletion({error in
-            if let error = error{
-                print("COULD NOT CHANGE USERNAME: \(error.localizedDescription)")
-                self.submitButton.enabled = true
-                self.spinner.stopAnimating()
-            } else {
-                print("successfully changed username")
-                self.setUserDatabaseValues(user)
-            }
-        })
-    }
-    
-    @IBAction func onSubmitButtonClicked(sender: AnyObject) {
-        submitButton.enabled = false
         spinner.startAnimating()
         if let user = FIRAuth.auth()?.currentUser{
-            updateUserInformation(user)
-        } else {
-        
-            FIRAuth.auth()?.createUserWithEmail(userName, password: password,
-                completion: { (user, error) -> Void in
-                    if let error = error{
-                        
-                        let userInfo: NSDictionary = error.userInfo
-                        print("ERROR: \(userInfo.valueForKey("error_name"))")
-                        self.delegate.onUserSignUpFailed(String(userInfo.valueForKey("error_name")!))
-                        self.spinner.stopAnimating()
-                    } else if let user = user{
-                        //TODO fix the optional?
-                        
-                        self.updateUserInformation(user)
-                        
-                        let keychainWrapper = KeychainWrapper.standardKeychainAccess()
-                        keychainWrapper.setString(self.userName, forKey: Constants.USERKEY)
-                        keychainWrapper.setString(self.password, forKey: Constants.PASSKEY)
-                        
-                        print("Successfully created user account with uid: \(user.uid)")
-                    }
+            submitButton.enabled = false
+            
+            let changeRequest = user.profileChangeRequest()
+            
+            changeRequest.displayName = un
+            changeRequest.commitChangesWithCompletion({error in
+                if let error = error{
+                    print("COULD NOT CHANGE USERNAME: \(error.localizedDescription)")
+                    self.submitButton.enabled = true
+                    self.spinner.stopAnimating()
+                } else {
+                    print("successfully changed username")
+                    self.setDatabaseValues(user)
+                }
             })
+            
+            
+            
         }
         
     }
@@ -186,7 +158,7 @@ extension SignUpUserInfoVC: UITextFieldDelegate{
                 self.spinner.stopAnimating()
             }
         })
-
+        
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
@@ -202,5 +174,4 @@ extension SignUpUserInfoVC: UITextFieldDelegate{
 
 protocol SignUpUserInfoVCDelegate{
     func onUserInfoSubmitted()
-    func onUserSignUpFailed(errorInfo: String)
 }

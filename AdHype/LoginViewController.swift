@@ -2,7 +2,7 @@ import UIKit
 import Firebase
 
 class LoginViewController: UIViewController, UITextFieldDelegate{
-
+    
     @IBOutlet var userNameTextEdit: UITextField!
     @IBOutlet var passwordTextEdit: UITextField!
     @IBOutlet var signUpButton: UIButton!
@@ -66,7 +66,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         //TODO fix conditionals
         FIRAuth.auth()?.signInWithEmail(userNameTextEdit.text!, password: passwordTextEdit.text!, completion: { (user, error) -> Void in
             if let error = error{
-
+                
+                self.logInButton.userInteractionEnabled = true
+                self.signUpButton.userInteractionEnabled = true
                 let userInfo: NSDictionary = error.userInfo
                 self.displayLoginError(String(userInfo.valueForKey("error_name")!))
                 
@@ -81,27 +83,42 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
                 print("Successfully logged in user account with uid: \(user.uid)")
             }
         })
-    
+        
     }
     
     @IBAction func signUpClicked(sender: AnyObject){
-            
+        
         logInButton.userInteractionEnabled = false
         signUpButton.userInteractionEnabled = false
         
         userName = userNameTextEdit.text
         password = passwordTextEdit.text
         
-        delegate.onSignedUp(userName, password: password)
-        
-    
+        FIRAuth.auth()?.createUserWithEmail(userName, password: password,
+            completion: { (user, error) -> Void in
+                if let error = error{
+                    
+                    self.logInButton.userInteractionEnabled = true
+                    self.signUpButton.userInteractionEnabled = true
+                    let userInfo: NSDictionary = error.userInfo
+                    self.displayLoginError(String(userInfo.valueForKey("error_name")!))
+                    
+                    
+                } else if let user = user{
+                    //TODO fix the optional?
+                    
+                    let keychainWrapper = KeychainWrapper.standardKeychainAccess()
+                    keychainWrapper.setString(self.userName, forKey: Constants.USERKEY)
+                    keychainWrapper.setString(self.password, forKey: Constants.PASSKEY)
+                    
+                    self.delegate.onSignedUp()
+                    
+                    print("Successfully created user account with uid: \(user.uid)")
+                }
+        })
     }
     
-    func displayLoginError(errorName: String){
-        
-        self.logInButton.userInteractionEnabled = true
-        self.signUpButton.userInteractionEnabled = true
-        
+    private func displayLoginError(errorName: String){
         errorLabel.hidden = false
         switch(errorName){
         case "ERROR_INVALID_EMAIL":
@@ -124,6 +141,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
 
 
 protocol LoginViewControllerDelegate{
-    func onSignedUp(userName: String, password: String)
+    func onSignedUp()
     func onLoggedIn()
 }

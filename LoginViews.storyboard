@@ -264,7 +264,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="logInClicked:" destination="kYe-al-2cX" eventType="touchUpInside" id="mE4-Gp-znE"/>
                                     <action selector="onSubmitButtonClicked:" destination="EeH-qD-hu9" eventType="touchUpInside" id="Jmh-LT-hCT"/>
                                 </connections>
                             </button>
@@ -352,7 +351,7 @@
                         <outlet property="ageTextField" destination="44e-pe-Jhi" id="DlG-ef-n1j"/>
                         <outlet property="fullNameTextField" destination="A9h-id-CbW" id="va6-RP-MAc"/>
                         <outlet property="genderSegmentControl" destination="qbg-5N-O5Q" id="CFc-Z7-wqm"/>
-                        <outlet property="spinner" destination="ruX-9k-ohh" id="Skt-kD-JlQ"/>
+                        <outlet property="spinner" destination="ruX-9k-ohh" id="iqO-29-wh1"/>
                         <outlet property="submitButton" destination="wFz-w6-NQS" id="Hpo-UI-ITJ"/>
                         <outlet property="usernameErrorLabel" destination="5iL-eJ-4Dw" id="hbr-oW-Kf3"/>
                         <outlet property="usernameTextField" destination="ago-4O-ZYA" id="xs7-xW-J6a"/>

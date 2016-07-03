@@ -33,9 +33,6 @@ class HypeNavViewController: CustomNavVC {
     var settingsViewController: SettingsNavVC?
     var gridViewController: GridViewNavVC?
     
-//    var gridViewController: GridViewController?
-//    var gridViewController: AdBrowserViewController?
-    
     var onAdSocialVCClosedFunc: ((canceled: Bool)->Void)?
     var friendIDS: [String]?
     var socialAd: HypeAd!
@@ -43,8 +40,7 @@ class HypeNavViewController: CustomNavVC {
     var userInterests = SelectionDataSource<Bool>()
     
     var wasSwipeUp: Bool!
-    
-//    private var logInState = LogInState.loggedOut
+    var needUserInfo: Bool = false
     
     private var shouldInitOnAuthStateChange = true
     var shouldInitFromSignUp = false
@@ -54,7 +50,14 @@ class HypeNavViewController: CustomNavVC {
         //FOR SOME REASON THIS IS GETTING CALLED TWICE ON STARTUP?
         FIRAuth.auth()?.addAuthStateDidChangeListener{auth, user in
             if let authUser = user {
+                
                 if self.shouldInitOnAuthStateChange{
+                    guard user?.displayName != nil else{
+                        self.needUserInfo = true
+                        self.performSegueWithIdentifier("logInSegue", sender: nil)
+                        self.shouldInitOnAuthStateChange = false
+                        return
+                    }
                     self.hypeBarView.hidden = false
                     self.settingsButton.alpha = 0.7
                     self.hypeButton.alpha = 1
@@ -65,7 +68,7 @@ class HypeNavViewController: CustomNavVC {
                 }
                 
             } else {
-                //reset view controllers?
+                self.resetHype()
                 self.shouldInitOnAuthStateChange = false
                 
                 let keychainWrapper = KeychainWrapper.standardKeychainAccess()
@@ -88,7 +91,17 @@ class HypeNavViewController: CustomNavVC {
         
     }
     
-    func initializeHype(uid: String){
+    func resetHype(){
+        userInterests.clear()
+        friendIDS?.removeAll()
+        socialAd = nil
+        mainViewController?.resetMainView()
+        gridViewController?.clearUserGridView()
+        settingsViewController = nil
+        
+    }
+    
+    private func initializeHype(uid: String){
         // get user interests
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
@@ -177,11 +190,6 @@ class HypeNavViewController: CustomNavVC {
         }
     }
     
-    private func resetViewControllers(){
-//        gridViewController?.clearGridView()
-        mainViewController?.resetMainView()
-    }
-    
     
     @IBAction func onSettingButtonClicked(sender: AnyObject){
         guard !isViewControllerActiveVC(settingsViewController) else{
@@ -248,8 +256,12 @@ class HypeNavViewController: CustomNavVC {
         }
         if segue.identifier == "logInSegue" {
             let newVC = segue.destinationViewController as! LoginNavVC
-//            newVC.delegate = self
+            newVC.needUserInfo = needUserInfo
         }
+    }
+    
+    func showViewToChangeUserInfo(){
+        self.performSegueWithIdentifier("showAdSocialViewSegue", sender: nil)
     }
     
     @IBAction func unwindFromLogInSegue(segue: UIStoryboardSegue){
@@ -257,6 +269,7 @@ class HypeNavViewController: CustomNavVC {
         self.settingsButton.alpha = 0.7
         self.hypeButton.alpha = 1
         self.gridButton.alpha = 0.7
+        needUserInfo = false
         if shouldInitFromSignUp{
             print("USER UID: \((FIRAuth.auth()?.currentUser?.uid)!)")
             self.setActiveViewController(nil, viewController: self.mainViewController)
@@ -268,11 +281,12 @@ class HypeNavViewController: CustomNavVC {
     }
     
     @IBAction func unwindFromAdSocialViewSegue(segue: UIStoryboardSegue){
-        if !wasSwipeUp {
-            return
-        }
         
         if(segue.sourceViewController .isKindOfClass(SocialNavVC)){
+            if !wasSwipeUp {
+                return
+            }
+            
             let sVC = segue.sourceViewController as! SocialNavVC
             if let fun = onAdSocialVCClosedFunc{
                 fun(canceled: sVC.didCancel)
