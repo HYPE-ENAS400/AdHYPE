@@ -16,7 +16,8 @@ class HelperViewsNavVC: CustomNavVC{
         }
     }
     
-    var pageVCIDs = [ "commentPageVC","sendPublishPageVC","boardPageVC"]
+//    var pageVCIDs = [ "commentPageVC","sendPublishPageVC","boardPageVC"] "upSwipePageVC", "sendPublishPageVC",d
+    var pageVCIDs = ["rightSwipePageVC", "leftSwipePageVC", "boardPageVC"]
     
     var curVCIndex = 0
     

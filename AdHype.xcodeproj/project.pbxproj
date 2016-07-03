@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B3B267D1D289709007511EB /* SwipeCardHelperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3B267C1D289709007511EB /* SwipeCardHelperView.swift */; };
 		2B66B3961D1074DC00DE197D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B66B3951D1074DC00DE197D /* Assets.xcassets */; };
 		2B66B3A11D10766800DE197D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B66B3A01D10766800DE197D /* GoogleService-Info.plist */; };
 		2B6F391A1D18AE140020F22E /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6F39191D18AE140020F22E /* CustomTextField.swift */; };
@@ -70,6 +71,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B3B267C1D289709007511EB /* SwipeCardHelperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardHelperView.swift; sourceTree = "<group>"; };
 		2B66B38B1D1074DC00DE197D /* AdHype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdHype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B66B3951D1074DC00DE197D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B66B39A1D1074DC00DE197D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 				2BB592D61D21F6D30068AA08 /* HelperViews.storyboard */,
 				2BB592D81D21F92E0068AA08 /* HelperViewsVCS.swift */,
 				2BB592DC1D221A9D0068AA08 /* HelperViewsNavVC.swift */,
+				2B3B267C1D289709007511EB /* SwipeCardHelperView.swift */,
 			);
 			name = "Helper Views";
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 				2B9EAA511D10B1BE00396A63 /* SwipeResultDirection.swift in Sources */,
 				2BFD16261D1AFC50001A210A /* FriendsSettingsVC.swift in Sources */,
 				2BFD16241D1AF9E1001A210A /* UserSettingsVC.swift in Sources */,
+				2B3B267D1D289709007511EB /* SwipeCardHelperView.swift in Sources */,
 				2BB592DD1D221A9D0068AA08 /* HelperViewsNavVC.swift in Sources */,
 				2B9EAA231D1098BA00396A63 /* ImageGridCell.swift in Sources */,
 				2B9EAA341D10A02D00396A63 /* Constants.swift in Sources */,
