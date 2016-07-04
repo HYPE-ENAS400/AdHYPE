@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		2B3B267D1D289709007511EB /* SwipeCardHelperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3B267C1D289709007511EB /* SwipeCardHelperView.swift */; };
+		2B3B26831D29937E007511EB /* TouchIndicatorClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3B26821D29937E007511EB /* TouchIndicatorClass.swift */; };
+		2B3B26851D29A12B007511EB /* AddPublicCaptionHelperVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3B26841D29A12B007511EB /* AddPublicCaptionHelperVC.swift */; };
+		2B3B26871D29A5B2007511EB /* AddNewCaptionHelperVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3B26861D29A5B2007511EB /* AddNewCaptionHelperVC.swift */; };
+		2B3B268B1D29C0FD007511EB /* ClickSendHelperVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3B268A1D29C0FD007511EB /* ClickSendHelperVC.swift */; };
+		2B3B268D1D29C6EF007511EB /* SendAdHelperVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3B268C1D29C6EF007511EB /* SendAdHelperVC.swift */; };
+		2B3B268F1D2A19FF007511EB /* BoardHelperVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3B268E1D2A19FF007511EB /* BoardHelperVC.swift */; };
+		2B3B26911D2A2392007511EB /* ClickAdBoardHelperVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3B26901D2A2392007511EB /* ClickAdBoardHelperVC.swift */; };
+		2B3B26931D2A261A007511EB /* FriendBoardHelperVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3B26921D2A261A007511EB /* FriendBoardHelperVC.swift */; };
 		2B66B3961D1074DC00DE197D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B66B3951D1074DC00DE197D /* Assets.xcassets */; };
 		2B66B3A11D10766800DE197D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B66B3A01D10766800DE197D /* GoogleService-Info.plist */; };
 		2B6F391A1D18AE140020F22E /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6F39191D18AE140020F22E /* CustomTextField.swift */; };
@@ -72,6 +80,14 @@
 
 /* Begin PBXFileReference section */
 		2B3B267C1D289709007511EB /* SwipeCardHelperView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardHelperView.swift; sourceTree = "<group>"; };
+		2B3B26821D29937E007511EB /* TouchIndicatorClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchIndicatorClass.swift; sourceTree = "<group>"; };
+		2B3B26841D29A12B007511EB /* AddPublicCaptionHelperVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPublicCaptionHelperVC.swift; sourceTree = "<group>"; };
+		2B3B26861D29A5B2007511EB /* AddNewCaptionHelperVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewCaptionHelperVC.swift; sourceTree = "<group>"; };
+		2B3B268A1D29C0FD007511EB /* ClickSendHelperVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClickSendHelperVC.swift; sourceTree = "<group>"; };
+		2B3B268C1D29C6EF007511EB /* SendAdHelperVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendAdHelperVC.swift; sourceTree = "<group>"; };
+		2B3B268E1D2A19FF007511EB /* BoardHelperVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardHelperVC.swift; sourceTree = "<group>"; };
+		2B3B26901D2A2392007511EB /* ClickAdBoardHelperVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClickAdBoardHelperVC.swift; sourceTree = "<group>"; };
+		2B3B26921D2A261A007511EB /* FriendBoardHelperVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendBoardHelperVC.swift; sourceTree = "<group>"; };
 		2B66B38B1D1074DC00DE197D /* AdHype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdHype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B66B3951D1074DC00DE197D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2B66B39A1D1074DC00DE197D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -296,6 +312,14 @@
 				2BB592D81D21F92E0068AA08 /* HelperViewsVCS.swift */,
 				2BB592DC1D221A9D0068AA08 /* HelperViewsNavVC.swift */,
 				2B3B267C1D289709007511EB /* SwipeCardHelperView.swift */,
+				2B3B26821D29937E007511EB /* TouchIndicatorClass.swift */,
+				2B3B26841D29A12B007511EB /* AddPublicCaptionHelperVC.swift */,
+				2B3B26861D29A5B2007511EB /* AddNewCaptionHelperVC.swift */,
+				2B3B268A1D29C0FD007511EB /* ClickSendHelperVC.swift */,
+				2B3B268C1D29C6EF007511EB /* SendAdHelperVC.swift */,
+				2B3B268E1D2A19FF007511EB /* BoardHelperVC.swift */,
+				2B3B26901D2A2392007511EB /* ClickAdBoardHelperVC.swift */,
+				2B3B26921D2A261A007511EB /* FriendBoardHelperVC.swift */,
 			);
 			name = "Helper Views";
 			sourceTree = "<group>";
@@ -462,6 +486,7 @@
 				2B75DF0F1D15C6760047A0DF /* FriendsSectionCell.swift in Sources */,
 				2B9EAA511D10B1BE00396A63 /* SwipeResultDirection.swift in Sources */,
 				2BFD16261D1AFC50001A210A /* FriendsSettingsVC.swift in Sources */,
+				2B3B26831D29937E007511EB /* TouchIndicatorClass.swift in Sources */,
 				2BFD16241D1AF9E1001A210A /* UserSettingsVC.swift in Sources */,
 				2B3B267D1D289709007511EB /* SwipeCardHelperView.swift in Sources */,
 				2BB592DD1D221A9D0068AA08 /* HelperViewsNavVC.swift in Sources */,
@@ -474,25 +499,32 @@
 				2B9EAA4E1D10B1BE00396A63 /* KolodaView.swift in Sources */,
 				2BB592C81D1CCE780068AA08 /* SelectionTableView.swift in Sources */,
 				5C43DF681D2318760096D4E1 /* AppDelegate.swift in Sources */,
+				2B3B268D1D29C6EF007511EB /* SendAdHelperVC.swift in Sources */,
 				2B9EAA4F1D10B1BE00396A63 /* KolodaViewAnimatior.swift in Sources */,
 				2BB592D91D21F92E0068AA08 /* HelperViewsVCS.swift in Sources */,
 				2B9EAA4C1D10B1BE00396A63 /* DraggableCardView.swift in Sources */,
+				2B3B26931D2A261A007511EB /* FriendBoardHelperVC.swift in Sources */,
 				2B75DF251D1766AC0047A0DF /* SocialNavVC.swift in Sources */,
 				2BB592CE1D20A1320068AA08 /* AdBrowserTableViewCell.swift in Sources */,
+				2B3B268B1D29C0FD007511EB /* ClickSendHelperVC.swift in Sources */,
 				2B75DF0A1D14535D0047A0DF /* AdCaptionCell.swift in Sources */,
 				2B9EAA4D1D10B1BE00396A63 /* KolodaCardStorage.swift in Sources */,
+				2B3B268F1D2A19FF007511EB /* BoardHelperVC.swift in Sources */,
 				2BB592C01D1CAA200068AA08 /* SelectionCell.swift in Sources */,
 				2B6F391A1D18AE140020F22E /* CustomTextField.swift in Sources */,
+				2B3B26871D29A5B2007511EB /* AddNewCaptionHelperVC.swift in Sources */,
 				2B9BF4EA1D12446300BCD935 /* CustomImageFlowLayout.swift in Sources */,
 				2BB592CC1D1F7B5F0068AA08 /* AdBrowserViewController.swift in Sources */,
 				2B9EAA311D10A02D00396A63 /* KYCircularProgress.swift in Sources */,
 				2B75DF1F1D1750910047A0DF /* customUnwindSegue.swift in Sources */,
 				2B991F9C1D11A6EE0022675F /* HypeAd.swift in Sources */,
+				2B3B26851D29A12B007511EB /* AddPublicCaptionHelperVC.swift in Sources */,
 				2BB592BE1D1C97C60068AA08 /* SelectionDataSource.swift in Sources */,
 				2B75DF1D1D1749620047A0DF /* customSegue.swift in Sources */,
 				2BB592DB1D2216620068AA08 /* CustomNavVC.swift in Sources */,
 				2B75DF1B1D1734400047A0DF /* FriendsTableViewController.swift in Sources */,
 				2B9EAA321D10A02D00396A63 /* UtilityFunctions.swift in Sources */,
+				2B3B26911D2A2392007511EB /* ClickAdBoardHelperVC.swift in Sources */,
 				2B75DF0D1D14BA150047A0DF /* FriendsCell.swift in Sources */,
 				2B9EAA151D1098A900396A63 /* HypeNavViewController.swift in Sources */,
 				2B6F392C1D1A51540020F22E /* CustomOverlayView.swift in Sources */,

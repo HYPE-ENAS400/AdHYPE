@@ -15,15 +15,15 @@
                         <viewControllerLayoutGuide type="bottom" id="bPk-Yh-3XG"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ne0-Fm-ijb">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="b9q-t7-lYJ">
-                                <rect key="frame" x="282" y="236" width="37" height="37"/>
+                                <rect key="frame" x="142" y="176" width="37" height="37"/>
                                 <color key="color" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LAa-w3-Xn0">
-                                <rect key="frame" x="50" y="510" width="60" height="60"/>
+                                <rect key="frame" x="46" y="390" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="bso-BI-3eD"/>
                                     <constraint firstAttribute="height" constant="60" id="iwQ-3l-VCH"/>
@@ -39,7 +39,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E5c-vD-C3L" customClass="KYCircularProgress" customModule="AdHype" customModuleProvider="target">
-                                <rect key="frame" x="255" y="480" width="90" height="90"/>
+                                <rect key="frame" x="115" y="360" width="90" height="90"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cv5-kj-6I1">
                                         <rect key="frame" x="35" y="27" width="20" height="36"/>
@@ -67,7 +67,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sYA-Z1-beK">
-                                <rect key="frame" x="490" y="510" width="60" height="60"/>
+                                <rect key="frame" x="214" y="390" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="HZe-ky-dHm"/>
                                     <constraint firstAttribute="height" constant="60" id="WSC-fR-n9R"/>
@@ -83,7 +83,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="yzO-AQ-R2d" customClass="KolodaView" customModule="AdHype" customModuleProvider="target">
-                                <rect key="frame" x="25" y="45" width="550" height="419"/>
+                                <rect key="frame" x="21" y="45" width="278" height="299"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
                                         <integer key="value" value="-10"/>
@@ -91,7 +91,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XhJ-Bz-ihX" userLabel="Out of Cards View">
-                                <rect key="frame" x="200" y="205" width="200" height="100"/>
+                                <rect key="frame" x="60" y="145" width="200" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Vm-Px-ECU">
                                         <rect key="frame" x="25" y="52" width="150" height="40"/>
@@ -165,6 +165,7 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="countLabel" destination="cv5-kj-6I1" id="N0Z-ei-GAl"/>
                         <outlet property="kolodaView" destination="yzO-AQ-R2d" id="3yZ-Fx-Jig"/>
