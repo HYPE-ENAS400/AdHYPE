@@ -26,6 +26,7 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
     private var hiddenBarFrame: CGRect!
     private var visibleBarFrame: CGRect!
     
+    var helpDelegate: HelpSettingsDelegate!
     
     var existingIDS: [String]?
     
@@ -58,6 +59,7 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
         storyboard = UIStoryboard(name: "HelpSettingsView", bundle: nil)
         helpSettingsVC = storyboard.instantiateViewControllerWithIdentifier("helpSettingsView") as? HelpSettingsVC
         helpSettingsVC?.messageDelegate = self
+        helpSettingsVC?.delegate = helpDelegate
         
 
     }

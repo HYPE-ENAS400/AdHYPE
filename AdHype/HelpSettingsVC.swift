@@ -12,6 +12,8 @@ import Firebase
 class HelpSettingsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate{
     
     @IBOutlet weak var submitFeedbackButton: UIButton!
+    @IBOutlet weak var helpButton: UIButton!
+    @IBOutlet weak var privacyPolicyButton: UIButton!
     @IBOutlet weak var feedbackTextView: UITextView!
     
     @IBOutlet weak var commentTypePicker: UIPickerView!
@@ -20,6 +22,7 @@ class HelpSettingsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var selectedRow: Int = 0
     
     var messageDelegate: DisplayMessageDelegate!
+    var delegate: HelpSettingsDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +31,19 @@ class HelpSettingsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         submitFeedbackButton.layer.shadowColor = UIColor.grayColor().CGColor
         submitFeedbackButton.layer.shadowRadius = 3
         submitFeedbackButton.layer.shadowOpacity = 1.0
+        
+        helpButton.layer.cornerRadius = CGFloat(Constants.DEFAULTCORNERRADIUS)
+        helpButton.layer.shadowOffset = CGSizeZero
+        helpButton.layer.shadowColor = UIColor.grayColor().CGColor
+        helpButton.layer.shadowRadius = 3
+        helpButton.layer.shadowOpacity = 1.0
+        
+        privacyPolicyButton.layer.cornerRadius = CGFloat(Constants.DEFAULTCORNERRADIUS)
+        privacyPolicyButton.layer.shadowOffset = CGSizeZero
+        privacyPolicyButton.layer.shadowColor = UIColor.grayColor().CGColor
+        privacyPolicyButton.layer.shadowRadius = 3
+        privacyPolicyButton.layer.shadowOpacity = 1.0
+
         
         pickerData = ["bug--minor", "bug--critical", "user interface", "general feedback"]
         commentTypePicker.dataSource = self
@@ -71,6 +87,9 @@ class HelpSettingsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     func getUserName() -> String{
         return (FIRAuth.auth()?.currentUser?.displayName)!
     }
+    @IBAction func helpButtonClicked(sender: AnyObject) {
+        delegate.onOpenHelperViews()
+    }
     
     @IBAction func onSubmitFeedbackButtonClicked(sender: AnyObject) {
         messageDelegate.displayMessage("Thank you!", duration: 1.5)
@@ -79,4 +98,8 @@ class HelpSettingsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         feedbackTextView.text = ""
         
     }
+}
+
+protocol HelpSettingsDelegate{
+    func onOpenHelperViews()
 }

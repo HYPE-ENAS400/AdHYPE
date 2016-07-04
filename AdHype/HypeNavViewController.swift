@@ -204,6 +204,7 @@ class HypeNavViewController: CustomNavVC {
         let storyboard = UIStoryboard(name: "Settings Nav View", bundle:nil)
         settingsViewController = storyboard.instantiateViewControllerWithIdentifier("settingsNavVC") as? SettingsNavVC
         settingsViewController?.userInterests = userInterests
+        settingsViewController?.helpDelegate = self
         
         if isViewControllerActiveVC(gridViewController){
             gridViewController?.clearLoadedVCsWhenSettingsOrHypeClicked()
@@ -298,6 +299,16 @@ class HypeNavViewController: CustomNavVC {
         socialAd = nil
     }
     
+    @IBAction func unwindFromHelperViewsSegue(segue: UIStoryboardSegue){
+        
+    }
+    
+}
+
+extension HypeNavViewController: HelpSettingsDelegate{
+    func onOpenHelperViews() {
+        self.performSegueWithIdentifier("showHelperViewsSegue", sender: nil)
+    }
 }
 extension HypeNavViewController: MainViewControllerDelegate{
     func onSwipeUp(ad: HypeAd, onClose: (canceled: Bool)->Void){

@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -206,6 +207,7 @@
                         <outlet property="settingsButton" destination="qfu-TZ-bkh" id="7Ws-d1-a6z"/>
                         <segue destination="Tth-DT-5QP" kind="modal" identifier="showAdSocialViewSegue" id="sfS-bH-TAf"/>
                         <segue destination="df8-KS-fRU" kind="modal" identifier="logInSegue" id="hZ6-BE-zBM"/>
+                        <segue destination="K03-kC-iVV" kind="modal" identifier="showHelperViewsSegue" id="eRR-BH-Y68"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jtF-ZO-W1y" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -247,8 +249,93 @@
             </objects>
             <point key="canvasLocation" x="645" y="501"/>
         </scene>
+        <!--Helper Views NavVC-->
+        <scene sceneID="Qzu-Ym-USU">
+            <objects>
+                <viewController id="K03-kC-iVV" customClass="HelperViewsNavVC" customModule="AdHype" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wtY-A1-9UY"/>
+                        <viewControllerLayoutGuide type="bottom" id="Cyb-8D-aWp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="R3E-Kj-fsX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BqU-ij-8rw">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="20"/>
+                                <color key="backgroundColor" red="0.79494160349999998" green="0.1812897926" blue="0.23730974660000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="8Ax-Wz-1F7"/>
+                                    <constraint firstAttribute="height" constant="20" id="MCK-Kw-UgQ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NLz-P2-WKU">
+                                <rect key="frame" x="0.0" y="65" width="320" height="503"/>
+                                <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tAr-dr-pFY">
+                                <rect key="frame" x="0.0" y="20" width="320" height="35"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A0Y-kT-3s8">
+                                        <rect key="frame" x="10" y="0.0" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="A0Y-kT-3s8" secondAttribute="height" multiplier="1:1" id="fEO-O9-dUg"/>
+                                        </constraints>
+                                        <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                        <state key="normal" image="close_button"/>
+                                        <connections>
+                                            <action selector="onCloseButtonClicked:" destination="K03-kC-iVV" eventType="touchUpInside" id="epk-xZ-Tl9"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="A0Y-kT-3s8" firstAttribute="top" secondItem="tAr-dr-pFY" secondAttribute="top" id="E0Z-yQ-xnE"/>
+                                    <constraint firstAttribute="height" constant="35" id="J6a-IK-Lpl"/>
+                                    <constraint firstItem="A0Y-kT-3s8" firstAttribute="leading" secondItem="tAr-dr-pFY" secondAttribute="leading" constant="10" id="RhG-Ls-jup"/>
+                                    <constraint firstAttribute="bottom" secondItem="A0Y-kT-3s8" secondAttribute="bottom" id="Sm9-4z-ecE"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.zPosition">
+                                        <integer key="value" value="-10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="tAr-dr-pFY" secondAttribute="trailing" id="2Wa-tc-Ouw"/>
+                            <constraint firstItem="NLz-P2-WKU" firstAttribute="leading" secondItem="R3E-Kj-fsX" secondAttribute="leading" id="96T-cz-lck"/>
+                            <constraint firstAttribute="trailing" secondItem="BqU-ij-8rw" secondAttribute="trailing" id="F1z-kt-3ga"/>
+                            <constraint firstItem="tAr-dr-pFY" firstAttribute="top" secondItem="wtY-A1-9UY" secondAttribute="bottom" id="FrW-Ij-207"/>
+                            <constraint firstItem="BqU-ij-8rw" firstAttribute="leading" secondItem="R3E-Kj-fsX" secondAttribute="leading" id="NRg-fl-S89"/>
+                            <constraint firstItem="BqU-ij-8rw" firstAttribute="top" secondItem="R3E-Kj-fsX" secondAttribute="top" id="PVn-4I-pAQ"/>
+                            <constraint firstAttribute="trailing" secondItem="NLz-P2-WKU" secondAttribute="trailing" id="QcZ-86-9ZF"/>
+                            <constraint firstItem="tAr-dr-pFY" firstAttribute="leading" secondItem="R3E-Kj-fsX" secondAttribute="leading" id="WBA-MT-ufI"/>
+                            <constraint firstItem="Cyb-8D-aWp" firstAttribute="top" secondItem="NLz-P2-WKU" secondAttribute="bottom" id="WTb-NU-ODB"/>
+                            <constraint firstItem="NLz-P2-WKU" firstAttribute="top" secondItem="tAr-dr-pFY" secondAttribute="bottom" constant="10" id="aGY-PY-F1H"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="helperNavVCContainerView" destination="NLz-P2-WKU" id="gqy-eW-gfg"/>
+                        <outlet property="pageIndicatorContainerView" destination="tAr-dr-pFY" id="kv2-XE-6Rq"/>
+                        <segue destination="vh6-EK-hpb" kind="unwind" identifier="unwindFromHelperViewsSegue" unwindAction="unwindFromHelperViewsSegue:" id="eES-RU-goP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aks-F7-Ol1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="vh6-EK-hpb" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="178" y="-201"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="close_button" width="55" height="55"/>
         <image name="grid_button" width="36" height="36"/>
         <image name="settings_button" width="36" height="36"/>
     </resources>
