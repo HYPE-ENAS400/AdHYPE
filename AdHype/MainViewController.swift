@@ -50,7 +50,7 @@ class MainViewController: UIViewController {
         
         userRef = FIRDatabase.database().reference().child(Constants.USERSNODE).child(getUserID())
         
-        delay(5){
+        delay(10){
             if !self.mainSpinner.hidden{
                 self.outOfCardsView.hidden = false
                 self.mainSpinner.stopAnimating()
@@ -374,7 +374,13 @@ extension MainViewController: KolodaViewDelegate {
         } else if !adsMetaDataQueue.isEmpty(){
             appendAdIfRoom()
         } else {
-            outOfCardsView.hidden = false   
+            mainSpinner.startAnimating()
+            delay(5){
+                if !self.mainSpinner.hidden{
+                    self.outOfCardsView.hidden = false
+                    self.mainSpinner.stopAnimating()
+                }
+            }
         }
     }
     
@@ -393,8 +399,16 @@ extension MainViewController: KolodaViewDelegate {
     
     func koloda(koloda: KolodaView, didSelectCardAtIndex index: UInt) {
         let newIndex = getProxyIndex(Int(index))
+        let ad = ads[newIndex]
+        guard let urlString = ad.getURL() else {
+            return
+        }
         
-        if let url = NSURL(string: ads[newIndex].getURL()){
+        let timeStamp = String(Int(NSDate().timeIntervalSince1970))
+        let aggregateCardsRef = userRef.child(Constants.AGGREGATECARDSCLICKED).child(ad.getKey())
+        aggregateCardsRef.child(timeStamp).setValue(true)
+        
+        if let url = NSURL(string: urlString){
             if #available(iOS 9.0, *) {
                 let vc = SFSafariViewController(URL: url, entersReaderIfAvailable: false)
                 presentViewController(vc, animated: true, completion: nil)

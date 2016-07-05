@@ -90,9 +90,8 @@ extension BoardHelperVC: TouchIndicatorDelegate{
             UIView.animateWithDuration(0.7, animations: {
                 self.ad3ContainerView.alpha = 1
             })
-            self.setNewInstructionText("press and hold the ad to activate the delete button")
         case 0:
-            self.setNewInstructionText("tap the button to delete the ad")
+            return
         default:
             return
         }
@@ -131,8 +130,10 @@ extension BoardHelperVC: TouchIndicatorDelegate{
         switch totalResetCount % 2{
         case 1:
             touchIndicatorOuterView.center.y += 20
+            self.setNewInstructionText("and tap the button to delete the ad")
         case 0:
             touchIndicatorOuterView.center.y -= 20
+            self.setNewInstructionText("Press and hold the ad to activate the delete button...")
         default:
             return
         }

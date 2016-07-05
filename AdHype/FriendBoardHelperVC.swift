@@ -81,7 +81,7 @@ class FriendBoardHelperVC: UIViewController{
     }
     
     func startTouchAnimations(){
-        touchIndicator = TouchIndicatorClass(outerView: touchIndicatorOuterView, innerView: touchIndicatorInnerView, restartDelay: 2, delegate: self)
+        touchIndicator = TouchIndicatorClass(outerView: touchIndicatorOuterView, innerView: touchIndicatorInnerView, restartDelay: 0.5, delegate: self)
         touchIndicator?.startTouchIndicatorAnimations()
     }
     
@@ -98,9 +98,9 @@ extension FriendBoardHelperVC: TouchIndicatorDelegate{
             UIView.animateWithDuration(0.1, animations: {
                 self.ad3DeleteButton.alpha = 0
             })
-            setNewInstructionText("Tap the friend icon to see your friends' boards.")
+            
         case 0:
-            setNewInstructionText("Here you can save friends' photos with a long press.")
+            return
         default:
             return
         }
@@ -139,9 +139,11 @@ extension FriendBoardHelperVC: TouchIndicatorDelegate{
         case 1:
             touchIndicatorOuterView.center.x += 15
             touchIndicatorOuterView.center.y += 40
+            setNewInstructionText("Here you can save friends' photos with a long press")
         case 0:
             touchIndicatorOuterView.center.x -= 15
             touchIndicatorOuterView.center.y -= 40
+            setNewInstructionText("Tap the friend icon to see your friends' boards...")
         default:
             return
         }

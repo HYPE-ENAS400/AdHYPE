@@ -18,6 +18,10 @@ struct Constants {
     static let MAXNUMADQUEUE = 10
     
     
+    static let HASSEENMAINKEY = "hasSeenMainViewKey"
+    static let HASSEENGRIDKEY = "hasSeenGridViewKey"
+    static let HASSEENSOCIALKEY = "hasSeenSocialViewKey"
+    
     static let RECEIVEDADQUEUENODE = "ReceivedAdsFromFriends"
     static let ADSLIKEDNODE = "cardsLiked"
     static let ADVIEWEDCOUNTNODE = "adViewedCount"
@@ -26,6 +30,7 @@ struct Constants {
     static let AGGREGATECARDSDISLIKED = "aggregateCardsDisliked"
     static let AGGREGATECARDSSENT = "aggregateCardsSent"
     static let AGGREGATEUSERCAPTIONS = "aggregateUserCaptions"
+    static let AGGREGATECARDSCLICKED = "aggregateCardsClicked"
     
     static let USERNAMESNODE = "UserNames"
     static let USERSNODE = "users"

@@ -8,12 +8,20 @@
 
 import UIKit
 
+enum HelperViewSection{
+    case MainView
+    case GridView
+    case SocialView
+    case AllViews
+}
+
 class HelperViewsNavVC: CustomNavVC{
     
     @IBOutlet weak var pageIndicatorContainerView: UIView!
     var indicatorViews = [UIView]()
     let indicatorSpacing: CGFloat =  3.0
     let indicatorDimension: CGFloat = 10.0
+    var section: HelperViewSection!
     
     @IBOutlet weak var helperNavVCContainerView: UIView!{
         didSet{
@@ -21,14 +29,24 @@ class HelperViewsNavVC: CustomNavVC{
         }
     }
     
-//    var pageVCIDs = ["firstSocialPageVC", "addPublicCaptionHelperVC", "addNewCaptionHelperVC", "clickSendHelperVC", "sendAdHelperVC"]
-    var pageVCIDs = ["rightSwipePageVCNEW", "leftSwipePageVCNEW", "upSwipePageVCNEW", "firstSocialPageVC", "addPublicCaptionHelperVC", "addNewCaptionHelperVC", "clickSendHelperVC", "sendAdHelperVC", "firstBoardHelperVC", "boardHelperVC", "clickAdBoardHelperVC", "friendBoardHelperVC"]
+    var pageVCIDs: [String]!
     
   
     var curVCIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        switch section!{
+        case HelperViewSection.MainView:
+            pageVCIDs = ["rightSwipePageVCNEW", "leftSwipePageVCNEW", "upSwipePageVCNEW"]
+        case HelperViewSection.GridView:
+            pageVCIDs = ["firstBoardHelperVC", "boardHelperVC", "clickAdBoardHelperVC", "friendBoardHelperVC"]
+        case HelperViewSection.SocialView:
+            pageVCIDs = ["firstSocialPageVC", "addPublicCaptionHelperVC", "addNewCaptionHelperVC", "clickSendHelperVC", "sendAdHelperVC"]
+        case HelperViewSection.AllViews:
+            pageVCIDs = ["rightSwipePageVCNEW", "leftSwipePageVCNEW", "upSwipePageVCNEW", "firstSocialPageVC", "addPublicCaptionHelperVC", "addNewCaptionHelperVC", "clickSendHelperVC", "sendAdHelperVC", "firstBoardHelperVC", "boardHelperVC", "clickAdBoardHelperVC", "friendBoardHelperVC"]
+        }
         
         let firstVC = createGeneralViewControllerForID("HelperViews", vcID: pageVCIDs.first!)
         setSwipeGestureRecognizersOnView(firstVC.view)
@@ -77,7 +95,13 @@ class HelperViewsNavVC: CustomNavVC{
     }
     
     @IBAction func onCloseButtonClicked(sender: AnyObject) {
-        self.performSegueWithIdentifier("unwindFromHelperViewsSegue", sender: nil)
+        
+        if section == HelperViewSection.SocialView{
+            self.performSegueWithIdentifier("unwindFromHelpToSocialSegue", sender: nil)
+        } else{
+           self.performSegueWithIdentifier("unwindFromHelperViewsSegue", sender: nil)
+        }
+        
     }
     
 }

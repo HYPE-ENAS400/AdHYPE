@@ -24,7 +24,7 @@ struct HypeAdMetaData{
     var key: String!
     var isFromFriend: Bool = false
     var captionFromFriend: String?
-    var url: String!
+    var url: String?
     var primaryTag: String!
     
     init(name: String, key: String, url: String, primaryTag: String, isFromFriend: Bool, captionFromFriend: String?){
@@ -122,7 +122,7 @@ class HypeAd: Equatable{
     func getKey() -> String{
         return adMetaData.key
     }
-    func getURL() -> String{
+    func getURL() -> String?{
         return adMetaData.url
     }
     func getMetaData() -> HypeAdMetaData{
@@ -133,9 +133,12 @@ class HypeAd: Equatable{
     }
     func getMetaDataDict() -> [String: String]{
         var dict = [String: String]()
-        dict = [Constants.ADNAMENODE: adMetaData.name, Constants.ADPRIMARYTAGNODE: adMetaData.primaryTag, Constants.ADURLNODE: adMetaData.url, Constants.ADISFROMFRIEND: String(adMetaData.isFromFriend)]
+        dict = [Constants.ADNAMENODE: adMetaData.name, Constants.ADPRIMARYTAGNODE: adMetaData.primaryTag, Constants.ADISFROMFRIEND: String(adMetaData.isFromFriend)]
         if let caption = adMetaData.captionFromFriend{
             dict[Constants.ADCAPTIONNODE] = caption
+        }
+        if let url = adMetaData.url{
+            dict[Constants.ADURLNODE] = url
         }
         return dict
     }

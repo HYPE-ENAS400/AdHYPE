@@ -71,6 +71,7 @@
                         <outlet property="containerView" destination="707-69-cH0" id="Rck-Yq-4mI"/>
                         <outlet property="socialNavVCContainerView" destination="707-69-cH0" id="bah-RK-YLE"/>
                         <segue destination="8le-Y6-m6g" kind="unwind" identifier="unwindFromAdSocialViewSegue" unwindAction="unwindFromAdSocialViewSegue:" id="ili-us-3Op"/>
+                        <segue destination="K03-kC-iVV" kind="modal" identifier="socialToHelperViewsSegue" modalTransitionStyle="flipHorizontal" id="DNm-va-IYf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rRj-tz-adx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -207,7 +208,7 @@
                         <outlet property="settingsButton" destination="qfu-TZ-bkh" id="7Ws-d1-a6z"/>
                         <segue destination="Tth-DT-5QP" kind="modal" identifier="showAdSocialViewSegue" id="sfS-bH-TAf"/>
                         <segue destination="df8-KS-fRU" kind="modal" identifier="logInSegue" id="hZ6-BE-zBM"/>
-                        <segue destination="K03-kC-iVV" kind="modal" identifier="showHelperViewsSegue" id="eRR-BH-Y68"/>
+                        <segue destination="K03-kC-iVV" kind="modal" identifier="showHelperViewsSegue" modalTransitionStyle="flipHorizontal" id="eRR-BH-Y68"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jtF-ZO-W1y" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -326,6 +327,7 @@
                         <outlet property="helperNavVCContainerView" destination="NLz-P2-WKU" id="gqy-eW-gfg"/>
                         <outlet property="pageIndicatorContainerView" destination="tAr-dr-pFY" id="kv2-XE-6Rq"/>
                         <segue destination="vh6-EK-hpb" kind="unwind" identifier="unwindFromHelperViewsSegue" unwindAction="unwindFromHelperViewsSegue:" id="eES-RU-goP"/>
+                        <segue destination="vh6-EK-hpb" kind="unwind" identifier="unwindFromHelpToSocialSegue" unwindAction="unwindFromHelpToSocialSegue:" id="cN7-0F-Cqy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aks-F7-Ol1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -339,4 +341,7 @@
         <image name="grid_button" width="36" height="36"/>
         <image name="settings_button" width="36" height="36"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="eRR-BH-Y68"/>
+    </inferredMetricsTieBreakers>
 </document>

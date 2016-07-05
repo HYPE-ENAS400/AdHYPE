@@ -39,6 +39,32 @@ class SocialNavVC: CustomNavVC {
         setActiveViewController(nil, viewController: adSocialViewController)
     }
 
+    override func viewDidAppear(animated: Bool) {
+        
+        //socialToHelperViewsSegue
+        super.viewDidAppear(animated)
+        
+        let keychainWrapper = KeychainWrapper.standardKeychainAccess()
+        if !keychainWrapper.hasValueForKey(Constants.HASSEENSOCIALKEY){
+            self.performSegueWithIdentifier("socialToHelperViewsSegue", sender: nil)
+        }
+        
+        
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "socialToHelperViewsSegue" {
+            let nextVC = segue.destinationViewController as! HelperViewsNavVC
+            nextVC.section = HelperViewSection.SocialView
+        }
+    }
+    
+    @IBAction func unwindFromHelpToSocialSegue(segue: UIStoryboardSegue){
+        let keychainWrapper = KeychainWrapper.standardKeychainAccess()
+        keychainWrapper.setBool(true, forKey: Constants.HASSEENSOCIALKEY)
+    }
+
     
 }
 

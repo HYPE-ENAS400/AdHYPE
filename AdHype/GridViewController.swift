@@ -126,7 +126,10 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     @IBAction func didDoubleTapCollectionView(gesture: UITapGestureRecognizer){
         if let cell = getCellFromGesture(gesture){
-            if let url = NSURL(string: cell.cellAd.getURL()){
+            guard let urlString = cell.cellAd.getURL() else {
+                return
+            }
+            if let url = NSURL(string: urlString){
                 if #available(iOS 9.0, *) {
                     let vc = SFSafariViewController(URL: url, entersReaderIfAvailable: false)
                     presentViewController(vc, animated: true, completion: nil)
@@ -135,6 +138,13 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
                 }
                 
             }
+            guard let userID = FIRAuth.auth()?.currentUser?.uid else {
+                return
+            }
+            let timeStamp = String(Int(NSDate().timeIntervalSince1970))
+            let aggregateCardsRef = FIRDatabase.database().reference().child(Constants.USERSNODE).child(userID).child(Constants.AGGREGATECARDSCLICKED).child(cell.cellAd.getKey())
+            aggregateCardsRef.child(timeStamp).setValue(true)
+            
         }
 
         
@@ -170,13 +180,13 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
 
 extension GridViewController: ImageGridCellDelegate{
     func onPressedDelete(ad: HypeAd){
-        
-        guard let interestIndex = interests.indexOf(ad.getPrimaryTag()) else {
+        let pTag = ad.getPrimaryTag()
+        guard let interestIndex = interests.indexOf(pTag) else {
             print("INTEREST FOR AD TO BE DELETED DOES NOT EXIST")
             return
         }
         
-        guard let index = adStore[ad.getPrimaryTag()]?.indexOf(ad) else {
+        guard let index = adStore[pTag]?.indexOf(ad) else {
             print("ERROR ACCESSING AD NAME TO DELETE")
             return
         }
@@ -184,9 +194,16 @@ extension GridViewController: ImageGridCellDelegate{
         if !isFriendGrid{
             adsLikedRef.child(ad.getKey()).removeValue()
             
-            adStore[ad.getPrimaryTag()]?.removeAtIndex(index)
+
+            adStore[pTag]?.removeAtIndex(index)
             
-            collectionView?.deleteItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: interestIndex)])
+            if adStore[pTag]?.count == 0{
+                interests.removeAtIndex(interestIndex)
+                collectionView?.deleteSections(NSIndexSet(index: interestIndex))
+            } else{
+                collectionView?.deleteItemsAtIndexPaths([NSIndexPath(forRow: index, inSection: interestIndex)])
+            }
+            
         } else{
             guard let userID = FIRAuth.auth()?.currentUser?.uid else {
                 return

@@ -108,6 +108,11 @@ class AdSocialViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        guard captionVisibleFrame == nil else {
+            return
+        }
+        
         captionVisibleFrame = captionTextView.frame
         captionHiddenFrame = captionVisibleFrame
         captionHiddenFrame.origin.y += 70
@@ -128,6 +133,7 @@ class AdSocialViewController: UIViewController {
     
     @IBAction func onCaptionTextViewSwipeDown(sender: AnyObject) {
         isCaptionVisible = false
+        captionTextView.resignFirstResponder()
     }
     
     @IBAction func onAddCaptionButtonClicked(sender: AnyObject) {

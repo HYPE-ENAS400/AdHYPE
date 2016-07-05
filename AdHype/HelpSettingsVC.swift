@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SafariServices
 
 class HelpSettingsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate{
     
@@ -97,6 +98,18 @@ class HelpSettingsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         ref.child(pickerData[selectedRow]).childByAutoId().setValue(feedbackTextView.text + "from: \(getUserName())")
         feedbackTextView.text = ""
         
+    }
+    @IBAction func onPrivacyPolicyButtonClicked(sender: AnyObject) {
+        
+        if #available(iOS 9.0, *) {
+            guard let url = NSURL(string: "https://www.iubenda.com/privacy-policy/7874766") else {
+                return
+            }
+            let vc = SFSafariViewController(URL: url, entersReaderIfAvailable: false)
+            presentViewController(vc, animated: true, completion: nil)
+        } else {
+            // Fallback on earlier versions
+        }
     }
 }
 

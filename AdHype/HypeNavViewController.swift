@@ -22,7 +22,6 @@ class HypeNavViewController: CustomNavVC {
     @IBOutlet var hypeButton: UIButton!
     @IBOutlet var settingsButton: UIButton!
     @IBOutlet var hypeBarView: UIView!
-    
     @IBOutlet weak var hypeNavViewContainerView: UIView!{
         didSet{
             super.containerView = hypeNavViewContainerView
@@ -41,9 +40,9 @@ class HypeNavViewController: CustomNavVC {
     
     var wasSwipeUp: Bool!
     var needUserInfo: Bool = false
-    
     private var shouldInitOnAuthStateChange = true
     var shouldInitFromSignUp = false
+    var helperSection: HelperViewSection!
     
     override func viewDidLoad() {
         
@@ -102,6 +101,14 @@ class HypeNavViewController: CustomNavVC {
     }
     
     private func initializeHype(uid: String){
+        let keychainWrapper = KeychainWrapper.standardKeychainAccess()
+        
+        guard keychainWrapper.hasValueForKey(Constants.HASSEENMAINKEY) else {
+            helperSection = HelperViewSection.MainView
+            showHelperViews()
+            return
+        }
+        
         // get user interests
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
@@ -219,6 +226,7 @@ class HypeNavViewController: CustomNavVC {
         guard !isViewControllerActiveVC(mainViewController) else {
             return
         }
+        
         settingsViewController = nil
         hypeBarView.layer.shadowOpacity = 1.0
         settingsButton.alpha = 0.7
@@ -244,6 +252,13 @@ class HypeNavViewController: CustomNavVC {
         hypeButton.alpha = 0.7
         gridButton.alpha = 1
         setActiveViewController(.toLeft, viewController: gridViewController)
+        
+        let keychainWrapper = KeychainWrapper.standardKeychainAccess()
+        guard keychainWrapper.hasValueForKey(Constants.HASSEENGRIDKEY) else {
+            helperSection = HelperViewSection.GridView
+            showHelperViews()
+            return
+        }
 
     }
     
@@ -254,15 +269,20 @@ class HypeNavViewController: CustomNavVC {
             newVC.ad = socialAd
             newVC.wasSwipeUp = wasSwipeUp
             
-        }
-        if segue.identifier == "logInSegue" {
+        } else if segue.identifier == "logInSegue" {
             let newVC = segue.destinationViewController as! LoginNavVC
             newVC.needUserInfo = needUserInfo
+        } else if segue.identifier == "showHelperViewsSegue" {
+            let newVC = segue.destinationViewController as! HelperViewsNavVC
+            newVC.section = helperSection
         }
     }
     
     func showViewToChangeUserInfo(){
         self.performSegueWithIdentifier("showAdSocialViewSegue", sender: nil)
+    }
+    func showHelperViews(){
+        self.performSegueWithIdentifier("showHelperViewsSegue", sender: nil)
     }
     
     @IBAction func unwindFromLogInSegue(segue: UIStoryboardSegue){
@@ -300,29 +320,46 @@ class HypeNavViewController: CustomNavVC {
     }
     
     @IBAction func unwindFromHelperViewsSegue(segue: UIStoryboardSegue){
+        let keychainWrapper = KeychainWrapper.standardKeychainAccess()
         
+        switch helperSection!{
+        case .GridView:
+            keychainWrapper.setBool(true, forKey: Constants.HASSEENGRIDKEY)
+        case .MainView:
+            keychainWrapper.setBool(true, forKey: Constants.HASSEENMAINKEY)
+            let uid = (FIRAuth.auth()?.currentUser?.uid)!
+            initializeHype(uid)
+        default:
+            return
+        }
     }
     
 }
 
 extension HypeNavViewController: HelpSettingsDelegate{
     func onOpenHelperViews() {
-        self.performSegueWithIdentifier("showHelperViewsSegue", sender: nil)
+        helperSection = HelperViewSection.AllViews
+        showHelperViews()
     }
 }
 extension HypeNavViewController: MainViewControllerDelegate{
     func onSwipeUp(ad: HypeAd, onClose: (canceled: Bool)->Void){
+        
         socialAd = ad
         wasSwipeUp = true
-        self.performSegueWithIdentifier("showAdSocialViewSegue", sender: nil)
         onAdSocialVCClosedFunc = onClose
+        
+        self.performSegueWithIdentifier("showAdSocialViewSegue", sender: nil)
+        
     }
 }
 
 extension HypeNavViewController: GridViewControllerDelegate{
     func onAdFromGridDoubleClicked(ad: HypeAd) {
+        
         socialAd = ad
         wasSwipeUp = false
+        
         self.performSegueWithIdentifier("showAdSocialViewSegue", sender: nil)
     }
 }

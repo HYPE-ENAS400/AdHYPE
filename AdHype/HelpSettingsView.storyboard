@@ -91,6 +91,9 @@
                                 <state key="normal" title="privacy policy">
                                     <color key="titleColor" red="0.7843137255" green="0.7843137255" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="onPrivacyPolicyButtonClicked:" destination="XBP-Q9-Ema" eventType="touchUpInside" id="F1b-AX-OYp"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

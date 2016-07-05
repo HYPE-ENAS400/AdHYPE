@@ -120,10 +120,10 @@ extension SendAdHelperVC: TouchIndicatorDelegate{
         switch totalRepeatCount % 3{
         case 1:
             newCenter = CGPointMake(self.mTableCell.center.x, self.mTableCell.center.y)
-            setNewInstructionText("and which friends to send it to.")
+            setNewInstructionText("and which friends to send it to...")
         case 2:
             newCenter = CGPointMake(self.sendButton.center.x, self.sendButton.center.y)
-            setNewInstructionText("When you're done, press the airplane to send it off.")
+            setNewInstructionText("then press the airplane to send")
 
         case 0:
             self.publishIndicatorView.backgroundColor = UIColor.whiteColor()

@@ -86,6 +86,7 @@ class FriendsTableViewController: UIViewController{
         }
         
         guard recipientIDS.count > 0 else{
+            delegate.onSentToFriends()
             return
         }
         
