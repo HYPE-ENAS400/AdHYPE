@@ -25,9 +25,6 @@ class FirstBoardHelperVC: UIViewController{
     @IBOutlet weak var ad3DeleteButton: UIButton!
     @IBOutlet weak var ad3ImageView: UIImageView!
     
-    var touchIndicator: TouchIndicatorClass?
-    var totalResetCount = 0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         containerView.layer.cornerRadius = 5

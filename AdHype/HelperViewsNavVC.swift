@@ -39,13 +39,13 @@ class HelperViewsNavVC: CustomNavVC{
         
         switch section!{
         case HelperViewSection.MainView:
-            pageVCIDs = ["rightSwipePageVCNEW", "leftSwipePageVCNEW", "upSwipePageVCNEW"]
+            pageVCIDs = ["rightSwipePageVCNEW", "leftSwipePageVCNEW", "upSwipePageVCNEW", "tapCardHelperVC"]
         case HelperViewSection.GridView:
-            pageVCIDs = ["firstBoardHelperVC", "boardHelperVC", "clickAdBoardHelperVC", "friendBoardHelperVC"]
+            pageVCIDs = ["firstBoardHelperVC", "doubleTapBoardHelper", "boardHelperVC", "clickAdBoardHelperVC", "friendBoardHelperVC"]
         case HelperViewSection.SocialView:
             pageVCIDs = ["firstSocialPageVC", "addPublicCaptionHelperVC", "addNewCaptionHelperVC", "clickSendHelperVC", "sendAdHelperVC"]
         case HelperViewSection.AllViews:
-            pageVCIDs = ["rightSwipePageVCNEW", "leftSwipePageVCNEW", "upSwipePageVCNEW", "firstSocialPageVC", "addPublicCaptionHelperVC", "addNewCaptionHelperVC", "clickSendHelperVC", "sendAdHelperVC", "firstBoardHelperVC", "boardHelperVC", "clickAdBoardHelperVC", "friendBoardHelperVC"]
+            pageVCIDs = ["rightSwipePageVCNEW", "leftSwipePageVCNEW", "upSwipePageVCNEW", "tapCardHelperVC", "firstSocialPageVC", "addPublicCaptionHelperVC", "addNewCaptionHelperVC", "clickSendHelperVC", "sendAdHelperVC", "firstBoardHelperVC", "doubleTapBoardHelper", "boardHelperVC", "clickAdBoardHelperVC", "friendBoardHelperVC"]
         }
         
         let firstVC = createGeneralViewControllerForID("HelperViews", vcID: pageVCIDs.first!)

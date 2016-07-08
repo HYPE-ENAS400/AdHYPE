@@ -77,7 +77,7 @@ extension SendAdHelperVC: TouchIndicatorDelegate{
         totalRepeatCount += 1
     }
     func onTouchIndicatorAppeared(){}
-    func onTouchIndicatorTappedDown() -> Double?{
+    func onTouchIndicatorTappedDown() -> TouchType{
         switch totalRepeatCount % 3{
         case 1:
             UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
@@ -107,7 +107,7 @@ extension SendAdHelperVC: TouchIndicatorDelegate{
             break
         }
         
-        return nil
+        return TouchType.Tap
     }
     func onTouchIndicatorTappedUp(){
         if (totalRepeatCount % 3) == 0{

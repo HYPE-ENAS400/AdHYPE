@@ -106,15 +106,15 @@ extension FriendBoardHelperVC: TouchIndicatorDelegate{
         }
     }
     func onTouchIndicatorAppeared(){}
-    func onTouchIndicatorTappedDown() -> Double?{
+    func onTouchIndicatorTappedDown() -> TouchType{
         switch totalResetCount % 2{
         case 1:
             friendButton.highlighted = true
-            return nil
+            return TouchType.Tap
         case 0:
-            return 2
+            return TouchType.LongPress(duration: 1)
         default:
-            return nil
+            return TouchType.Tap
         }
     
     }
@@ -139,7 +139,7 @@ extension FriendBoardHelperVC: TouchIndicatorDelegate{
         case 1:
             touchIndicatorOuterView.center.x += 15
             touchIndicatorOuterView.center.y += 40
-            setNewInstructionText("Here you can save friends' photos with a long press")
+            setNewInstructionText("Here you can save friends' content with a long press")
         case 0:
             touchIndicatorOuterView.center.x -= 15
             touchIndicatorOuterView.center.y -= 40

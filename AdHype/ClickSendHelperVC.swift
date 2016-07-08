@@ -47,9 +47,9 @@ class ClickSendHelperVC: UIViewController{
 extension ClickSendHelperVC: TouchIndicatorDelegate{
     func onRestartingAnimation(){}
     func onTouchIndicatorAppeared(){}
-    func onTouchIndicatorTappedDown() -> Double?{
+    func onTouchIndicatorTappedDown() -> TouchType{
         sendButton.highlighted = true
-        return nil
+        return TouchType.Tap
     }
     func onTouchIndicatorTappedUp(){
         sendButton.highlighted = false

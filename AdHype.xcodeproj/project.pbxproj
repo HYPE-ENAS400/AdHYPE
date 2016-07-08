@@ -73,6 +73,8 @@
 		2BB593291D24CC5B0068AA08 /* GridViewNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB593281D24CC5B0068AA08 /* GridViewNavVC.swift */; };
 		2BB5932B1D24D8920068AA08 /* GridViewFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB5932A1D24D8920068AA08 /* GridViewFriendCell.swift */; };
 		2BB5932D1D24D9530068AA08 /* GridViewFriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB5932C1D24D9530068AA08 /* GridViewFriendsVC.swift */; };
+		2BB7BF971D2D8D2300C5466B /* TapCardHelperVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB7BF961D2D8D2300C5466B /* TapCardHelperVC.swift */; };
+		2BB7BF991D2D8F7200C5466B /* DoubleTapBoardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB7BF981D2D8F7200C5466B /* DoubleTapBoardHelper.swift */; };
 		2BFD161A1D1AE0C7001A210A /* Settings Nav View.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BFD16191D1AE0C7001A210A /* Settings Nav View.storyboard */; };
 		2BFD161E1D1AF208001A210A /* SettingsNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFD161D1D1AF208001A210A /* SettingsNavVC.swift */; };
 		2BFD16201D1AF5B5001A210A /* UserSettingsView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BFD161F1D1AF5B5001A210A /* UserSettingsView.storyboard */; };
@@ -153,6 +155,8 @@
 		2BB593281D24CC5B0068AA08 /* GridViewNavVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridViewNavVC.swift; sourceTree = "<group>"; };
 		2BB5932A1D24D8920068AA08 /* GridViewFriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridViewFriendCell.swift; sourceTree = "<group>"; };
 		2BB5932C1D24D9530068AA08 /* GridViewFriendsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridViewFriendsVC.swift; sourceTree = "<group>"; };
+		2BB7BF961D2D8D2300C5466B /* TapCardHelperVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapCardHelperVC.swift; sourceTree = "<group>"; };
+		2BB7BF981D2D8F7200C5466B /* DoubleTapBoardHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleTapBoardHelper.swift; sourceTree = "<group>"; };
 		2BFD16191D1AE0C7001A210A /* Settings Nav View.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Settings Nav View.storyboard"; sourceTree = "<group>"; };
 		2BFD161D1D1AF208001A210A /* SettingsNavVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsNavVC.swift; sourceTree = "<group>"; };
 		2BFD161F1D1AF5B5001A210A /* UserSettingsView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserSettingsView.storyboard; sourceTree = "<group>"; };
@@ -184,7 +188,7 @@
 				2B3B26951D2AAD65007511EB /* HelperViews.storyboard */,
 				2B3B26971D2AAD65007511EB /* HelperViewsNavVC.swift */,
 				2B3B26991D2AAD65007511EB /* TouchIndicatorClass.swift */,
-				2B3B26B51D2AB4F7007511EB /* Swipe Helpers */,
+				2B3B26B51D2AB4F7007511EB /* Main Helpers */,
 				2B3B26B11D2AB4A6007511EB /* Social Helpers */,
 				2B3B26B21D2AB4C7007511EB /* Board Helpers */,
 			);
@@ -210,17 +214,19 @@
 				2B3B269E1D2AAD65007511EB /* BoardHelperVC.swift */,
 				2B3B269F1D2AAD65007511EB /* ClickAdBoardHelperVC.swift */,
 				2B3B26A01D2AAD65007511EB /* FriendBoardHelperVC.swift */,
+				2BB7BF981D2D8F7200C5466B /* DoubleTapBoardHelper.swift */,
 			);
 			name = "Board Helpers";
 			sourceTree = "<group>";
 		};
-		2B3B26B51D2AB4F7007511EB /* Swipe Helpers */ = {
+		2B3B26B51D2AB4F7007511EB /* Main Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				2B3B26961D2AAD65007511EB /* HelperViewsVCS.swift */,
 				2B3B26981D2AAD65007511EB /* SwipeCardHelperView.swift */,
+				2BB7BF961D2D8D2300C5466B /* TapCardHelperVC.swift */,
 			);
-			name = "Swipe Helpers";
+			name = "Main Helpers";
 			sourceTree = "<group>";
 		};
 		2B66B3821D1074DC00DE197D = {
@@ -543,6 +549,7 @@
 				2BFD16261D1AFC50001A210A /* FriendsSettingsVC.swift in Sources */,
 				2BB5931E1D2426750068AA08 /* SignUpUserInfoVC.swift in Sources */,
 				2B3B26A91D2AAD65007511EB /* SendAdHelperVC.swift in Sources */,
+				2BB7BF971D2D8D2300C5466B /* TapCardHelperVC.swift in Sources */,
 				2B3B26AA1D2AAD65007511EB /* BoardHelperVC.swift in Sources */,
 				2BFD16241D1AF9E1001A210A /* UserSettingsVC.swift in Sources */,
 				2B9EAA231D1098BA00396A63 /* ImageGridCell.swift in Sources */,
@@ -559,6 +566,7 @@
 				2B66B38F1D1074DC00DE197D /* AppDelegate.swift in Sources */,
 				2B9EAA4C1D10B1BE00396A63 /* DraggableCardView.swift in Sources */,
 				2B3B26A51D2AAD65007511EB /* TouchIndicatorClass.swift in Sources */,
+				2BB7BF991D2D8F7200C5466B /* DoubleTapBoardHelper.swift in Sources */,
 				2B3B26B01D2AB48F007511EB /* FirstSocialPageVC.swift in Sources */,
 				2B75DF251D1766AC0047A0DF /* SocialNavVC.swift in Sources */,
 				2B75DF0A1D14535D0047A0DF /* AdCaptionCell.swift in Sources */,

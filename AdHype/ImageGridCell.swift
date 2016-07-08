@@ -39,7 +39,7 @@ class ImageGridCell: UICollectionViewCell{
     
     func downloadImageForAd(){
         cellAd.downloadImage({(result) -> Void in
-            if case let .Success(ad) = result{
+            if case let .Success(ad) = result{                
                 let image = ad.getImage()
                 self.updateWithImage(image)
             }

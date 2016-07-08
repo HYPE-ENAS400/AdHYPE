@@ -69,7 +69,12 @@ class GridViewNavVC: CustomNavVC{
     }
     
     func clearUserGridView(){
+        guard self.isViewLoaded() else {
+            return
+        }
+        setActiveViewController(nil, viewController: nil)
         userGridVC?.clearGridView()
+        userGridVC = nil
     }
     
     

@@ -8,6 +8,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet var signUpButton: UIButton!
     @IBOutlet var logInButton: UIButton!
     @IBOutlet var errorLabel: UILabel!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var userName: String!
     var password: String!
@@ -59,12 +60,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         
         logInButton.userInteractionEnabled = false
         signUpButton.userInteractionEnabled = false
-        
+        spinner.startAnimating()
         userName = userNameTextEdit.text
         password = passwordTextEdit.text
         
         //TODO fix conditionals
         FIRAuth.auth()?.signInWithEmail(userNameTextEdit.text!, password: passwordTextEdit.text!, completion: { (user, error) -> Void in
+            self.spinner.stopAnimating()
             if let error = error{
                 
                 self.logInButton.userInteractionEnabled = true
@@ -93,9 +95,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         
         userName = userNameTextEdit.text
         password = passwordTextEdit.text
-        
+        spinner.startAnimating()
         FIRAuth.auth()?.createUserWithEmail(userName, password: password,
             completion: { (user, error) -> Void in
+                self.spinner.stopAnimating()
                 if let error = error{
                     
                     self.logInButton.userInteractionEnabled = true

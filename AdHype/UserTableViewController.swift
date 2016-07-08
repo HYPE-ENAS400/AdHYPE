@@ -23,7 +23,15 @@ class UserTableViewController: UIViewController{
     
     var userFullName: String?
     
-    var friendsIDSToAdd = [String]()
+    var friendsIDSToAdd = [String](){
+        didSet{
+            if friendsIDSToAdd.count == 0 {
+                sendButton.enabled = false
+            } else {
+                sendButton.enabled = true
+            }
+        }
+    }
     var existingFriendsIDS: [String]!
     var checkedIDSForNoSearch: [String]!
     
@@ -103,6 +111,7 @@ class UserTableViewController: UIViewController{
     }
     
     @IBAction func onCloseButtonClicked(sender: AnyObject) {
+        searchController.active = false
         self.performSegueWithIdentifier("unwindFromUserTableViewSegue", sender: nil)
     }
     
@@ -125,8 +134,11 @@ class UserTableViewController: UIViewController{
             let sentReqRef = baseRef.child(user.uid).child(Constants.SENTFRIENDREQUESTSNODE)
             sentReqRef.child(id).setValue(true)
         }
+        
+        searchController.active = false
         self.performSegueWithIdentifier("unwindFromUserTableViewSegue", sender: nil)
     }
+    
 }
 
 extension UserTableViewController: UISearchResultsUpdating, UISearchControllerDelegate{
@@ -162,6 +174,9 @@ extension UserTableViewController: UISearchResultsUpdating, UISearchControllerDe
                     let newTextData = SelectionCellTextData(main: snapshot.key, detail: fn)
                     self.searchUsersDataSource.putPair((key: id, value: newTextData))
                     let newIndex = self.searchUsersDataSource.getCount() - 1
+                    if self.friendsIDSToAdd.contains(id){
+                        self.tableView.addPreselectedIndex(newIndex)
+                    }
                     let newIndexPath = NSIndexPath(forRow: newIndex, inSection: 0)
                     self.tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Automatic)
                 }
@@ -181,6 +196,7 @@ extension UserTableViewController: UISearchResultsUpdating, UISearchControllerDe
         if let info = queryDetachInfo{
             info.ref.removeObserverWithHandle(info.handle)
         }
+
         tableView.clearSelectedIndices()
         for id in friendsIDSToAdd{
             tableView.addPreselectedIndex(usersDataSource.getIndexOfPairForKey(id))

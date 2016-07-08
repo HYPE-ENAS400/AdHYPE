@@ -3,10 +3,18 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "SelectionTableView.tableView(UITableView, cellForRowAtIndexPath : NSIndexPath) -&gt; UITableViewCell:SelectionTableView.swift">
+         contextName = "GridViewController.(initGridView(String) -&gt; ()).(closure #1):GridViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "collectionView?.numberOfSections()">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "UserTableViewController.viewDidLoad() -&gt; ():UserTableViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "LoginNavVC.onSignedUp() -&gt; ():LoginNavVC.swift">
       </ContextState>
       <ContextState
          contextName = "MainViewController.(appendToQueueIfRoom(FIRDatabaseReference) -&gt; ()).(closure #1).(closure #1):MainViewController.swift">
@@ -67,19 +75,8 @@
          contextName = "MainViewController.kolodaDidRunOutOfCards(KolodaView) -&gt; ():MainViewController.swift">
       </ContextState>
       <ContextState
-         contextName = "UserTableViewController.filterContentForSearchText(String, scope : String) -&gt; ():UserTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "nextCharDict[lastChar]!">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "MainViewController.isUserInterestedInAd([String : String]) -&gt; Bool:MainViewController.swift">
          <PersistentStrings>
-            <PersistentString
-               value = "">
-            </PersistentString>
             <PersistentString
                value = "adDict[key]">
             </PersistentString>
@@ -97,13 +94,13 @@
          contextName = "KolodaView.reloadData() -&gt; ():KolodaView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "countOfCards">
+               value = "currentCardIndex">
             </PersistentString>
             <PersistentString
                value = "visibleCards.count">
             </PersistentString>
             <PersistentString
-               value = "currentCardIndex">
+               value = "countOfCards">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -127,22 +124,6 @@
          contextName = "MainViewController.onCardSwiped(Int) -&gt; ():MainViewController.swift">
       </ContextState>
       <ContextState
-         contextName = "UserSettingsVC.(updateUsername(String) -&gt; ()).(closure #2):UserSettingsVC.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "snapshot.key">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "UserTableViewController.(filterContentForSearchText(String, scope : String) -&gt; ()).(closure #1):UserTableViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "ImageGridCell.updateWithImage(UIImage?) -&gt; ():ImageGridCell.swift">
          <PersistentStrings>
             <PersistentString
@@ -152,9 +133,6 @@
                value = "view.center">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "GridViewController.collectionView(UICollectionView, layout : UICollectionViewLayout, sizeForItemAtIndexPath : NSIndexPath) -&gt; CGSize:GridViewController.swift">
       </ContextState>
       <ContextState
          contextName = "MainViewController.appendAdlAd() -&gt; ():MainViewController.swift">

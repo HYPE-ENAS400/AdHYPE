@@ -15,13 +15,21 @@ class FriendsTableViewController: UIViewController{
     @IBOutlet weak var friendTableView: SelectionTableView!
     
     var friends = SelectionDataSource<SelectionCellTextData>()
-    
+    @IBOutlet weak var sendButton: UIButton!
     var adMetaData: HypeAdMetaData!
     
     var captionText: String?
     var canPublish = false
     
-    var recipientIDS = [String]()
+    var recipientIDS = [String](){
+        didSet{
+            if recipientIDS.count == 0 {
+                sendButton.enabled = false
+            } else{
+                sendButton.enabled = true
+            }
+        }
+    }
     var delegate: FriendsTableViewControllerDelegate!
     var detachInfo: FIRDetachInfo!
     
@@ -98,7 +106,7 @@ class FriendsTableViewController: UIViewController{
         var caption: String?
         if let text = captionText{
             if let un = FIRAuth.auth()?.currentUser?.displayName{
-                caption = "from: \(un): " + text
+                caption =  text + " -\(un)"
             }
         }
         

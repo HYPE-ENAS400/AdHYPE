@@ -48,9 +48,9 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
         let friendRequestQueryRef = usersRef.child(user.uid).child(Constants.USERFRIENDREQUESTSNODE)
         let friendRequestQuery = friendRequestQueryRef.queryOrderedByValue()
         let friendReqHandle = friendRequestQuery.observeEventType(.ChildAdded, withBlock: {(snapshot)-> Void in
-            print(snapshot)
-            self.hasFriendRequests = true
+            
             if let nameDict = snapshot.value as? [String: String]{
+                self.hasFriendRequests = true
                 let un = nameDict[Constants.USERDISPLAYNAME]!
                 let fn = nameDict[Constants.USERFULLNAME]
                 let newTextData = SelectionCellTextData(main: un, detail: fn)
@@ -95,8 +95,13 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
                     messageDelegate.displayMessage("Friend request accepted!", duration: 1.5)
                     
                     friendRequests.deletePairAtIndex(index)
+                    if friendRequests.getCount() == 0 {
+                        hasFriendRequests = false
+                        friendTableView.deleteSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+                    } else{
+                        friendTableView.deleteRowsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)], withRowAnimation: .Automatic)
+                    }
                     
-                    friendTableView.deleteRowsAtIndexPaths([NSIndexPath(forItem: index, inSection: 0)], withRowAnimation: .Automatic)
                     
                     //delete the friend request
                     let requestRef = usersRef.child(user.uid).child(Constants.USERFRIENDREQUESTSNODE)
@@ -185,6 +190,12 @@ extension FriendsSettingsVC: UITableViewDelegate{
             sentRequestRef.child(user.uid).removeValue()
             
             friendRequests.deletePairAtIndex(indexPath.row)
+            if friendRequests.getCount() == 0 {
+                hasFriendRequests = false
+                friendTableView.deleteSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+            } else{
+                friendTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            }
             
             
         } else {
@@ -201,8 +212,9 @@ extension FriendsSettingsVC: UITableViewDelegate{
             
             
             friends.deletePairAtIndex(indexPath.row)
+            friendTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
-        friendTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        
     }
 
     

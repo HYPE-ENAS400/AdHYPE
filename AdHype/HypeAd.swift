@@ -60,17 +60,22 @@ class HypeAd: Equatable{
     }
     
     func downloadImage(completion: (DownloadResult) -> Void){
+        
         guard !downloaded else{
             completion(.Success(self))
-            return
+             return
         }
-        
+        //FOR SOME REASON THIS IS RETURNING A COMPLETION CALL BACK MORE THAN ONCE?!?!?
         adStorRef.dataWithMaxSize(1 * 1024 * 1024){ (data, error) -> Void in
             if (error != nil){
                 self.downloaded = false
                 print("Error Downloading: \(error?.localizedDescription)")
                 completion(.Failure)
             } else {
+                guard !self.downloaded else{
+                    completion(.Failure)
+                    return
+                }
                 self.downloaded = true
                 self.adImage = UIImage(data: data!)!
                 completion(.Success(self))

@@ -8,8 +8,9 @@
 
 import UIKit
 
-private let overlayRightImageName = "check_button"
-private let overlayLeftImageName = "x_button"
+private let overlayRightImageName = "Checkoverlay"
+private let overlayLeftImageName = "Xoverlay"
+private let overlayUpImageName = "Upoverlay"
 
 class CustomOverlayView: OverlayView {
 
@@ -30,7 +31,7 @@ class CustomOverlayView: OverlayView {
             case .Right? :
                 overlayImageView.image = UIImage(named: overlayRightImageName)
             default:
-                overlayImageView.image = nil
+                overlayImageView.image = UIImage(named: overlayUpImageName)
             }
             
         }

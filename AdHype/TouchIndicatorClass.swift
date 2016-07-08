@@ -8,6 +8,12 @@
 
 import UIKit
 
+enum TouchType{
+    case Tap
+    case DoubleTap
+    case LongPress(duration: Double)
+}
+
 class TouchIndicatorClass{
     private weak var touchIndicatorOuterView: UIView!
     private weak var touchIndicatorInnerView: UIView!
@@ -57,14 +63,29 @@ class TouchIndicatorClass{
             self.touchIndicatorOuterView.transform = CGAffineTransformMakeScale(0.85, 0.85)
             
             }, completion: { finished in
-                let delayTime = self.delegate.onTouchIndicatorTappedDown()
-                if let dt = delayTime{
-                    delay(dt){self.animateTouchIndicatorTapUp()}
-                } else{
+                let touchType = self.delegate.onTouchIndicatorTappedDown()
+                switch touchType{
+                case .Tap:
                     self.animateTouchIndicatorTapUp()
+                case .DoubleTap:
+                    self.animateTouchIndicatorCompleteDoubleTap()
+                case .LongPress(let dt):
+                    delay(dt){self.animateTouchIndicatorTapUp()}
                 }
         })
     }
+    private func animateTouchIndicatorCompleteDoubleTap(){
+        UIView.animateWithDuration(0.2, animations: {
+            self.touchIndicatorOuterView.transform = CGAffineTransformIdentity
+            }, completion: { finished in
+                UIView.animateWithDuration(0.2, animations: {
+                    self.touchIndicatorOuterView.transform = CGAffineTransformMakeScale(0.85, 0.85)
+                    }, completion: {finished in
+                        self.animateTouchIndicatorTapUp()
+                })
+        })
+    }
+    
     private func animateTouchIndicatorTapUp(){
         UIView.animateWithDuration(0.2, delay: 0.3, options: .CurveLinear, animations: {
             self.touchIndicatorOuterView.transform = CGAffineTransformIdentity
@@ -91,7 +112,7 @@ class TouchIndicatorClass{
 protocol TouchIndicatorDelegate{
     func onRestartingAnimation()
     func onTouchIndicatorAppeared()
-    func onTouchIndicatorTappedDown() -> Double?
+    func onTouchIndicatorTappedDown() -> TouchType
     func onTouchIndicatorTappedUp()
     func onTouchIndicatorDissapeared()
 }

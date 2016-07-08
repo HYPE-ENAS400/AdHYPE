@@ -98,15 +98,15 @@ extension BoardHelperVC: TouchIndicatorDelegate{
     
     }
     func onTouchIndicatorAppeared(){}
-    func onTouchIndicatorTappedDown() -> Double?{
+    func onTouchIndicatorTappedDown() -> TouchType{
         switch totalResetCount % 2{
         case 1:
-            return 1
+            return TouchType.LongPress(duration: 1)
         case 0:
             ad3DeleteButton.highlighted = true
-            return nil
+            return TouchType.Tap
         default:
-            return nil
+            return TouchType.Tap
         }
     }
     func onTouchIndicatorTappedUp(){
@@ -130,10 +130,10 @@ extension BoardHelperVC: TouchIndicatorDelegate{
         switch totalResetCount % 2{
         case 1:
             touchIndicatorOuterView.center.y += 20
-            self.setNewInstructionText("and tap the button to delete the ad")
+            self.setNewInstructionText("and tap the button to delete the content")
         case 0:
             touchIndicatorOuterView.center.y -= 20
-            self.setNewInstructionText("Press and hold the ad to activate the delete button...")
+            self.setNewInstructionText("Press and hold the card to activate the delete button......")
         default:
             return
         }

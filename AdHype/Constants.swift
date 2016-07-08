@@ -10,12 +10,12 @@ import Foundation
 struct Constants {
     static let USERKEY = "HYPELOGINEMAIL"
     static let PASSKEY = "HYPELOGINPASSWORD"
-    static let ADSPERCONTENT = 4
+    static let ADSPERCONTENT = 8
     static let INVADSPERCONTENT = 0.25
     static let BASESTORAGEURL = "gs://project-8277179768550916139.appspot.com/"
     
-    static let MAXNUMADS = 5
-    static let MAXNUMADQUEUE = 10
+    static let MAXNUMADS = 6
+    static let MAXNUMADQUEUE = 12
     
     
     static let HASSEENMAINKEY = "hasSeenMainViewKey"

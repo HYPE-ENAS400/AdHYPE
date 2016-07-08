@@ -10,11 +10,11 @@ import UIKit
 import pop
 import Firebase
 
-//enum LogInState {
-//    case loggedOut
-//    case loggedIn
-//    case signedUp
-//}
+enum CurrentView{
+    case Main
+    case Settings
+    case Grid
+}
 
 class HypeNavViewController: CustomNavVC {
     
@@ -27,7 +27,7 @@ class HypeNavViewController: CustomNavVC {
             super.containerView = hypeNavViewContainerView
         }
     }
-    
+
     var mainViewController: MainViewController?
     var settingsViewController: SettingsNavVC?
     var gridViewController: GridViewNavVC?
@@ -58,9 +58,6 @@ class HypeNavViewController: CustomNavVC {
                         return
                     }
                     self.hypeBarView.hidden = false
-                    self.settingsButton.alpha = 0.7
-                    self.hypeButton.alpha = 1
-                    self.gridButton.alpha = 0.7
                     self.setActiveViewController(nil, viewController: self.mainViewController)
                     self.initializeHype(authUser.uid)
                     self.shouldInitOnAuthStateChange = false
@@ -98,6 +95,26 @@ class HypeNavViewController: CustomNavVC {
         gridViewController?.clearUserGridView()
         settingsViewController = nil
         
+    }
+    
+    func didChangeCurrentViewTo(currentView: CurrentView){
+        switch currentView{
+        case .Main:
+            hypeBarView.layer.shadowOpacity = 1.0
+            settingsButton.alpha = 0.7
+            hypeButton.alpha = 1
+            gridButton.alpha = 0.7
+        case .Settings:
+            hypeBarView.layer.shadowOpacity = 0.6
+            settingsButton.alpha = 1
+            hypeButton.alpha = 0.7
+            gridButton.alpha = 0.7
+        case .Grid:
+            hypeBarView.layer.shadowOpacity = 0.6
+            settingsButton.alpha = 0.7
+            hypeButton.alpha = 0.7
+            gridButton.alpha = 1
+        }
     }
     
     private func initializeHype(uid: String){
@@ -203,13 +220,6 @@ class HypeNavViewController: CustomNavVC {
             return
         }
         
-        hypeBarView.layer.shadowOpacity = 0.6
-        settingsButton.alpha = 1
-        hypeButton.alpha = 0.7
-        gridButton.alpha = 0.7
-        
-        let storyboard = UIStoryboard(name: "Settings Nav View", bundle:nil)
-        settingsViewController = storyboard.instantiateViewControllerWithIdentifier("settingsNavVC") as? SettingsNavVC
         settingsViewController?.userInterests = userInterests
         settingsViewController?.helpDelegate = self
         
@@ -228,10 +238,6 @@ class HypeNavViewController: CustomNavVC {
         }
         
         settingsViewController = nil
-        hypeBarView.layer.shadowOpacity = 1.0
-        settingsButton.alpha = 0.7
-        hypeButton.alpha = 1
-        gridButton.alpha = 0.7
         
         if isViewControllerActiveVC(gridViewController){
             gridViewController?.clearLoadedVCsWhenSettingsOrHypeClicked()
@@ -247,10 +253,6 @@ class HypeNavViewController: CustomNavVC {
         }
         
         settingsViewController = nil
-        hypeBarView.layer.shadowOpacity = 0.6
-        settingsButton.alpha = 0.7
-        hypeButton.alpha = 0.7
-        gridButton.alpha = 1
         setActiveViewController(.toLeft, viewController: gridViewController)
         
         let keychainWrapper = KeychainWrapper.standardKeychainAccess()
@@ -303,7 +305,7 @@ class HypeNavViewController: CustomNavVC {
     
     @IBAction func unwindFromAdSocialViewSegue(segue: UIStoryboardSegue){
         
-        if(segue.sourceViewController .isKindOfClass(SocialNavVC)){
+        if(segue.sourceViewController.isKindOfClass(SocialNavVC)){
             if !wasSwipeUp {
                 return
             }

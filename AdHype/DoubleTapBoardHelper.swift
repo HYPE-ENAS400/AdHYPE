@@ -1,24 +1,19 @@
 //
-//  ClickAdBoardHelperVC.swift
+//  DoubleTapBoardHelper.swift
 //  AdHype
 //
-//  Created by Maxwell Payson on 7/4/16.
+//  Created by Maxwell Payson on 7/6/16.
 //  Copyright © 2016 Enas400. All rights reserved.
 //
 
 import UIKit
 
-class ClickAdBoardHelperVC: UIViewController{
-    
-    
+class DoubleTapBoardHelper: UIViewController{
     @IBOutlet weak var shadowView: UIView!
     @IBOutlet weak var containerView: UIView!
     
     @IBOutlet weak var userButton: UIButton!
     @IBOutlet weak var friendButton: UIButton!
-    
-    @IBOutlet weak var friendButtonUnderlineView: UIView!
-    @IBOutlet weak var userButtonUnderlineView: UIView!
     
     @IBOutlet weak var ad1ContainerView: UIView!
     @IBOutlet weak var ad1ImageView: UIImageView!
@@ -26,11 +21,12 @@ class ClickAdBoardHelperVC: UIViewController{
     @IBOutlet weak var ad2ContainerView: UIView!
     @IBOutlet weak var ad2ImageView: UIImageView!
     
+    @IBOutlet weak var ad3ContainerView: UIView!
+    @IBOutlet weak var ad3DeleteButton: UIButton!
+    @IBOutlet weak var ad3ImageView: UIImageView!
+    
     @IBOutlet weak var touchIndicatorOuterView: UIView!
     @IBOutlet weak var touchIndicatorInnerView: UIView!
-    
-    @IBOutlet weak var instructionLabel: UILabel!
-    
     var touchIndicator: TouchIndicatorClass?
     var totalResetCount = 0
     
@@ -54,13 +50,18 @@ class ClickAdBoardHelperVC: UIViewController{
         ad2ContainerView.layer.shadowRadius = 1
         ad2ContainerView.layer.shadowOffset = CGSizeZero
         ad2ContainerView.layer.shadowOpacity = 1
-    
+        
+        ad3ContainerView.layer.cornerRadius = 2
+        ad3ImageView.layer.cornerRadius = 2
+        ad3DeleteButton.layer.cornerRadius = 2
+        ad3ContainerView.layer.shadowRadius = 1
+        ad3ContainerView.layer.shadowOffset = CGSizeZero
+        ad3ContainerView.layer.shadowOpacity = 1
         
         userButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
         friendButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
         
     }
-    
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -68,16 +69,16 @@ class ClickAdBoardHelperVC: UIViewController{
     }
     
     func startTouchAnimations(){
-        touchIndicator = TouchIndicatorClass(outerView: touchIndicatorOuterView, innerView: touchIndicatorInnerView, restartDelay: 2, delegate: self)
+        touchIndicator = TouchIndicatorClass(outerView: touchIndicatorOuterView, innerView: touchIndicatorInnerView, restartDelay: 0.5, delegate: self)
         touchIndicator?.startTouchIndicatorAnimations()
     }
     
 }
-
-extension ClickAdBoardHelperVC: TouchIndicatorDelegate{
+extension DoubleTapBoardHelper: TouchIndicatorDelegate{
     func onRestartingAnimation(){}
     func onTouchIndicatorAppeared(){}
-    func onTouchIndicatorTappedDown() -> TouchType{return TouchType.Tap}
+    func onTouchIndicatorTappedDown() -> TouchType {return TouchType.DoubleTap}
     func onTouchIndicatorTappedUp(){}
     func onTouchIndicatorDissapeared(){}
 }
+

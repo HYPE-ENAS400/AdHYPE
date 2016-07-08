@@ -58,7 +58,7 @@ extension AddPublicCaptionHelperVC: TouchIndicatorDelegate{
 //        instructionLabel.text = "tap a published comment to add it to the photo"
         
     }
-    func onTouchIndicatorTappedDown() -> Double? {
+    func onTouchIndicatorTappedDown() -> TouchType {
         UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
             self.firstCaptionHighlightView.alpha = 0.3
             
@@ -75,7 +75,7 @@ extension AddPublicCaptionHelperVC: TouchIndicatorDelegate{
             }, completion: { finished in
                 
         })
-        return nil
+        return TouchType.Tap
     }
     func onTouchIndicatorTappedUp() {
         

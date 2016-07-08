@@ -45,16 +45,34 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
                 let primarytag = dict[Constants.ADPRIMARYTAGNODE]!
                 let newAdMetaData = HypeAdMetaData(name: name, key: key, url: url, primaryTag: primarytag, isFromFriend: false, captionFromFriend: nil)
                 
-                if self.interests.contains(primarytag){
+                if let interestIndex = self.interests.indexOf(primarytag){
                     self.adStore[primarytag]?.append(HypeAd(refURL: Constants.BASESTORAGEURL + name, metaData: newAdMetaData))
-                    print("added \(name) to category \(primarytag)")
+                    
+                    guard self.collectionView?.numberOfItemsInSection(interestIndex) != self.adStore[primarytag]?.count else {
+                    //This should never happen, since the new section category is appended before it is added to the collection view, yet it happens every time there are no existing sections and the grid view is brought back in to scope... makes no sense
+                        self.collectionView?.reloadData()
+                        return
+                    }
+
+                    let indexPath = NSIndexPath(forItem: (self.adStore[primarytag]?.count)! - 1, inSection: interestIndex)
+                    self.collectionView?.insertItemsAtIndexPaths([indexPath])
                 }
-                else{
+                else {
+
                     self.interests.append(primarytag)
                     self.adStore[primarytag] = [HypeAd(refURL: Constants.BASESTORAGEURL + name, metaData: newAdMetaData)]
-                    print("created category \(primarytag) to add \(name)")
+                    self.interests.sortInPlace()
+                    
+                    guard self.collectionView?.numberOfSections() != self.interests.count else {
+                        //This should never happen, since the new section category is appended before it is added to the collection view, yet it happens every time there are no existing sections and the grid view is brought back in to scope... makes no sense
+                        self.collectionView?.reloadData()
+                        return
+                    }
+                    let newIndex = self.interests.indexOf(primarytag)!
+                    self.collectionView?.insertSections(NSIndexSet(index: newIndex))
+
                 }
-                self.collectionView?.reloadData()
+                
             }
         })
         detachInfo = FIRDetachInfo(ref: adsLikedRef, handle: handle)
@@ -79,6 +97,7 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+//        print("NUMBER OF SECTIONS: \(interests.count)")
         return interests.count
     }
     
@@ -93,6 +112,7 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        print("NUMBER OF ITEMS: \(adStore[interests[section]]!.count) IN SECTION: \(section)")
         return adStore[interests[section]]!.count
     }
     
@@ -101,7 +121,6 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifier, forIndexPath: indexPath) as! ImageGridCell
         cell.delegate = self
         let cellAd = adStore[interests[indexPath.section]]![indexPath.row]
-        print("ADDING CELL FOR AD: \(cellAd.getAdName())")
         if isFriendGrid{
             cell.changeDeleteButtonToSaveButton()
         }
@@ -130,12 +149,9 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
                 return
             }
             if let url = NSURL(string: urlString){
-                if #available(iOS 9.0, *) {
-                    let vc = SFSafariViewController(URL: url, entersReaderIfAvailable: false)
-                    presentViewController(vc, animated: true, completion: nil)
-                } else {
-                    // Fallback on earlier versions
-                }
+
+                let vc = SFSafariViewController(URL: url, entersReaderIfAvailable: false)
+                presentViewController(vc, animated: true, completion: nil)
                 
             }
             guard let userID = FIRAuth.auth()?.currentUser?.uid else {

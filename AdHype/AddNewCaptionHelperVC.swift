@@ -64,7 +64,7 @@ extension AddNewCaptionHelperVC: TouchIndicatorDelegate{
     func onTouchIndicatorAppeared(){
 
     }
-    func onTouchIndicatorTappedDown() -> Double?{
+    func onTouchIndicatorTappedDown() -> TouchType{
         captionLabel.center.y += 50
         plusButton.highlighted = true
         UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
@@ -73,7 +73,7 @@ extension AddNewCaptionHelperVC: TouchIndicatorDelegate{
             }, completion: { finished in
                 
         })
-        return nil
+        return TouchType.Tap
     }
     func onTouchIndicatorTappedUp(){
         plusButton.highlighted = false

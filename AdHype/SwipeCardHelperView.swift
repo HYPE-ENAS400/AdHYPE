@@ -57,7 +57,7 @@ class SwipeCardHelperView: UIViewController{
 extension SwipeCardHelperView: TouchIndicatorDelegate{
     func onRestartingAnimation(){}
     func onTouchIndicatorAppeared(){}
-    func onTouchIndicatorTappedDown() -> Double?{
+    func onTouchIndicatorTappedDown() -> TouchType{
         let animationTime = 1.0
         UIView.animateWithDuration(animationTime, animations: {
             switch self.swipeDirection{
@@ -70,7 +70,7 @@ extension SwipeCardHelperView: TouchIndicatorDelegate{
             }
         
         })
-        return animationTime
+        return TouchType.LongPress(duration: animationTime)
     }
     func onTouchIndicatorTappedUp(){
         

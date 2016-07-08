@@ -226,6 +226,9 @@ class MainViewController: UIViewController {
     }
     
     func resetMainView(){
+        guard self.isViewLoaded() else {
+            return
+        }
         ads.removeAll()
         adsMetaDataQueue = Queue<HypeAdMetaData>()
         numAdsSwiped = 0
@@ -409,12 +412,10 @@ extension MainViewController: KolodaViewDelegate {
         aggregateCardsRef.child(timeStamp).setValue(true)
         
         if let url = NSURL(string: urlString){
-            if #available(iOS 9.0, *) {
-                let vc = SFSafariViewController(URL: url, entersReaderIfAvailable: false)
-                presentViewController(vc, animated: true, completion: nil)
-            } else {
-                // Fallback on earlier versions
-            }
+            
+            let vc = SFSafariViewController(URL: url, entersReaderIfAvailable: false)
+            presentViewController(vc, animated: true, completion: nil)
+
             
         }
     }

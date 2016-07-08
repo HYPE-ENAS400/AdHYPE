@@ -101,16 +101,19 @@ class HelpSettingsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     @IBAction func onPrivacyPolicyButtonClicked(sender: AnyObject) {
         
-        if #available(iOS 9.0, *) {
-            guard let url = NSURL(string: "https://www.iubenda.com/privacy-policy/7874766") else {
-                return
-            }
-            let vc = SFSafariViewController(URL: url, entersReaderIfAvailable: false)
-            presentViewController(vc, animated: true, completion: nil)
-        } else {
-            // Fallback on earlier versions
+
+        guard let url = NSURL(string: "https://www.iubenda.com/privacy-policy/7874766") else {
+            return
         }
+        let vc = SFSafariViewController(URL: url, entersReaderIfAvailable: false)
+        presentViewController(vc, animated: true, completion: nil)
+
     }
+
+    @IBAction func onTapFeedbackView(sender: AnyObject) {
+        feedbackTextView.resignFirstResponder()
+    }
+
 }
 
 protocol HelpSettingsDelegate{

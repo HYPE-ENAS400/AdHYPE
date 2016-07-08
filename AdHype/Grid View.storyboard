@@ -210,33 +210,30 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="69.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DpI-fr-iAE">
+                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DpI-fr-iAE">
                                                     <rect key="frame" x="16" y="8" width="576" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="Oqx-C5-U8l"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.3294117647" green="0.3294117647" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a4h-yc-bSQ">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a4h-yc-bSQ">
                                                     <rect key="frame" x="20" y="32" width="572" height="15"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="15" id="etF-Fv-cfG"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.67843137249999996" green="0.67450980390000004" blue="0.71372549019999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BrightREDright_button@2x-1" translatesAutoresizingMaskIntoConstraints="NO" id="ofy-y0-lIq">
+                                                    <rect key="frame" x="567" y="22.5" width="15" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="15" id="APJ-je-JIs"/>
+                                                        <constraint firstAttribute="height" constant="25" id="g0V-5z-aj6"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <gestureRecognizers/>
                                             <constraints>
-                                                <constraint firstItem="DpI-fr-iAE" firstAttribute="leading" secondItem="l2r-HG-aza" secondAttribute="leadingMargin" constant="8" id="6sk-H9-xv3"/>
-                                                <constraint firstItem="a4h-yc-bSQ" firstAttribute="leading" secondItem="l2r-HG-aza" secondAttribute="leadingMargin" constant="12" id="K73-e3-UcG"/>
-                                                <constraint firstItem="DpI-fr-iAE" firstAttribute="top" secondItem="l2r-HG-aza" secondAttribute="topMargin" id="PAc-Nu-10e"/>
-                                                <constraint firstItem="a4h-yc-bSQ" firstAttribute="top" secondItem="DpI-fr-iAE" secondAttribute="bottom" constant="4" id="RUh-Tp-OxQ"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="DpI-fr-iAE" secondAttribute="trailing" id="ccv-jZ-paT"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="a4h-yc-bSQ" secondAttribute="trailing" id="sFy-LA-qZa"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ofy-y0-lIq" secondAttribute="trailing" constant="10" id="HXf-qk-Bpv"/>
+                                                <constraint firstItem="ofy-y0-lIq" firstAttribute="centerY" secondItem="l2r-HG-aza" secondAttribute="centerY" id="VM3-pb-6uQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <gestureRecognizers/>
@@ -431,6 +428,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="BrightREDright_button@2x-1" width="34" height="56"/>
         <image name="Friend_button" width="55" height="55"/>
         <image name="Person_button" width="55" height="55"/>
         <image name="back_button" width="37" height="62"/>
