@@ -26,8 +26,6 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
     private var hiddenBarFrame: CGRect!
     private var visibleBarFrame: CGRect!
     
-    var helpDelegate: HelpSettingsDelegate!
-    
     var existingIDS: [String]?
     
     var userInterests: SelectionDataSource<Bool>!
@@ -45,22 +43,7 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
         helpButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
         userButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
         friendsButton.imageView?.contentMode   = UIViewContentMode.ScaleAspectFit
-        var storyboard = UIStoryboard(name: "UserSettingsView", bundle: nil)
-        userSettingsVC = storyboard.instantiateViewControllerWithIdentifier("userSettingsView") as? UserSettingsVC
-        userSettingsVC?.messageDelegate = self
-        userSettingsVC?.interestsDataSource = userInterests
         setActiveViewController(nil, viewController: userSettingsVC)
-        
-        storyboard = UIStoryboard(name: "FriendsSettingsView", bundle: nil)
-        friendsSettingsVC = storyboard.instantiateViewControllerWithIdentifier("friendsSettingsView") as? FriendsSettingsVC
-        friendsSettingsVC?.delegate = self
-        friendsSettingsVC?.messageDelegate = self
-        
-        storyboard = UIStoryboard(name: "HelpSettingsView", bundle: nil)
-        helpSettingsVC = storyboard.instantiateViewControllerWithIdentifier("helpSettingsView") as? HelpSettingsVC
-        helpSettingsVC?.messageDelegate = self
-        helpSettingsVC?.delegate = helpDelegate
-        
 
     }
     
@@ -87,6 +70,11 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
         }
     }
     
+    func clearLoadedVCS(){
+        userSettingsVC = nil
+        friendsSettingsVC = nil
+        helpSettingsVC = nil
+    }
     
     @IBAction func onUserButtonClicked(sender: AnyObject) {
         if !isViewControllerActiveVC(userSettingsVC){
@@ -118,6 +106,7 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
             setActiveViewController(.toLeft, viewController: helpSettingsVC)
         }
     }
+    
     func onAddFriendClicked(existingFriendsAndRequestsIDS: [String]){
         existingIDS = existingFriendsAndRequestsIDS
         self.performSegueWithIdentifier("showUsersTableVC", sender: nil)

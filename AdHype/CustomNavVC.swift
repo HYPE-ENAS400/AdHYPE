@@ -34,6 +34,7 @@ class CustomNavVC: UIViewController{
         let storyboard = UIStoryboard(name: storyboard, bundle:nil)
         return storyboard.instantiateViewControllerWithIdentifier(vcID)
     }
+    
     func isViewControllerActiveVC(vc: UIViewController?) -> Bool{
         return vc == activeViewController
     }
@@ -61,10 +62,14 @@ class CustomNavVC: UIViewController{
             
             inActiveVC.view.removeFromSuperview()
             inActiveVC.removeFromParentViewController()
+            onInactiveVCReplaced(inActiveVC)
         }
         
     }
     
+    func onInactiveVCReplaced(inactiveVC: UIViewController){
+        return
+    }
     
     private func updateActiveViewController(){
         

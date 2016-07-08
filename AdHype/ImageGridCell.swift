@@ -48,7 +48,6 @@ class ImageGridCell: UICollectionViewCell{
     
     func updateWithImage(image: UIImage?) {
         if let imageToDisplay = image {
-            spinner.stopAnimating()
             
             view.layer.cornerRadius = 3
             view.backgroundColor = UIColor.whiteColor()
@@ -56,9 +55,22 @@ class ImageGridCell: UICollectionViewCell{
             view.layer.shadowOffset = CGSizeZero
             view.layer.shadowRadius = 2
             
-            imageView.image = resizeImage(imageToDisplay, newScale: 0.4)
-            imageView.layer.masksToBounds = true
-            imageView.layer.cornerRadius = 3
+            let newScale: CGFloat = 0.4
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                let newWidth = imageToDisplay.size.width * newScale
+                let newHeight = imageToDisplay.size.width * newScale
+                UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
+                imageToDisplay.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
+                let newImage = UIGraphicsGetImageFromCurrentImageContext()
+                    
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.imageView.image = newImage
+                    self.imageView.layer.masksToBounds = true
+                    self.imageView.layer.cornerRadius = 3
+                    self.spinner.stopAnimating()
+                })
+            })
 
             
         }
