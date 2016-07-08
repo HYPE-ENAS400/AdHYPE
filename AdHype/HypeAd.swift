@@ -76,9 +76,10 @@ class HypeAd: Equatable{
                     completion(.Failure)
                     return
                 }
-                self.downloaded = true
                 self.adImage = UIImage(data: data!)!
+                self.downloaded = true
                 completion(.Success(self))
+
             }
         }
     }

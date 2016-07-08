@@ -10,7 +10,7 @@ import UIKit
 import pop
 import Firebase
 
-enum CurrentView{
+enum CurrentViewType{
     case Main
     case Settings
     case Grid
@@ -31,9 +31,9 @@ class HypeNavViewController: CustomNavVC {
     var mainViewController: MainViewController?
     var settingsViewController: SettingsNavVC?
     var gridViewController: GridViewNavVC?
+    var userGridViewController: GridViewController?
     
     var onAdSocialVCClosedFunc: ((canceled: Bool)->Void)?
-    var friendIDS: [String]?
     var socialAd: HypeAd!
     
     var userInterests = SelectionDataSource<Bool>()
@@ -45,22 +45,23 @@ class HypeNavViewController: CustomNavVC {
     var helperSection: HelperViewSection!
     
     override func viewDidLoad() {
+        hypeBarView.layer.shadowOffset = CGSizeZero
         
         //FOR SOME REASON THIS IS GETTING CALLED TWICE ON STARTUP?
         FIRAuth.auth()?.addAuthStateDidChangeListener{auth, user in
             if let authUser = user {
                 
                 if self.shouldInitOnAuthStateChange{
+                    self.shouldInitOnAuthStateChange = false
                     guard user?.displayName != nil else{
                         self.needUserInfo = true
                         self.performSegueWithIdentifier("logInSegue", sender: nil)
-                        self.shouldInitOnAuthStateChange = false
                         return
                     }
                     self.hypeBarView.hidden = false
+                    self.changeNavBarViewForCurrentView(.Main)
                     self.setActiveViewController(nil, viewController: self.mainViewController)
                     self.initializeHype(authUser.uid)
-                    self.shouldInitOnAuthStateChange = false
                 }
                 
             } else {
@@ -89,40 +90,16 @@ class HypeNavViewController: CustomNavVC {
     
     func resetHype(){
         userInterests.clear()
-        friendIDS?.removeAll()
         socialAd = nil
+        userGridViewController = nil
         mainViewController?.resetMainView()
-        gridViewController?.clearUserGridView()
-        settingsViewController = nil
-        
-    }
-    
-    func didChangeCurrentViewTo(currentView: CurrentView){
-        switch currentView{
-        case .Main:
-            hypeBarView.layer.shadowOpacity = 1.0
-            settingsButton.alpha = 0.7
-            hypeButton.alpha = 1
-            gridButton.alpha = 0.7
-        case .Settings:
-            hypeBarView.layer.shadowOpacity = 0.6
-            settingsButton.alpha = 1
-            hypeButton.alpha = 0.7
-            gridButton.alpha = 0.7
-        case .Grid:
-            hypeBarView.layer.shadowOpacity = 0.6
-            settingsButton.alpha = 0.7
-            hypeButton.alpha = 0.7
-            gridButton.alpha = 1
-        }
     }
     
     private func initializeHype(uid: String){
         let keychainWrapper = KeychainWrapper.standardKeychainAccess()
         
         guard keychainWrapper.hasValueForKey(Constants.HASSEENMAINKEY) else {
-            helperSection = HelperViewSection.MainView
-            showHelperViews()
+            showHelperViews(HelperViewSection.MainView)
             return
         }
         
@@ -154,7 +131,6 @@ class HypeNavViewController: CustomNavVC {
                     for (interest, liked) in ar{
                         self.userInterests.setValueForKey(interest, value: liked)
                     }
-                    self.mainViewController?.userInterests = self.userInterests
                     nodesLoaded += 1
                 } else{
                     print("COULD NOT GET USER INTERESTS")
@@ -214,33 +190,75 @@ class HypeNavViewController: CustomNavVC {
         }
     }
     
+    private func changeNavBarViewForCurrentView(currentView: CurrentViewType){
+        switch currentView{
+        case .Main:
+            hypeBarView.layer.shadowOpacity = 0.8
+            settingsButton.alpha = 0.7
+            hypeButton.alpha = 1
+            gridButton.alpha = 0.7
+        case .Settings:
+            hypeBarView.layer.shadowOpacity = 0.5
+            settingsButton.alpha = 1
+            hypeButton.alpha = 0.7
+            gridButton.alpha = 0.7
+        case .Grid:
+            hypeBarView.layer.shadowOpacity = 0.5
+            settingsButton.alpha = 0.7
+            hypeButton.alpha = 0.7
+            gridButton.alpha = 1
+        }
+    }
+    
+    override func onInactiveVCReplaced(inactiveVC: UIViewController) {
+        if inactiveVC.isKindOfClass(SettingsNavVC){
+            settingsViewController?.resetSettingsViewsOnDissapear()
+        } else if inactiveVC.isKindOfClass(GridViewNavVC){
+            gridViewController?.resetGridViewsOnDissapear()
+        }
+    }
+    
+    private func setRootSettingsViewController(){
+        let storyboard = UIStoryboard(name: "UserSettingsView", bundle: nil)
+        let userSettingsVC = storyboard.instantiateViewControllerWithIdentifier("userSettingsView") as? UserSettingsVC
+        userSettingsVC?.messageDelegate = settingsViewController
+        userSettingsVC?.interestsDataSource = userInterests
+        settingsViewController?.userSettingsVC = userSettingsVC
+                
+        settingsViewController?.setActiveViewController(nil, viewController: userSettingsVC)
+    }
+    
+    private func setRootGridViewController(){
+        
+        if userGridViewController == nil{
+            let gridStoryboard = UIStoryboard(name: "Grid View", bundle: nil)
+            userGridViewController = gridStoryboard.instantiateViewControllerWithIdentifier("gridViewController") as? GridViewController
+            userGridViewController?.userID = getUserUID()
+            userGridViewController?.messageDelegate = gridViewController
+            userGridViewController?.delegate = self
+        }
+        
+        gridViewController?.userGridVC = userGridViewController
+        gridViewController?.setActiveViewController(nil, viewController: userGridViewController)
+    }
+    
     
     @IBAction func onSettingButtonClicked(sender: AnyObject){
         guard !isViewControllerActiveVC(settingsViewController) else{
             return
         }
-        
-        settingsViewController?.userInterests = userInterests
-        settingsViewController?.helpDelegate = self
-        
-        if isViewControllerActiveVC(gridViewController){
-            gridViewController?.clearLoadedVCsWhenSettingsOrHypeClicked()
-        }
+        changeNavBarViewForCurrentView(.Settings)
         setActiveViewController(.toRight, viewController: settingsViewController)
-        
-        
-
+        setRootSettingsViewController()
     }
     
     @IBAction func onHypeButtonClicked(sender: AnyObject){
         guard !isViewControllerActiveVC(mainViewController) else {
             return
         }
-        
-        settingsViewController = nil
+        changeNavBarViewForCurrentView(.Main)
         
         if isViewControllerActiveVC(gridViewController){
-            gridViewController?.clearLoadedVCsWhenSettingsOrHypeClicked()
             setActiveViewController(.toRight, viewController: mainViewController)
         } else {
             setActiveViewController(.toLeft, viewController: mainViewController)
@@ -252,14 +270,13 @@ class HypeNavViewController: CustomNavVC {
             return
         }
         
-        settingsViewController = nil
+        changeNavBarViewForCurrentView(.Grid)
         setActiveViewController(.toLeft, viewController: gridViewController)
+        setRootGridViewController()
         
         let keychainWrapper = KeychainWrapper.standardKeychainAccess()
-        guard keychainWrapper.hasValueForKey(Constants.HASSEENGRIDKEY) else {
-            helperSection = HelperViewSection.GridView
-            showHelperViews()
-            return
+        if !(keychainWrapper.hasValueForKey(Constants.HASSEENGRIDKEY)) {
+            showHelperViews(HelperViewSection.GridView)
         }
 
     }
@@ -283,22 +300,19 @@ class HypeNavViewController: CustomNavVC {
     func showViewToChangeUserInfo(){
         self.performSegueWithIdentifier("showAdSocialViewSegue", sender: nil)
     }
-    func showHelperViews(){
+    func showHelperViews(section: HelperViewSection){
+        helperSection = section
         self.performSegueWithIdentifier("showHelperViewsSegue", sender: nil)
     }
     
     @IBAction func unwindFromLogInSegue(segue: UIStoryboardSegue){
         self.hypeBarView.hidden = false
-        self.settingsButton.alpha = 0.7
-        self.hypeButton.alpha = 1
-        self.gridButton.alpha = 0.7
         needUserInfo = false
+        changeNavBarViewForCurrentView(.Main)
+        self.setActiveViewController(nil, viewController: self.mainViewController)
         if shouldInitFromSignUp{
-            print("USER UID: \((FIRAuth.auth()?.currentUser?.uid)!)")
-            self.setActiveViewController(nil, viewController: self.mainViewController)
             createUserNodes((FIRAuth.auth()?.currentUser?.uid)!)
         } else {
-            self.setActiveViewController(nil, viewController: self.mainViewController)
             self.initializeHype((FIRAuth.auth()?.currentUser?.uid)!)
         }
     }
@@ -336,12 +350,22 @@ class HypeNavViewController: CustomNavVC {
         }
     }
     
+    private func getUserUID() -> String{
+        return (FIRAuth.auth()?.currentUser?.uid)!
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        if !isViewControllerActiveVC(gridViewController){
+            userGridViewController = nil
+        }
+    }
+    
 }
 
 extension HypeNavViewController: HelpSettingsDelegate{
     func onOpenHelperViews() {
-        helperSection = HelperViewSection.AllViews
-        showHelperViews()
+        showHelperViews(HelperViewSection.AllViews)
     }
 }
 extension HypeNavViewController: MainViewControllerDelegate{

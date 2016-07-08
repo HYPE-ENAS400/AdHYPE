@@ -30,7 +30,7 @@ class FriendsTableViewController: UIViewController{
             }
         }
     }
-    var delegate: FriendsTableViewControllerDelegate!
+    weak var delegate: FriendsTableViewControllerDelegate!
     var detachInfo: FIRDetachInfo!
     
     override func viewDidLoad() {
@@ -158,7 +158,7 @@ extension FriendsTableViewController: SelectionTableViewDelegate{
     }
 }
 
-protocol FriendsTableViewControllerDelegate{
+protocol FriendsTableViewControllerDelegate: class{
     func onBackButtonClicked()
     func onSentToFriends()
 }

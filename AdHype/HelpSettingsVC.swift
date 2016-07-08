@@ -22,8 +22,8 @@ class HelpSettingsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var pickerData: [String]!
     var selectedRow: Int = 0
     
-    var messageDelegate: DisplayMessageDelegate!
-    var delegate: HelpSettingsDelegate!
+    weak var messageDelegate: DisplayMessageDelegate!
+    weak var delegate: HelpSettingsDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,6 +116,6 @@ class HelpSettingsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
 
 }
 
-protocol HelpSettingsDelegate{
+protocol HelpSettingsDelegate: class{
     func onOpenHelperViews()
 }

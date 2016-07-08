@@ -45,7 +45,6 @@ class GridViewFriendsVC: UIViewController{
             info.ref.removeObserverWithHandle(info.handle)
         }
     }
-    
 }
 
 extension GridViewFriendsVC: UITableViewDataSource, UITableViewDelegate{
