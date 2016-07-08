@@ -15,7 +15,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     
     var ref:FIRDatabaseReference!
     
-    var delegate: LoginViewControllerDelegate!
+    weak var delegate: LoginViewControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,7 +143,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
 }
 
 
-protocol LoginViewControllerDelegate{
+protocol LoginViewControllerDelegate: class{
     func onSignedUp()
     func onLoggedIn()
 }

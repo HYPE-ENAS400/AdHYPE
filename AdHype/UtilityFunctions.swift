@@ -29,7 +29,7 @@ func convertSelectionCellTextDataToUserNamesDict(data: SelectionCellTextData)->[
     return dict
 }
 
-protocol DisplayMessageDelegate{
+protocol DisplayMessageDelegate: class{
     func displayMessage(message: String, duration: Double)
 }
 

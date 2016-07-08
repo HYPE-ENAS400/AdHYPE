@@ -13,7 +13,7 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
     @IBOutlet weak var friendTableView: UITableView!
     
     var isAddFriendButtonDisabled = false
-    var delegate: FriendsSettingsVCDelegate!
+    weak var delegate: FriendsSettingsVCDelegate!
     
     var friendRequests = SelectionDataSource<SelectionCellTextData>()
     
@@ -24,7 +24,7 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
     
     var usersRef: FIRDatabaseReference!
     var userFullName: String?
-    var messageDelegate: DisplayMessageDelegate!
+    weak var messageDelegate: DisplayMessageDelegate!
     var hasFriendRequests = false
     
     override func viewDidLoad() {
@@ -78,7 +78,6 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
                 }
                 
                 let newIndexpath = NSIndexPath(forRow: curIndex, inSection: section)
-                //THERE WAS AN ERROR HERE
                 self.friendTableView.insertRowsAtIndexPaths([newIndexpath], withRowAnimation: .Automatic)
             } else {
                 print("error fetching friends")
@@ -130,6 +129,15 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
     func addFriendButtonClicked(){
         let existingFriendsAndRequests = friends.getKeys() + friendRequests.getKeys()
         delegate.onAddFriendClicked(existingFriendsAndRequests)
+    }
+    
+    deinit{
+        if let reqInfo = friendReqDetachInfo{
+            reqInfo.ref.removeObserverWithHandle(reqInfo.handle)
+        }
+        if let friendInfo = friendDetachInfo{
+            friendInfo.ref.removeObserverWithHandle(friendInfo.handle)
+        }
     }
     
 }
@@ -216,8 +224,6 @@ extension FriendsSettingsVC: UITableViewDelegate{
         }
         
     }
-
-    
 }
 
 extension FriendsSettingsVC: UITableViewDataSource{
@@ -250,6 +256,6 @@ extension FriendsSettingsVC: UITableViewDataSource{
     }
 }
 
-protocol FriendsSettingsVCDelegate{
+protocol FriendsSettingsVCDelegate: class{
     func onAddFriendClicked(existingFriendsAndRequestsIDS: [String])
 }

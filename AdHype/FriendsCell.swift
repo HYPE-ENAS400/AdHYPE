@@ -16,7 +16,7 @@ class FriendsCell: UITableViewCell{
     
     private var friendInfo: (key: String, value: SelectionCellTextData)?
     
-    var delegate: FriendsCellDelegate!
+    weak var delegate: FriendsCellDelegate!
     
     func showCircleView(){
         confirmRequestButton.hidden = false
@@ -39,6 +39,6 @@ class FriendsCell: UITableViewCell{
 
 }
 
-protocol FriendsCellDelegate{
+protocol FriendsCellDelegate: class{
     func onFriendRequestAccepted(info: (key: String, value: SelectionCellTextData)?)
 }

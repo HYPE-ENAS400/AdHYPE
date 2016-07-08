@@ -18,10 +18,11 @@ class MainViewController: UIViewController {
     
     var userRef: FIRDatabaseReference!
     let adStoreRef = FIRDatabase.database().reference().child(Constants.ADSNODE)
+    var contentCountDetachInfo: FIRDetachInfo?
+    var friendContentDetachInfo: FIRDetachInfo?
     
     var userAdsViewed: Int = 0
     var userContentCount: Int = 0
-    var contentCountDetachInfo: FIRDetachInfo?
     var nextQueueKey: String?
     
     var ads = [HypeAd]()
@@ -50,17 +51,6 @@ class MainViewController: UIViewController {
         
         userRef = FIRDatabase.database().reference().child(Constants.USERSNODE).child(getUserID())
         
-        delay(10){
-            if !self.mainSpinner.hidden{
-                self.outOfCardsView.hidden = false
-                self.mainSpinner.stopAnimating()
-            }
-        }
-    }
-    
-    override func viewDidAppear(animated: Bool){
-        super.viewDidAppear(animated)
-        
         userRef.child(Constants.ADVIEWEDCOUNTNODE).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
             
             if let adCount = snapshot.value as? Int {
@@ -81,16 +71,21 @@ class MainViewController: UIViewController {
             }
             
         })
-        
         contentCountDetachInfo = FIRDetachInfo(ref: contentCountRef, handle: contentCountHandle)
         
+        delay(10){
+            if !self.mainSpinner.hidden{
+                self.outOfCardsView.hidden = false
+                self.mainSpinner.stopAnimating()
+            }
+        }
     }
     
     func queryAdMetaData(){
         
         //Get Ads From Friends
         let receivedAdsRef = userRef.child(Constants.RECEIVEDADQUEUENODE)
-        receivedAdsRef.observeEventType(.ChildAdded, withBlock: {(snapshot) -> Void in
+        let receivedAdsHandle = receivedAdsRef.observeEventType(.ChildAdded, withBlock: {(snapshot) -> Void in
             let dict = snapshot.value as! [String: String]
             guard let name = dict[Constants.ADNAMENODE] else{
                 print("ERROR: COULD NOT GET AD NAME")
@@ -109,7 +104,7 @@ class MainViewController: UIViewController {
             self.adsMetaDataQueue.enqueue(newMetaData)
             self.appendAdIfRoom()
         })
-        
+        friendContentDetachInfo = FIRDetachInfo(ref: receivedAdsRef, handle: receivedAdsHandle)
         appendToQueueIfRoom(adStoreRef)
     }
     
@@ -235,13 +230,7 @@ class MainViewController: UIViewController {
         outOfCardsView.hidden = true
         mainSpinner.startAnimating()
         kolodaView.reloadData()
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        if let detachInfo = contentCountDetachInfo{
-            detachInfo.ref.removeObserverWithHandle(detachInfo.handle)
-        }
+        clearFIRReferences()
     }
     
     @IBAction func refreshButtonClicked(sender: AnyObject) {
@@ -269,7 +258,19 @@ class MainViewController: UIViewController {
     func getProxyIndex(index: Int) -> Int{
         return index - numAdsSwiped
     }
+    
+    private func clearFIRReferences(){
+        if let countInfo = contentCountDetachInfo{
+            countInfo.ref.removeObserverWithHandle(countInfo.handle)
+        }
+        if let friendInfo = friendContentDetachInfo{
+            friendInfo.ref.removeObserverWithHandle(friendInfo.handle)
+        }
+    }
 
+    deinit{
+        clearFIRReferences()
+    }
 }
 
 // KolodaView protocol that determines what cards to show
@@ -294,14 +295,14 @@ extension MainViewController: KolodaViewDataSource{
         newContainerView.layer.cornerRadius = 20
         newContainerView.layer.shadowOpacity = 0.6
         newContainerView.layer.shadowOffset = CGSizeZero
-        newContainerView.layer.shadowRadius = 5
+        newContainerView.layer.shadowRadius = 4
         
         guard let image = ad.getImage() else {
             print("ERROR GETTING ADD IMAGE")
             return newContainerView
         }
         
-        let childFrame = CGRectInset(superFrame, 4, 4)
+        let childFrame = CGRectInset(superFrame, 2, 2)
         let newChildView = UIImageView(frame: childFrame)
         newChildView.layer.cornerRadius = 20
         newChildView.layer.masksToBounds = true

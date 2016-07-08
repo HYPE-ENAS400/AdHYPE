@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var storyboard = UIStoryboard(name: "Settings Nav View", bundle:nil)
         let settingsViewController = storyboard.instantiateViewControllerWithIdentifier("settingsNavVC") as! SettingsNavVC
         settingsViewController.userInterests = navViewController.userInterests
+        settingsViewController.helpDelegate = navViewController
         navViewController.settingsViewController = settingsViewController
         
         storyboard = UIStoryboard(name: "Main Hype View", bundle:nil)

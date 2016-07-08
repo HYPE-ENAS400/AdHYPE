@@ -17,7 +17,7 @@ enum TouchType{
 class TouchIndicatorClass{
     private weak var touchIndicatorOuterView: UIView!
     private weak var touchIndicatorInnerView: UIView!
-    var delegate: TouchIndicatorDelegate!
+    weak var delegate: TouchIndicatorDelegate!
     var restartAnimationDelay: Double
     
     required init(outerView: UIView, innerView: UIView, restartDelay: Double, delegate: TouchIndicatorDelegate){
@@ -109,7 +109,7 @@ class TouchIndicatorClass{
     
 }
 //onTouchIndicatorTappedDown returns double for delays > standard tap press delays
-protocol TouchIndicatorDelegate{
+protocol TouchIndicatorDelegate: class{
     func onRestartingAnimation()
     func onTouchIndicatorAppeared()
     func onTouchIndicatorTappedDown() -> TouchType

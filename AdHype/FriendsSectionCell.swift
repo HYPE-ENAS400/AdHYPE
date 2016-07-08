@@ -10,7 +10,7 @@ import UIKit
 
 class FriendsSectionCell: UITableViewHeaderFooterView{
     
-    var delegate: FriendsSectionCellDelegate!
+    weak var delegate: FriendsSectionCellDelegate!
     
     @IBOutlet weak var sectionLabel: UILabel!
     @IBOutlet weak var addFriendButton: UIButton!
@@ -38,6 +38,6 @@ class FriendsSectionCell: UITableViewHeaderFooterView{
     
 }
 
-protocol FriendsSectionCellDelegate{
+protocol FriendsSectionCellDelegate: class{
     func addFriendButtonClicked()
 }

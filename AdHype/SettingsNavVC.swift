@@ -29,6 +29,7 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
     var existingIDS: [String]?
     
     var userInterests: SelectionDataSource<Bool>!
+    var helpDelegate: HelpSettingsDelegate!
     
     var userSettingsVC: UserSettingsVC?
     var friendsSettingsVC: FriendsSettingsVC?
@@ -43,7 +44,6 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
         helpButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
         userButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
         friendsButton.imageView?.contentMode   = UIViewContentMode.ScaleAspectFit
-        setActiveViewController(nil, viewController: userSettingsVC)
 
     }
     
@@ -70,10 +70,14 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
         }
     }
     
-    func clearLoadedVCS(){
+    func resetSettingsViewsOnDissapear(){
         userSettingsVC = nil
         friendsSettingsVC = nil
         helpSettingsVC = nil
+        userUnderlineView.hidden = false
+        friendUnderlineView.hidden = true
+        helpUnderlineView.hidden = true
+        setActiveViewController(nil, viewController: nil)
     }
     
     @IBAction func onUserButtonClicked(sender: AnyObject) {
@@ -85,11 +89,25 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
             transitionDirection = .toRight
         }
     }
+    
+    private func createFriendsSettingsVC(){
+        let storyboard = UIStoryboard(name: "FriendsSettingsView", bundle: nil)
+        friendsSettingsVC = storyboard.instantiateViewControllerWithIdentifier("friendsSettingsView") as? FriendsSettingsVC
+        friendsSettingsVC?.delegate = self
+        friendsSettingsVC?.messageDelegate = self
+    }
+    
     @IBAction func onFriendButtonClicked(sender: AnyObject) {
         if !isViewControllerActiveVC(friendsSettingsVC){
+            
+            if friendsSettingsVC == nil {
+                createFriendsSettingsVC()
+            }
+            
             friendUnderlineView.hidden = false
             helpUnderlineView.hidden = true
             userUnderlineView.hidden = true
+            
             if isViewControllerActiveVC(userSettingsVC){
                 setActiveViewController(.toLeft, viewController: friendsSettingsVC)
             } else{
@@ -98,8 +116,20 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
         }
     }
     
+    private func createHelpSettingsVC(){
+        let storyboard = UIStoryboard(name: "HelpSettingsView", bundle: nil)
+        helpSettingsVC = storyboard.instantiateViewControllerWithIdentifier("helpSettingsView") as? HelpSettingsVC
+        helpSettingsVC?.messageDelegate = self
+        helpSettingsVC?.delegate = helpDelegate
+    }
+    
     @IBAction func onHelpButtonClicked(sender: AnyObject) {
         if !isViewControllerActiveVC(helpSettingsVC){
+            
+            if helpSettingsVC == nil{
+                createHelpSettingsVC()
+            }
+            
             helpUnderlineView.hidden = false
             userUnderlineView.hidden = true
             friendUnderlineView.hidden = true

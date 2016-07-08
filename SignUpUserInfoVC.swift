@@ -19,7 +19,7 @@ class SignUpUserInfoVC: UIViewController{
     @IBOutlet weak var usernameErrorLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
-    var delegate: SignUpUserInfoVCDelegate!
+    weak var delegate: SignUpUserInfoVCDelegate!
     var username: String?
     
     let disallowedCharacters = [".", "$", "#", "[", "]", "/", " "]
@@ -172,6 +172,6 @@ extension SignUpUserInfoVC: UITextFieldDelegate{
     }
 }
 
-protocol SignUpUserInfoVCDelegate{
+protocol SignUpUserInfoVCDelegate: class{
     func onUserInfoSubmitted()
 }

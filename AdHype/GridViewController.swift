@@ -23,7 +23,7 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     var detachInfo: FIRDetachInfo?
     
     var delegate: GridViewControllerDelegate!
-    var messageDelegate: DisplayMessageDelegate!
+    weak var messageDelegate: DisplayMessageDelegate!
     
     override func viewDidLoad(){
         super.viewDidLoad()
@@ -76,11 +76,6 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
             }
         })
         detachInfo = FIRDetachInfo(ref: adsLikedRef, handle: handle)
-    }
-    
-    func clearGridView(){
-        interests.removeAll()
-        adStore.removeAll()
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -183,15 +178,11 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        if isFriendGrid {
-            if let info = detachInfo{
-                info.ref.removeObserverWithHandle(info.handle)
-            }
+    deinit{
+        if let info = detachInfo{
+            info.ref.removeObserverWithHandle(info.handle)
         }
     }
-
 }
 
 extension GridViewController: ImageGridCellDelegate{

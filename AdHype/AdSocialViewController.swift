@@ -25,7 +25,7 @@ class AdSocialViewController: UIViewController {
     var canPublish = false
     var wasSwipeUp: Bool!
     
-    var delegate: AdSocialViewControllerDelegate!
+    weak var delegate: AdSocialViewControllerDelegate!
     var adVoteHistoryRef: FIRDatabaseReference!
     
     var isCaptionVisible: Bool = false {
@@ -224,7 +224,6 @@ class AdSocialViewController: UIViewController {
     }
     
     
-    
 }
 
 extension AdSocialViewController: UITextViewDelegate{
@@ -287,7 +286,7 @@ extension AdSocialViewController: UITableViewDataSource{
 
 }
 
-protocol AdSocialViewControllerDelegate{
+protocol AdSocialViewControllerDelegate: class{
     func onCloseClicked()
     func onSendClicked(caption: String?, canPublish: Bool)
 }

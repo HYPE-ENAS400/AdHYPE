@@ -20,8 +20,9 @@ class CustomNavVC: UIViewController{
     
     private var activeViewController: UIViewController?{
         didSet{
-            removeInactiveViewController(oldValue)
             updateActiveViewController()
+            removeInactiveViewController(oldValue)
+            
         }
     }
     

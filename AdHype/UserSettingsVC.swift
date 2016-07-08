@@ -15,7 +15,7 @@ class UserSettingsVC: UIViewController{
     @IBOutlet weak var userIconOuterView: UIView!
     @IBOutlet weak var interestsTableView: SelectionTableView!
     
-    var messageDelegate: DisplayMessageDelegate!
+    weak var messageDelegate: DisplayMessageDelegate!
     
     var interestsDataSource: SelectionDataSource<Bool>!
     var interestsRef: FIRDatabaseReference!

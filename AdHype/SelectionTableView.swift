@@ -14,7 +14,7 @@ import UIKit
 class SelectionTableView: UITableView, UITableViewDelegate, UITableViewDataSource{
     private var selectedIndices = [Int]()
     
-    var selectionDelegate: SelectionTableViewDelegate!
+    weak var selectionDelegate: SelectionTableViewDelegate!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -76,7 +76,7 @@ class SelectionTableView: UITableView, UITableViewDelegate, UITableViewDataSourc
     
 }
 
-protocol SelectionTableViewDelegate{
+protocol SelectionTableViewDelegate: class{
     func cellAtIndexSelected(index: Int)
     func cellAtIndexDeselected(index: Int)
     func getNumberOfCells()->Int
