@@ -72,6 +72,7 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
     
     func resetSettingsViewsOnDissapear(){
         userSettingsVC = nil
+        friendsSettingsVC?.detachFriendSettingsListeners()
         friendsSettingsVC = nil
         helpSettingsVC = nil
         userUnderlineView.hidden = false

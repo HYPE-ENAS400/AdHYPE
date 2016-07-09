@@ -52,6 +52,12 @@ class AddNewCaptionHelperVC: UIViewController{
             self.appendLettersToCaptionLabel(index + 1)
         }
     }
+    override func viewWillDisappear(animated: Bool) {
+        touchIndicator?.endTouchIndicatorAnimations()
+        touchIndicator?.delegate = nil
+        touchIndicator = nil
+        super.viewWillDisappear(animated)
+    }
 }
 extension AddNewCaptionHelperVC: TouchIndicatorDelegate{
     func onRestartingAnimation() {

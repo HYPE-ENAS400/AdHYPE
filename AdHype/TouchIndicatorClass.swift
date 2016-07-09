@@ -17,8 +17,9 @@ enum TouchType{
 class TouchIndicatorClass{
     private weak var touchIndicatorOuterView: UIView!
     private weak var touchIndicatorInnerView: UIView!
-    weak var delegate: TouchIndicatorDelegate!
+    weak var delegate: TouchIndicatorDelegate?
     var restartAnimationDelay: Double
+    var ended = false
     
     required init(outerView: UIView, innerView: UIView, restartDelay: Double, delegate: TouchIndicatorDelegate){
         self.touchIndicatorOuterView = outerView
@@ -45,26 +46,36 @@ class TouchIndicatorClass{
         touchIndicatorInnerView.transform = CGAffineTransformIdentity
         touchIndicatorInnerView.alpha = 0
         touchIndicatorOuterView.alpha = 0
+        ended = true
     }
     
     private func animateTouchIndicatorAppearance(){
-        delegate.onRestartingAnimation()
+        guard !ended else {
+            return
+        }
+        delegate?.onRestartingAnimation()
         UIView.animateWithDuration(0.2, delay: 0, options: .CurveLinear, animations: {
             self.touchIndicatorOuterView.alpha = 0.5
             self.touchIndicatorInnerView.alpha = 0.5
             
             }, completion: { finished in
-                self.delegate.onTouchIndicatorAppeared()
+                self.delegate?.onTouchIndicatorAppeared()
                 self.animateTouchIndicatorTapDown()
         })
     }
     private func animateTouchIndicatorTapDown(){
+        guard !ended else {
+            return
+        }
         UIView.animateWithDuration(0.2, delay: 0.5, options: .CurveLinear, animations: {
             self.touchIndicatorOuterView.transform = CGAffineTransformMakeScale(0.85, 0.85)
             
             }, completion: { finished in
-                let touchType = self.delegate.onTouchIndicatorTappedDown()
-                switch touchType{
+                let touchType = self.delegate?.onTouchIndicatorTappedDown()
+                guard let tt = touchType else{
+                    return
+                }
+                switch tt{
                 case .Tap:
                     self.animateTouchIndicatorTapUp()
                 case .DoubleTap:
@@ -75,6 +86,9 @@ class TouchIndicatorClass{
         })
     }
     private func animateTouchIndicatorCompleteDoubleTap(){
+        guard !ended else {
+            return
+        }
         UIView.animateWithDuration(0.2, animations: {
             self.touchIndicatorOuterView.transform = CGAffineTransformIdentity
             }, completion: { finished in
@@ -87,21 +101,27 @@ class TouchIndicatorClass{
     }
     
     private func animateTouchIndicatorTapUp(){
+        guard !ended else {
+            return
+        }
         UIView.animateWithDuration(0.2, delay: 0.3, options: .CurveLinear, animations: {
             self.touchIndicatorOuterView.transform = CGAffineTransformIdentity
             
             }, completion: { finished in
-                self.delegate.onTouchIndicatorTappedUp()
+                self.delegate?.onTouchIndicatorTappedUp()
                 self.animateTouchIndicatorDissapearnce()
         })
     }
     private func animateTouchIndicatorDissapearnce(){
+        guard !ended else {
+            return
+        }
         UIView.animateWithDuration(0.1, delay: 0.5, options: .CurveLinear, animations: {
             self.touchIndicatorOuterView.alpha = 0
             self.touchIndicatorInnerView.alpha = 0
             
             }, completion: { finished in
-                self.delegate.onTouchIndicatorDissapeared()
+                self.delegate?.onTouchIndicatorDissapeared()
 
                 delay(self.restartAnimationDelay){self.animateTouchIndicatorAppearance()}
         })

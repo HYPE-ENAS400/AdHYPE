@@ -84,8 +84,6 @@ class AdSocialViewController: UIViewController {
         addCaptionButton.layer.shadowOffset = CGSizeZero
         
         tableView.rowHeight = 70
-//        let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//        tableView.contentInset = insets
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -124,6 +122,7 @@ class AdSocialViewController: UIViewController {
         
     }
     
+    //NOTE, THIS PREVENTS NEW CAPTIONS FROM BEING LOADED AFTER TRYING TO SEND TO FRIENDS, CHANGE?
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         if let detachInfo = adCaptionDetachInfo{

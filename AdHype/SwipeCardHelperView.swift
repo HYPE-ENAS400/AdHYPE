@@ -53,6 +53,13 @@ class SwipeCardHelperView: UIViewController{
         touchIndicator = TouchIndicatorClass(outerView: touchIndicatorOuterView, innerView: touchIndicatorInnerView, restartDelay: 1, delegate: self)
         touchIndicator?.startTouchIndicatorAnimations()
     }
+    
+    override func viewWillDisappear(animated: Bool) {
+        touchIndicator?.endTouchIndicatorAnimations()
+        touchIndicator?.delegate = nil
+        touchIndicator = nil
+        super.viewWillDisappear(animated)
+    }
 }
 extension SwipeCardHelperView: TouchIndicatorDelegate{
     func onRestartingAnimation(){}

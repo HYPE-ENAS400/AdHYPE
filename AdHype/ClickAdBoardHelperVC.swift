@@ -71,6 +71,12 @@ class ClickAdBoardHelperVC: UIViewController{
         touchIndicator = TouchIndicatorClass(outerView: touchIndicatorOuterView, innerView: touchIndicatorInnerView, restartDelay: 2, delegate: self)
         touchIndicator?.startTouchIndicatorAnimations()
     }
+    override func viewWillDisappear(animated: Bool) {
+        touchIndicator?.endTouchIndicatorAnimations()
+        touchIndicator?.delegate = nil
+        touchIndicator = nil
+        super.viewWillDisappear(animated)
+    }
     
 }
 

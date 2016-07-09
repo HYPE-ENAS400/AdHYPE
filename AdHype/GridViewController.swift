@@ -22,7 +22,7 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     var isFriendGrid: Bool = false
     var detachInfo: FIRDetachInfo?
     
-    var delegate: GridViewControllerDelegate!
+    weak var delegate: GridViewControllerDelegate!
     weak var messageDelegate: DisplayMessageDelegate!
     
     override func viewDidLoad(){
@@ -129,9 +129,9 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     private func getCellFromGesture(gesture: UIGestureRecognizer) -> ImageGridCell? {
-        let pointInCollectionView: CGPoint = gesture.locationInView(self.collectionView)
-        if let selectedIndexPath: NSIndexPath = self.collectionView?.indexPathForItemAtPoint(pointInCollectionView){
-            if let cell = self.collectionView!.cellForItemAtIndexPath(selectedIndexPath) as? ImageGridCell{
+        let pointInCollectionView: CGPoint = gesture.locationInView(collectionView)
+        if let selectedIndexPath: NSIndexPath = collectionView?.indexPathForItemAtPoint(pointInCollectionView){
+            if let cell = collectionView?.cellForItemAtIndexPath(selectedIndexPath) as? ImageGridCell{
                 return cell
             }
         }
@@ -178,11 +178,15 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
         }
     }
     
-    deinit{
+    //Necessary to have separate function, otherwise deinit isn't called
+    //Parent VC's job to call
+    func detachGridViewListeners(){
         if let info = detachInfo{
             info.ref.removeObserverWithHandle(info.handle)
         }
+        
     }
+
 }
 
 extension GridViewController: ImageGridCellDelegate{
@@ -228,7 +232,7 @@ extension GridViewController: ImageGridCellDelegate{
     }
 }
 
-protocol GridViewControllerDelegate{
+protocol GridViewControllerDelegate: class{
     func onAdFromGridDoubleClicked(ad: HypeAd)
 }
 

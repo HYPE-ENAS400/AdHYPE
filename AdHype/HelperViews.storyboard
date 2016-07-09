@@ -2206,8 +2206,8 @@
                         <outlet property="progressBar" destination="jba-4K-BgE" id="fGn-b4-L1P"/>
                         <outlet property="shadowContainerView" destination="x8E-QO-ceB" id="MMO-Pe-nLv"/>
                         <outlet property="superContainerView" destination="f6A-yf-sVi" id="aeu-jr-pC8"/>
-                        <outlet property="touchIndicatorInnerView" destination="Nv8-Rf-nmO" id="qgT-iF-FJs"/>
-                        <outlet property="touchIndicatorOuterView" destination="6a2-Bq-ZeI" id="K1h-e7-sSf"/>
+                        <outlet property="touchIndicatorInnerView" destination="Nv8-Rf-nmO" id="gon-eQ-Ccm"/>
+                        <outlet property="touchIndicatorOuterView" destination="6a2-Bq-ZeI" id="ubV-jK-qyo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qDX-7X-AZi" userLabel="First Responder" sceneMemberID="firstResponder"/>

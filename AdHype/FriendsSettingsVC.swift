@@ -131,7 +131,7 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
         delegate.onAddFriendClicked(existingFriendsAndRequests)
     }
     
-    deinit{
+    func detachFriendSettingsListeners(){
         if let reqInfo = friendReqDetachInfo{
             reqInfo.ref.removeObserverWithHandle(reqInfo.handle)
         }

@@ -72,6 +72,12 @@ class DoubleTapBoardHelper: UIViewController{
         touchIndicator = TouchIndicatorClass(outerView: touchIndicatorOuterView, innerView: touchIndicatorInnerView, restartDelay: 0.5, delegate: self)
         touchIndicator?.startTouchIndicatorAnimations()
     }
+    override func viewWillDisappear(animated: Bool) {
+        touchIndicator?.endTouchIndicatorAnimations()
+        touchIndicator?.delegate = nil
+        touchIndicator = nil
+        super.viewWillDisappear(animated)
+    }
     
 }
 extension DoubleTapBoardHelper: TouchIndicatorDelegate{

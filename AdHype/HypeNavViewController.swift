@@ -91,6 +91,7 @@ class HypeNavViewController: CustomNavVC {
     func resetHype(){
         userInterests.clear()
         socialAd = nil
+        userGridViewController?.detachGridViewListeners()
         userGridViewController = nil
         mainViewController?.resetMainView()
     }
@@ -357,6 +358,7 @@ class HypeNavViewController: CustomNavVC {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         if !isViewControllerActiveVC(gridViewController){
+            userGridViewController?.detachGridViewListeners()
             userGridViewController = nil
         }
     }

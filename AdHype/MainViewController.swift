@@ -130,9 +130,6 @@ class MainViewController: UIViewController {
                 }
             })
         }
-//        else {
-//            print("RAN OUT OF ADD NAMES")
-//        }
     }
     
     func appendToQueueIfRoom(ref: FIRDatabaseReference){

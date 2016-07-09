@@ -41,7 +41,6 @@
 		2B75DF251D1766AC0047A0DF /* SocialNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B75DF241D1766AC0047A0DF /* SocialNavVC.swift */; };
 		2B8AB8251D1320180004B138 /* AdSocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8AB8241D1320180004B138 /* AdSocialViewController.swift */; };
 		2B991F9C1D11A6EE0022675F /* HypeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B991F9B1D11A6EE0022675F /* HypeAd.swift */; };
-		2B9BF4EA1D12446300BCD935 /* CustomImageFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9BF4E91D12446300BCD935 /* CustomImageFlowLayout.swift */; };
 		2B9EAA091D1093AC00396A63 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B9EAA041D1093AC00396A63 /* Launch Screen.storyboard */; };
 		2B9EAA0A1D1093AC00396A63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B9EAA051D1093AC00396A63 /* Main.storyboard */; };
 		2B9EAA0C1D1093AC00396A63 /* Main Hype View.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B9EAA071D1093AC00396A63 /* Main Hype View.storyboard */; };
@@ -123,7 +122,6 @@
 		2B75DF241D1766AC0047A0DF /* SocialNavVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialNavVC.swift; sourceTree = "<group>"; };
 		2B8AB8241D1320180004B138 /* AdSocialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdSocialViewController.swift; sourceTree = "<group>"; };
 		2B991F9B1D11A6EE0022675F /* HypeAd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HypeAd.swift; sourceTree = "<group>"; };
-		2B9BF4E91D12446300BCD935 /* CustomImageFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageFlowLayout.swift; sourceTree = "<group>"; };
 		2B9EAA041D1093AC00396A63 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		2B9EAA051D1093AC00396A63 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2B9EAA071D1093AC00396A63 /* Main Hype View.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Main Hype View.storyboard"; sourceTree = "<group>"; };
@@ -331,7 +329,6 @@
 				2B9EAA081D1093AC00396A63 /* Grid View.storyboard */,
 				2B9EAA1F1D1098BA00396A63 /* ImageGridCell.swift */,
 				2B9EAA201D1098BA00396A63 /* GridViewController.swift */,
-				2B9BF4E91D12446300BCD935 /* CustomImageFlowLayout.swift */,
 				2BB593251D24791A0068AA08 /* GridSectionCell.swift */,
 				2BB593281D24CC5B0068AA08 /* GridViewNavVC.swift */,
 				2BB5932C1D24D9530068AA08 /* GridViewFriendsVC.swift */,
@@ -575,7 +572,6 @@
 				2B3B26A41D2AAD65007511EB /* SwipeCardHelperView.swift in Sources */,
 				2B3B26A21D2AAD65007511EB /* HelperViewsVCS.swift in Sources */,
 				2B6F391A1D18AE140020F22E /* CustomTextField.swift in Sources */,
-				2B9BF4EA1D12446300BCD935 /* CustomImageFlowLayout.swift in Sources */,
 				2B9EAA311D10A02D00396A63 /* KYCircularProgress.swift in Sources */,
 				2B75DF1F1D1750910047A0DF /* customUnwindSegue.swift in Sources */,
 				2B991F9C1D11A6EE0022675F /* HypeAd.swift in Sources */,

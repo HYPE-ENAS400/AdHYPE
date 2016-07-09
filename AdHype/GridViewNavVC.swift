@@ -96,6 +96,7 @@ class GridViewNavVC: CustomNavVC{
                 self.backButton.center.x -= self.adjustmentWidth
         })
         setActiveViewController(.toRight, viewController: gridViewFriendsVC)
+        friendGridVC?.detachGridViewListeners()
         friendGridVC = nil
     }
     
@@ -104,13 +105,17 @@ class GridViewNavVC: CustomNavVC{
             friendButton.center.x += self.adjustmentWidth
             userButton.center.x += self.adjustmentWidth
         }
-        setActiveViewController(nil, viewController: nil)
         userUnderlineView.hidden = false
         friendUnderlineView.hidden = true
-        gridViewFriendsVC = nil
-        friendGridVC = nil
         friendLabel.hidden = true
         backButton.hidden = true
+        
+        setActiveViewController(nil, viewController: nil)
+        gridViewFriendsVC?.detachGridFriendListeners()
+        gridViewFriendsVC = nil
+        friendGridVC?.detachGridViewListeners()
+        friendGridVC = nil
+
         
     }
     

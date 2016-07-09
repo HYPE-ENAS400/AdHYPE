@@ -39,12 +39,13 @@ class GridViewFriendsVC: UIViewController{
     func getUserUID()->String{
         return (FIRAuth.auth()?.currentUser?.uid)!
     }
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        if let info = detachInfo{
-            info.ref.removeObserverWithHandle(info.handle)
-        }
+
+    func detachGridFriendListeners(){
+                if let info = detachInfo{
+                    info.ref.removeObserverWithHandle(info.handle)
+                }
     }
+    
 }
 
 extension GridViewFriendsVC: UITableViewDataSource, UITableViewDelegate{
