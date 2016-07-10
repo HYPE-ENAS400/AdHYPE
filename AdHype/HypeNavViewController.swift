@@ -97,12 +97,7 @@ class HypeNavViewController: CustomNavVC {
     }
     
     private func initializeHype(uid: String){
-        let keychainWrapper = KeychainWrapper.standardKeychainAccess()
-        
-        guard keychainWrapper.hasValueForKey(Constants.HASSEENMAINKEY) else {
-            showHelperViews(HelperViewSection.MainView)
-            return
-        }
+
         
         // get user interests
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT

@@ -77,7 +77,7 @@ class ClickAdBoardHelperVC: UIViewController{
         touchIndicator = nil
         super.viewWillDisappear(animated)
     }
-    
+
 }
 
 extension ClickAdBoardHelperVC: TouchIndicatorDelegate{

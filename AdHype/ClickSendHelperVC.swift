@@ -47,7 +47,7 @@ class ClickSendHelperVC: UIViewController{
         touchIndicator = nil
         super.viewWillDisappear(animated)
     }
-    
+
 }
 
 extension ClickSendHelperVC: TouchIndicatorDelegate{

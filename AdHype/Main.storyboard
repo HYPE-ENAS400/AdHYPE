@@ -243,6 +243,7 @@
                     <connections>
                         <outlet property="loginNavVCViewContainer" destination="Qgh-kv-sMj" id="Slk-k4-lh9"/>
                         <segue destination="Jlg-II-hhR" kind="unwind" identifier="unwindFromLogInSegue" unwindAction="unwindFromLogInSegue:" id="b6j-yK-fb5"/>
+                        <segue destination="K03-kC-iVV" kind="modal" identifier="loginToHelperViewsSegue" modalTransitionStyle="flipHorizontal" id="i3i-JH-v6E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4tt-0z-oyH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -276,15 +277,15 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NLz-P2-WKU">
-                                <rect key="frame" x="0.0" y="65" width="320" height="503"/>
+                                <rect key="frame" x="0.0" y="50" width="320" height="518"/>
                                 <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tAr-dr-pFY">
-                                <rect key="frame" x="0.0" y="20" width="320" height="35"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A0Y-kT-3s8">
-                                        <rect key="frame" x="10" y="0.0" width="35" height="35"/>
+                                        <rect key="frame" x="10" y="0.0" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="A0Y-kT-3s8" secondAttribute="height" multiplier="1:1" id="fEO-O9-dUg"/>
                                         </constraints>
@@ -298,7 +299,7 @@
                                 <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="A0Y-kT-3s8" firstAttribute="top" secondItem="tAr-dr-pFY" secondAttribute="top" id="E0Z-yQ-xnE"/>
-                                    <constraint firstAttribute="height" constant="35" id="J6a-IK-Lpl"/>
+                                    <constraint firstAttribute="height" constant="30" id="J6a-IK-Lpl"/>
                                     <constraint firstItem="A0Y-kT-3s8" firstAttribute="leading" secondItem="tAr-dr-pFY" secondAttribute="leading" constant="10" id="RhG-Ls-jup"/>
                                     <constraint firstAttribute="bottom" secondItem="A0Y-kT-3s8" secondAttribute="bottom" id="Sm9-4z-ecE"/>
                                 </constraints>
@@ -320,14 +321,16 @@
                             <constraint firstAttribute="trailing" secondItem="NLz-P2-WKU" secondAttribute="trailing" id="QcZ-86-9ZF"/>
                             <constraint firstItem="tAr-dr-pFY" firstAttribute="leading" secondItem="R3E-Kj-fsX" secondAttribute="leading" id="WBA-MT-ufI"/>
                             <constraint firstItem="Cyb-8D-aWp" firstAttribute="top" secondItem="NLz-P2-WKU" secondAttribute="bottom" id="WTb-NU-ODB"/>
-                            <constraint firstItem="NLz-P2-WKU" firstAttribute="top" secondItem="tAr-dr-pFY" secondAttribute="bottom" constant="10" id="aGY-PY-F1H"/>
+                            <constraint firstItem="NLz-P2-WKU" firstAttribute="top" secondItem="tAr-dr-pFY" secondAttribute="bottom" id="aGY-PY-F1H"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="S3I-r2-dCU"/>
                     <connections>
                         <outlet property="helperNavVCContainerView" destination="NLz-P2-WKU" id="gqy-eW-gfg"/>
                         <outlet property="pageIndicatorContainerView" destination="tAr-dr-pFY" id="kv2-XE-6Rq"/>
                         <segue destination="vh6-EK-hpb" kind="unwind" identifier="unwindFromHelperViewsSegue" unwindAction="unwindFromHelperViewsSegue:" id="eES-RU-goP"/>
                         <segue destination="vh6-EK-hpb" kind="unwind" identifier="unwindFromHelpToSocialSegue" unwindAction="unwindFromHelpToSocialSegue:" id="cN7-0F-Cqy"/>
+                        <segue destination="vh6-EK-hpb" kind="unwind" identifier="unwindFromLoginHelptoMainSegue" unwindAction="unwindFromLoginHelpToMainSegue:" id="2CL-3b-KtI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aks-F7-Ol1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -342,6 +345,6 @@
         <image name="settings_button" width="36" height="36"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eRR-BH-Y68"/>
+        <segue reference="i3i-JH-v6E"/>
     </inferredMetricsTieBreakers>
 </document>

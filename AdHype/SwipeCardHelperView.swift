@@ -60,6 +60,7 @@ class SwipeCardHelperView: UIViewController{
         touchIndicator = nil
         super.viewWillDisappear(animated)
     }
+    
 }
 extension SwipeCardHelperView: TouchIndicatorDelegate{
     func onRestartingAnimation(){}

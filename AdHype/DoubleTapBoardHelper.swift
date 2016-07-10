@@ -78,7 +78,6 @@ class DoubleTapBoardHelper: UIViewController{
         touchIndicator = nil
         super.viewWillDisappear(animated)
     }
-    
 }
 extension DoubleTapBoardHelper: TouchIndicatorDelegate{
     func onRestartingAnimation(){}

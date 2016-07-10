@@ -76,6 +76,7 @@ class SendAdHelperVC: UIViewController{
         touchIndicator = nil
         super.viewWillDisappear(animated)
     }
+
 }
 
 extension SendAdHelperVC: TouchIndicatorDelegate{

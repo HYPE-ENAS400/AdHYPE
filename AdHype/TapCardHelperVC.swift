@@ -63,6 +63,7 @@ class TapCardHelperVC: UIViewController{
         touchIndicator = nil
         super.viewWillDisappear(animated)
     }
+    
 }
 
 extension TapCardHelperVC: TouchIndicatorDelegate{

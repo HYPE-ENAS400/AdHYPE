@@ -86,6 +86,7 @@ class BoardHelperVC: UIViewController{
         touchIndicator = nil
         super.viewWillDisappear(animated)
     }
+
 }
 
 extension BoardHelperVC: TouchIndicatorDelegate{

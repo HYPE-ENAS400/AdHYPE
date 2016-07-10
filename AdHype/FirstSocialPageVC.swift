@@ -23,4 +23,5 @@ class FirstSocialPageVC: UIViewController{
         shadowView.layer.masksToBounds = false
         plusButton.layer.cornerRadius = (plusButton.bounds.size.width/2)
     }
+
 }

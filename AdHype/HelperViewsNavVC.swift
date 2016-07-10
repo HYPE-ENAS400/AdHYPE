@@ -98,7 +98,10 @@ class HelperViewsNavVC: CustomNavVC{
         
         if section == HelperViewSection.SocialView{
             self.performSegueWithIdentifier("unwindFromHelpToSocialSegue", sender: nil)
-        } else{
+        } else if section == HelperViewSection.MainView{
+            self.performSegueWithIdentifier("unwindFromLoginHelptoMainSegue", sender: nil)
+        }
+        else{
            self.performSegueWithIdentifier("unwindFromHelperViewsSegue", sender: nil)
         }
         

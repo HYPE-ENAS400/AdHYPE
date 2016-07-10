@@ -43,12 +43,34 @@ class LoginNavVC: CustomNavVC{
             let navVC = segue.destinationViewController as! HypeNavViewController
             navVC.shouldInitFromSignUp = shouldInitFromSignup
         }
+        if segue.identifier == "loginToHelperViewsSegue" {
+            let nextVC = segue.destinationViewController as! HelperViewsNavVC
+            nextVC.section = HelperViewSection.MainView
+        }
     }
+    
+    @IBAction func unwindFromLoginHelpToMainSegue(segue: UIStoryboardSegue){
+        let keychainWrapper = KeychainWrapper.standardKeychainAccess()
+        keychainWrapper.setBool(true, forKey: Constants.HASSEENMAINKEY)
+        self.performSegueWithIdentifier("unwindFromLogInSegue", sender: nil)
+    }
+    
+    private func onUserAuthenticated(){
+        let keychainWrapper = KeychainWrapper.standardKeychainAccess()
+        
+        if !(keychainWrapper.hasValueForKey(Constants.HASSEENMAINKEY)){
+            self.performSegueWithIdentifier("loginToHelperViewsSegue", sender: nil)
+        } else {
+            self.performSegueWithIdentifier("unwindFromLogInSegue", sender: nil)
+        }
+    }
+    
+    
 }
 
 extension LoginNavVC: SignUpUserInfoVCDelegate{
     func onUserInfoSubmitted() {
-        self.performSegueWithIdentifier("unwindFromLogInSegue", sender: nil)
+        onUserAuthenticated()
     }
 }
 
@@ -64,6 +86,6 @@ extension LoginNavVC: LoginViewControllerDelegate{
     }
     func onLoggedIn(){
         shouldInitFromSignup = false
-        self.performSegueWithIdentifier("unwindFromLogInSegue", sender: nil)
+        onUserAuthenticated()
     }
 }

@@ -57,4 +57,5 @@ class FirstBoardHelperVC: UIViewController{
         friendButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
         
     }
+
 }

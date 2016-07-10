@@ -90,7 +90,7 @@ class FriendBoardHelperVC: UIViewController{
         touchIndicator = nil
         super.viewWillDisappear(animated)
     }
-    
+
 }
 
 extension FriendBoardHelperVC: TouchIndicatorDelegate{

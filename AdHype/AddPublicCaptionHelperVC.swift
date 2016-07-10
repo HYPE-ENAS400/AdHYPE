@@ -52,7 +52,7 @@ class AddPublicCaptionHelperVC: UIViewController{
         touchIndicator = nil
         super.viewWillDisappear(animated)
     }
-    
+
 }
 
 extension AddPublicCaptionHelperVC: TouchIndicatorDelegate{

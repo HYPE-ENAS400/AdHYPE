@@ -126,6 +126,7 @@ class TouchIndicatorClass{
                 delay(self.restartAnimationDelay){self.animateTouchIndicatorAppearance()}
         })
     }
+
     
 }
 //onTouchIndicatorTappedDown returns double for delays > standard tap press delays

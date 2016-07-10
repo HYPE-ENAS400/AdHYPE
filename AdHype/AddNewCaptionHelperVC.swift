@@ -58,6 +58,7 @@ class AddNewCaptionHelperVC: UIViewController{
         touchIndicator = nil
         super.viewWillDisappear(animated)
     }
+
 }
 extension AddNewCaptionHelperVC: TouchIndicatorDelegate{
     func onRestartingAnimation() {
