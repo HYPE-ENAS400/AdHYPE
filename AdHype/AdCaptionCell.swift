@@ -25,6 +25,15 @@ class AdCaptionCell: UITableViewCell{
         adDownVoteButton.enabled = true
     }
     
+    func disableVoting(){
+        adDownVoteButton.enabled = false
+        adUpVoteButton.enabled = false
+    }
+    func enableVoting(){
+        adDownVoteButton.enabled = true
+        adUpVoteButton.enabled = true
+    }
+    
     func upButtonClicked() {
         
         var votes: Int = Int(adVoteLabel.text!)!

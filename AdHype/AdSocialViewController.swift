@@ -18,6 +18,8 @@ class AdSocialViewController: UIViewController {
     private var captionVisibleFrame: CGRect!
     private var captionHiddenFrame: CGRect!
     
+    private var captionPlaceholders = ["Make history, be the first to write a caption!"]
+    
     private var adCaptions = [(text: String, netVotes: Int, totalVotes: Int?, ref: String)]()
     private var adCaptionDetachInfo: FIRDetachInfo?
     
@@ -90,12 +92,15 @@ class AdSocialViewController: UIViewController {
         captionTextView.delegate = self
         
         adImageView.image = ad.getImage()
+        
         let id = (FIRAuth.auth()?.currentUser?.uid)!
         adVoteHistoryRef = FIRDatabase.database().reference().child(Constants.USERSNODE).child(id).child(Constants.ADCAPTIONVOTEHISTORYNODE).child(ad.getKey())
         
+        tableView.allowsSelection = false
         ad.fetchAdCaptions({(result: FetchCaptionResult) -> Void in
             if case let .Success(newVal) = result{
                 self.adCaptions.append(newVal)
+                self.tableView.allowsSelection = true
                 self.tableView.reloadData()
             }
             }, getDetachInfo: {(detachInfo: FIRDetachInfo) -> Void in
@@ -247,7 +252,7 @@ extension AdSocialViewController: UITextViewDelegate{
 extension AdSocialViewController: UITableViewDelegate{
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-
+        
         captionTextView.text = adCaptions[indexPath.row].text
         isCaptionVisible = true
         captionTextView.editable = false
@@ -256,12 +261,23 @@ extension AdSocialViewController: UITableViewDelegate{
 
 extension AdSocialViewController: UITableViewDataSource{
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return adCaptions.count
+        if adCaptions.count > 0 {
+            return adCaptions.count
+        } else{
+            return 1
+        }
         
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("AdCaptionCell", forIndexPath: indexPath) as! AdCaptionCell
+        
+        guard adCaptions.count > 0 else{
+            cell.adCaptionLabel.text = captionPlaceholders[0]
+            cell.adVoteLabel.text = "--"
+            cell.disableVoting()
+            return cell
+        }
         
         let ref = adVoteHistoryRef.child(adCaptions[indexPath.row].ref)
         ref.observeSingleEventOfType(.Value, withBlock: {(snapshot)->Void in
@@ -276,7 +292,7 @@ extension AdSocialViewController: UITableViewDataSource{
         
         cell.adUpVoteButton.tag = indexPath.row
         cell.adDownVoteButton.tag = indexPath.row
-        
+        cell.enableVoting()
         cell.adCaptionLabel.text = adCaptions[indexPath.row].text
         cell.adVoteLabel.text = String(adCaptions[indexPath.row].netVotes)
         
