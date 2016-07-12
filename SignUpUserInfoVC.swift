@@ -66,12 +66,19 @@ class SignUpUserInfoVC: UIViewController{
         var dict2 = [String: String]()
         if let age = ageTextField.text{
             dict2[Constants.USERAGE] = age
+            FIRAnalytics.setUserPropertyString(age, forName: "hypeAge")
+        } else {
+            FIRAnalytics.setUserPropertyString("NA", forName: "hypeAge")
         }
         let genderIndex = genderSegmentControl.selectedSegmentIndex
         if genderIndex == 0{
             dict2[Constants.USERGENDER] = "M"
+            FIRAnalytics.setUserPropertyString("M", forName: "hypeGender")
         } else if genderIndex == 1 {
             dict2[Constants.USERGENDER] = "F"
+            FIRAnalytics.setUserPropertyString("F", forName: "hypeGender")
+        } else{
+            FIRAnalytics.setUserPropertyString("NA", forName: "hypeGender")
         }
         userRef.setValue(dict2)
         

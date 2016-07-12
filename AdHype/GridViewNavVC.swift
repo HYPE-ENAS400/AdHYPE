@@ -82,7 +82,7 @@ class GridViewNavVC: CustomNavVC{
     }
     
     @IBAction func onBackButtonClicked(sender: AnyObject) {
-        UIView.animateWithDuration(0.25, delay: 0 , options: .CurveLinear, animations: {
+        UIView.animateWithDuration(0.2, delay: 0 , options: .CurveLinear, animations: {
             self.friendLabel.center.x += self.adjustmentWidth
             self.friendButton.center.x += self.adjustmentWidth
             self.userButton.center.x += self.adjustmentWidth
@@ -160,14 +160,14 @@ extension GridViewNavVC: GridViewFriendsVCDelegate{
         friendUnderlineView.hidden = true
         friendLabel.hidden = false
         backButton.hidden = false
-        UIView.animateWithDuration(0.25, delay: 0 , options: .CurveLinear, animations: {
+        UIView.animateWithDuration(0.2, delay: 0 , options: .CurveLinear, animations: {
             self.friendLabel.center.x -= self.adjustmentWidth
             self.friendButton.center.x -= self.adjustmentWidth
             self.userButton.center.x -= self.adjustmentWidth
             self.backButton.center.x -= self.adjustmentWidth
             
             }, completion: { finished in
-                print("finished animation")
+
         })
         showGridViewForUID(id)
     }

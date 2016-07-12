@@ -61,7 +61,9 @@ class MainViewController: UIViewController {
                 let progress = 0
                 self.progressBar.progress = Double(progress + 1)/Double(Constants.ADSPERCONTENT)
             }
-        })
+        }) { (error) in
+            print("ERROR GETTING ADVIEWCOUNT: \(error.localizedDescription)")
+        }
         
         let contentCountRef = userRef.child(Constants.CONTENTCOUNTNODE)
         let contentCountHandle = contentCountRef.observeEventType(.Value, withBlock: { (snapshot) in
@@ -120,6 +122,7 @@ class MainViewController: UIViewController {
                     self.ads.append(ad)
                     if self.ads.count == 1 {
                         self.mainSpinner.stopAnimating()
+                        self.outOfCardsView.hidden = true
                         self.kolodaView.reloadData()
                     } else{
                         let currCount = self.kolodaView.countOfCards
@@ -146,13 +149,10 @@ class MainViewController: UIViewController {
             }
             
             ref.removeAllObservers()
-            
             let query = ref.queryOrderedByKey().queryEqualToValue(nextKey)
             
             query.observeSingleEventOfType(.ChildAdded, withBlock: {(snapshot) -> Void in
                 if let dict = snapshot.value as? [String: String]{
-//                    let name = dict[Constants.ADNAMENODE]!
-//                    print("name: \(name)")
                     
                     if self.isUserInterestedInAd(dict){
                         guard let name = dict[Constants.ADNAMENODE] else{
@@ -169,7 +169,6 @@ class MainViewController: UIViewController {
                         }
                         let newMetaData = HypeAdMetaData(name: name, key: snapshot.key, url: url, primaryTag: primaryTag, isFromFriend: false, captionFromFriend: nil)
                         self.adsMetaDataQueue.enqueue(newMetaData)
-//                        print("ENQUEUED AD WITH NAME: \(name)")
                         if self.adsMetaDataQueue.getTotalCount()<=Constants.MAXNUMADS{
                             self.appendAdIfRoom() 
                         }
@@ -183,7 +182,9 @@ class MainViewController: UIViewController {
                 } else{
                     print("ERROR PARSING AD META DATA RESULTS")
                 }
-            })
+            }) { (error) in
+                print(error.localizedDescription)
+            }
             
         }
         
@@ -376,7 +377,7 @@ extension MainViewController: KolodaViewDelegate {
             appendAdIfRoom()
         } else {
             mainSpinner.startAnimating()
-            delay(5){
+            delay(10){
                 if !self.mainSpinner.hidden{
                     self.outOfCardsView.hidden = false
                     self.mainSpinner.stopAnimating()

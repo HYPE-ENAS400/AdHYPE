@@ -209,6 +209,7 @@
                                     <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" editable="NO" text="XXXXXXX" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="BUt-A6-g8x">
                                         <rect key="frame" x="0.0" y="314" width="414" height="30"/>
                                         <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="dDh-XS-dfI"/>

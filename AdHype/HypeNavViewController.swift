@@ -45,6 +45,7 @@ class HypeNavViewController: CustomNavVC {
     var helperSection: HelperViewSection!
     
     override func viewDidLoad() {
+        
         hypeBarView.layer.shadowOffset = CGSizeZero
         
         //FOR SOME REASON THIS IS GETTING CALLED TWICE ON STARTUP?
@@ -97,7 +98,6 @@ class HypeNavViewController: CustomNavVC {
     }
     
     private func initializeHype(uid: String){
-
         
         // get user interests
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT

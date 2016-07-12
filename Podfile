@@ -7,6 +7,7 @@ target 'AdHype' do
 
   # Pods for AdHype
     pod 'Firebase'
+    pod 'Firebase/Core'
     pod 'Firebase/Auth'
     pod 'Firebase/Database'
     pod 'Firebase/Storage'

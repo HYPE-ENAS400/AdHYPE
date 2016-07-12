@@ -137,7 +137,7 @@ extension BoardHelperVC: TouchIndicatorDelegate{
         switch totalResetCount % 2{
         case 1:
             touchIndicatorOuterView.center.y += 20
-            self.setNewInstructionText("and tap the button to delete the content")
+            self.setNewInstructionText("then tap the button to delete")
         case 0:
             touchIndicatorOuterView.center.y -= 20
             self.setNewInstructionText("Press and hold the card to activate the delete button......")
