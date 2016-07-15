@@ -199,7 +199,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dHQ-QX-dGE">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="wsK-Wu-S1R">
+                                <rect key="frame" x="281" y="281" width="37" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="37" id="TZ7-es-i1b"/>
+                                    <constraint firstAttribute="height" constant="37" id="asX-Hv-e6u"/>
+                                </constraints>
+                                <color key="color" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dxb-ws-d4W">
+                                <rect key="frame" x="20" y="0.0" width="560" height="600"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add some friends and view the content they liked!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yfb-Zn-FfX">
+                                        <rect key="frame" x="200" y="250" width="160" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="160" id="d6J-9H-l3V"/>
+                                            <constraint firstAttribute="height" constant="100" id="qSp-qM-sSe"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <color key="textColor" red="0.7843137255" green="0.7843137255" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="yfb-Zn-FfX" firstAttribute="centerX" secondItem="Dxb-ws-d4W" secondAttribute="centerX" id="hJi-hp-hIN"/>
+                                    <constraint firstItem="yfb-Zn-FfX" firstAttribute="centerY" secondItem="Dxb-ws-d4W" secondAttribute="centerY" id="wd9-5Q-GNm"/>
+                                </constraints>
+                            </view>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dHQ-QX-dGE">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -223,7 +251,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BrightREDright_button@2x-1" translatesAutoresizingMaskIntoConstraints="NO" id="ofy-y0-lIq">
-                                                    <rect key="frame" x="567" y="22.5" width="15" height="25"/>
+                                                    <rect key="frame" x="567" y="22" width="15" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="15" id="APJ-je-JIs"/>
                                                         <constraint firstAttribute="height" constant="25" id="g0V-5z-aj6"/>
@@ -247,15 +275,23 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="8DS-Ul-Ikk" firstAttribute="top" secondItem="dHQ-QX-dGE" secondAttribute="bottom" id="EaB-lm-bEE"/>
-                            <constraint firstItem="dHQ-QX-dGE" firstAttribute="leading" secondItem="M5m-BI-R6r" secondAttribute="leading" id="H85-HI-Tkp"/>
-                            <constraint firstAttribute="trailing" secondItem="dHQ-QX-dGE" secondAttribute="trailing" id="bc1-8b-MbB"/>
-                            <constraint firstItem="dHQ-QX-dGE" firstAttribute="top" secondItem="0lG-Cw-OTt" secondAttribute="bottom" id="hFo-dO-EY7"/>
+                            <constraint firstAttribute="trailing" secondItem="dHQ-QX-dGE" secondAttribute="trailing" id="0aZ-kC-6e4"/>
+                            <constraint firstItem="wsK-Wu-S1R" firstAttribute="centerY" secondItem="M5m-BI-R6r" secondAttribute="centerY" id="1P0-mh-hbQ"/>
+                            <constraint firstItem="dHQ-QX-dGE" firstAttribute="top" secondItem="0lG-Cw-OTt" secondAttribute="bottom" id="55C-7V-Swd"/>
+                            <constraint firstItem="8DS-Ul-Ikk" firstAttribute="top" secondItem="dHQ-QX-dGE" secondAttribute="bottom" id="57L-sB-bnT"/>
+                            <constraint firstItem="8DS-Ul-Ikk" firstAttribute="top" secondItem="Dxb-ws-d4W" secondAttribute="bottom" id="5dh-iX-20p"/>
+                            <constraint firstItem="Dxb-ws-d4W" firstAttribute="top" secondItem="0lG-Cw-OTt" secondAttribute="bottom" id="DYG-a6-usH"/>
+                            <constraint firstItem="wsK-Wu-S1R" firstAttribute="centerX" secondItem="M5m-BI-R6r" secondAttribute="centerX" id="R4Q-Lf-8zk"/>
+                            <constraint firstItem="dHQ-QX-dGE" firstAttribute="leading" secondItem="M5m-BI-R6r" secondAttribute="leading" id="Th1-by-FzI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Dxb-ws-d4W" secondAttribute="trailing" id="fyp-WU-qRZ"/>
+                            <constraint firstItem="Dxb-ws-d4W" firstAttribute="leading" secondItem="M5m-BI-R6r" secondAttribute="leadingMargin" id="n18-DA-IEk"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="friendsTableView" destination="dHQ-QX-dGE" id="ODd-LE-aJs"/>
+                        <outlet property="noFriendsView" destination="Dxb-ws-d4W" id="NRV-NS-xQf"/>
+                        <outlet property="spinner" destination="wsK-Wu-S1R" id="j4I-DR-a6R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aCJ-1K-dve" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -280,7 +316,21 @@
                         <view key="backgroundView" contentMode="scaleToFill" id="8eM-79-G0h">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="0JC-Xo-brX">
+                                    <rect key="frame" x="281" y="282" width="37" height="37"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="37" id="9kq-g4-dVF"/>
+                                        <constraint firstAttribute="height" constant="37" id="QIK-9T-YVK"/>
+                                    </constraints>
+                                    <color key="color" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </activityIndicatorView>
+                            </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="0JC-Xo-brX" firstAttribute="centerX" secondItem="8eM-79-G0h" secondAttribute="centerX" id="flN-QB-JoT"/>
+                                <constraint firstItem="0JC-Xo-brX" firstAttribute="centerY" secondItem="8eM-79-G0h" secondAttribute="centerY" id="n7B-pt-qBB"/>
+                            </constraints>
                         </view>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="UICollectionViewCell" id="SPF-2i-XgV" customClass="ImageGridCell" customModule="AdHype" customModuleProvider="target">
@@ -410,6 +460,7 @@
                     </collectionView>
                     <connections>
                         <outlet property="doubleTapGestureRecognizer" destination="t0w-2h-8Ar" id="BIL-FX-LF7"/>
+                        <outlet property="spinner" destination="0JC-Xo-brX" id="8dE-3a-7Hf"/>
                         <outlet property="tapGestureRecognizer" destination="pat-6A-Rbn" id="fTp-z6-c3d"/>
                     </connections>
                 </collectionViewController>

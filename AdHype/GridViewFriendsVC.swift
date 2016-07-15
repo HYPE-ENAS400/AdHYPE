@@ -15,6 +15,9 @@ class GridViewFriendsVC: UIViewController{
     var friends = [(id: String, names: SelectionCellTextData)]()
     var delegate: GridViewFriendsVCDelegate!
     var detachInfo: FIRDetachInfo?
+    @IBOutlet weak var noFriendsView: UIView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,10 +26,23 @@ class GridViewFriendsVC: UIViewController{
         friendsTableView.delegate = self
         
         let ref = FIRDatabase.database().reference().child(Constants.USERSNODE).child(getUserUID()).child(Constants.USERFRIENDSNODE)
+        
+        delay(1){
+            if self.friends.isEmpty{
+                self.noFriendsView.hidden = false
+                self.friendsTableView.hidden = true
+                self.spinner.stopAnimating()
+            }
+        }
+        
         let query = ref.queryOrderedByChild(Constants.USERDISPLAYNAME)
         let handle = query.observeEventType(.ChildAdded, withBlock: {(snapshot) -> Void in
-            print(snapshot)
             if let nameDict = snapshot.value as? [String: String]{
+                
+                self.friendsTableView.hidden = false
+                self.noFriendsView.hidden = true
+                self.spinner.stopAnimating()
+                
                 let un = nameDict[Constants.USERDISPLAYNAME]!
                 let fn = nameDict[Constants.USERFULLNAME]
                 let newTextData = SelectionCellTextData(main: un, detail: fn)
@@ -46,6 +62,9 @@ class GridViewFriendsVC: UIViewController{
                 }
     }
     
+    deinit{
+        print("FUCKING FRIENDS DEINIT")
+    }
 }
 
 extension GridViewFriendsVC: UITableViewDataSource, UITableViewDelegate{

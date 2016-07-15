@@ -1,14 +1,14 @@
 //
-//  TapCardHelperVC.swift
+//  PointHelperVC.swift
 //  AdHype
 //
-//  Created by Maxwell Payson on 7/6/16.
+//  Created by Maxwell Payson on 7/14/16.
 //  Copyright © 2016 Enas400. All rights reserved.
 //
 
 import UIKit
 
-class TapCardHelperVC: UIViewController{
+class PointHelperVC: UIViewController{
     
     @IBOutlet weak var superContainerView: UIView!
     @IBOutlet weak var shadowContainerView: UIView!
@@ -19,8 +19,11 @@ class TapCardHelperVC: UIViewController{
     @IBOutlet weak var touchIndicatorOuterView: UIView!
     @IBOutlet weak var touchIndicatorInnerView: UIView!
     @IBOutlet weak var progressBar: KYCircularProgress!
+    @IBOutlet weak var countLabel: UILabel!
+    var contentCount = 17
+    var adCount = 2
     
-    var touchIndicator: TouchIndicatorClass?
+    var timer: NSTimer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,31 +48,27 @@ class TapCardHelperVC: UIViewController{
         cardImageView.layer.cornerRadius = 20
         cardImageView.layer.masksToBounds = true
         
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(PointHelperVC.animateProgressIndicator), userInfo: nil, repeats: true)
+        timer.fire()
+        
     }
-    
-    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        startTouchAnimations()
     }
     
-    func startTouchAnimations(){
-        touchIndicator = TouchIndicatorClass(outerView: touchIndicatorOuterView, innerView: touchIndicatorInnerView, restartDelay: 1, delegate: self)
-        touchIndicator?.startTouchIndicatorAnimations()
+    func animateProgressIndicator(){
+        adCount += 1
+        let progress = adCount % Constants.ADSPERCONTENT
+        progressBar.progress = Double(progress + 1)/Double(Constants.ADSPERCONTENT)
+        if(progress) == Constants.ADSPERCONTENT - 1 {
+            contentCount += 1
+            countLabel.text = String(contentCount)
+            
+        }
+    
     }
     override func viewWillDisappear(animated: Bool) {
-        touchIndicator?.endTouchIndicatorAnimations()
-        touchIndicator?.delegate = nil
-        touchIndicator = nil
         super.viewWillDisappear(animated)
+        timer.invalidate()
     }
-    
-}
-
-extension TapCardHelperVC: TouchIndicatorDelegate{
-    func onRestartingAnimation(){}
-    func onTouchIndicatorAppeared(){}
-    func onTouchIndicatorTappedDown() -> TouchType{return TouchType.Tap}
-    func onTouchIndicatorTappedUp(){}
-    func onTouchIndicatorDissapeared(){}
 }

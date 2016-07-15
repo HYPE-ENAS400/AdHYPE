@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B0971991D392C2E00711AC3 /* FirstLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0971981D392C2E00711AC3 /* FirstLoginVC.swift */; };
 		2B3B26A11D2AAD65007511EB /* HelperViews.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B3B26951D2AAD65007511EB /* HelperViews.storyboard */; };
 		2B3B26A21D2AAD65007511EB /* HelperViewsVCS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3B26961D2AAD65007511EB /* HelperViewsVCS.swift */; };
 		2B3B26A31D2AAD65007511EB /* HelperViewsNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3B26971D2AAD65007511EB /* HelperViewsNavVC.swift */; };
@@ -39,6 +40,7 @@
 		2B75DF211D17647C0047A0DF /* Social View.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B75DF201D17647C0047A0DF /* Social View.storyboard */; };
 		2B75DF231D17652C0047A0DF /* Send to Friends View.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B75DF221D17652C0047A0DF /* Send to Friends View.storyboard */; };
 		2B75DF251D1766AC0047A0DF /* SocialNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B75DF241D1766AC0047A0DF /* SocialNavVC.swift */; };
+		2B8609961D3843E400FF81D2 /* PointHelperVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8609951D3843E400FF81D2 /* PointHelperVC.swift */; };
 		2B8AB8251D1320180004B138 /* AdSocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8AB8241D1320180004B138 /* AdSocialViewController.swift */; };
 		2B991F9C1D11A6EE0022675F /* HypeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B991F9B1D11A6EE0022675F /* HypeAd.swift */; };
 		2B9EAA091D1093AC00396A63 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B9EAA041D1093AC00396A63 /* Launch Screen.storyboard */; };
@@ -86,6 +88,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B0971981D392C2E00711AC3 /* FirstLoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstLoginVC.swift; sourceTree = "<group>"; };
 		2B3B26951D2AAD65007511EB /* HelperViews.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HelperViews.storyboard; sourceTree = "<group>"; };
 		2B3B26961D2AAD65007511EB /* HelperViewsVCS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperViewsVCS.swift; sourceTree = "<group>"; };
 		2B3B26971D2AAD65007511EB /* HelperViewsNavVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperViewsNavVC.swift; sourceTree = "<group>"; };
@@ -120,6 +123,7 @@
 		2B75DF201D17647C0047A0DF /* Social View.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Social View.storyboard"; sourceTree = "<group>"; };
 		2B75DF221D17652C0047A0DF /* Send to Friends View.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Send to Friends View.storyboard"; sourceTree = "<group>"; };
 		2B75DF241D1766AC0047A0DF /* SocialNavVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialNavVC.swift; sourceTree = "<group>"; };
+		2B8609951D3843E400FF81D2 /* PointHelperVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointHelperVC.swift; sourceTree = "<group>"; };
 		2B8AB8241D1320180004B138 /* AdSocialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdSocialViewController.swift; sourceTree = "<group>"; };
 		2B991F9B1D11A6EE0022675F /* HypeAd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HypeAd.swift; sourceTree = "<group>"; };
 		2B9EAA041D1093AC00396A63 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -223,6 +227,7 @@
 				2B3B26961D2AAD65007511EB /* HelperViewsVCS.swift */,
 				2B3B26981D2AAD65007511EB /* SwipeCardHelperView.swift */,
 				2BB7BF961D2D8D2300C5466B /* TapCardHelperVC.swift */,
+				2B8609951D3843E400FF81D2 /* PointHelperVC.swift */,
 			);
 			name = "Main Helpers";
 			sourceTree = "<group>";
@@ -372,6 +377,7 @@
 				2B9EAA181D1098B300396A63 /* LoginViewController.swift */,
 				2BB593191D2345F00068AA08 /* LoginNavVC.swift */,
 				2BB5931B1D23463D0068AA08 /* LoginViews.storyboard */,
+				2B0971981D392C2E00711AC3 /* FirstLoginVC.swift */,
 				2BB5931D1D2426750068AA08 /* SignUpUserInfoVC.swift */,
 			);
 			name = LogIn;
@@ -537,6 +543,7 @@
 				2B8AB8251D1320180004B138 /* AdSocialViewController.swift in Sources */,
 				2B9EAA331D10A02D00396A63 /* KeychainWrapper.swift in Sources */,
 				2B9EAA501D10B1BE00396A63 /* OverlayView.swift in Sources */,
+				2B8609961D3843E400FF81D2 /* PointHelperVC.swift in Sources */,
 				2B3B26A61D2AAD65007511EB /* AddPublicCaptionHelperVC.swift in Sources */,
 				2BB592DF1D223BD40068AA08 /* CustomNavVC.swift in Sources */,
 				2B75DF0F1D15C6760047A0DF /* FriendsSectionCell.swift in Sources */,
@@ -578,6 +585,7 @@
 				2BB592BE1D1C97C60068AA08 /* SelectionDataSource.swift in Sources */,
 				2B75DF1D1D1749620047A0DF /* customSegue.swift in Sources */,
 				2B75DF1B1D1734400047A0DF /* FriendsTableViewController.swift in Sources */,
+				2B0971991D392C2E00711AC3 /* FirstLoginVC.swift in Sources */,
 				2B3B26AE1D2AB472007511EB /* FirstBoardHelperVC.swift in Sources */,
 				2BB593291D24CC5B0068AA08 /* GridViewNavVC.swift in Sources */,
 				2B9EAA321D10A02D00396A63 /* UtilityFunctions.swift in Sources */,

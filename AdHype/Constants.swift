@@ -31,6 +31,7 @@ struct Constants {
     static let AGGREGATECARDSSENT = "aggregateCardsSent"
     static let AGGREGATEUSERCAPTIONS = "aggregateUserCaptions"
     static let AGGREGATECARDSCLICKED = "aggregateCardsClicked"
+    static let AGGREGATECARDSSAVED = "aggregateCardsSaved"
     
     static let USERNAMESNODE = "UserNames"
     static let USERSNODE = "users"

@@ -45,7 +45,7 @@ class RightSwipePageVC: SwipeCardHelperView{
         progressBar.progressGuideColor = UIColor(red: 212/255, green: 212/255, blue: 212/255, alpha: 1)
         progressBar.showProgressGuide = true
         progressBar.colors = [UIColor(red: 255/255, green: 56/255, blue: 73/255, alpha: 1)]
-        progressBar.progress = 0.75
+        progressBar.progress = 0.25
         superContainerView.layer.cornerRadius = 5
         shadowContainerView.layer.shadowOffset = CGSizeZero
         shadowContainerView.layer.shadowOpacity = 1
@@ -91,7 +91,7 @@ class LeftSwipePageVC: SwipeCardHelperView{
         progressBar.progressGuideColor = UIColor(red: 212/255, green: 212/255, blue: 212/255, alpha: 1)
         progressBar.showProgressGuide = true
         progressBar.colors = [UIColor(red: 255/255, green: 56/255, blue: 73/255, alpha: 1)]
-        progressBar.progress = 0.75
+        progressBar.progress = 0.25
         superContainerView.layer.cornerRadius = 5
         shadowContainerView.layer.shadowOffset = CGSizeZero
         shadowContainerView.layer.shadowOpacity = 1
@@ -137,7 +137,7 @@ class UpSwipePageVC: SwipeCardHelperView{
         progressBar.progressGuideColor = UIColor(red: 212/255, green: 212/255, blue: 212/255, alpha: 1)
         progressBar.showProgressGuide = true
         progressBar.colors = [UIColor(red: 255/255, green: 56/255, blue: 73/255, alpha: 1)]
-        progressBar.progress = 0.75
+        progressBar.progress = 0.25
         superContainerView.layer.cornerRadius = 5
         shadowContainerView.layer.shadowOffset = CGSizeZero
         shadowContainerView.layer.shadowOpacity = 1

@@ -50,9 +50,9 @@ class GridViewNavVC: CustomNavVC{
         hiddenBarFrame = messageBar.frame
         visibleBarFrame = hiddenBarFrame
         visibleBarFrame.origin.y += hiddenBarFrame.size.height
-        
 
     }
+
     
     @IBAction func onFriendButtonClicked(sender: AnyObject) {
         guard !isViewControllerActiveVC(gridViewFriendsVC) else {
@@ -75,7 +75,6 @@ class GridViewNavVC: CustomNavVC{
             return
         }
         setActiveViewController(.toRight, viewController: userGridVC)
-        gridViewFriendsVC = nil
         userUnderlineView.hidden = false
         friendUnderlineView.hidden = true
 
@@ -115,9 +114,19 @@ class GridViewNavVC: CustomNavVC{
         gridViewFriendsVC = nil
         friendGridVC?.detachGridViewListeners()
         friendGridVC = nil
-
-        
+        userGridVC = nil
     }
+    
+    func resetGridView(){
+        setActiveViewController(nil, viewController: nil)
+        gridViewFriendsVC?.detachGridFriendListeners()
+        gridViewFriendsVC = nil
+        friendGridVC?.detachGridViewListeners()
+        friendGridVC = nil
+        userGridVC?.detachGridViewListeners()
+        userGridVC = nil
+    }
+
     
 }
 

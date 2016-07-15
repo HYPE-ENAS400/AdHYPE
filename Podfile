@@ -12,6 +12,7 @@ target 'AdHype' do
     pod 'Firebase/Database'
     pod 'Firebase/Storage'
     pod 'Firebase/Crash'
+    pod 'Firebase/Messaging'
     pod 'pop', '~> 1.0'
 
 end

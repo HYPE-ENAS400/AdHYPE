@@ -10,6 +10,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet var errorLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
+    @IBOutlet weak var logoImageView: UIImageView!
+    
     var userName: String!
     var password: String!
     
@@ -39,6 +41,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         logInButton.layer.shadowOpacity = 0.8
         logInButton.layer.shadowOffset = CGSizeZero
         
+        NSNotificationCenter.defaultCenter().addObserver(self,
+             selector: #selector(self.keyboardNotification(_:)),
+             name: UIKeyboardWillChangeFrameNotification,
+             object: nil)
+        
+        
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+
+    
+    func keyboardNotification(notification: NSNotification) {
         
     }
     
@@ -57,68 +73,69 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     }
     
     @IBAction func logInClicked(sender: AnyObject){
-        
-        logInButton.userInteractionEnabled = false
-        signUpButton.userInteractionEnabled = false
-        spinner.startAnimating()
-        userName = userNameTextEdit.text
-        password = passwordTextEdit.text
-        
-        //TODO fix conditionals
-        FIRAuth.auth()?.signInWithEmail(userNameTextEdit.text!, password: passwordTextEdit.text!, completion: { (user, error) -> Void in
-            self.spinner.stopAnimating()
-            if let error = error{
-                
-                self.logInButton.userInteractionEnabled = true
-                self.signUpButton.userInteractionEnabled = true
-                let userInfo: NSDictionary = error.userInfo
-                self.displayLoginError(String(userInfo.valueForKey("error_name")!))
-                
-            } else if let user = user{
-                
-                let keychainWrapper = KeychainWrapper.standardKeychainAccess()
-                keychainWrapper.setString(self.userName, forKey: Constants.USERKEY)
-                keychainWrapper.setString(self.password, forKey: Constants.PASSKEY)
-                
-                self.delegate.onLoggedIn()
-                
-                print("Successfully logged in user account with uid: \(user.uid)")
-            }
-        })
+//        logInButton.userInteractionEnabled = false
+//        signUpButton.userInteractionEnabled = false
+//        spinner.startAnimating()
+//        userName = userNameTextEdit.text
+//        password = passwordTextEdit.text
+//        
+//        //TODO fix conditionals
+//        FIRAuth.auth()?.signInWithEmail(userNameTextEdit.text!, password: passwordTextEdit.text!, completion: { (user, error) -> Void in
+//            self.spinner.stopAnimating()
+//            if let error = error{
+//                
+//                self.logInButton.userInteractionEnabled = true
+//                self.signUpButton.userInteractionEnabled = true
+//                let userInfo: NSDictionary = error.userInfo
+//                self.displayLoginError(String(userInfo.valueForKey("error_name")!))
+//                
+//            } else if let user = user{
+//                
+//                let keychainWrapper = KeychainWrapper.standardKeychainAccess()
+//                keychainWrapper.setString(self.userName, forKey: Constants.USERKEY)
+//                keychainWrapper.setString(self.password, forKey: Constants.PASSKEY)
+//                
+//                self.delegate.onLoggedIn()
+//                
+//                print("Successfully logged in user account with uid: \(user.uid)")
+//            }
+//        })
         
     }
     
     @IBAction func signUpClicked(sender: AnyObject){
         
-        logInButton.userInteractionEnabled = false
-        signUpButton.userInteractionEnabled = false
-        
-        userName = userNameTextEdit.text
-        password = passwordTextEdit.text
-        spinner.startAnimating()
-        FIRAuth.auth()?.createUserWithEmail(userName, password: password,
-            completion: { (user, error) -> Void in
-                self.spinner.stopAnimating()
-                if let error = error{
-                    
-                    self.logInButton.userInteractionEnabled = true
-                    self.signUpButton.userInteractionEnabled = true
-                    let userInfo: NSDictionary = error.userInfo
-                    self.displayLoginError(String(userInfo.valueForKey("error_name")!))
-                    
-                    
-                } else if let user = user{
-                    //TODO fix the optional?
-                    
-                    let keychainWrapper = KeychainWrapper.standardKeychainAccess()
-                    keychainWrapper.setString(self.userName, forKey: Constants.USERKEY)
-                    keychainWrapper.setString(self.password, forKey: Constants.PASSKEY)
-                    
-                    self.delegate.onSignedUp()
-                    
-                    print("Successfully created user account with uid: \(user.uid)")
-                }
-        })
+        self.delegate.onSignedUp()
+//
+//        logInButton.userInteractionEnabled = false
+//        signUpButton.userInteractionEnabled = false
+//        
+//        userName = userNameTextEdit.text
+//        password = passwordTextEdit.text
+//        spinner.startAnimating()
+//        FIRAuth.auth()?.createUserWithEmail(userName, password: password,
+//            completion: { (user, error) -> Void in
+//                self.spinner.stopAnimating()
+//                if let error = error{
+//                    
+//                    self.logInButton.userInteractionEnabled = true
+//                    self.signUpButton.userInteractionEnabled = true
+//                    let userInfo: NSDictionary = error.userInfo
+//                    self.displayLoginError(String(userInfo.valueForKey("error_name")!))
+//                    
+//                    
+//                } else if let user = user{
+//                    //TODO fix the optional?
+//                    
+//                    let keychainWrapper = KeychainWrapper.standardKeychainAccess()
+//                    keychainWrapper.setString(self.userName, forKey: Constants.USERKEY)
+//                    keychainWrapper.setString(self.password, forKey: Constants.PASSKEY)
+//                    
+//                    self.delegate.onSignedUp()
+//                    
+//                    print("Successfully created user account with uid: \(user.uid)")
+//                }
+//        })
     }
     
     private func displayLoginError(errorName: String){
@@ -140,7 +157,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
             errorLabel.text = "Error signing you in"
         }
     }
-}
+    
+    }
 
 
 protocol LoginViewControllerDelegate: class{

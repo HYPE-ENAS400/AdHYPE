@@ -408,7 +408,7 @@ extension MainViewController: KolodaViewDelegate {
         
         let timeStamp = String(Int(NSDate().timeIntervalSince1970))
         let aggregateCardsRef = userRef.child(Constants.AGGREGATECARDSCLICKED).child(ad.getKey())
-        aggregateCardsRef.child(timeStamp).setValue(true)
+        aggregateCardsRef.child(timeStamp).setValue("fromDeck")
         
         if let url = NSURL(string: urlString){
             

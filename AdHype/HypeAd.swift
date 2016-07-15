@@ -148,7 +148,9 @@ class HypeAd: Equatable{
         }
         return dict
     }
-    
+    deinit {
+        print("FUCKING AD DEINIT")
+    }
 }
 
 func == (lhs: HypeAd, rhs: HypeAd) -> Bool{

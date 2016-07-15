@@ -31,7 +31,6 @@ class HypeNavViewController: CustomNavVC {
     var mainViewController: MainViewController?
     var settingsViewController: SettingsNavVC?
     var gridViewController: GridViewNavVC?
-    var userGridViewController: GridViewController?
     
     var onAdSocialVCClosedFunc: ((canceled: Bool)->Void)?
     var socialAd: HypeAd!
@@ -43,57 +42,62 @@ class HypeNavViewController: CustomNavVC {
     private var shouldInitOnAuthStateChange = true
     var shouldInitFromSignUp = false
     var helperSection: HelperViewSection!
+    var userGridViewController: GridViewController?
     
     override func viewDidLoad() {
         
         hypeBarView.layer.shadowOffset = CGSizeZero
         
         //FOR SOME REASON THIS IS GETTING CALLED TWICE ON STARTUP?
-        FIRAuth.auth()?.addAuthStateDidChangeListener{auth, user in
-            if let authUser = user {
-                
-                if self.shouldInitOnAuthStateChange{
-                    self.shouldInitOnAuthStateChange = false
-                    guard user?.displayName != nil else{
-                        self.needUserInfo = true
-                        self.performSegueWithIdentifier("logInSegue", sender: nil)
-                        return
-                    }
-                    self.hypeBarView.hidden = false
-                    self.changeNavBarViewForCurrentView(.Main)
-                    self.setActiveViewController(nil, viewController: self.mainViewController)
-                    self.initializeHype(authUser.uid)
-                }
-                
-            } else {
-                self.resetHype()
-                self.shouldInitOnAuthStateChange = false
-                
-                let keychainWrapper = KeychainWrapper.standardKeychainAccess()
-                
-                if let uN = keychainWrapper.stringForKey(Constants.USERKEY), pW = keychainWrapper.stringForKey(Constants.PASSKEY){
-                    FIRAuth.auth()?.signInWithEmail(uN, password: pW, completion:
-                        { (error, authData) -> Void in
-                            if error != nil{
-                                print(error)
-                                self.performSegueWithIdentifier("logInSegue", sender: nil)
-                            }
-                    })
-                } else {
-                    self.performSegueWithIdentifier("logInSegue", sender: nil)
-                }
-            }
-        }
+//        FIRAuth.auth()?.addAuthStateDidChangeListener{auth, user in
+//            if let authUser = user {
+//                
+//                if self.shouldInitOnAuthStateChange{
+//                    self.shouldInitOnAuthStateChange = false
+//                    guard user?.displayName != nil else{
+//                        self.needUserInfo = true
+//                        self.performSegueWithIdentifier("logInSegue", sender: nil)
+//                        return
+//                    }
+//                    self.hypeBarView.hidden = false
+//                    self.changeNavBarViewForCurrentView(.Main)
+//                    self.setActiveViewController(nil, viewController: self.mainViewController)
+//                    self.initializeHype(authUser.uid)
+//                }
+//                
+//            } else {
+//                self.resetHype()
+//                self.shouldInitOnAuthStateChange = false
+//                
+//                let keychainWrapper = KeychainWrapper.standardKeychainAccess()
+//                
+//                if let uN = keychainWrapper.stringForKey(Constants.USERKEY), pW = keychainWrapper.stringForKey(Constants.PASSKEY){
+//                    FIRAuth.auth()?.signInWithEmail(uN, password: pW, completion:
+//                        { (error, authData) -> Void in
+//                            if error != nil{
+//                                print(error)
+//                                self.performSegueWithIdentifier("logInSegue", sender: nil)
+//                            }
+//                    })
+//                } else {
+//                    self.performSegueWithIdentifier("logInSegue", sender: nil)
+//                }
+//            }
+//        }
         
         super.viewDidLoad()
         
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.performSegueWithIdentifier("logInSegue", sender: nil)
+    }
+    
     func resetHype(){
         userInterests.clear()
         socialAd = nil
-        userGridViewController?.detachGridViewListeners()
-        userGridViewController = nil
+        gridViewController?.resetGridView()
         mainViewController?.resetMainView()
     }
     
@@ -249,6 +253,7 @@ class HypeNavViewController: CustomNavVC {
     }
     
     @IBAction func onHypeButtonClicked(sender: AnyObject){
+        
         guard !isViewControllerActiveVC(mainViewController) else {
             return
         }
@@ -260,8 +265,11 @@ class HypeNavViewController: CustomNavVC {
             setActiveViewController(.toLeft, viewController: mainViewController)
         }
     }
+
     
     @IBAction func onGridButtonClicked(sender: AnyObject){
+
+        
         guard !isViewControllerActiveVC(gridViewController) else {
             return
         }
@@ -274,7 +282,13 @@ class HypeNavViewController: CustomNavVC {
         if !(keychainWrapper.hasValueForKey(Constants.HASSEENGRIDKEY)) {
             showHelperViews(HelperViewSection.GridView)
         }
-
+    }
+    
+    override func didReceiveMemoryWarning() {
+        if !isViewControllerActiveVC(gridViewController){
+            userGridViewController?.detachGridViewListeners()
+            userGridViewController = nil
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -348,14 +362,6 @@ class HypeNavViewController: CustomNavVC {
     
     private func getUserUID() -> String{
         return (FIRAuth.auth()?.currentUser?.uid)!
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        if !isViewControllerActiveVC(gridViewController){
-            userGridViewController?.detachGridViewListeners()
-            userGridViewController = nil
-        }
     }
     
 }

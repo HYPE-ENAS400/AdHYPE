@@ -10,6 +10,13 @@
         <!--Login View Controller-->
         <scene sceneID="ZTA-Y2-aSC">
             <objects>
+                <tapGestureRecognizer id="mLE-tQ-Ier">
+                    <connections>
+                        <action selector="dismissKeyboard:" destination="kYe-al-2cX" id="wnm-K6-OSq"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <exit id="oHa-Bt-eml" userLabel="Exit" sceneMemberID="exit"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AQk-Y3-m50" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="logInView" id="kYe-al-2cX" customClass="LoginViewController" customModule="AdHype" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EQv-ft-83O"/>
@@ -19,6 +26,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OZa-8d-fWh">
+                                <rect key="frame" x="20" y="253" width="560" height="297"/>
+                                <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XHI-pT-Ish" customClass="CustomTextField" customModule="AdHype" customModuleProvider="target">
                                 <rect key="frame" x="35" y="323" width="530" height="50"/>
                                 <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -113,14 +124,17 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kfP-OB-krZ">
-                                <rect key="frame" x="0.0" y="20" width="600" height="223"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="235"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_text_White" translatesAutoresizingMaskIntoConstraints="NO" id="zpX-WW-f5I">
-                                        <rect key="frame" x="213.5" y="11" width="173" height="202"/>
+                                        <rect key="frame" x="208" y="11" width="183" height="214"/>
                                         <constraints>
                                             <constraint firstAttribute="height" priority="750" constant="140" id="W1y-hH-uPl"/>
                                             <constraint firstAttribute="width" secondItem="zpX-WW-f5I" secondAttribute="height" multiplier="6:7" id="zrm-HX-UXU"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.zPosition" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
                                 </subviews>
                                 <constraints>
@@ -141,8 +155,9 @@
                         <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="CFj-Gr-zZz" firstAttribute="top" secondItem="kfP-OB-krZ" secondAttribute="bottom" constant="10" id="12j-Bw-3Ta"/>
+                            <constraint firstItem="CFj-Gr-zZz" firstAttribute="top" secondItem="kfP-OB-krZ" secondAttribute="bottom" priority="750" constant="10" id="12j-Bw-3Ta"/>
                             <constraint firstItem="lBP-LX-hxa" firstAttribute="centerX" secondItem="co0-BK-VZK" secondAttribute="centerX" id="39J-NM-XlL"/>
+                            <constraint firstItem="OZa-8d-fWh" firstAttribute="leading" secondItem="co0-BK-VZK" secondAttribute="leadingMargin" id="5Ih-bg-0od"/>
                             <constraint firstItem="U1A-HJ-tDs" firstAttribute="centerX" secondItem="co0-BK-VZK" secondAttribute="centerX" id="6nm-vG-V9t"/>
                             <constraint firstAttribute="trailingMargin" secondItem="NdO-s5-NXr" secondAttribute="trailing" constant="10" id="7eJ-3Z-BJK"/>
                             <constraint firstItem="XHI-pT-Ish" firstAttribute="leading" secondItem="co0-BK-VZK" secondAttribute="leadingMargin" constant="15" id="BxD-Gd-kJ5"/>
@@ -158,6 +173,8 @@
                             <constraint firstItem="NdO-s5-NXr" firstAttribute="top" secondItem="RTD-at-uhE" secondAttribute="bottom" constant="20" id="ZYh-Ms-tS5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CFj-Gr-zZz" secondAttribute="trailing" constant="15" id="a6K-rh-py6"/>
                             <constraint firstItem="8nw-MI-X8m" firstAttribute="top" secondItem="NdO-s5-NXr" secondAttribute="bottom" constant="50" id="cfO-9s-xQr"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="OZa-8d-fWh" secondAttribute="trailing" id="g5f-l9-XLD"/>
+                            <constraint firstItem="OZa-8d-fWh" firstAttribute="top" secondItem="CFj-Gr-zZz" secondAttribute="top" id="hkk-Kx-VIR"/>
                             <constraint firstItem="lBP-LX-hxa" firstAttribute="centerX" secondItem="co0-BK-VZK" secondAttribute="centerX" id="iLk-6i-tUB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="RTD-at-uhE" secondAttribute="trailing" constant="10" id="ixk-Lj-jdF"/>
                             <constraint firstItem="RTD-at-uhE" firstAttribute="leading" secondItem="co0-BK-VZK" secondAttribute="leadingMargin" constant="10" id="lBv-iD-xls"/>
@@ -166,6 +183,7 @@
                             <constraint firstItem="XHI-pT-Ish" firstAttribute="top" secondItem="CFj-Gr-zZz" secondAttribute="bottom" constant="20" id="pJV-LF-aP5"/>
                             <constraint firstItem="NdO-s5-NXr" firstAttribute="leading" secondItem="co0-BK-VZK" secondAttribute="leadingMargin" constant="10" id="q3I-gd-3x0"/>
                             <constraint firstItem="lBP-LX-hxa" firstAttribute="centerX" secondItem="co0-BK-VZK" secondAttribute="centerX" id="qRL-xd-10p"/>
+                            <constraint firstItem="NdO-s5-NXr" firstAttribute="bottom" secondItem="OZa-8d-fWh" secondAttribute="bottom" id="seK-Dm-Xgg"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="mLE-tQ-Ier" appends="YES" id="ccK-IJ-27j"/>
@@ -174,6 +192,7 @@
                     <connections>
                         <outlet property="errorLabel" destination="lBP-LX-hxa" id="xKJ-Fa-mZe"/>
                         <outlet property="logInButton" destination="RTD-at-uhE" id="5l4-GN-SSR"/>
+                        <outlet property="logoImageView" destination="zpX-WW-f5I" id="wrL-hN-QcI"/>
                         <outlet property="passwordTextEdit" destination="XHI-pT-Ish" id="35o-pS-JW5"/>
                         <outlet property="signUpButton" destination="NdO-s5-NXr" id="K5L-a7-rIh"/>
                         <outlet property="spinner" destination="U1A-HJ-tDs" id="VS8-P8-pLp"/>
@@ -181,13 +200,6 @@
                         <segue destination="oHa-Bt-eml" kind="unwind" identifier="unwindFromLogInSegue" unwindAction="unwindFromLogInSegue:" id="wkq-e7-Kbz"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="AQk-Y3-m50" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="oHa-Bt-eml" userLabel="Exit" sceneMemberID="exit"/>
-                <tapGestureRecognizer id="mLE-tQ-Ier">
-                    <connections>
-                        <action selector="dismissKeyboard:" destination="kYe-al-2cX" id="wnm-K6-OSq"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="644.26666666666665" y="554.74666666666667"/>
         </scene>

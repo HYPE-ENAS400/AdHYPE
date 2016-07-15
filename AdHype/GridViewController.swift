@@ -25,6 +25,9 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
     weak var delegate: GridViewControllerDelegate!
     weak var messageDelegate: DisplayMessageDelegate!
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
+    
     override func viewDidLoad(){
         super.viewDidLoad()
         
@@ -44,7 +47,7 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
                 let key = snapshot.key
                 let primarytag = dict[Constants.ADPRIMARYTAGNODE]!
                 let newAdMetaData = HypeAdMetaData(name: name, key: key, url: url, primaryTag: primarytag, isFromFriend: false, captionFromFriend: nil)
-                
+                self.spinner.stopAnimating()
                 if let interestIndex = self.interests.indexOf(primarytag){
                     self.adStore[primarytag]?.append(HypeAd(refURL: Constants.BASESTORAGEURL + name, metaData: newAdMetaData))
                     
@@ -77,6 +80,7 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
         })
         detachInfo = FIRDetachInfo(ref: adsLikedRef, handle: handle)
     }
+
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
@@ -154,7 +158,12 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
             }
             let timeStamp = String(Int(NSDate().timeIntervalSince1970))
             let aggregateCardsRef = FIRDatabase.database().reference().child(Constants.USERSNODE).child(userID).child(Constants.AGGREGATECARDSCLICKED).child(cell.cellAd.getKey())
-            aggregateCardsRef.child(timeStamp).setValue(true)
+            if isFriendGrid{
+                aggregateCardsRef.child(timeStamp).setValue("fromFriend")
+            } else{
+                aggregateCardsRef.child(timeStamp).setValue("fromGrid")
+            }
+            
             
         }
 
@@ -185,6 +194,9 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
             info.ref.removeObserverWithHandle(info.handle)
         }
         
+    }
+    deinit {
+        print("FUCKING GRID VIEW DEINIT")
     }
 
 }
@@ -226,10 +238,14 @@ extension GridViewController: ImageGridCellDelegate{
                     return
                 }
                 self.messageDelegate.displayMessage("Ad saved to your board!", duration: 1.5)
+                let timeStamp = String(Int(NSDate().timeIntervalSince1970))
+                let aggregateCardsRef = FIRDatabase.database().reference().child(Constants.USERSNODE).child(userID).child(Constants.AGGREGATECARDSSAVED).child(ad.getKey())
+                aggregateCardsRef.child(timeStamp).setValue(true)
             })
         }
         
     }
+
 }
 
 protocol GridViewControllerDelegate: class{

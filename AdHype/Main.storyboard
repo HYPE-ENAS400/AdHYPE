@@ -104,19 +104,6 @@
                                             <action selector="onHypeButtonClicked:" destination="i3f-Qq-Fhr" eventType="touchUpInside" id="nOB-h0-bm2"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qfu-TZ-bkh">
-                                        <rect key="frame" x="20" y="7" width="32" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="32" id="Tb8-mm-96a"/>
-                                            <constraint firstAttribute="height" constant="32" id="lAB-0f-3kX"/>
-                                        </constraints>
-                                        <state key="normal" image="settings_button">
-                                            <color key="titleColor" red="0.96078431369999995" green="0.95686274510000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="onSettingButtonClicked:" destination="i3f-Qq-Fhr" eventType="touchUpInside" id="X0K-u0-SUu"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="982-Bu-p55">
                                         <rect key="frame" x="276" y="7" width="32" height="32"/>
                                         <constraints>
@@ -128,6 +115,19 @@
                                         </state>
                                         <connections>
                                             <action selector="onGridButtonClicked:" destination="i3f-Qq-Fhr" eventType="touchUpInside" id="hF1-VL-W6l"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qfu-TZ-bkh">
+                                        <rect key="frame" x="20" y="7" width="32" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="32" id="Tb8-mm-96a"/>
+                                            <constraint firstAttribute="height" constant="32" id="lAB-0f-3kX"/>
+                                        </constraints>
+                                        <state key="normal" image="settings_button">
+                                            <color key="titleColor" red="0.96078431369999995" green="0.95686274510000002" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onSettingButtonClicked:" destination="i3f-Qq-Fhr" eventType="touchUpInside" id="X0K-u0-SUu"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -232,7 +232,7 @@
                                 <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Qgh-kv-sMj" firstAttribute="leading" secondItem="ctL-wS-Lpd" secondAttribute="leading" id="2e2-6a-oLl"/>
                             <constraint firstItem="Qgh-kv-sMj" firstAttribute="top" secondItem="wF9-qh-7rW" secondAttribute="bottom" constant="-20" id="Oy3-TB-AXP"/>

@@ -87,6 +87,7 @@ class FriendsSettingsVC: UIViewController, FriendsCellDelegate, FriendsSectionCe
     }
     
     func onFriendRequestAccepted(info: (key: String, value: SelectionCellTextData)?){
+        
         if let i = info{
             if let index = friendRequests.getIndexOfPairForKey((i.key)){
                 if let user = FIRAuth.auth()?.currentUser{
