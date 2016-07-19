@@ -20,7 +20,7 @@ class LoginNavVC: CustomNavVC{
         }
     }
     
-    var logInViewController: LoginViewController?
+    var logInViewController: LoginVC?
     var signUpUserInfoVC: SignUpUserInfoVC?
     
     override func viewDidLoad() {
@@ -32,7 +32,7 @@ class LoginNavVC: CustomNavVC{
             signUpUserInfoVC?.delegate = self
             setActiveViewController(nil, viewController: signUpUserInfoVC)
         } else {
-            logInViewController = loginStoryboard.instantiateViewControllerWithIdentifier("logInView") as? LoginViewController
+            logInViewController = loginStoryboard.instantiateViewControllerWithIdentifier("loginVC") as? LoginVC
             logInViewController?.delegate = self
             setActiveViewController(nil, viewController: logInViewController)
         }

@@ -291,9 +291,9 @@ extension MainViewController: KolodaViewDataSource{
         let newContainerView = UIView(frame: superFrame)
         
         newContainerView.layer.cornerRadius = 20
-        newContainerView.layer.shadowOpacity = 0.6
+        newContainerView.layer.shadowOpacity = 0.8
         newContainerView.layer.shadowOffset = CGSizeZero
-        newContainerView.layer.shadowRadius = 4
+        newContainerView.layer.shadowRadius = 2
         
         guard let image = ad.getImage() else {
             print("ERROR GETTING ADD IMAGE")

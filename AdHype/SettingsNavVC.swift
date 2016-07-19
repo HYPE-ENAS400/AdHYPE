@@ -44,6 +44,7 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
         helpButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
         userButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
         friendsButton.imageView?.contentMode   = UIViewContentMode.ScaleAspectFit
+        barView.layer.shadowOffset = CGSizeZero
 
     }
     

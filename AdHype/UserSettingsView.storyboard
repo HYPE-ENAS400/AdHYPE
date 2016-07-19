@@ -80,9 +80,6 @@
                                 <state key="normal" title="Log Out">
                                     <color key="titleColor" red="0.67843137254901964" green="0.67450980392156867" blue="0.71372549019607845" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="10"/>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="onSignOutClicked:" destination="ONo-Vh-FZ4" eventType="touchUpInside" id="yOe-jr-bvN"/>
                                 </connections>

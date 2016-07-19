@@ -27,24 +27,10 @@ class HelpSettingsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        submitFeedbackButton.layer.cornerRadius = CGFloat(Constants.DEFAULTCORNERRADIUS)
-        submitFeedbackButton.layer.shadowOffset = CGSizeZero
-        submitFeedbackButton.layer.shadowColor = UIColor.grayColor().CGColor
-        submitFeedbackButton.layer.shadowRadius = 3
-        submitFeedbackButton.layer.shadowOpacity = 1.0
         
-        helpButton.layer.cornerRadius = CGFloat(Constants.DEFAULTCORNERRADIUS)
-        helpButton.layer.shadowOffset = CGSizeZero
-        helpButton.layer.shadowColor = UIColor.grayColor().CGColor
-        helpButton.layer.shadowRadius = 3
-        helpButton.layer.shadowOpacity = 1.0
-        
-        privacyPolicyButton.layer.cornerRadius = CGFloat(Constants.DEFAULTCORNERRADIUS)
-        privacyPolicyButton.layer.shadowOffset = CGSizeZero
-        privacyPolicyButton.layer.shadowColor = UIColor.grayColor().CGColor
-        privacyPolicyButton.layer.shadowRadius = 3
-        privacyPolicyButton.layer.shadowOpacity = 1.0
-
+        initializeAppButtonLayer(submitFeedbackButton.layer)
+        initializeAppButtonLayer(helpButton.layer)
+        initializeAppButtonLayer(privacyPolicyButton.layer)
         
         pickerData = ["bug--minor", "bug--critical", "user interface", "general feedback"]
         commentTypePicker.dataSource = self

@@ -48,51 +48,47 @@ class HypeNavViewController: CustomNavVC {
         
         hypeBarView.layer.shadowOffset = CGSizeZero
         
-        //FOR SOME REASON THIS IS GETTING CALLED TWICE ON STARTUP?
-//        FIRAuth.auth()?.addAuthStateDidChangeListener{auth, user in
-//            if let authUser = user {
-//                
-//                if self.shouldInitOnAuthStateChange{
-//                    self.shouldInitOnAuthStateChange = false
-//                    guard user?.displayName != nil else{
-//                        self.needUserInfo = true
-//                        self.performSegueWithIdentifier("logInSegue", sender: nil)
-//                        return
-//                    }
-//                    self.hypeBarView.hidden = false
-//                    self.changeNavBarViewForCurrentView(.Main)
-//                    self.setActiveViewController(nil, viewController: self.mainViewController)
-//                    self.initializeHype(authUser.uid)
-//                }
-//                
-//            } else {
-//                self.resetHype()
-//                self.shouldInitOnAuthStateChange = false
-//                
-//                let keychainWrapper = KeychainWrapper.standardKeychainAccess()
-//                
-//                if let uN = keychainWrapper.stringForKey(Constants.USERKEY), pW = keychainWrapper.stringForKey(Constants.PASSKEY){
-//                    FIRAuth.auth()?.signInWithEmail(uN, password: pW, completion:
-//                        { (error, authData) -> Void in
-//                            if error != nil{
-//                                print(error)
-//                                self.performSegueWithIdentifier("logInSegue", sender: nil)
-//                            }
-//                    })
-//                } else {
-//                    self.performSegueWithIdentifier("logInSegue", sender: nil)
-//                }
-//            }
-//        }
+//        FOR SOME REASON THIS IS GETTING CALLED TWICE ON STARTUP?
+        FIRAuth.auth()?.addAuthStateDidChangeListener{auth, user in
+            if let authUser = user {
+                
+                if self.shouldInitOnAuthStateChange{
+                    self.shouldInitOnAuthStateChange = false
+                    guard user?.displayName != nil else{
+                        self.needUserInfo = true
+                        self.performSegueWithIdentifier("logInSegue", sender: nil)
+                        return
+                    }
+                    self.hypeBarView.hidden = false
+                    self.changeNavBarViewForCurrentView(.Main)
+                    self.setActiveViewController(nil, viewController: self.mainViewController)
+                    self.initializeHype(authUser.uid)
+                }
+                
+            } else {
+                self.resetHype()
+                self.shouldInitOnAuthStateChange = false
+                
+                let keychainWrapper = KeychainWrapper.standardKeychainAccess()
+                
+                if let uN = keychainWrapper.stringForKey(Constants.USERKEY), pW = keychainWrapper.stringForKey(Constants.PASSKEY){
+                    FIRAuth.auth()?.signInWithEmail(uN, password: pW, completion:
+                        { (error, authData) -> Void in
+                            if error != nil{
+                                print(error)
+                                self.performSegueWithIdentifier("logInSegue", sender: nil)
+                            }
+                    })
+                } else {
+                    self.performSegueWithIdentifier("logInSegue", sender: nil)
+                }
+            }
+        }
         
         super.viewDidLoad()
         
     }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        self.performSegueWithIdentifier("logInSegue", sender: nil)
-    }
+
     
     func resetHype(){
         userInterests.clear()
@@ -193,19 +189,19 @@ class HypeNavViewController: CustomNavVC {
     private func changeNavBarViewForCurrentView(currentView: CurrentViewType){
         switch currentView{
         case .Main:
-            hypeBarView.layer.shadowOpacity = 0.8
-            settingsButton.alpha = 0.7
+            hypeBarView.layer.shadowOpacity = 1
+            settingsButton.alpha = 0.5
             hypeButton.alpha = 1
-            gridButton.alpha = 0.7
+            gridButton.alpha = 0.5
         case .Settings:
-            hypeBarView.layer.shadowOpacity = 0.5
+            hypeBarView.layer.shadowOpacity = 0.3
             settingsButton.alpha = 1
-            hypeButton.alpha = 0.7
-            gridButton.alpha = 0.7
+            hypeButton.alpha = 0.5
+            gridButton.alpha = 0.5
         case .Grid:
-            hypeBarView.layer.shadowOpacity = 0.5
-            settingsButton.alpha = 0.7
-            hypeButton.alpha = 0.7
+            hypeBarView.layer.shadowOpacity = 0.3
+            settingsButton.alpha = 0.5
+            hypeButton.alpha = 0.5
             gridButton.alpha = 1
         }
     }

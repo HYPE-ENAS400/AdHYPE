@@ -17,7 +17,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     
     var ref:FIRDatabaseReference!
     
-    weak var delegate: LoginViewControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,7 +104,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
     
     @IBAction func signUpClicked(sender: AnyObject){
         
-        self.delegate.onSignedUp()
 //
 //        logInButton.userInteractionEnabled = false
 //        signUpButton.userInteractionEnabled = false
@@ -158,10 +156,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
         }
     }
     
-    }
-
-
-protocol LoginViewControllerDelegate: class{
-    func onSignedUp()
-    func onLoggedIn()
 }
+
+
+//protocol LoginViewControllerDelegate: class{
+//    func onSignedUp()
+//    func onLoggedIn()
+//}

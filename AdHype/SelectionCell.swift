@@ -16,7 +16,7 @@ class SelectionCell: UITableViewCell{
     
     func initCell(isCellSelected: Bool){
         selectionIndicatorView.layer.cornerRadius = (selectionIndicatorView.layer.bounds.size.width/2)
-        selectionIndicatorView.layer.shadowRadius = 2
+        selectionIndicatorView.layer.shadowRadius = 1
         selectionIndicatorView.layer.shadowOffset = CGSizeZero
         selectionIndicatorView.layer.shadowOpacity = 0.8
         if isCellSelected{

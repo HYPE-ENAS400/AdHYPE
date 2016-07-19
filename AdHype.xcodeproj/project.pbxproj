@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B0971991D392C2E00711AC3 /* FirstLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0971981D392C2E00711AC3 /* FirstLoginVC.swift */; };
+		2B09719B1D398E9600711AC3 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09719A1D398E9600711AC3 /* LoginVC.swift */; };
 		2B3B26A11D2AAD65007511EB /* HelperViews.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B3B26951D2AAD65007511EB /* HelperViews.storyboard */; };
 		2B3B26A21D2AAD65007511EB /* HelperViewsVCS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3B26961D2AAD65007511EB /* HelperViewsVCS.swift */; };
 		2B3B26A31D2AAD65007511EB /* HelperViewsNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3B26971D2AAD65007511EB /* HelperViewsNavVC.swift */; };
@@ -88,7 +88,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2B0971981D392C2E00711AC3 /* FirstLoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstLoginVC.swift; sourceTree = "<group>"; };
+		2B09719A1D398E9600711AC3 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		2B3B26951D2AAD65007511EB /* HelperViews.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HelperViews.storyboard; sourceTree = "<group>"; };
 		2B3B26961D2AAD65007511EB /* HelperViewsVCS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperViewsVCS.swift; sourceTree = "<group>"; };
 		2B3B26971D2AAD65007511EB /* HelperViewsNavVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperViewsNavVC.swift; sourceTree = "<group>"; };
@@ -375,9 +375,9 @@
 			isa = PBXGroup;
 			children = (
 				2B9EAA181D1098B300396A63 /* LoginViewController.swift */,
+				2B09719A1D398E9600711AC3 /* LoginVC.swift */,
 				2BB593191D2345F00068AA08 /* LoginNavVC.swift */,
 				2BB5931B1D23463D0068AA08 /* LoginViews.storyboard */,
-				2B0971981D392C2E00711AC3 /* FirstLoginVC.swift */,
 				2BB5931D1D2426750068AA08 /* SignUpUserInfoVC.swift */,
 			);
 			name = LogIn;
@@ -552,6 +552,7 @@
 				2B3B26A81D2AAD65007511EB /* ClickSendHelperVC.swift in Sources */,
 				2BFD16261D1AFC50001A210A /* FriendsSettingsVC.swift in Sources */,
 				2BB5931E1D2426750068AA08 /* SignUpUserInfoVC.swift in Sources */,
+				2B09719B1D398E9600711AC3 /* LoginVC.swift in Sources */,
 				2B3B26A91D2AAD65007511EB /* SendAdHelperVC.swift in Sources */,
 				2BB7BF971D2D8D2300C5466B /* TapCardHelperVC.swift in Sources */,
 				2B3B26AA1D2AAD65007511EB /* BoardHelperVC.swift in Sources */,
@@ -585,7 +586,6 @@
 				2BB592BE1D1C97C60068AA08 /* SelectionDataSource.swift in Sources */,
 				2B75DF1D1D1749620047A0DF /* customSegue.swift in Sources */,
 				2B75DF1B1D1734400047A0DF /* FriendsTableViewController.swift in Sources */,
-				2B0971991D392C2E00711AC3 /* FirstLoginVC.swift in Sources */,
 				2B3B26AE1D2AB472007511EB /* FirstBoardHelperVC.swift in Sources */,
 				2BB593291D24CC5B0068AA08 /* GridViewNavVC.swift in Sources */,
 				2B9EAA321D10A02D00396A63 /* UtilityFunctions.swift in Sources */,

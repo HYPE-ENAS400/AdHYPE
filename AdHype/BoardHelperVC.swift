@@ -140,7 +140,7 @@ extension BoardHelperVC: TouchIndicatorDelegate{
             self.setNewInstructionText("then tap the button to delete")
         case 0:
             touchIndicatorOuterView.center.y -= 20
-            self.setNewInstructionText("Press and hold the card to activate the delete button......")
+            self.setNewInstructionText("Press and hold the card to activate the delete button...")
         default:
             return
         }

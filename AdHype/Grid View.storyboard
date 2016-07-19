@@ -137,10 +137,10 @@
                                                 <integer key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                                <integer key="value" value="7"/>
+                                                <integer key="value" value="3"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                                <integer key="value" value="1"/>
+                                                <real key="value" value="0.80000000000000004"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
@@ -172,6 +172,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="backButton" destination="woz-bu-V28" id="mmo-4T-uUc"/>
+                        <outlet property="barView" destination="knz-8E-ecl" id="wZh-N3-fyL"/>
                         <outlet property="friendButton" destination="iIW-WP-mBu" id="OTD-vP-9o0"/>
                         <outlet property="friendLabel" destination="OiN-wT-Xl9" id="IHY-H2-IW1"/>
                         <outlet property="friendUnderlineView" destination="sJU-sp-dck" id="SXZ-JC-2Uj"/>

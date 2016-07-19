@@ -20,6 +20,7 @@ class GridViewNavVC: CustomNavVC{
     @IBOutlet weak var messageBarLabel: UILabel!
     @IBOutlet weak var messageBar: UIView!
     
+    @IBOutlet weak var barView: UIView!
     
     @IBOutlet weak var gridViewNavVCContainerView: UIView!{
         didSet{
@@ -38,6 +39,7 @@ class GridViewNavVC: CustomNavVC{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        barView.layer.shadowOffset = CGSizeZero
 
         userButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
         friendButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit

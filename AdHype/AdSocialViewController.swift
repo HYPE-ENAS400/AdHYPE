@@ -81,8 +81,8 @@ class AdSocialViewController: UIViewController {
         super.viewDidLoad()
         captionTextView.contentInset.top = 0
         addCaptionButton.layer.cornerRadius = (addCaptionButton.bounds.size.height/2)
-        addCaptionButton.layer.shadowRadius = 4
-        addCaptionButton.layer.shadowOpacity = 0.6
+        addCaptionButton.layer.shadowRadius = 2
+        addCaptionButton.layer.shadowOpacity = 1
         addCaptionButton.layer.shadowOffset = CGSizeZero
         
         tableView.rowHeight = 70

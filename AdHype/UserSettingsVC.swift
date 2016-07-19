@@ -32,7 +32,7 @@ class UserSettingsVC: UIViewController{
         
         usernameTextField.enabled = false
         
-        initializeButtonLayer(logOutButton)
+        initializeAppButtonLayer(logOutButton.layer)
         
         interestsTableView.selectionDelegate = self
         for i in 0..<interestsDataSource.getCount(){
@@ -50,13 +50,7 @@ class UserSettingsVC: UIViewController{
         }
     }
     
-    func initializeButtonLayer(button: UIButton){
-        button.layer.cornerRadius = CGFloat(Constants.DEFAULTCORNERRADIUS)
-        button.layer.shadowRadius = 4
-        button.layer.shadowOpacity = 0.8
-        button.layer.shadowOffset = CGSizeZero
-        button.layer.shadowColor = UIColor.grayColor().CGColor
-    }
+
 
     
 //    @IBAction func onSaveClicked(sender: AnyObject) {

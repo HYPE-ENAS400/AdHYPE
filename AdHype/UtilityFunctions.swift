@@ -60,6 +60,14 @@ func delay(delay:Double, closure:()->()) {
         dispatch_get_main_queue(), closure)
 }
 
+func initializeAppButtonLayer(layer: CALayer){
+    layer.cornerRadius = CGFloat(Constants.DEFAULTCORNERRADIUSSMALL)
+    layer.shadowRadius = 2
+    layer.shadowOpacity = 1.0
+    layer.shadowOffset = CGSizeZero
+    layer.shadowColor = UIColor.grayColor().CGColor
+}
+
 func resizeImage(image: UIImage, newScale: CGFloat) -> UIImage{
     let newWidth = image.size.width * newScale
     let newHeight = image.size.width * newScale

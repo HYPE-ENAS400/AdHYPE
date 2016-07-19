@@ -19,6 +19,8 @@ class SignUpUserInfoVC: UIViewController{
     @IBOutlet weak var usernameErrorLabel: UILabel!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     weak var delegate: SignUpUserInfoVCDelegate!
     var username: String?
     
@@ -47,11 +49,60 @@ class SignUpUserInfoVC: UIViewController{
         genderSegmentControl.layer.masksToBounds = true
         
         submitButton.layer.cornerRadius = CGFloat(Constants.DEFAULTCORNERRADIUS)
-        submitButton.layer.shadowRadius = 4
-        submitButton.layer.shadowOpacity = 0.8
-        submitButton.layer.shadowOffset = CGSizeZero
+//        submitButton.layer.shadowRadius = 4
+//        submitButton.layer.shadowOpacity = 0.8
+//        submitButton.layer.shadowOffset = CGSizeZero
+        NSNotificationCenter.defaultCenter().addObserver(self,
+             selector: #selector(self.keyboardNotification(_:)),
+             name: UIKeyboardWillChangeFrameNotification,
+             object: nil)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func keyboardNotification(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue()
+            
+            var offset: CGPoint
+            
+            if endFrame?.origin.y >= UIScreen.mainScreen().bounds.size.height {
+                offset = CGPoint(x: 0.0, y: 0.0)
+            } else if fullNameTextField.editing{
+                offset = CGPoint(x: 0.0, y: 65.0)
+            } else if ageTextField.editing{
+                offset = CGPoint(x: 0.0, y: 120.0)
+            } else{
+                offset = CGPoint(x: 0.0, y: 0.0)
+            }
+            
+            let duration:NSTimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+            let animationCurveRawNSN = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
+            let animationCurveRaw = animationCurveRawNSN?.unsignedLongValue ?? UIViewAnimationOptions.CurveEaseInOut.rawValue
+            let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
+            
+            UIView.animateWithDuration(duration, delay: 0, options: animationCurve, animations: {
+                self.scrollView.contentOffset = offset
+                }, completion: nil)
+            
+            
+        }
         
     }
+    
+//    func moveScrollViewUp(){
+//        let duration = 0.3
+//        let animationCurveRaw = UIViewAnimationOptions.CurveEaseInOut.rawValue
+//        let animationCurve: UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
+//        let yOffset = scrollView.contentOffset.y + 45
+//        let offset = CGPoint(x: 0.0, y: yOffset)
+//        UIView.animateWithDuration(duration, delay: 0, options: animationCurve, animations: {
+//            self.scrollView.contentOffset = offset
+//            }, completion: nil)
+//        
+//    }
     
     @IBAction func onTap(sender: AnyObject) {
         usernameTextField.resignFirstResponder()
@@ -135,10 +186,21 @@ class SignUpUserInfoVC: UIViewController{
 
 extension SignUpUserInfoVC: UITextFieldDelegate{
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        if textField == usernameTextField{
+            fullNameTextField.becomeFirstResponder()
+//            moveScrollViewUp()
+        } else if textField == fullNameTextField{
+            ageTextField.becomeFirstResponder()
+//            moveScrollViewUp()
+        }
         return true
     }
     
+    @IBAction func onSegmentTapped(sender: AnyObject) {
+        usernameTextField.resignFirstResponder()
+        ageTextField.resignFirstResponder()
+        fullNameTextField.resignFirstResponder()
+    }
     func textFieldDidEndEditing(textField: UITextField) {
         guard textField == usernameTextField else{
             return

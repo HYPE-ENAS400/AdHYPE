@@ -50,7 +50,7 @@
                                     </view>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9JP-yb-7hm">
                                         <rect key="frame" x="400" y="0.0" width="200" height="40"/>
-                                        <inset key="contentEdgeInsets" minX="0.0" minY="2" maxX="0.0" maxY="2"/>
+                                        <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
                                         <state key="normal" image="Question_button">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -132,10 +132,10 @@
                                         <integer key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
-                                        <integer key="value" value="7"/>
+                                        <integer key="value" value="3"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
-                                        <integer key="value" value="1"/>
+                                        <real key="value" value="0.80000000000000004"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>

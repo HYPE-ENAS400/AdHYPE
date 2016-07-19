@@ -63,6 +63,7 @@ struct Constants {
 //    static let ADCOMMENTDOWNNODE = "downVotes"
     
     static let DEFAULTCORNERRADIUS: Float = 15.0
+    static let DEFAULTCORNERRADIUSSMALL: Float = 10.0
     static let DEFAULTBORDERWIDTH: Float = 2.0
     
 //    static let DEFAULTFILEEXTENSION = ".jpg"
