@@ -40,19 +40,22 @@ class SelectionDataSource<T>{
         keys.removeAtIndex(index)
         values.removeAtIndex(index)
     }
-    func deletePairForKey(key: String) -> Bool{
-        if let index = getIndexOfPairForKey(key){
-            deletePairAtIndex(index)
-            return true
-        } else {
-            return false
-        }
-    }
-    func setValueForKey(key: String, value: T){
-        if let i = keys.indexOf(key){
-            values[i] = value
-        }
-    }
+    
+//    func deletePairForKey(key: String) -> Bool{
+//        if let index = getIndexOfPairForKey(key){
+//            deletePairAtIndex(index)
+//            return true
+//        } else {
+//            return false
+//        }
+//    }
+    
+//    func setValueForKey(key: String, value: T){
+//        if let i = keys.indexOf(key){
+//            values[i] = value
+//        }
+//    }
+    
     func setKeys(keys: [String]){
         self.keys = keys
     }
@@ -72,5 +75,5 @@ class SelectionDataSource<T>{
         keys.removeAll()
         values.removeAll()
     }
-    
+
 }

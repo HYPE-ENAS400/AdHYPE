@@ -35,7 +35,8 @@ class HypeNavViewController: CustomNavVC {
     var onAdSocialVCClosedFunc: ((canceled: Bool)->Void)?
     var socialAd: HypeAd!
     
-    var userInterests = SelectionDataSource<Bool>()
+    var userInterests = UserInterestStore()
+    var userFriends = FriendStore()
     
     var wasSwipeUp: Bool!
     var needUserInfo: Bool = false
@@ -91,7 +92,7 @@ class HypeNavViewController: CustomNavVC {
 
     
     func resetHype(){
-        userInterests.clear()
+        userInterests.clearUserInterests()
         socialAd = nil
         gridViewController?.resetGridView()
         mainViewController?.resetMainView()
@@ -112,27 +113,15 @@ class HypeNavViewController: CustomNavVC {
                 }
             }
             
-            //do this to maintain desired order
-            let userInterestKeys = ["Discovery", "Animals", "Apparel", "Apps & Games", "Babies & Kids", "Cars", "Celebrities", "Entertainment", "Fitness & Health", "Food & Cooking", "Lifestyle & Home", "Nerd", "News", "Outdoors", "Sports", "Tech", "Travel"]
-            
-            for key in userInterestKeys{
-                self.userInterests.putPair((key, true))
-            }
             let userRef = FIRDatabase.database().reference().child(Constants.USERSNODE).child(uid)
             
-            let interestsRef = userRef.child(Constants.USERINTERESTSNODE)
-            interestsRef.observeSingleEventOfType(.Value, withBlock: {(snapshot)->Void in
-                
-                if let ar = snapshot.value as? [String : Bool]{
-                    for (interest, liked) in ar{
-                        self.userInterests.setValueForKey(interest, value: liked)
-                    }
+            self.userInterests.downloadUserInterests(uid){ (success: Bool) in
+                if success{
                     nodesLoaded += 1
                 } else{
-                    print("COULD NOT GET USER INTERESTS")
+                    //TODO show messages user interests could not load?
                 }
-                
-            })
+            }
             
             let nextAdRef = userRef.child(Constants.USERNEXTADKEY)
             nextAdRef.observeSingleEventOfType(.Value, withBlock: {(snapshot) -> Void in
@@ -143,6 +132,8 @@ class HypeNavViewController: CustomNavVC {
                     print("COULD NOT GET NEXT AD QUEUE KEY")
                 }
             })
+            
+            self.userFriends.downloadFriends(uid)
             
         }
     }
@@ -293,6 +284,7 @@ class HypeNavViewController: CustomNavVC {
             let newVC = segue.destinationViewController as! SocialNavVC
             newVC.ad = socialAd
             newVC.wasSwipeUp = wasSwipeUp
+            newVC.userFriends = userFriends
             
         } else if segue.identifier == "logInSegue" {
             let newVC = segue.destinationViewController as! LoginNavVC
@@ -303,9 +295,6 @@ class HypeNavViewController: CustomNavVC {
         }
     }
     
-    func showViewToChangeUserInfo(){
-        self.performSegueWithIdentifier("showAdSocialViewSegue", sender: nil)
-    }
     func showHelperViews(section: HelperViewSection){
         helperSection = section
         self.performSegueWithIdentifier("showHelperViewsSegue", sender: nil)

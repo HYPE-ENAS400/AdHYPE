@@ -18,9 +18,10 @@ class SocialNavVC: CustomNavVC {
     }
 
     var ad: HypeAd!
+    var userFriends: FriendStore!
     
-    var adSocialViewController: AdSocialViewController! = nil
-    var friendsTableViewController: FriendsTableViewController! = nil
+    var adSocialViewController: AdSocialViewController?
+    var friendsTableViewController: FriendsTableViewController?
     
     var didCancel = true
     var wasSwipeUp: Bool!
@@ -32,10 +33,10 @@ class SocialNavVC: CustomNavVC {
         view.bringSubviewToFront(containerView)
         
         let storyboard = UIStoryboard(name: "Social View", bundle:nil)
-        adSocialViewController = storyboard.instantiateViewControllerWithIdentifier("adSocialView") as! AdSocialViewController
-        adSocialViewController.ad = ad
-        adSocialViewController.wasSwipeUp = wasSwipeUp
-        adSocialViewController.delegate = self
+        adSocialViewController = storyboard.instantiateViewControllerWithIdentifier("adSocialView") as? AdSocialViewController
+        adSocialViewController!.ad = ad
+        adSocialViewController!.wasSwipeUp = wasSwipeUp
+        adSocialViewController!.delegate = self
         setActiveViewController(nil, viewController: adSocialViewController)
     }
 
@@ -64,8 +65,6 @@ class SocialNavVC: CustomNavVC {
         let keychainWrapper = KeychainWrapper.standardKeychainAccess()
         keychainWrapper.setBool(true, forKey: Constants.HASSEENSOCIALKEY)
     }
-
-    
 }
 
 extension SocialNavVC: AdSocialViewControllerDelegate{
@@ -76,13 +75,20 @@ extension SocialNavVC: AdSocialViewControllerDelegate{
     }
     func onSendClicked(caption: String?, canPublish: Bool){
         let storyboard = UIStoryboard(name: "Send to Friends View", bundle:nil)
-        friendsTableViewController = storyboard.instantiateViewControllerWithIdentifier("sendToFriendsView") as! FriendsTableViewController
         
-        friendsTableViewController.adMetaData = ad.getMetaData()
-        friendsTableViewController.canPublish = canPublish
-        friendsTableViewController.captionText = caption
+        if friendsTableViewController == nil {
+            friendsTableViewController = storyboard.instantiateViewControllerWithIdentifier("sendToFriendsView") as?FriendsTableViewController
+            friendsTableViewController!.adMetaData = ad.getMetaData()
+            friendsTableViewController!.delegate = self
+            friendsTableViewController!.friendStore = userFriends
+            friendsTableViewController!.canPublish = canPublish
+            friendsTableViewController!.captionText = caption
+        } else{
+            friendsTableViewController!.canPublish = canPublish
+            friendsTableViewController!.captionText = caption
+            friendsTableViewController?.friendTableView.reloadData()
+        }
         
-        friendsTableViewController.delegate = self
         setActiveViewController(.toLeft, viewController: friendsTableViewController)
         
     }
@@ -92,7 +98,6 @@ extension SocialNavVC: AdSocialViewControllerDelegate{
 extension SocialNavVC: FriendsTableViewControllerDelegate{
     func onBackButtonClicked(){
         setActiveViewController(.toRight, viewController: adSocialViewController)
-        friendsTableViewController = nil
     }
     func onSentToFriends(){
         didCancel = false

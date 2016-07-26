@@ -14,7 +14,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var outOfCardsView: UIView!
     
     var delegate: MainViewControllerDelegate!
-    var userInterests: SelectionDataSource<Bool>!
+    var userInterests: UserInterestStore!
     
     var userRef: FIRDatabaseReference!
     let adStoreRef = FIRDatabase.database().reference().child(Constants.ADSNODE)
@@ -154,7 +154,7 @@ class MainViewController: UIViewController {
             query.observeSingleEventOfType(.ChildAdded, withBlock: {(snapshot) -> Void in
                 if let dict = snapshot.value as? [String: String]{
                     
-                    if self.isUserInterestedInAd(dict){
+                    if self.userInterests.isUserInterestedInAd(dict){
                         guard let name = dict[Constants.ADNAMENODE] else{
                             print("ERROR: COULD NOT GET AD NAME")
                             return
@@ -189,22 +189,6 @@ class MainViewController: UIViewController {
         }
         
         
-    }
-    
-    func isUserInterestedInAd(adDict: [String: String])->Bool{
-        //switch so iterates through dictionary, write script so dict only has key if ad fits category
-        for key in userInterests.getKeys(){
-            guard let val = userInterests.getValueForKey(key) else{
-                continue
-            }
-            guard let isInterestedString = adDict[key] else{
-                continue
-            }
-            if isInterestedString != "" && val{
-                return true
-            }
-        }
-        return false
     }
 
     

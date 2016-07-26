@@ -195,9 +195,7 @@ class GridViewController: UICollectionViewController, UICollectionViewDelegateFl
         }
         
     }
-    deinit {
-        print("FUCKING GRID VIEW DEINIT")
-    }
+
 
 }
 

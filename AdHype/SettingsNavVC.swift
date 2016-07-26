@@ -28,7 +28,7 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
     
     var existingIDS: [String]?
     
-    var userInterests: SelectionDataSource<Bool>!
+    var userInterests: UserInterestStore!
     var helpDelegate: HelpSettingsDelegate!
     
     var userSettingsVC: UserSettingsVC?

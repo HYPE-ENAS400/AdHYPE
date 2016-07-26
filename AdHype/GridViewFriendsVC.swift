@@ -12,11 +12,10 @@ import Firebase
 class GridViewFriendsVC: UIViewController{
     
     @IBOutlet weak var friendsTableView: UITableView!
-    var friends = [(id: String, names: SelectionCellTextData)]()
+    var friendStore: FriendStore!
     var delegate: GridViewFriendsVCDelegate!
     var detachInfo: FIRDetachInfo?
     @IBOutlet weak var noFriendsView: UIView!
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     
     override func viewDidLoad() {
@@ -25,45 +24,29 @@ class GridViewFriendsVC: UIViewController{
         friendsTableView.dataSource = self
         friendsTableView.delegate = self
         
-        let ref = FIRDatabase.database().reference().child(Constants.USERSNODE).child(getUserUID()).child(Constants.USERFRIENDSNODE)
-        
-        delay(1){
-            if self.friends.isEmpty{
-                self.noFriendsView.hidden = false
-                self.friendsTableView.hidden = true
-                self.spinner.stopAnimating()
-            }
+        if !friendStore.getHasFriends(){
+            self.noFriendsView.hidden = false
+            self.friendsTableView.hidden = true
         }
         
-        let query = ref.queryOrderedByChild(Constants.USERDISPLAYNAME)
-        let handle = query.observeEventType(.ChildAdded, withBlock: {(snapshot) -> Void in
-            if let nameDict = snapshot.value as? [String: String]{
-                
-                self.friendsTableView.hidden = false
-                self.noFriendsView.hidden = true
-                self.spinner.stopAnimating()
-                
-                let un = nameDict[Constants.USERDISPLAYNAME]!
-                let fn = nameDict[Constants.USERFULLNAME]
-                let newTextData = SelectionCellTextData(main: un, detail: fn)
-                self.friends.append((id: snapshot.key, names: newTextData))
-                self.friendsTableView.reloadData()
-            }
-        })
-        detachInfo = FIRDetachInfo(ref: ref, handle: handle)
+        friendStore.attatchNewFriendListener(self)
+        
+
     }
     func getUserUID()->String{
         return (FIRAuth.auth()?.currentUser?.uid)!
     }
 
     func detachGridFriendListeners(){
-                if let info = detachInfo{
-                    info.ref.removeObserverWithHandle(info.handle)
-                }
+        friendStore.detachNewFriendListener()
     }
     
-    deinit{
-        print("FUCKING FRIENDS DEINIT")
+
+}
+
+extension GridViewFriendsVC: FriendStoreDelegate{
+    func onNewFriendLoaded(indexPath: NSIndexPath) {
+        friendsTableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
 }
 
@@ -74,19 +57,43 @@ extension GridViewFriendsVC: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let info = friends[indexPath.row]
-        delegate.onGridFriendClicked(info.id, username: info.names.main)
+        let friendInfo =  friendStore.getFriendAtIndexpath(indexPath)
+        if let info = friendInfo{
+            delegate.onGridFriendClicked(info.key, username: info.userName)
+        }
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return friendStore.getNumberOfSections()
+    }
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let view = view as? UITableViewHeaderFooterView{
+            view.textLabel!.textColor = UIColor(red: 131/255, green: 130/255, blue: 139/255, alpha: 1)
+            view.textLabel?.font = UIFont.boldSystemFontOfSize(20)
+        }
+    }
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+
+        return friendStore.getSectionHeaderAtIndex(section)
+    }
+    func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+        return friendStore.getSectionTitles()
+    }
+    func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
+        return friendStore.getSectionForSectionIndexTitle(title)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friends.count
+        return friendStore.getNumberOfItemsInSection(section)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("gridViewFriendCell") as! GridViewFriendCell
-        let nameData = friends[indexPath.row].names
-        cell.usernameLabel.text = nameData.main
-        cell.fullnameLabel.text = nameData.detail
+        let friendInfo = friendStore.getFriendAtIndexpath(indexPath)
+        if let info = friendInfo{
+            cell.usernameLabel.text = info.userName
+            cell.fullnameLabel.text = info.userName
+        }
         return cell
     }
 }

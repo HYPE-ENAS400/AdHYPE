@@ -13,15 +13,11 @@ class UserSettingsVC: UIViewController{
     @IBOutlet weak var logOutButton: UIButton!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var userIconOuterView: UIView!
-    @IBOutlet weak var interestsTableView: SelectionTableView!
+    @IBOutlet weak var interestsTableView: UITableView!
     
     weak var messageDelegate: DisplayMessageDelegate!
     
-    var interestsDataSource: SelectionDataSource<Bool>!
-    var interestsRef: FIRDatabaseReference!
-//    var oldUserName: String?
-    
-    let disallowedCharacters = [".", "$", "#", "[", "]", "/", " "]
+    var interestsDataSource: UserInterestStore!
     
     override func viewDidLoad() {
         
@@ -31,31 +27,16 @@ class UserSettingsVC: UIViewController{
         }
         
         usernameTextField.enabled = false
-        
-        initializeAppButtonLayer(logOutButton.layer)
-        
-        interestsTableView.selectionDelegate = self
-        for i in 0..<interestsDataSource.getCount(){
-            if interestsDataSource.getValueAtIndex(i){
-                interestsTableView.addPreselectedIndex(i)
-            }
-        }
-        
-        userIconOuterView.layer.cornerRadius = (userIconOuterView.bounds.size.height/2)
-        
-        interestsRef = FIRDatabase.database().reference().child(Constants.USERSNODE).child(user.uid).child(Constants.USERINTERESTSNODE)
-        
         if let name = user.displayName{
             usernameTextField.text = name
         }
+        initializeAppButtonLayer(logOutButton.layer)
+        userIconOuterView.layer.cornerRadius = (userIconOuterView.bounds.size.height/2)
+     
+        interestsTableView.delegate = self
+        interestsTableView.dataSource = self
     }
     
-
-
-    
-//    @IBAction func onSaveClicked(sender: AnyObject) {
-//        messageDelegate.displayMessage("Saved!", duration: 1.5)
-//    }
     
     @IBAction func onSignOutClicked(sender: AnyObject) {
         let keychainWrapper = KeychainWrapper.standardKeychainAccess()
@@ -66,22 +47,41 @@ class UserSettingsVC: UIViewController{
     }
 }
 
-extension UserSettingsVC: SelectionTableViewDelegate{
-    func cellAtIndexSelected(index: Int) {
-        interestsRef.child(interestsDataSource.getKeyAtIndex(index)).setValue(true)
-        interestsDataSource.setValueAtIndex(index, value: true)
-    }
-    func cellAtIndexDeselected(index: Int) {
-        interestsRef.child(interestsDataSource.getKeyAtIndex(index)).setValue(false)
-        interestsDataSource.setValueAtIndex(index, value: false)
-    }
-    func getNumberOfCells() -> Int {
-        return interestsDataSource.getCount()
-    }
-    func getCellTextAtIndex(index: Int) -> SelectionCellTextData? {
-        return SelectionCellTextData(main: interestsDataSource.getKeyAtIndex(index), detail: nil)
-    }
-    func getCellColorAtIndex(index: Int) -> UIColor? {
-        return nil
+extension UserSettingsVC: UITableViewDelegate{
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let interestInfo = interestsDataSource.getUserInterestEntryAtIndex(indexPath.row)
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! SelectionCell
+        if interestInfo.isInterested{
+            cell.cellDeselected()
+            interestsDataSource.setIsInterestedInCategory(interestInfo.category, isInterested: false)
+        } else {
+            cell.cellSelected()
+            interestsDataSource.setIsInterestedInCategory(interestInfo.category, isInterested: true)
+        }
     }
 }
+
+extension UserSettingsVC: UITableViewDataSource{
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 55
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return interestsDataSource.getUserInterestCount()
+    }
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("selectionCell") as! SelectionCell
+        let interestInfo = interestsDataSource.getUserInterestEntryAtIndex(indexPath.row)
+        
+        if interestInfo.isInterested {
+            cell.initCell(true)
+        } else {
+            cell.initCell(false)
+        }
+        cell.mainLabel.text = interestInfo.category
+        return cell
+    }
+}
+
+

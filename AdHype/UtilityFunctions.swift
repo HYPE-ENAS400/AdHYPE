@@ -12,6 +12,24 @@ struct FIRDetachInfo{
         self.handle = handle
     }
 }
+
+struct User: Equatable{
+    var key: String
+    var userName: String
+    var fullName: String?
+//    var selected: Bool
+    init(key: String, userName: String, fullName: String?){
+        self.key = key
+        self.userName = userName
+        self.fullName = fullName
+//        self.selected = selected
+    }
+}
+
+func == (lhs: User, rhs: User) -> Bool {
+    return lhs.key == rhs.key
+}
+
 struct SelectionCellTextData{
     var main: String
     var detail: String?
@@ -33,22 +51,6 @@ protocol DisplayMessageDelegate: class{
     func displayMessage(message: String, duration: Double)
 }
 
-//func generateDemoAddQueue(userUID: String, completion: ()->Void ){
-//    let ref = FIRDatabase.database().reference().child(Constants.ADSNODE)
-//    ref.observeSingleEventOfType(.Value, withBlock: {(snapshot)->Void in
-//        if let dict = snapshot.value as? [String : String]{
-//            let newRef = FIRDatabase.database().reference().child(Constants.USERSNODE).child(userUID).child(Constants.ADQUEUENODE)
-//            newRef.setValue(dict, withCompletionBlock: {(error, reference) -> Void in
-//                completion()
-//            })
-//        }
-//    })
-//}
-
-//func generateInitialDatabaseAdQueue(userUID: String, completion: ()->Void){
-//    let ref = FIRDatabase.database().reference().child(Constants.ADSNODE)
-//    let query = ref.queryOrderedByKey().queryLimitedToFirst(20)
-//}
 
 //http://stackoverflow.com/questions/24034544/dispatch-after-gcd-in-swift/24318861#24318861
 func delay(delay:Double, closure:()->()) {

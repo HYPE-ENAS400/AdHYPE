@@ -12,71 +12,53 @@ import Firebase
 class FriendsTableViewController: UIViewController{
 
     
-    @IBOutlet weak var friendTableView: SelectionTableView!
+    @IBOutlet weak var friendTableView: UITableView!
     
-    var friends = SelectionDataSource<SelectionCellTextData>()
+    var friendStore: FriendStore!
+
     @IBOutlet weak var sendButton: UIButton!
     var adMetaData: HypeAdMetaData!
     
     var captionText: String?
     var canPublish = false
-    
-    var recipientIDS = [String](){
+    var publishSelected = false {
         didSet{
-            if recipientIDS.count == 0 {
+            if !publishSelected && recipientDict.count == 0 {
                 sendButton.enabled = false
-            } else{
+            } else {
                 sendButton.enabled = true
             }
         }
     }
+    
+    var recipientDict = [String: Bool]() {
+        didSet{
+            if recipientDict.count == 0 {
+                sendButton.enabled = false
+            } else {
+                sendButton.enabled = true
+            }
+        }
+    }
+    
     weak var delegate: FriendsTableViewControllerDelegate!
-    var detachInfo: FIRDetachInfo!
     
     override func viewDidLoad() {
+    
+        friendStore.attatchNewFriendListener(self)
+        friendTableView.delegate = self
+        friendTableView.dataSource = self
         
-        friendTableView.selectionDelegate = self
-        
-        guard let user = FIRAuth.auth()?.currentUser else {
-            print("COULD NOT GET USER FOR SEND TO FRIENDS")
-            return
-        }
-        
-        if canPublish{
-            friends.putPair((key: Constants.PUBLISHID, value: SelectionCellTextData(main: "Publish", detail: nil)))
-        }
-        
-        let ref = FIRDatabase.database().reference().child(Constants.USERSNODE).child(user.uid).child(Constants.USERFRIENDSNODE)
-        let query = ref.queryOrderedByValue()
-        let handle = query.observeEventType(.ChildAdded, withBlock: {(snapshot)-> Void in
-            if let nameDict = snapshot.value as? [String: String]{
-                let un = nameDict[Constants.USERDISPLAYNAME]!
-                let fn = nameDict[Constants.USERFULLNAME]
-                let newNameData = SelectionCellTextData(main: un, detail: fn)
-                self.friends.putPair((key: snapshot.key, value: newNameData))
-                let newIndex = self.friends.getCount() - 1
-                let newIndexPath = NSIndexPath(forRow: newIndex, inSection: 0)
-                self.friendTableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Automatic)
-            } else {
-                print("Error getting username")
-            }
-        })
-        detachInfo = FIRDetachInfo(ref: ref, handle: handle)
     }
     
     @IBAction func onSendButtonClicked(sender: AnyObject) {
         let usersRef = FIRDatabase.database().reference().child(Constants.USERSNODE)
         
-        guard recipientIDS.count > 0 else {
-            return
-        }
-        
         let user = FIRAuth.auth()?.currentUser
         let baseRef = FIRDatabase.database().reference()
         let timeStamp = String(Int(NSDate().timeIntervalSince1970))
         
-        if let i = recipientIDS.indexOf(Constants.PUBLISHID){
-        
+        if publishSelected{
             let adRef = baseRef.child(Constants.PUBLICADCOMMENTS).child(adMetaData.key)
             
             let commentRef = adRef.child(Constants.ADCOMMENTSNODE).childByAutoId()
@@ -90,17 +72,16 @@ class FriendsTableViewController: UIViewController{
                 aggregateUserCaptionsRef.child(timeStamp).setValue(captionText)
             }
             
-            recipientIDS.removeAtIndex(i)
         }
         
-        guard recipientIDS.count > 0 else{
+        guard recipientDict.count > 0 else{
             delegate.onSentToFriends()
             return
         }
         
         if let id = user?.uid{
             let aggregateSentRef = baseRef.child(Constants.USERSNODE).child(id).child(Constants.AGGREGATECARDSSENT).child(adMetaData.key)
-            aggregateSentRef.child(timeStamp).setValue(recipientIDS.count)
+            aggregateSentRef.child(timeStamp).setValue(recipientDict.count)
         }
         
         var caption: String?
@@ -110,9 +91,10 @@ class FriendsTableViewController: UIViewController{
             }
         }
         
-        for i in recipientIDS{
-            print("RECIPIENT ID: \(i)")
-            let recRef = usersRef.child(i).child(Constants.RECEIVEDADQUEUENODE).child(adMetaData.key)
+        let recipientIDs = Array(recipientDict.keys)
+        
+        for id in recipientIDs{
+            let recRef = usersRef.child(id).child(Constants.RECEIVEDADQUEUENODE).child(adMetaData.key)
             var dict = [Constants.ADNAMENODE: adMetaData.name, Constants.ADURLNODE: adMetaData.url, Constants.ADPRIMARYTAGNODE: adMetaData.primaryTag]
             if let text = caption{
                 dict[Constants.ADCAPTIONNODE] = text
@@ -127,34 +109,135 @@ class FriendsTableViewController: UIViewController{
         delegate.onBackButtonClicked()
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        detachInfo.ref.removeObserverWithHandle(detachInfo.handle)
+    deinit{
+        friendStore.detachNewFriendListener()
     }
     
 }
 
-extension FriendsTableViewController: SelectionTableViewDelegate{
+extension FriendsTableViewController: FriendStoreDelegate{
+    func onNewFriendLoaded(indexPath: NSIndexPath) {
+        friendTableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+    }
+}
+
+extension FriendsTableViewController: UITableViewDataSource, UITableViewDelegate{
     
-    func getNumberOfCells() -> Int {
-        return friends.getCount()
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 55
     }
-    func getCellColorAtIndex(index: Int) -> UIColor? {
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if canPublish && indexPath.section == 0 {
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as! SelectionCell
+            if publishSelected {
+                publishSelected = false
+                cell.cellDeselected()
+            } else {
+                publishSelected = true
+                cell.cellSelected()
+            }
+        } else {
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as! DetailSelectionCell
+            var adjPath: NSIndexPath
+            if canPublish{
+                adjPath = NSIndexPath(forRow: indexPath.row, inSection: indexPath.section - 1)
+            } else {
+                adjPath = indexPath
+            }
+            
+            guard let friend =  friendStore.getFriendAtIndexpath(adjPath) else {
+                return
+            }
+            
+            if recipientDict[friend.key] == true {
+                cell.cellDeselected()
+                recipientDict.removeValueForKey(friend.key)
+            } else {
+                cell.cellSelected()
+                recipientDict[friend.key] = true
+            }
+
+        }
+
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if canPublish {
+            return friendStore.getNumberOfSections() + 1
+        }
+        return friendStore.getNumberOfSections()
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if canPublish && section == 0 {
+            return nil
+        } else if canPublish{
+            return friendStore.getSectionHeaderAtIndex(section - 1)
+        }
+        return friendStore.getSectionHeaderAtIndex(section)
+    }
+    
+    func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+        return friendStore.getSectionTitles()
+    }
+    
+    func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
         if canPublish && index == 0{
-            return UIColor.groupTableViewBackgroundColor()
+            return index
         }
-        return nil
+        return friendStore.getSectionForSectionIndexTitle(title)
     }
-    func getCellTextAtIndex(index: Int) -> SelectionCellTextData? {
-        return friends.getValueAtIndex(index)
-    }
-    func cellAtIndexDeselected(index: Int) {
-        if let delIndex = recipientIDS.indexOf(friends.getKeyAtIndex(index)){
-            recipientIDS.removeAtIndex(delIndex)
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let view = view as? UITableViewHeaderFooterView{
+            view.textLabel!.textColor = UIColor(red: 131/255, green: 130/255, blue: 139/255, alpha: 1)
+            view.textLabel?.font = UIFont.boldSystemFontOfSize(20)
         }
     }
-    func cellAtIndexSelected(index: Int) {
-        recipientIDS.append(friends.getKeyAtIndex(index))
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if canPublish && section == 0 {
+            return 1
+        } else if canPublish{
+            return friendStore.getNumberOfItemsInSection(section - 1)
+        }
+        return friendStore.getNumberOfItemsInSection(section)
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        if canPublish && indexPath.section == 0{
+            let cell = tableView.dequeueReusableCellWithIdentifier("selectionCell") as! SelectionCell
+            cell.mainLabel.text = "Publish"
+            if publishSelected {
+                cell.initCell(true)
+            } else {
+                cell.initCell(false)
+            }
+            return cell
+            
+        } else{
+            let cell = tableView.dequeueReusableCellWithIdentifier("detailSelectionCell") as! DetailSelectionCell
+            
+            var adjPath: NSIndexPath
+            if canPublish{
+                adjPath = NSIndexPath(forRow: indexPath.row, inSection: indexPath.section - 1)
+            } else {
+                adjPath = indexPath
+            }
+            
+            if let friendInfo = friendStore.getFriendAtIndexpath(adjPath) {
+                if recipientDict[friendInfo.key] == true{
+                    cell.initCell(true)
+                } else {
+                    cell.initCell(false)
+                }
+                cell.mainLabel.text = friendInfo.userName
+                cell.detailLabel.text = friendInfo.userName
+            }
+            return cell
+        }
     }
 }
 

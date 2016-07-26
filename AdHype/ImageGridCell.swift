@@ -93,9 +93,7 @@ class ImageGridCell: UICollectionViewCell{
         deleteButton.hidden = true
         delegate.onPressedDelete(cellAd)
     }
-    deinit {
-        print("FUCKING GRID DEINIT")
-    }
+
     
 }
 

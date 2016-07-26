@@ -42,12 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/HypeNavViewController.swift"
-            timestampString = "490329424.549647"
+            timestampString = "491196316.398951"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "319"
-            endingLineNumber = "319"
-            landmarkName = "unwindFromLogInSegue(_:)"
+            startingLineNumber = "315"
+            endingLineNumber = "315"
+            landmarkName = "unwindFromAdSocialViewSegue(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -58,13 +58,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/HypeNavViewController.swift"
-            timestampString = "490329424.549647"
+            timestampString = "491196316.398951"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "318"
-            endingLineNumber = "318"
-            landmarkName = "unwindFromLogInSegue(_:)"
-            landmarkType = "5">
+            startingLineNumber = "314"
+            endingLineNumber = "314"
+            landmarkName = "HypeNavViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -74,92 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AdHype/GridViewNavVC.swift"
-            timestampString = "490330533.098084"
+            timestampString = "491180267.278423"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
             landmarkName = "resetGridViewsOnDissapear()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AdHype/GridViewFriendsVC.swift"
-            timestampString = "490224497.666629"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AdHype/GridViewFriendsVC.swift"
-            timestampString = "490224497.666629"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AdHype.GridViewFriendsVC.viewDidLoad () -&gt; ()"
-                  moduleName = "AdHype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/maxwellpayson/iOSProjects/AdHype/AdHype/GridViewFriendsVC.swift"
-                  timestampString = "490223159.109598"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "29"
-                  endingLineNumber = "29"
-                  offsetFromSymbolStart = "988">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AdHype.GridViewFriendsVC.(viewDidLoad () -&gt; ()).(closure #1)"
-                  moduleName = "AdHype"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/maxwellpayson/iOSProjects/AdHype/AdHype/GridViewFriendsVC.swift"
-                  timestampString = "490223159.109751"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "30"
-                  endingLineNumber = "30"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AdHype/GridViewFriendsVC.swift"
-            timestampString = "490224497.666629"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

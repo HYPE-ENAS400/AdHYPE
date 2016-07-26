@@ -33,6 +33,8 @@ class GridViewNavVC: CustomNavVC{
     var friendGridVC: GridViewController?
     var delegate: GridViewControllerDelegate!
     
+    var userFriends: FriendStore!
+    
     var adjustmentWidth: CGFloat!
     private var hiddenBarFrame: CGRect!
     private var visibleBarFrame: CGRect!
@@ -65,6 +67,7 @@ class GridViewNavVC: CustomNavVC{
             let gridStoryboard = UIStoryboard(name: "Grid View", bundle: nil)
             gridViewFriendsVC = gridStoryboard.instantiateViewControllerWithIdentifier("gridViewFriendsVC") as? GridViewFriendsVC
             gridViewFriendsVC?.delegate = self
+            gridViewFriendsVC?.friendStore = userFriends
         }
         
         setActiveViewController(.toLeft, viewController: gridViewFriendsVC)

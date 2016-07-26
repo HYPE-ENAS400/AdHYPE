@@ -8,9 +8,9 @@
 
 import UIKit
 
-
-// Handles the logic of a view control with a selection table, default methods must be overriden
-//class SelectionTableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+//
+//// Handles the logic of a view control with a selection table, default methods must be overriden
+////class SelectionTableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 class SelectionTableView: UITableView, UITableViewDelegate, UITableViewDataSource{
     private var selectedIndices = [Int]()
     
@@ -54,7 +54,7 @@ class SelectionTableView: UITableView, UITableViewDelegate, UITableViewDataSourc
         return selectionDelegate.getNumberOfCells()
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("userCell") as! SelectionCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("detailSelectionCell") as! DetailSelectionCell
         
 //        if let color = selectionDelegate.getCellColorAtIndex(indexPath.row){
 //            cell.backgroundColor = color
@@ -68,7 +68,7 @@ class SelectionTableView: UITableView, UITableViewDelegate, UITableViewDataSourc
             cell.initCell(false)
         }
         if let data = selectionDelegate.getCellTextAtIndex(indexPath.row){
-            cell.userCell.text = data.main
+            cell.mainLabel.text = data.main
             cell.detailLabel.text = data.detail
         }
         return cell

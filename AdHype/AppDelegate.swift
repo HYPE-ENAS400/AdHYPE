@@ -42,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         storyboard = UIStoryboard(name: "Grid View", bundle:nil)
         let gridViewController = storyboard.instantiateViewControllerWithIdentifier("gridViewNavVC") as! GridViewNavVC
         gridViewController.delegate = navViewController
+        gridViewController.userFriends = navViewController.userFriends
         
         navViewController.gridViewController = gridViewController
 

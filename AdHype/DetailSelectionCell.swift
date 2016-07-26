@@ -1,19 +1,20 @@
 //
-//  SelectionCell.swift
+//  DetailSelectionCell.swift
 //  AdHype
 //
-//  Created by Maxwell Payson on 6/23/16.
+//  Created by Maxwell Payson on 7/26/16.
 //  Copyright © 2016 Enas400. All rights reserved.
 //
 
 import UIKit
 
-class SelectionCell: UITableViewCell{
+class DetailSelectionCell: UITableViewCell{
     
     @IBOutlet weak var selectionIndicatorView: UIView!
     @IBOutlet weak var mainLabel: UILabel!
+    @IBOutlet weak var detailLabel: UILabel!
     var isViewAdjusted = false
-
+    
     func initCell(isCellSelected: Bool){
         if !isViewAdjusted{
             selectionIndicatorView.layer.cornerRadius = (selectionIndicatorView.layer.bounds.size.width/2)
@@ -36,5 +37,7 @@ class SelectionCell: UITableViewCell{
     func cellDeselected(){
         selectionIndicatorView.backgroundColor = UIColor.whiteColor()
     }
+    
+
     
 }

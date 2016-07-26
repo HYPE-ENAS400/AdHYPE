@@ -227,7 +227,6 @@ class AdSocialViewController: UIViewController {
 
     }
     
-    
 }
 
 extension AdSocialViewController: UITextViewDelegate{
