@@ -69,6 +69,7 @@ extension GridViewFriendsVC: UITableViewDataSource, UITableViewDelegate{
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let view = view as? UITableViewHeaderFooterView{
             view.textLabel!.textColor = UIColor(red: 131/255, green: 130/255, blue: 139/255, alpha: 1)
+            view.contentView.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 244/255, alpha: 1)
             view.textLabel?.font = UIFont.boldSystemFontOfSize(20)
         }
     }

@@ -36,16 +36,16 @@ class UserTableViewController: UIViewController{
     
     var userFullName: String?
     
-    var friendIDsToAddDict = [String: Bool](){
+    var friendIDsToAdd = Set<String>(){
         didSet{
-            if friendIDsToAddDict.count == 0 {
+            if friendIDsToAdd.count == 0 {
                 sendButton.enabled = false
             } else {
                 sendButton.enabled = true
             }
         }
     }
-    var existingFriendsIDS: [String]!
+    var existingFriendsIDS: Set<String>!
     var checkedIDSForNoSearch: [String]!
 
     var queryDetachInfo: FIRDetachInfo?
@@ -57,7 +57,7 @@ class UserTableViewController: UIViewController{
             return
         }
         
-        existingFriendsIDS.append(user.uid)
+        existingFriendsIDS.insert(user.uid)
         userTableView.delegate = self
         userTableView.dataSource = self
         
@@ -82,7 +82,7 @@ class UserTableViewController: UIViewController{
         sentReqRef.observeSingleEventOfType(.Value, withBlock: {(snapshot) -> Void in
             if let dict = snapshot.value as? [String: Bool]{
                 for (id, _) in dict{
-                    self.existingFriendsIDS.append(id)
+                    self.existingFriendsIDS.insert(id)
                 }
             }
         })
@@ -196,7 +196,7 @@ class UserTableViewController: UIViewController{
             nameDict[Constants.USERFULLNAME] = fn
         }
         
-        let recipientIDs = Array(friendIDsToAddDict.keys)
+        let recipientIDs = Array(friendIDsToAdd)
         
         for id in recipientIDs{
             let baseRef = FIRDatabase.database().reference().child(Constants.USERSNODE)
@@ -244,12 +244,12 @@ extension UserTableViewController: UITableViewDelegate, UITableViewDataSource {
         
         let id = filteredUsers[indexPath.row].key
         
-        if friendIDsToAddDict[id] == true{
+        if friendIDsToAdd.contains(id){
             cell.cellDeselected()
-            friendIDsToAddDict.removeValueForKey(id)
+            friendIDsToAdd.remove(id)
         } else {
             cell.cellSelected()
-            friendIDsToAddDict[id] = true
+            friendIDsToAdd.insert(id)
         }
         searchController.searchBar.resignFirstResponder()
     }
@@ -266,7 +266,7 @@ extension UserTableViewController: UITableViewDelegate, UITableViewDataSource {
         
         let userInfo = filteredUsers[indexPath.row]
         
-        if friendIDsToAddDict[userInfo.key] == true{
+        if friendIDsToAdd.contains(userInfo.key){
             cell.initCell(true)
         } else {
             cell.initCell(false)

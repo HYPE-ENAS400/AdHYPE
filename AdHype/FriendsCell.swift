@@ -14,7 +14,7 @@ class FriendsCell: UITableViewCell{
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var fullNameLabel: UILabel!
     
-    private var friendInfo: (key: String, value: SelectionCellTextData)?
+    private var user: User?
     
     weak var delegate: FriendsCellDelegate!
     
@@ -24,21 +24,21 @@ class FriendsCell: UITableViewCell{
     func hideCircleView(){
         confirmRequestButton.hidden = true
     }
-    func getFriendInfo() -> (key: String, value: SelectionCellTextData)?{
-        return friendInfo
+    func getCellUser() -> User?{
+        return user
     }
-    func setFriendInfo(info: (key: String, value: SelectionCellTextData)){
-        nameLabel.text = info.value.main
-        fullNameLabel.text = info.value.detail
-        friendInfo = info
+    func setCellUser(user: User?){
+        self.user = user
+        nameLabel.text = user?.userName
+        fullNameLabel.text = user?.fullName
     }
     
     @IBAction func onFriendRequestAcceptedButtonClicked(sender: AnyObject) {
-        delegate.onFriendRequestAccepted(friendInfo)
+        delegate.onFriendRequestAccepted(user)
     }
 
 }
 
 protocol FriendsCellDelegate: class{
-    func onFriendRequestAccepted(info: (key: String, value: SelectionCellTextData)?)
+    func onFriendRequestAccepted(user: User?)
 }

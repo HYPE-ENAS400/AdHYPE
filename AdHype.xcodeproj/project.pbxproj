@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2B09719B1D398E9600711AC3 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09719A1D398E9600711AC3 /* LoginVC.swift */; };
+		2B265AA71D4B2AC500B0E433 /* FriendProfileVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B265AA61D4B2AC500B0E433 /* FriendProfileVC.storyboard */; };
+		2B265AA91D4B2B6500B0E433 /* FriendProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B265AA81D4B2B6500B0E433 /* FriendProfileVC.swift */; };
 		2B31A7311D4719B9003ED351 /* DetailSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B31A7301D4719B9003ED351 /* DetailSelectionCell.swift */; };
 		2B3B26A11D2AAD65007511EB /* HelperViews.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B3B26951D2AAD65007511EB /* HelperViews.storyboard */; };
 		2B3B26A21D2AAD65007511EB /* HelperViewsVCS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3B26961D2AAD65007511EB /* HelperViewsVCS.swift */; };
@@ -92,6 +94,8 @@
 
 /* Begin PBXFileReference section */
 		2B09719A1D398E9600711AC3 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		2B265AA61D4B2AC500B0E433 /* FriendProfileVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FriendProfileVC.storyboard; sourceTree = "<group>"; };
+		2B265AA81D4B2B6500B0E433 /* FriendProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendProfileVC.swift; sourceTree = "<group>"; };
 		2B31A7301D4719B9003ED351 /* DetailSelectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailSelectionCell.swift; sourceTree = "<group>"; };
 		2B3B26951D2AAD65007511EB /* HelperViews.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HelperViews.storyboard; sourceTree = "<group>"; };
 		2B3B26961D2AAD65007511EB /* HelperViewsVCS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperViewsVCS.swift; sourceTree = "<group>"; };
@@ -289,8 +293,10 @@
 				2B75DF121D15E2C80047A0DF /* FriendsSectionCellView.xib */,
 				2BFD161F1D1AF5B5001A210A /* UserSettingsView.storyboard */,
 				2BFD16211D1AF7A1001A210A /* FriendsSettingsView.storyboard */,
+				2B265AA61D4B2AC500B0E433 /* FriendProfileVC.storyboard */,
 				2BFD16271D1B4E73001A210A /* HelpSettingsView.storyboard */,
 				2BFD16191D1AE0C7001A210A /* Settings Nav View.storyboard */,
+				2B265AA81D4B2B6500B0E433 /* FriendProfileVC.swift */,
 				2BFD161D1D1AF208001A210A /* SettingsNavVC.swift */,
 				2BFD162B1D1B51D2001A210A /* HelpSettingsVC.swift */,
 				2BFD16231D1AF9E1001A210A /* UserSettingsVC.swift */,
@@ -487,6 +493,7 @@
 				2BFD16281D1B4E73001A210A /* HelpSettingsView.storyboard in Resources */,
 				2B66B3A11D10766800DE197D /* GoogleService-Info.plist in Resources */,
 				2B3B26A11D2AAD65007511EB /* HelperViews.storyboard in Resources */,
+				2B265AA71D4B2AC500B0E433 /* FriendProfileVC.storyboard in Resources */,
 				2B66B3961D1074DC00DE197D /* Assets.xcassets in Resources */,
 				2B75DF211D17647C0047A0DF /* Social View.storyboard in Resources */,
 			);
@@ -597,6 +604,7 @@
 				2B991F9C1D11A6EE0022675F /* HypeAd.swift in Sources */,
 				2BB592BE1D1C97C60068AA08 /* SelectionDataSource.swift in Sources */,
 				2B75DF1D1D1749620047A0DF /* customSegue.swift in Sources */,
+				2B265AA91D4B2B6500B0E433 /* FriendProfileVC.swift in Sources */,
 				2B75DF1B1D1734400047A0DF /* FriendsTableViewController.swift in Sources */,
 				2B3B26AE1D2AB472007511EB /* FirstBoardHelperVC.swift in Sources */,
 				2BB593291D24CC5B0068AA08 /* GridViewNavVC.swift in Sources */,

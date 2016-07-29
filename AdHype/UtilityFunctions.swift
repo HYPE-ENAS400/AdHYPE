@@ -51,6 +51,9 @@ protocol DisplayMessageDelegate: class{
     func displayMessage(message: String, duration: Double)
 }
 
+protocol UserClickDelegate: class{
+    func onShowUserProfile(user: User?)
+}
 
 //http://stackoverflow.com/questions/24034544/dispatch-after-gcd-in-swift/24318861#24318861
 func delay(delay:Double, closure:()->()) {

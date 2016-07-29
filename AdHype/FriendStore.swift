@@ -16,9 +16,12 @@ class FriendStore{
     var defaultFriendDictKeys: [String]
     var activeFriendDictKeys = [String]()
     
+    var friendIDDict = [String: NSIndexPath]()
+    
     private var friendRefDetachInfo: FIRDetachInfo?
     private var friendRef: FIRDatabaseReference?
     private weak var delegate: FriendStoreDelegate?
+    private var userUID: String!
     
     private var hasFriends: Bool = false
     
@@ -27,83 +30,89 @@ class FriendStore{
         defaultFriendDictKeys.sortInPlace()
     }
     
-//    func downloadFriends(uid: String){
-//        friendRef = FIRDatabase.database().reference().child(Constants.USERSNODE).child(uid).child(Constants.USERFRIENDSNODE)
-//        
-//        let query = friendRef!.queryOrderedByValue()
-//        let handle = query.observeEventType(.ChildAdded, withBlock: {(snapshot)-> Void in
-//            if let nameDict = snapshot.value as? [String: String]{
-//                
-//                guard let un = nameDict[Constants.USERDISPLAYNAME] else {
-//                    print("COULD NOT GET USERNAME")
-//                    return
-//                }
-//                
-//                let fn = nameDict[Constants.USERFULLNAME]
-//                let newFriend = User(key: snapshot.key, userName: un, fullName: fn)
-//                
-//                let firstChar = un.uppercaseString[un.startIndex]
-//                let newFriendKey = "A"..."Z" ~= firstChar ? String(firstChar) : "#"
-//                
-//                guard self.defaultFriendDictKeys.contains(newFriendKey) else {
-//                    print("ERROR CONVERTING USERNAME TO INDEX KEY")
-//                    return
-//                }
-//                
-//                self.friendDict[newFriendKey]?.append(newFriend)
-//                let row = self.friendDict[newFriendKey]!.count - 1
-//                
-//                if let section = self.activeFriendDictKeys.indexOf(newFriendKey){
-//                    self.delegate?.onNewFriendLoaded(NSIndexPath(forRow: row, inSection: section))
-//                } else {
-//                    self.activeFriendDictKeys.append(newFriendKey)
-//                    let section = self.activeFriendDictKeys.count - 1
-//                    self.delegate?.onNewFriendLoaded(NSIndexPath(forRow: row, inSection: section))
-//                }
-//                
-//                self.hasFriends = true
-//                
-//            } else {
-//                print("Error getting username")
-//            }
-//        })
-//        
-//        friendRefDetachInfo = FIRDetachInfo(ref: friendRef!, handle: handle)
-//    }
-    
     func downloadFriends(uid: String){
-        for _ in 1..<30{
-            
-            let un = randomAlphaNumericString(5)
-            
-            let uuid = NSUUID().UUIDString
-            let newFriend = User(key: uuid, userName: un, fullName: "testName")
-            
-            let firstChar = un.uppercaseString[un.startIndex]
-            let newFriendKey = "A"..."Z" ~= firstChar ? String(firstChar) : "#"
-            
-            guard self.defaultFriendDictKeys.contains(newFriendKey) else {
-                print("ERROR CONVERTING USERNAME TO INDEX KEY")
-                return
-            }
-            
-            self.friendDict[newFriendKey]?.append(newFriend)
-            let row = self.friendDict[newFriendKey]!.count - 1
-            
-            if let section = self.activeFriendDictKeys.indexOf(newFriendKey){
-                self.delegate?.onNewFriendLoaded(NSIndexPath(forRow: row, inSection: section))
+        userUID = uid
+        friendRef = FIRDatabase.database().reference().child(Constants.USERSNODE).child(uid).child(Constants.USERFRIENDSNODE)
+        
+        let query = friendRef!.queryOrderedByValue()
+        let handle = query.observeEventType(.ChildAdded, withBlock: {(snapshot)-> Void in
+            if let nameDict = snapshot.value as? [String: String]{
+                
+                guard let un = nameDict[Constants.USERDISPLAYNAME] else {
+                    print("COULD NOT GET USERNAME")
+                    return
+                }
+                
+                let fn = nameDict[Constants.USERFULLNAME]
+                let newFriend = User(key: snapshot.key, userName: un, fullName: fn)
+                
+                let firstChar = un.uppercaseString[un.startIndex]
+                let newFriendKey = "A"..."Z" ~= firstChar ? String(firstChar) : "#"
+                
+                guard self.defaultFriendDictKeys.contains(newFriendKey) else {
+                    print("ERROR CONVERTING USERNAME TO INDEX KEY")
+                    return
+                }
+                
+                self.friendDict[newFriendKey]?.append(newFriend)
+                let row = self.friendDict[newFriendKey]!.count - 1
+                var newIndexPath: NSIndexPath
+                if let section = self.activeFriendDictKeys.indexOf(newFriendKey){
+                    newIndexPath = NSIndexPath(forRow: row, inSection: section)
+                } else {
+                    self.activeFriendDictKeys.append(newFriendKey)
+                    let section = self.activeFriendDictKeys.count - 1
+                    newIndexPath = NSIndexPath(forRow: row, inSection: section)
+                }
+                self.friendIDDict[newFriend.key] = newIndexPath
+                self.delegate?.onNewFriendLoaded(newIndexPath)
+                
+                self.hasFriends = true
+                
             } else {
-                self.activeFriendDictKeys.append(newFriendKey)
-                self.activeFriendDictKeys.sortInPlace()
-                let section = self.activeFriendDictKeys.count - 1
-                self.delegate?.onNewFriendLoaded(NSIndexPath(forRow: row, inSection: section))
+                print("Error getting username")
             }
-            
-            self.hasFriends = true
-
-        }
-
+        })
+        
+        friendRefDetachInfo = FIRDetachInfo(ref: friendRef!, handle: handle)
     }
+    
+//    func downloadFriends(uid: String){
+//        userUID = uid
+//        for _ in 1..<30{
+//            
+//            let un = randomAlphaNumericString(5)
+//            
+//            let uuid = NSUUID().UUIDString
+//            let newFriend = User(key: uuid, userName: un, fullName: "testName")
+//            
+//            let firstChar = un.uppercaseString[un.startIndex]
+//            let newFriendKey = "A"..."Z" ~= firstChar ? String(firstChar) : "#"
+//            
+//            guard self.defaultFriendDictKeys.contains(newFriendKey) else {
+//                print("ERROR CONVERTING USERNAME TO INDEX KEY")
+//                return
+//            }
+//            
+//            self.friendDict[newFriendKey]?.append(newFriend)
+//            let row = self.friendDict[newFriendKey]!.count - 1
+//            
+//            self.friendIDSet.insert(newFriend.key)
+//            
+//            if let section = self.activeFriendDictKeys.indexOf(newFriendKey){
+//                self.delegate?.onNewFriendLoaded(NSIndexPath(forRow: row, inSection: section))
+//            } else {
+//                self.activeFriendDictKeys.append(newFriendKey)
+//                self.activeFriendDictKeys.sortInPlace()
+//                let section = self.activeFriendDictKeys.count - 1
+//                self.delegate?.onNewFriendLoaded(NSIndexPath(forRow: row, inSection: section))
+//            }
+//            
+//            self.hasFriends = true
+//
+//        }
+//
+//    }
     
     func randomAlphaNumericString(length: Int) -> String {
         
@@ -126,7 +135,19 @@ class FriendStore{
     }
     func deleteFriendAtIndexPath(indexPath: NSIndexPath){
         let key = activeFriendDictKeys[indexPath.section]
-        friendDict[key]?.removeAtIndex(indexPath.row)
+        guard let user = friendDict[key]?[indexPath.row] else {
+            return
+        }
+        guard let frRef = friendRef else {
+            return
+        }
+        
+        frRef.child(user.key).removeValue()
+
+        let newFriendsRef = FIRDatabase.database().reference().child(Constants.USERSNODE).child(user.key).child(Constants.USERFRIENDSNODE)
+        newFriendsRef.child(userUID).removeValue()
+        
+        friendDict[key]!.removeAtIndex(indexPath.row)
     }
 
     func getNumberOfSections()->Int{
@@ -154,6 +175,13 @@ class FriendStore{
     
     func getHasFriends() -> Bool{
         return hasFriends
+    }
+    func getFriendIDSet() -> Set<String> {
+        return Set(friendIDDict.keys)
+    }
+    
+    func getFriendIndexPathForUID(userUID: String) -> NSIndexPath?{
+        return friendIDDict[userUID]
     }
     
     func attatchNewFriendListener(listener: FriendStoreDelegate){

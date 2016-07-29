@@ -25,8 +25,9 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
     @IBOutlet weak var messageBarLabel: UILabel!
     private var hiddenBarFrame: CGRect!
     private var visibleBarFrame: CGRect!
+    var friendStore: FriendStore!
     
-    var existingIDS: [String]?
+    var existingIDS: Set<String>?
     
     var userInterests: UserInterestStore!
     var helpDelegate: HelpSettingsDelegate!
@@ -97,6 +98,8 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
         friendsSettingsVC = storyboard.instantiateViewControllerWithIdentifier("friendsSettingsView") as? FriendsSettingsVC
         friendsSettingsVC?.delegate = self
         friendsSettingsVC?.messageDelegate = self
+        friendsSettingsVC?.friends = friendStore
+        friendsSettingsVC?.userClickDelegate = self
     }
     
     @IBAction func onFriendButtonClicked(sender: AnyObject) {
@@ -139,8 +142,14 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
         }
     }
     
-    func onAddFriendClicked(existingFriendsAndRequestsIDS: [String]){
-        existingIDS = existingFriendsAndRequestsIDS
+    func onAddFriendClicked(existingRequests: [User]?){
+        var existingIDS = friendStore.getFriendIDSet()
+        if let users = existingRequests{
+            for user in users {
+                existingIDS.insert(user.key)
+            }
+        }
+        self.existingIDS = existingIDS
         self.performSegueWithIdentifier("showUsersTableVC", sender: nil)
     }
     
@@ -167,5 +176,40 @@ class SettingsNavVC: CustomNavVC, FriendsSettingsVCDelegate, DisplayMessageDeleg
             friendReqDetachInfo.ref.removeObserverWithHandle(friendReqDetachInfo.handle)
         }
     }
+    
+    deinit{
+        print("SETTINGS NAV VC DEINIT")
+    }
+}
 
+extension SettingsNavVC: UserClickDelegate{
+    func onShowUserProfile(user: User?){
+        
+        guard let u = user else {
+            return
+        }
+        
+        let storyboard = UIStoryboard(name: "FriendProfileVC", bundle: nil)
+        let profileVC = storyboard.instantiateViewControllerWithIdentifier("friendProfileView") as? FriendProfileVC
+        
+        let interests = UserInterestStore()
+        interests.downloadUserInterests(u.key){(success) -> Void in
+            profileVC?.profileTableView.hidden = false
+            profileVC?.reloadInterestTVIfShould()
+        }
+        profileVC?.interestsDataSource = interests
+        
+        let friends = FriendStore()
+        friends.downloadFriends(u.key)
+        profileVC?.friendStore = friends
+        
+        if let indexPath = friendStore.getFriendIndexPathForUID(u.key){
+            profileVC?.userRelationship = Relationship.Friends(indexPath)
+        } else {
+            profileVC?.userRelationship = Relationship.NotFriends
+        }
+        profileVC?.user = user
+        
+        setActiveViewController(.toLeft, viewController: profileVC)
+    }
 }

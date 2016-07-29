@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let settingsViewController = storyboard.instantiateViewControllerWithIdentifier("settingsNavVC") as! SettingsNavVC
         settingsViewController.userInterests = navViewController.userInterests
         settingsViewController.helpDelegate = navViewController
+        settingsViewController.friendStore = navViewController.userFriends
         navViewController.settingsViewController = settingsViewController
         
         storyboard = UIStoryboard(name: "Main Hype View", bundle:nil)

@@ -23,7 +23,7 @@ class FriendsTableViewController: UIViewController{
     var canPublish = false
     var publishSelected = false {
         didSet{
-            if !publishSelected && recipientDict.count == 0 {
+            if !publishSelected && recipientIDSet.count == 0 {
                 sendButton.enabled = false
             } else {
                 sendButton.enabled = true
@@ -31,9 +31,9 @@ class FriendsTableViewController: UIViewController{
         }
     }
     
-    var recipientDict = [String: Bool]() {
+    var recipientIDSet = Set<String>() {
         didSet{
-            if recipientDict.count == 0 {
+            if recipientIDSet.count == 0 {
                 sendButton.enabled = false
             } else {
                 sendButton.enabled = true
@@ -73,15 +73,15 @@ class FriendsTableViewController: UIViewController{
             }
             
         }
-        
-        guard recipientDict.count > 0 else{
+        let setCount = recipientIDSet.count
+        guard setCount > 0 else{
             delegate.onSentToFriends()
             return
         }
         
         if let id = user?.uid{
             let aggregateSentRef = baseRef.child(Constants.USERSNODE).child(id).child(Constants.AGGREGATECARDSSENT).child(adMetaData.key)
-            aggregateSentRef.child(timeStamp).setValue(recipientDict.count)
+            aggregateSentRef.child(timeStamp).setValue(setCount)
         }
         
         var caption: String?
@@ -91,7 +91,7 @@ class FriendsTableViewController: UIViewController{
             }
         }
         
-        let recipientIDs = Array(recipientDict.keys)
+        let recipientIDs = Array(recipientIDSet)
         
         for id in recipientIDs{
             let recRef = usersRef.child(id).child(Constants.RECEIVEDADQUEUENODE).child(adMetaData.key)
@@ -152,12 +152,12 @@ extension FriendsTableViewController: UITableViewDataSource, UITableViewDelegate
                 return
             }
             
-            if recipientDict[friend.key] == true {
+            if recipientIDSet.contains(friend.key){
                 cell.cellDeselected()
-                recipientDict.removeValueForKey(friend.key)
+                recipientIDSet.remove(friend.key)
             } else {
                 cell.cellSelected()
-                recipientDict[friend.key] = true
+                recipientIDSet.insert(friend.key)
             }
 
         }
@@ -228,7 +228,7 @@ extension FriendsTableViewController: UITableViewDataSource, UITableViewDelegate
             }
             
             if let friendInfo = friendStore.getFriendAtIndexpath(adjPath) {
-                if recipientDict[friendInfo.key] == true{
+                if recipientIDSet.contains(friendInfo.key){
                     cell.initCell(true)
                 } else {
                     cell.initCell(false)

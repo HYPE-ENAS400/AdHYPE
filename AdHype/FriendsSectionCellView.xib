@@ -16,7 +16,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="600" height="48"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TNz-8R-qtr">
-                            <rect key="frame" x="554" y="9" width="30" height="30"/>
+                            <rect key="frame" x="552" y="9" width="30" height="30"/>
                             <color key="backgroundColor" red="1" green="0.21960784310000001" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="30" id="0pJ-SY-CuU"/>
@@ -29,7 +29,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b6y-Tp-Eh1">
-                            <rect key="frame" x="8" y="8" width="546" height="32"/>
+                            <rect key="frame" x="8" y="8" width="544" height="32"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                             <color key="textColor" red="0.3294117647" green="0.3294117647" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -42,7 +42,7 @@
                         <constraint firstItem="TNz-8R-qtr" firstAttribute="leading" secondItem="b6y-Tp-Eh1" secondAttribute="trailing" id="YcG-Aa-cZn"/>
                         <constraint firstItem="TNz-8R-qtr" firstAttribute="centerY" secondItem="RVn-2K-vJg" secondAttribute="centerY" id="hpe-7N-PU1"/>
                         <constraint firstItem="b6y-Tp-Eh1" firstAttribute="top" secondItem="RVn-2K-vJg" secondAttribute="topMargin" id="te8-Kk-bah"/>
-                        <constraint firstAttribute="trailingMargin" secondItem="TNz-8R-qtr" secondAttribute="trailing" constant="8" id="wgg-Fm-V4U"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="TNz-8R-qtr" secondAttribute="trailing" constant="10" id="wgg-Fm-V4U"/>
                     </constraints>
                 </view>
             </subviews>
